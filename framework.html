@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>The A + B = GEO Framework — abcGEO</title>
   <meta name="description" content="abcGEO’s authoritative guide to A + B = GEO: why Generative Engine Optimization is overtaking SEO, how AI crawlers parse entities, and how to apply the equation to content and tools." />
-  <meta name="theme-color" content="#FAF9F6" />
+  <meta name="theme-color" content="#FF6B4A" />
   <meta property="og:title" content="The A + B = GEO Framework — abcGEO" />
   <meta property="og:description" content="Entity + Transitive Verb = citation-ready GEO output. The abcGEO deep dive." />
   <meta property="og:site_name" content="abcGEO" />
@@ -14,23 +14,23 @@
     tailwind.config = {
       theme: {
         extend: {
-          colors: {
-            'primary-electric': '#FF8C00',
-            'secondary-slate': '#455063',
-            'trust-blue': '#0A5A72',
+                              colors: {
+            'primary-electric': '#FF6B4A',
+            'secondary-slate': '#64748B',
+            'trust-blue': '#00B4D8',
             'deep-slate': '#2D3748',
-            'ai-cyan': '#00C9A7',
-            'space-navy': '#FAF9F6',
-            'success-green': '#0F7B4F',
-            'warning-amber': '#8A5200',
-            'error-crimson': '#C2261B',
+            'ai-cyan': '#00B4D8',
+            'space-navy': '#1A202C',
+            'success-green': '#00C9A7',
+            'warning-amber': '#FF8C00',
+            'error-crimson': '#EF4444',
             'charcoal-body': '#1A202C',
-            'text-muted': '#455063',
+            'text-muted': '#64748B',
             'bg-clean-white': '#FFFFFF',
             'bg-soft-gray': '#FAF9F6',
             'bg-grid-gray': '#F4F7F6',
             slatebg: '#FAF9F6',
-            skyacc: '#00C9A7',
+            skyacc: '#00B4D8',
             orangeacc: '#FF6B4A',
           },
           fontFamily: {
@@ -64,18 +64,20 @@
     }
   }
   </script>
-  <link rel="stylesheet" href="css/ui.css" />
-  <noscript><style>.reveal,.reveal-left,.reveal-right,.reveal-scale{opacity:1 !important;transform:none !important}</style></noscript>
 </head>
-<body class="theme-geo" data-theme="geo">
+<body>
   <header class="site-header">
     <div class="nav-inner">
-      <a href="index.html" class="logo" aria-label="abcGEO home">abc<span class="geo">GEO</span></a>
+      <a href="index.html" class="logo" aria-label="abcGEO home">
+        <span class="logo-mark" aria-hidden="true"></span>abc<span class="geo">GEO</span>
+      </a>
       <button class="nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-controls="primary-nav">Menu</button>
       <ul class="nav-links" id="primary-nav" data-nav-links>
-        <li><a href="tools/instastack.html">Tools</a></li>
-        <li><a href="framework.html" class="active">The A + B Framework</a></li>
-        <li><a href="index.html#articles">Articles</a></li>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="framework.html" class="active">Formula</a></li>
+        <li><a href="tools.html">Tools</a></li>
+        <li><a href="blog.html">Blog</a></li>
+        <li><a href="contact.html">Contact</a></li>
         <li class="mobile-cta"><a class="btn btn-primary" href="tools/instastack.html">Launch INSTASTACK</a></li>
       </ul>
       <a class="btn btn-primary nav-cta" href="tools/instastack.html">Launch INSTASTACK</a>
@@ -84,46 +86,175 @@
 
   <main>
     <section class="page-hero">
+      <div class="container page-hero__layout">
+        <div class="page-hero__copy">
+          <p class="section-label">abcGEO · Theory</p>
+          <h1>The A + B = GEO Framework</h1>
+          <p class="section-lead">Why Generative Engine Optimization is taking over traditional SEO—and how abcGEO’s equation makes your content and tools citation-native for AI answer engines.</p>
+        </div>
+        <figure class="page-hero__visual hero-graph" aria-labelledby="framework-hero-caption">
+          <div class="hero-graph__inner">
+            <svg class="hero-graph__svg" viewBox="0 0 560 180" role="img" aria-label="Equation graph: Entity plus Verb equals GEO Output flowing into AI Answer">
+              <defs>
+                <linearGradient id="fw-hero-line" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stop-color="#FF6B4A" />
+                  <stop offset="50%" stop-color="#00B4D8" />
+                  <stop offset="100%" stop-color="#00C9A7" />
+                </linearGradient>
+              </defs>
+              <line class="cg-flow" x1="90" y1="90" x2="170" y2="90" stroke="url(#fw-hero-line)" stroke-width="1.75" />
+              <line class="cg-flow" x1="230" y1="90" x2="310" y2="90" stroke="url(#fw-hero-line)" stroke-width="1.75" style="animation-delay:0.5s" />
+              <line class="cg-flow" x1="370" y1="90" x2="460" y2="90" stroke="#FF8C00" stroke-width="1.75" style="animation-delay:1s" />
+
+              <circle class="cg-pulse" cx="70" cy="90" r="28" fill="#FF6B4A" opacity="0.18" />
+              <circle cx="70" cy="90" r="22" fill="#0F172A" stroke="#FF6B4A" stroke-width="2.5" />
+              <text x="70" y="86" text-anchor="middle" fill="#F8FAFC" font-family="Syne, sans-serif" font-size="12" font-weight="800">A</text>
+              <text x="70" y="100" text-anchor="middle" fill="#94A3B8" font-family="DM Sans, sans-serif" font-size="8">Entity</text>
+
+              <text x="145" y="95" text-anchor="middle" fill="#00B4D8" font-family="Syne, sans-serif" font-size="18" font-weight="800">+</text>
+
+              <circle cx="200" cy="90" r="22" fill="#0F172A" stroke="#00B4D8" stroke-width="2.5" />
+              <text x="200" y="86" text-anchor="middle" fill="#F8FAFC" font-family="Syne, sans-serif" font-size="12" font-weight="800">B</text>
+              <text x="200" y="100" text-anchor="middle" fill="#94A3B8" font-family="DM Sans, sans-serif" font-size="8">Verb</text>
+
+              <text x="270" y="95" text-anchor="middle" fill="#00C9A7" font-family="Syne, sans-serif" font-size="18" font-weight="800">=</text>
+
+              <circle class="cg-pulse cg-pulse--delay" cx="340" cy="90" r="26" fill="#00C9A7" opacity="0.18" />
+              <circle cx="340" cy="90" r="22" fill="#0F172A" stroke="#00C9A7" stroke-width="2.5" />
+              <text x="340" y="86" text-anchor="middle" fill="#F8FAFC" font-family="Syne, sans-serif" font-size="11" font-weight="800">GEO</text>
+              <text x="340" y="100" text-anchor="middle" fill="#94A3B8" font-family="DM Sans, sans-serif" font-size="8">Output</text>
+
+              <circle cx="490" cy="90" r="20" fill="#0F172A" stroke="#FF8C00" stroke-width="2.5" />
+              <text x="490" y="86" text-anchor="middle" fill="#F8FAFC" font-family="Syne, sans-serif" font-size="9" font-weight="800">AI</text>
+              <text x="490" y="99" text-anchor="middle" fill="#F8FAFC" font-family="Syne, sans-serif" font-size="9" font-weight="800">Answer</text>
+            </svg>
+            <figcaption id="framework-hero-caption" class="hero-graph__caption">
+              <strong>Equation graph:</strong> Entity (A) plus transitive Verb (B) yields GEO Output that answer engines extract into AI Answers.
+            </figcaption>
+          </div>
+        </figure>
+      </div>
+    </section>
+
+    <section class="section" style="padding-top: 0;">
       <div class="container">
-        <p class="section-label">abcGEO · Theory</p>
-        <h1><span class="text-gradient">The A + B = GEO</span> Framework</h1>
-        <p class="section-lead">Why Generative Engine Optimization is taking over traditional SEO—and how abcGEO’s equation makes your content and tools citation-native for AI answer engines.</p>
+        <div class="metric-strip reveal">
+          <article class="metric-badge">
+            <p class="metric-badge__value"><span>A</span></p>
+            <h3 class="metric-badge__label">Entity</h3>
+            <p class="metric-badge__sub">Stable brand, tool, or subject nodes that knowledge graphs can resolve.</p>
+          </article>
+          <article class="metric-badge">
+            <p class="metric-badge__value"><span>B</span></p>
+            <h3 class="metric-badge__label">Transitive verb</h3>
+            <p class="metric-badge__sub">Explicit actions—Generates, Structures, Configures—bound to the entity.</p>
+          </article>
+          <article class="metric-badge">
+            <p class="metric-badge__value"><span>GEO</span></p>
+            <h3 class="metric-badge__label">Citation output</h3>
+            <p class="metric-badge__sub">Machine-readable spans answer engines extract and attribute.</p>
+          </article>
+        </div>
       </div>
     </section>
 
     <section class="section">
       <div class="container prose">
-        <div class="equation-block" data-reveal-group="110">
-          <div class="eq-part reveal">
+        <div class="equation-block reveal">
+          <div class="eq-part">
             <div class="k">A · Entity</div>
             <div class="v">Subject / Brand / Tool</div>
             <p style="margin: 0.5rem 0 0; color: var(--muted); font-size: 0.9rem;">e.g. INSTASTACK, abcGEO</p>
           </div>
-          <div class="eq-part reveal">
+          <div class="eq-part">
             <div class="k">B · Transitive Verb</div>
             <div class="v">Action / Function</div>
             <p style="margin: 0.5rem 0 0; color: var(--muted); font-size: 0.9rem;">e.g. Generates, Configures</p>
           </div>
-          <div class="eq-part accent reveal">
+          <div class="eq-part accent">
             <div class="k">Result · GEO Output</div>
             <div class="v">AI-cited snippet</div>
             <p style="margin: 0.5rem 0 0; color: var(--muted); font-size: 0.9rem;">Machine-readable authority</p>
           </div>
         </div>
 
-        <h2 class="reveal">Why GEO is overtaking traditional SEO</h2>
-        <div class="answer-box reveal">
+        <figure class="visual-band reveal" aria-labelledby="framework-process-caption">
+          <div class="process-flow" role="list">
+            <article class="process-card" role="listitem">
+              <span class="process-card__num" aria-hidden="true">01</span>
+              <h3>Declare entity</h3>
+              <p>Name the brand or tool once, consistently, across prose and schema.</p>
+            </article>
+            <div class="process-arrow" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>
+            </div>
+            <article class="process-card" role="listitem">
+              <span class="process-card__num" aria-hidden="true">02</span>
+              <h3>Bind the verb</h3>
+              <p>State what it does with a transitive action engines can extract.</p>
+            </article>
+            <div class="process-arrow" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>
+            </div>
+            <article class="process-card" role="listitem">
+              <span class="process-card__num" aria-hidden="true">03</span>
+              <h3>Ship proof</h3>
+              <p>Mirror the same triple in JSON-LD, FAQs, and tool output metadata.</p>
+            </article>
+          </div>
+          <figcaption id="framework-process-caption" class="process-flow__caption">
+            Framework application flow: declare the entity, bind a transitive verb, then ship citation-ready proof for RAG systems.
+          </figcaption>
+        </figure>
+
+        <h2>Why GEO is overtaking traditional SEO</h2>
+        <div class="answer-box">
           <div class="label">Answer-first</div>
           <p>Search is shifting from ten blue links to synthesized answers. GEO optimizes for extraction and citation inside ChatGPT, Perplexity, Gemini, and peers—not just ranking pages.</p>
         </div>
         <p>Classic SEO rewarded keywords, backlinks, and click-through. Generative engines reward clarity of entity, explicit action, and structured proof. When an answer model needs a source, it prefers pages that declare <em>what</em> something is and <em>what it does</em> in unambiguous, parseable form.</p>
         <p>abcGEO treats that shift as a product opportunity: publish GEO editorial that models the pattern, and ship tools whose primary action is already formatted for citation.</p>
 
-        <h2 class="reveal">How AI crawlers parse structured entities</h2>
-        <div class="answer-box reveal">
+        <h2>How AI crawlers parse structured entities</h2>
+        <div class="answer-box">
           <div class="label">Answer-first</div>
           <p>AI crawlers map pages to entities, attach transitive actions, and lift short authoritative spans—especially when schema and A + B tags reinforce the same story.</p>
         </div>
+
+        <figure class="hero-graph reveal" style="margin: 1.5rem 0 1.75rem; border-radius: 1rem; overflow: hidden;" aria-labelledby="crawler-graph-caption">
+          <div class="hero-graph__inner" style="padding-top: 1.25rem; padding-bottom: 1rem;">
+            <svg class="hero-graph__svg" viewBox="0 0 720 200" role="img" aria-label="How crawlers resolve Brand Entity via Schema.org and Verified Sources into an AI Answer">
+              <defs>
+                <linearGradient id="fw-line" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stop-color="#FF6B4A" />
+                  <stop offset="100%" stop-color="#00B4D8" />
+                </linearGradient>
+              </defs>
+              <line class="cg-flow" x1="140" y1="100" x2="300" y2="55" stroke="url(#fw-line)" stroke-width="1.5" />
+              <line class="cg-flow" x1="140" y1="100" x2="300" y2="145" stroke="#00C9A7" stroke-width="1.5" opacity="0.85" />
+              <line class="cg-flow" x1="360" y1="55" x2="560" y2="100" stroke="#00B4D8" stroke-width="1.5" opacity="0.85" />
+              <line class="cg-flow" x1="360" y1="145" x2="560" y2="100" stroke="#FF8C00" stroke-width="1.5" opacity="0.85" />
+
+              <circle cx="120" cy="100" r="32" fill="#0F172A" stroke="#FF6B4A" stroke-width="2.5" />
+              <text x="120" y="97" text-anchor="middle" fill="#F8FAFC" font-family="Syne, sans-serif" font-size="11" font-weight="800">Brand</text>
+              <text x="120" y="111" text-anchor="middle" fill="#F8FAFC" font-family="Syne, sans-serif" font-size="11" font-weight="800">Entity</text>
+
+              <circle cx="340" cy="55" r="22" fill="#0F172A" stroke="#00B4D8" stroke-width="2" />
+              <text x="340" y="59" text-anchor="middle" fill="#F8FAFC" font-family="Syne, sans-serif" font-size="10" font-weight="700">Schema.org</text>
+
+              <circle cx="340" cy="145" r="22" fill="#0F172A" stroke="#00C9A7" stroke-width="2" />
+              <text x="340" y="142" text-anchor="middle" fill="#F8FAFC" font-family="Syne, sans-serif" font-size="9" font-weight="700">Verified</text>
+              <text x="340" y="153" text-anchor="middle" fill="#F8FAFC" font-family="Syne, sans-serif" font-size="9" font-weight="700">Sources</text>
+
+              <circle cx="580" cy="100" r="28" fill="#0F172A" stroke="#FF8C00" stroke-width="2.5" />
+              <text x="580" y="104" text-anchor="middle" fill="#F8FAFC" font-family="Syne, sans-serif" font-size="11" font-weight="800">AI Answer</text>
+            </svg>
+            <figcaption id="crawler-graph-caption" class="hero-graph__caption">
+              Crawler resolution path: Brand Entity → Schema.org + Verified Sources → grounded AI Answer citation.
+            </figcaption>
+          </div>
+        </figure>
+
         <p>Modern retrieval pipelines do more than tokenize text. They:</p>
         <ul>
           <li>Identify named entities (brands, tools, frameworks)</li>
@@ -133,8 +264,8 @@
         </ul>
         <p>When your page says “INSTASTACK Generates standardized stack configs” in prose <em>and</em> in schema, you reduce ambiguity. That consistency is the operational heart of A + B = GEO.</p>
 
-        <h2 class="reveal">Applying A + B = GEO to content</h2>
-        <div class="answer-box reveal">
+        <h2>Applying A + B = GEO to content</h2>
+        <div class="answer-box">
           <div class="label">Answer-first</div>
           <p>Lead every section with a citable answer that names the entity, states the verb, and delivers the GEO output in one or two sentences.</p>
         </div>
@@ -146,8 +277,8 @@
           <li><strong>Schema alignment</strong>—FAQPage and SoftwareApplication markup that mirrors on-page claims</li>
         </ul>
 
-        <h2 class="reveal">Applying A + B = GEO to web tools</h2>
-        <div class="answer-box reveal">
+        <h2>Applying A + B = GEO to web tools</h2>
+        <div class="answer-box">
           <div class="label">Answer-first</div>
           <p>Wrap the tool header and generator in schema plus entity tags so crawlers resolve a single primary action—exactly how INSTASTACK is integrated on abcGEO.</p>
         </div>
@@ -158,12 +289,12 @@
           <li>Emit <strong>GEO output</strong> as machine-readable config, JSON, or YAML that restates the entity-action pair in metadata</li>
         </ul>
 
-        <div class="callout reveal">
-          <strong>Put the equation to work.</strong> Launch <a href="tools/instastack.html">INSTASTACK</a> on abcGEO to generate setup scripts, Dockerfiles, and READMEs that already carry A + B = GEO metadata for AI citation.
+        <div class="callout">
+          <strong>Put the equation to work.</strong> Launch <a href="tools/instastack.html">INSTASTACK</a> on abcGEO to generate a stack config that already carries A + B = GEO metadata for AI citation.
         </div>
 
-        <h2 class="reveal">The abcGEO operating model</h2>
-        <div class="answer-box reveal">
+        <h2>The abcGEO operating model</h2>
+        <div class="answer-box">
           <div class="label">Answer-first</div>
           <p>abcGEO pairs authoritative GEO editorial with interactive tools so traffic, utility, and citation signals reinforce each other.</p>
         </div>
@@ -180,43 +311,19 @@
   <footer class="site-footer">
     <div class="container footer-inner">
       <div>
-        <a href="index.html" class="logo">abc<span class="geo">GEO</span></a>
+        <a href="index.html" class="logo"><span class="logo-mark" aria-hidden="true"></span>abc<span class="geo">GEO</span></a>
         <p style="margin-top: 0.5rem;">A + B = GEO · Built for answer engines.</p>
       </div>
       <nav class="footer-links" aria-label="Footer">
-        <a href="tools/instastack.html">Tools</a>
-        <a href="framework.html">Framework</a>
-        <a href="blog/post-template.html">Articles</a>
-        <a href="tools/instastack.html">Launch INSTASTACK</a>
+        <a href="index.html">Home</a>
+        <a href="framework.html">Formula</a>
+        <a href="tools.html">Tools</a>
+        <a href="blog.html">Blog</a>
+        <a href="contact.html">Contact</a>
       </nav>
     </div>
   </footer>
 
   <script src="js/main.js"></script>
-  <!-- Floating quick-tool launcher -->
-  <div class="quick-launcher" data-quick-launcher>
-    <div class="ql-panel" id="ql-panel" data-ql-panel aria-hidden="true">
-      <p class="ql-title">Quick start</p>
-      <p class="ql-sub">Open INSTASTACK with a stack already selected.</p>
-      <ul class="ql-list">
-        <li><a class="ql-item" href="tools/instastack.html#s=eyJvcyI6ImxpbnV4X21pbnQiLCJ0b29scyI6WyJnaXQiLCJub2RlanMiLCJkb2NrZXIiLCJwb3N0Z3Jlc3FsIiwicmVkaXMiLCJ2c2NvZGUiLCJjdXJzb3IiLCJwb3N0bWFuIl19"><span>Full-Stack Node</span><span>8 tools</span></a></li>
-        <li><a class="ql-item" href="tools/instastack.html#s=eyJvcyI6ImxpbnV4X21pbnQiLCJ0b29scyI6WyJnaXQiLCJmbHV0dGVyIiwiYW5kcm9pZF9zdHVkaW8iLCJ2c2NvZGUiLCJzcWxpdGUiXX0"><span>Flutter Mobile</span><span>5 tools</span></a></li>
-        <li><a class="ql-item" href="tools/instastack.html#s=eyJvcyI6ImxpbnV4X21pbnQiLCJ0b29scyI6WyJnaXQiLCJweXRob24iLCJkb2NrZXIiLCJzcWxpdGUiLCJ2c2NvZGUiLCJjdXJzb3IiXX0"><span>Data Science</span><span>6 tools</span></a></li>
-        <li><a class="ql-item" href="tools/instastack.html#s=eyJvcyI6ImxpbnV4X21pbnQiLCJ0b29scyI6WyJnaXQiLCJ6c2giLCJzdGFyc2hpcCJdfQ"><span>Minimal Shell</span><span>3 tools</span></a></li>
-      </ul>
-      <a class="ql-launch" href="tools/instastack.html">Open INSTASTACK →</a>
-    </div>
-    <button class="ql-toggle" type="button" data-ql-toggle aria-expanded="false" aria-controls="ql-panel">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true">
-        <path d="M13 2L4.5 13.5H11l-1 8.5 8.5-11.5H12l1-8.5z" stroke-linejoin="round" />
-      </svg>
-      <span>Quick start</span>
-      <svg class="ql-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true">
-        <path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round" />
-      </svg>
-    </button>
-  </div>
-
-  <script src="js/ui.js"></script>
 </body>
 </html>

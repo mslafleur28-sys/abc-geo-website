@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Citationscape — Brand Citation Graph Generator | abcGEO</title>
+  <meta name="description" content="Citationscape by abcGEO structures brand entities into interactive citation graphs and validated JSON-LD for ChatGPT, Gemini, and Perplexity." />
+  <meta name="theme-color" content="#FF6B4A" />
+  <meta property="og:title" content="Citationscape — Brand Citation Graph Generator | abcGEO" />
+  <meta property="og:description" content="A: Citationscape · B: Structures · GEO: citation graphs + JSON-LD for answer engines." />
+  <meta property="og:site_name" content="abcGEO" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'primary-electric': '#FF6B4A',
+            'secondary-slate': '#64748B',
+            'trust-blue': '#00B4D8',
+            'deep-slate': '#2D3748',
+            'ai-cyan': '#00B4D8',
+            'space-navy': '#1A202C',
+            'success-green': '#00C9A7',
+            'warning-amber': '#FF8C00',
+            'error-crimson': '#EF4444',
+            'charcoal-body': '#1A202C',
+            'text-muted': '#64748B',
+            'bg-clean-white': '#FFFFFF',
+            'bg-soft-gray': '#FAF9F6',
+            'bg-grid-gray': '#F4F7F6',
+            slatebg: '#FAF9F6',
+            skyacc: '#00B4D8',
+            orangeacc: '#FF6B4A',
+          },
+          fontFamily: {
+            display: ['Syne', 'sans-serif'],
+            body: ['DM Sans', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+        },
+      },
+    };
+  </script>
+  <link rel="stylesheet" href="../css/styles.css" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Citationscape",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "Web",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "description": "Citationscape Structures brand entities into citation graphs and validated JSON-LD so answer engines can resolve and cite brands accurately.",
+    "publisher": {
+      "@type": "Organization",
+      "name": "abcGEO"
+    },
+    "brand": {
+      "@type": "Brand",
+      "name": "abcGEO"
+    },
+    "featureList": [
+      "Interactive brand citation node graph",
+      "Validated Organization / Person / Service JSON-LD @graph",
+      "SVG and PNG graph export",
+      "JSON-LD download for website head embedding"
+    ]
+  }
+  </script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="nav-inner">
+      <a href="../index.html" class="logo" aria-label="abcGEO home">
+        <span class="logo-mark" aria-hidden="true"></span>abc<span class="geo">GEO</span>
+      </a>
+      <button class="nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-controls="primary-nav">Menu</button>
+      <ul class="nav-links" id="primary-nav" data-nav-links>
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="../framework.html">Formula</a></li>
+        <li><a href="../tools.html" class="active">Tools</a></li>
+        <li><a href="../blog.html">Blog</a></li>
+        <li><a href="../contact.html">Contact</a></li>
+        <li class="mobile-cta"><a class="btn btn-primary" href="citationscape.html">Launch Citationscape</a></li>
+      </ul>
+      <a class="btn btn-primary nav-cta" href="citationscape.html">Launch Citationscape</a>
+    </div>
+  </header>
+
+  <main class="tool-shell">
+    <div class="container">
+      <!-- Component include: components/CitationscapeTool.html -->
+      <section
+        class="citationscape"
+        data-citationscape
+        itemscope
+        itemtype="https://schema.org/SoftwareApplication"
+        data-entity="Citationscape"
+        data-verb="Structures"
+        aria-labelledby="citationscape-heading"
+      >
+        <meta itemprop="name" content="Citationscape" />
+        <meta itemprop="applicationCategory" content="DeveloperApplication" />
+        <meta itemprop="operatingSystem" content="Web" />
+
+        <header class="citationscape__intro tool-header">
+          <p class="entity-tag">
+            <span>A: Citationscape</span>
+            <span aria-hidden="true">·</span>
+            <span>B: Structures</span>
+            <span aria-hidden="true">·</span>
+            <span>GEO citation graphs</span>
+          </p>
+          <h1 id="citationscape-heading" itemprop="name">Citationscape</h1>
+          <p class="citationscape__lead" itemprop="description">
+            Brand Citation Graph Generator for Answer Engines. Citationscape
+            <strong>Structures</strong> your brand into an interactive citation node graph and
+            validated JSON-LD so ChatGPT, Gemini, and Perplexity can resolve entities without hallucinating.
+          </p>
+        </header>
+
+        <div class="citationscape__workspace">
+          <form class="citationscape__form panel" data-em-form novalidate aria-labelledby="em-form-heading">
+            <h2 id="em-form-heading">Brand entity inputs</h2>
+
+            <div class="citationscape__fields">
+              <div class="field">
+                <label for="em-brand">Brand Name</label>
+                <input id="em-brand" name="brand" type="text" data-em-brand value="ABC GEO" placeholder="e.g., ABC GEO" required autocomplete="organization" />
+              </div>
+
+              <div class="field">
+                <label for="em-url">Official URL</label>
+                <input id="em-url" name="url" type="url" data-em-url value="https://abcgeo.io" placeholder="https://abcgeo.io" required />
+              </div>
+
+              <div class="field">
+                <label for="em-industry">Industry / Niche</label>
+                <input id="em-industry" name="industry" type="text" data-em-industry value="Generative Engine Optimization" placeholder="e.g., Generative Engine Optimization" required />
+              </div>
+
+              <div class="citationscape__row">
+                <div class="field">
+                  <label for="em-founder">Founder / Key Executive</label>
+                  <input id="em-founder" name="founder" type="text" data-em-founder value="Alex Rivera" placeholder="Full name" required />
+                </div>
+                <div class="field">
+                  <label for="em-title">Title</label>
+                  <input id="em-title" name="title" type="text" data-em-title value="Founder &amp; CEO" placeholder="e.g., Founder &amp; CEO" required />
+                </div>
+              </div>
+
+              <div class="field">
+                <label for="em-products">Core Products / Services</label>
+                <input id="em-products" name="products" type="text" data-em-products value="Citationscape, INSTASTACK, GEO Audit" placeholder="Comma-separated services" required />
+                <p class="citationscape__hint">Separate multiple offerings with commas.</p>
+              </div>
+
+              <div class="field">
+                <label for="em-sameas">Entity Verification Links / sameAs</label>
+                <textarea id="em-sameas" name="sameAs" data-em-sameas rows="4" placeholder="One URL per line: Wikipedia, Crunchbase, LinkedIn, Twitter/X, YouTube…">https://www.linkedin.com/company/abcgeo
+https://twitter.com/abcgeo
+https://www.crunchbase.com/organization/abcgeo
+https://www.youtube.com/@abcgeo</textarea>
+                <p class="citationscape__hint">One URL per line. These become schema.org <code>sameAs</code> edges.</p>
+              </div>
+            </div>
+
+            <div class="tool-actions">
+              <button type="submit" class="btn btn-primary" data-em-generate>Generate citation graph</button>
+              <button type="button" class="btn btn-ghost" data-em-reset>Reset defaults</button>
+              <a class="btn btn-secondary" href="instastack.html">Open INSTASTACK</a>
+            </div>
+          </form>
+
+          <div class="citationscape__outputs">
+            <section class="panel citationscape__graph-panel" aria-labelledby="em-graph-heading">
+              <div class="citationscape__panel-head">
+                <div>
+                  <h2 id="em-graph-heading">Citation node graph</h2>
+                  <p class="citationscape__sub">Hover a node to reveal its schema predicate.</p>
+                </div>
+                <div class="citationscape__export-actions">
+                  <button type="button" class="btn btn-secondary" data-em-export-svg>Export SVG</button>
+                  <button type="button" class="btn btn-ghost" data-em-export-png>Export PNG</button>
+                </div>
+              </div>
+
+              <div class="citationscape__graph-stage" data-em-graph-stage>
+                <svg class="citationscape__svg" data-em-svg viewBox="0 0 720 480" role="img" aria-label="Brand citation entity graph"></svg>
+                <div class="citationscape__tooltip" data-em-tooltip hidden></div>
+              </div>
+            </section>
+
+            <section
+              class="panel citationscape__code-panel"
+              aria-labelledby="em-jsonld-heading"
+              itemscope
+              itemtype="https://schema.org/DigitalDocument"
+              data-geo-role="output"
+            >
+              <meta itemprop="name" content="Citationscape JSON-LD Output" />
+              <meta itemprop="author" content="abcGEO" />
+
+              <div class="citationscape__panel-head">
+                <div>
+                  <h2 id="em-jsonld-heading">JSON-LD schema</h2>
+                  <p class="citationscape__sub">AI crawler target — embed in your site <code>&lt;head&gt;</code>.</p>
+                </div>
+                <div class="citationscape__validate" data-em-validate data-status="pending" role="status" aria-live="polite">
+                  <span class="citationscape__validate-dot" aria-hidden="true"></span>
+                  <span data-em-validate-label>Awaiting input</span>
+                </div>
+              </div>
+
+              <pre class="output-box citationscape__code" itemprop="text" data-em-jsonld aria-label="Generated JSON-LD"></pre>
+
+              <div class="tool-actions">
+                <button type="button" class="btn btn-primary" data-em-copy>Copy JSON-LD</button>
+                <button type="button" class="btn btn-secondary" data-em-download>Download .jsonld</button>
+                <button type="button" class="btn btn-ghost" data-em-validate-btn>Validate Code</button>
+              </div>
+              <p class="citationscape__copy-status" data-em-copy-status aria-live="polite"></p>
+            </section>
+          </div>
+        </div>
+
+        <section class="citationscape__explain panel reveal" aria-labelledby="em-explain-heading">
+          <h3 id="em-explain-heading">How Answer Engines Resolve Entities via Citation Graphs</h3>
+          <p>
+            Answer engines such as ChatGPT, Gemini, and Perplexity do not merely rank pages—they
+            resolve named entities against a knowledge graph before citing a brand. When your site
+            publishes an unambiguous JSON-LD <code>@graph</code> that links an
+            <code>Organization</code> to its founders (<code>Person</code>), offerings
+            (<code>Service</code>), industry topics (<code>knowsAbout</code>), and external
+            verification URLs (<code>sameAs</code>), retrieval systems can ground citations in
+            structured facts instead of inventing relationships.
+          </p>
+          <p>
+            A citation graph is the visual counterpart of that schema. The brand sits at the center;
+            edges encode schema.org predicates that AI crawlers already understand. Citationscape
+            Structures both layers—visual and machine-readable—so your brand entity is
+            disambiguated across the open web.
+          </p>
+          <ul>
+            <li>
+              <strong>Organization @id</strong> — A stable IRI (usually your canonical URL plus
+              <code>#organization</code>) that other nodes reference, preventing duplicate brand nodes.
+            </li>
+            <li>
+              <strong>founder / Person</strong> — Ties an executive name and job title to the brand so
+              engines can answer “who founded…” without scraping bio pages alone.
+            </li>
+            <li>
+              <strong>knowsAbout</strong> — Declares industry or niche topics the brand is authoritative on,
+              improving topical entity matching in RAG pipelines.
+            </li>
+            <li>
+              <strong>makesOffer / Service</strong> — Lists core products so answer engines can cite
+              specific offerings rather than a vague “company that helps with…”.
+            </li>
+            <li>
+              <strong>sameAs</strong> — Crosswalks Wikipedia, Crunchbase, LinkedIn, X/Twitter, and YouTube
+              profiles so knowledge graphs merge your brand with existing entity IDs.
+            </li>
+          </ul>
+          <p>
+            Embed the generated <code>&lt;script type="application/ld+json"&gt;</code> block in your
+            homepage <code>&lt;head&gt;</code>, keep <code>sameAs</code> URLs live and consistent, and
+            restate the same entity–predicate–object triples in visible HTML. That alignment is what
+            Generative Engine Optimization (GEO) requires for reliable brand citation.
+          </p>
+        </section>
+
+        <div class="callout reveal" style="margin-top: 0.25rem;">
+          <strong>A + B in practice:</strong> Citationscape is the Entity; <em>Structures</em> is the Verb;
+          the citation graph + JSON-LD is the GEO Output. Pair with
+          <a href="instastack.html">INSTASTACK</a> or read
+          <a href="../framework.html">The A + B Framework</a>.
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div>
+        <a href="../index.html" class="logo"><span class="logo-mark" aria-hidden="true"></span>abc<span class="geo">GEO</span></a>
+        <p style="margin-top: 0.5rem;">A + B = GEO · Built for answer engines.</p>
+      </div>
+      <nav class="footer-links" aria-label="Footer">
+        <a href="../index.html">Home</a>
+        <a href="../framework.html">Formula</a>
+        <a href="../tools.html">Tools</a>
+        <a href="../blog.html">Blog</a>
+        <a href="../contact.html">Contact</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script src="../js/main.js"></script>
+  <script src="../components/CitationscapeTool.js"></script>
+</body>
+</html>

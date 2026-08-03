@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>abcGEO — Generative Engine Optimization Tools & Insights</title>
   <meta name="description" content="abcGEO masters Generative Engine Optimization with interactive tools and actionable insights. Apply the A + B = GEO framework to earn citations from ChatGPT, Perplexity, and Gemini." />
-  <meta name="theme-color" content="#FAF9F6" />
+  <meta name="theme-color" content="#FF6B4A" />
   <meta property="og:title" content="abcGEO — Generative Engine Optimization" />
   <meta property="og:description" content="Interactive GEO tools and editorial insights powered by the A + B = GEO framework." />
   <meta property="og:type" content="website" />
@@ -15,23 +15,23 @@
     tailwind.config = {
       theme: {
         extend: {
-          colors: {
-            'primary-electric': '#FF8C00',
-            'secondary-slate': '#455063',
-            'trust-blue': '#0A5A72',
+                              colors: {
+            'primary-electric': '#FF6B4A',
+            'secondary-slate': '#64748B',
+            'trust-blue': '#00B4D8',
             'deep-slate': '#2D3748',
-            'ai-cyan': '#00C9A7',
-            'space-navy': '#FAF9F6',
-            'success-green': '#0F7B4F',
-            'warning-amber': '#8A5200',
-            'error-crimson': '#C2261B',
+            'ai-cyan': '#00B4D8',
+            'space-navy': '#1A202C',
+            'success-green': '#00C9A7',
+            'warning-amber': '#FF8C00',
+            'error-crimson': '#EF4444',
             'charcoal-body': '#1A202C',
-            'text-muted': '#455063',
+            'text-muted': '#64748B',
             'bg-clean-white': '#FFFFFF',
             'bg-soft-gray': '#FAF9F6',
             'bg-grid-gray': '#F4F7F6',
             slatebg: '#FAF9F6',
-            skyacc: '#00C9A7',
+            skyacc: '#00B4D8',
             orangeacc: '#FF6B4A',
           },
           fontFamily: {
@@ -44,8 +44,6 @@
     };
   </script>
   <link rel="stylesheet" href="css/styles.css" />
-  <link rel="stylesheet" href="css/ui.css" />
-  <noscript><style>.reveal,.reveal-left,.reveal-right,.reveal-scale{opacity:1 !important;transform:none !important}</style></noscript>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -60,15 +58,19 @@
   }
   </script>
 </head>
-<body class="theme-geo" data-theme="geo">
+<body>
   <header class="site-header">
     <div class="nav-inner">
-      <a href="index.html" class="logo" aria-label="abcGEO home">abc<span class="geo">GEO</span></a>
+      <a href="index.html" class="logo" aria-label="abcGEO home">
+        <span class="logo-mark" aria-hidden="true"></span>abc<span class="geo">GEO</span>
+      </a>
       <button class="nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-controls="primary-nav">Menu</button>
       <ul class="nav-links" id="primary-nav" data-nav-links>
-        <li><a href="tools/instastack.html">Tools</a></li>
-        <li><a href="framework.html">The A + B Framework</a></li>
-        <li><a href="#articles">Articles</a></li>
+        <li><a href="index.html" class="active">Home</a></li>
+        <li><a href="framework.html">Formula</a></li>
+        <li><a href="tools.html">Tools</a></li>
+        <li><a href="blog.html">Blog</a></li>
+        <li><a href="contact.html">Contact</a></li>
         <li class="mobile-cta"><a class="btn btn-primary" href="tools/instastack.html">Launch INSTASTACK</a></li>
       </ul>
       <a class="btn btn-primary nav-cta" href="tools/instastack.html">Launch INSTASTACK</a>
@@ -76,16 +78,150 @@
   </header>
 
   <main>
-    <!-- Hero: brand + one headline + support + CTAs -->
-    <section class="hero" data-ql-after>
+    <!-- Hero: brand + citation graph visual -->
+    <section class="hero hero--showcase">
       <div class="hero-bg" aria-hidden="true"></div>
       <div class="container hero-content">
-        <p class="brand-mark">abc<span>GEO</span></p>
-        <h1>Master <span class="text-gradient-warm">Generative Engine Optimization</span> with Interactive Tools &amp; Actionable Insights</h1>
-        <p>Train AI answer engines to cite your brand. abcGEO pairs the proprietary A + B = GEO framework with live utilities that ship citation-ready output.</p>
-        <div class="hero-actions">
-          <a class="btn btn-primary" href="tools/instastack.html">Launch INSTASTACK</a>
-          <a class="btn btn-secondary" href="framework.html">Explore A + B = GEO</a>
+        <div class="type-card" data-typewriter="abc GEO" data-type-split="4">
+          <p class="type-line" aria-label="abc GEO">
+            <span data-type-out></span><span class="type-caret" aria-hidden="true"></span>
+          </p>
+        </div>
+
+        <div class="hero-tagline">
+          <h1>Master Generative Engine Optimization with Interactive Tools &amp; Actionable Insights</h1>
+          <p>Train AI answer engines to cite your brand. abcGEO pairs the proprietary A + B = GEO framework with live utilities that ship citation-ready output.</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="tools/instastack.html">Launch INSTASTACK</a>
+            <a class="btn btn-secondary" href="framework.html">Explore A + B = GEO</a>
+          </div>
+        </div>
+      </div>
+
+      <figure class="hero-graph" aria-labelledby="hero-graph-caption">
+        <div class="hero-graph__inner">
+          <svg class="hero-graph__svg" viewBox="0 0 960 280" role="img" aria-label="Citation graph: Brand Entity connected to LLM Index, Schema.org, Verified Sources, and AI Answer">
+            <defs>
+              <linearGradient id="cg-line-a" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stop-color="#FF6B4A" stop-opacity="0.9" />
+                <stop offset="100%" stop-color="#00B4D8" stop-opacity="0.85" />
+              </linearGradient>
+              <linearGradient id="cg-line-b" x1="0%" y1="100%" x2="100%" y2="0%">
+                <stop offset="0%" stop-color="#00C9A7" stop-opacity="0.85" />
+                <stop offset="100%" stop-color="#00B4D8" stop-opacity="0.9" />
+              </linearGradient>
+              <filter id="cg-glow" x="-40%" y="-40%" width="180%" height="180%">
+                <feDropShadow dx="0" dy="0" stdDeviation="4" flood-color="#00B4D8" flood-opacity="0.55" />
+              </filter>
+            </defs>
+
+            <!-- Edges -->
+            <line class="cg-flow" x1="480" y1="140" x2="180" y2="70" stroke="url(#cg-line-a)" stroke-width="1.75" />
+            <line class="cg-flow" x1="480" y1="140" x2="780" y2="70" stroke="url(#cg-line-b)" stroke-width="1.75" style="animation-delay:0.4s" />
+            <line class="cg-flow" x1="480" y1="140" x2="200" y2="220" stroke="url(#cg-line-b)" stroke-width="1.75" style="animation-delay:0.8s" />
+            <line class="cg-flow" x1="480" y1="140" x2="760" y2="220" stroke="url(#cg-line-a)" stroke-width="1.75" style="animation-delay:1.2s" />
+
+            <!-- Branch nodes -->
+            <g>
+              <circle class="cg-pulse" cx="180" cy="70" r="28" fill="#00B4D8" opacity="0.22" />
+              <circle class="cg-node-core" cx="180" cy="70" r="20" fill="#0F172A" stroke="#00B4D8" stroke-width="2" filter="url(#cg-glow)" />
+              <text x="180" y="74" text-anchor="middle" fill="#F8FAFC" font-family="Syne, sans-serif" font-size="11" font-weight="700">LLM Index</text>
+            </g>
+            <g>
+              <circle class="cg-pulse cg-pulse--delay" cx="780" cy="70" r="28" fill="#00C9A7" opacity="0.22" />
+              <circle class="cg-node-core" cx="780" cy="70" r="20" fill="#0F172A" stroke="#00C9A7" stroke-width="2" />
+              <text x="780" y="74" text-anchor="middle" fill="#F8FAFC" font-family="Syne, sans-serif" font-size="11" font-weight="700">Schema.org</text>
+            </g>
+            <g>
+              <circle class="cg-pulse" cx="200" cy="220" r="28" fill="#94A3B8" opacity="0.2" />
+              <circle class="cg-node-core" cx="200" cy="220" r="20" fill="#0F172A" stroke="#94A3B8" stroke-width="2" />
+              <text x="200" y="217" text-anchor="middle" fill="#F8FAFC" font-family="Syne, sans-serif" font-size="10" font-weight="700">Verified</text>
+              <text x="200" y="229" text-anchor="middle" fill="#F8FAFC" font-family="Syne, sans-serif" font-size="10" font-weight="700">Sources</text>
+            </g>
+            <g>
+              <circle class="cg-pulse cg-pulse--delay" cx="760" cy="220" r="28" fill="#FF8C00" opacity="0.22" />
+              <circle class="cg-node-core" cx="760" cy="220" r="20" fill="#0F172A" stroke="#FF8C00" stroke-width="2" />
+              <text x="760" y="224" text-anchor="middle" fill="#F8FAFC" font-family="Syne, sans-serif" font-size="11" font-weight="700">AI Answer</text>
+            </g>
+
+            <!-- Central brand entity -->
+            <g>
+              <circle class="cg-pulse" cx="480" cy="140" r="48" fill="#FF6B4A" opacity="0.18" />
+              <circle class="cg-node-core" cx="480" cy="140" r="36" fill="#0F172A" stroke="#FF6B4A" stroke-width="3" filter="url(#cg-glow)" />
+              <text x="480" y="136" text-anchor="middle" fill="#F8FAFC" font-family="Syne, sans-serif" font-size="12" font-weight="800">Brand</text>
+              <text x="480" y="151" text-anchor="middle" fill="#F8FAFC" font-family="Syne, sans-serif" font-size="12" font-weight="800">Entity</text>
+            </g>
+          </svg>
+          <figcaption id="hero-graph-caption" class="hero-graph__caption">
+            <strong>Citation graph:</strong> a Brand Entity resolves through Schema.org markup and Verified Sources into an LLM Index, enabling grounded AI Answer citations—without hallucinated brand relationships.
+          </figcaption>
+        </div>
+      </figure>
+    </section>
+
+    <!-- Quick paths panel -->
+    <section class="section" style="padding-top: 0;">
+      <div class="container">
+        <div class="showcase-panel reveal">
+          <div class="showcase-grid">
+            <a class="showcase-card" href="framework.html">
+              <span class="card-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M12 3v18"/><path d="M5 8h14"/><path d="M7 12h10"/><path d="M9 16h6"/></svg>
+              </span>
+              <span class="kicker">Formula</span>
+              <h3>A + B = GEO</h3>
+              <p>Entity plus transitive verb yields the machine-readable authority AI crawlers cite.</p>
+            </a>
+            <a class="showcase-card" href="tools/instastack.html">
+              <span class="card-icon card-icon--coral" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M8 9h8M8 13h5"/><path d="M7 21h10"/></svg>
+              </span>
+              <span class="kicker">Tool</span>
+              <h3>INSTASTACK</h3>
+              <p>Generate standardized, citation-ready project stack configs in one click.</p>
+            </a>
+            <a class="showcase-card" href="tools/citationscape.html">
+              <span class="card-icon card-icon--teal" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="2.5"/><circle cx="5" cy="7" r="2"/><circle cx="19" cy="7" r="2"/><circle cx="5" cy="17" r="2"/><circle cx="19" cy="17" r="2"/><path d="M10 11 6.5 8.2M14 11l3.5-2.8M10 13l-3.5 2.8M14 13l3.5 2.8"/></svg>
+              </span>
+              <span class="kicker">Tool</span>
+              <h3>Citationscape</h3>
+              <p>Structure brand citation graphs and validated JSON-LD for answer engines.</p>
+            </a>
+            <a class="showcase-card" href="blog.html">
+              <span class="card-icon card-icon--slate" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M4 5h10a3 3 0 0 1 3 3v11H7a3 3 0 0 0-3 3V5z"/><path d="M17 5h3v14a2 2 0 0 1-2 2h-1"/><path d="M8 9h5M8 13h5"/></svg>
+              </span>
+              <span class="kicker">Blog</span>
+              <h3>GEO editorial</h3>
+              <p>Answer-first writing built for ChatGPT, Perplexity, and Gemini.</p>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- High-contrast metric badges -->
+    <section class="section" aria-labelledby="metric-heading" style="padding-top: 0;">
+      <div class="container">
+        <p class="section-label reveal">Citation impact</p>
+        <h2 class="section-title reveal" id="metric-heading">Benchmarks that reshape AI visibility</h2>
+        <div class="metric-strip reveal">
+          <article class="metric-badge">
+            <p class="metric-badge__value"><span>30–40%</span></p>
+            <h3 class="metric-badge__label">Higher citation rate</h3>
+            <p class="metric-badge__sub">GEO-structured content with explicit stats lifts inclusion in AI answers.</p>
+          </article>
+          <article class="metric-badge">
+            <p class="metric-badge__value"><span>3×</span></p>
+            <h3 class="metric-badge__label">Stronger than backlinks</h3>
+            <p class="metric-badge__sub">Entity web mentions correlate 0.664 with AI visibility vs. 0.218 for classic links.</p>
+          </article>
+          <article class="metric-badge">
+            <p class="metric-badge__value"><span>82%</span></p>
+            <h3 class="metric-badge__label">Earned media citations</h3>
+            <p class="metric-badge__sub">Most LLM citations stem from third-party sources that clearly define the brand entity.</p>
+          </article>
         </div>
       </div>
     </section>
@@ -94,7 +230,7 @@
     <section class="section" id="framework">
       <div class="container">
         <p class="section-label reveal">Core theory</p>
-        <h2 class="section-title reveal text-gradient">A + B = GEO</h2>
+        <h2 class="section-title reveal">A + B = GEO</h2>
         <p class="section-lead reveal">Entity plus transitive verb yields machine-readable authority—the unit AI crawlers extract and cite.</p>
 
         <div class="formula-panel reveal" itemscope itemtype="https://schema.org/DefinedTerm">
@@ -130,129 +266,240 @@
             <p class="cite" data-geo-cite></p>
           </div>
         </div>
+
+        <figure class="visual-band reveal" aria-labelledby="process-caption">
+          <div class="process-flow" role="list">
+            <article class="process-card" role="listitem">
+              <span class="process-card__num" aria-hidden="true">01</span>
+              <h3>Name the entity</h3>
+              <p>Lock a stable brand, tool, or subject so crawlers resolve one unambiguous node.</p>
+            </article>
+            <div class="process-arrow" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>
+            </div>
+            <article class="process-card" role="listitem">
+              <span class="process-card__num" aria-hidden="true">02</span>
+              <h3>Declare the verb</h3>
+              <p>Attach a transitive action—Generates, Structures, Configures—that engines can quote.</p>
+            </article>
+            <div class="process-arrow" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>
+            </div>
+            <article class="process-card" role="listitem">
+              <span class="process-card__num" aria-hidden="true">03</span>
+              <h3>Emit GEO output</h3>
+              <p>Ship machine-readable proof (JSON-LD, YAML, snippets) that restates the same triple.</p>
+            </article>
+          </div>
+          <figcaption id="process-caption" class="process-flow__caption">
+            Three-step A + B = GEO flow: Entity naming → transitive verb → citation-ready output for answer engines.
+          </figcaption>
+        </figure>
       </div>
     </section>
 
-    <!-- Featured tools — GEO Template segment -->
-    <section class="section theme-geo" id="tools" data-theme="geo" style="padding-top: 0;">
+    <!-- Research breakdown: empirical support for each term of the equation -->
+    <section class="section research" id="research" aria-labelledby="research-heading">
       <div class="container">
-        <p class="section-label reveal">Featured tools</p>
-        <h2 class="section-title reveal text-gradient">GEO utilities that ship authority</h2>
-        <p class="section-lead reveal">Start with INSTASTACK—more abcGEO developer tools are on the way.</p>
+        <p class="eyebrow-badge reveal">The Science of AI Visibility</p>
+        <h2 class="section-title reveal" id="research-heading">Data-Backed Proof Behind the A+B=GEO Formula</h2>
+        <p class="research-lead reveal">Generative AI engines don’t rank links—they extract relational statements. Here is the empirical research proving why Entity + Transitive Verb drives generative engine optimization.</p>
 
-        <div class="filter-bar reveal" data-filter="tools">
-          <div class="filter-search">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-              <circle cx="11" cy="11" r="7" /><path d="M20 20l-3.5-3.5" stroke-linecap="round" />
-            </svg>
-            <input type="search" data-filter-input placeholder="Search tools, stacks, outputs…" aria-label="Search GEO tools" />
-          </div>
-          <div class="filter-chips" role="group" aria-label="Filter tools by category">
-            <button type="button" class="filter-chip is-active" data-filter-tag="all" aria-pressed="true">All</button>
-            <button type="button" class="filter-chip" data-filter-tag="live" aria-pressed="false">Live</button>
-            <button type="button" class="filter-chip" data-filter-tag="soon" aria-pressed="false">Coming soon</button>
-            <button type="button" class="filter-chip" data-filter-tag="scripts" aria-pressed="false">Scripts</button>
-            <button type="button" class="filter-chip" data-filter-tag="schema" aria-pressed="false">Schema</button>
-          </div>
-          <p class="filter-status" data-filter-status aria-live="polite"></p>
+        <div class="research-grid">
+          <article class="research-card reveal">
+            <span class="card-index" aria-hidden="true">A</span>
+            <h3>1. The Entity Component</h3>
+            <p class="concept">Brand &amp; concept recognition inside vector indices and knowledge graphs.</p>
+
+            <ul class="stat-list">
+              <li class="stat">
+                <div class="stat-value">3x</div>
+                <div class="stat-title">Stronger Than Backlinks</div>
+                <p>Entity web mentions show a 0.664 correlation with AI visibility vs. 0.218 for traditional backlinks.</p>
+                <span class="stat-source">Ahrefs</span>
+              </li>
+              <li class="stat">
+                <div class="stat-value">325%</div>
+                <div class="stat-title">Citation Increase</div>
+                <p>Co-occurrence across authoritative third-party publications boosts AI citations by up to 325%.</p>
+                <span class="stat-source">Co-occurrence research</span>
+              </li>
+              <li class="stat">
+                <div class="stat-value">82%</div>
+                <div class="stat-title">Earned Media Presence</div>
+                <p>82% of LLM citations (ChatGPT, Perplexity, AI Overviews) stem from earned third-party media defining the entity.</p>
+                <span class="stat-source">LLM citation analysis</span>
+              </li>
+              <li class="stat">
+                <div class="stat-value">83%</div>
+                <div class="stat-title">Domain Rank Decoupling</div>
+                <p>83% of Google AI Overview citations come from pages outside the top 10 organic SERP positions.</p>
+                <span class="stat-source">AI Overview citation study</span>
+              </li>
+            </ul>
+          </article>
+
+          <article class="research-card reveal">
+            <span class="card-index" aria-hidden="true">B</span>
+            <h3>2. The Transitive Verb Component</h3>
+            <p class="concept">Relational and actionable claims—subject + action + object.</p>
+
+            <ul class="stat-list">
+              <li class="stat">
+                <div class="stat-value">+41%</div>
+                <div class="stat-title">Boost via Data Claims</div>
+                <p>Adding factual, numerical statements tied to active verbs is the #1 tactic, boosting AI visibility by 41%.</p>
+                <span class="stat-source">Princeton / KDD</span>
+              </li>
+              <li class="stat">
+                <div class="stat-value">+30–40%</div>
+                <div class="stat-title">Overall GEO Lift</div>
+                <p>Foundational research shows structuring content with explicit citations and stats lifts AI response inclusion by 30–40%.</p>
+                <span class="stat-source">Foundational GEO research</span>
+              </li>
+              <li class="stat">
+                <div class="stat-value">44.2%</div>
+                <div class="stat-title">Front-Loaded Extraction</div>
+                <p>44.2% of all LLM citations are pulled from the top 30% of content—requiring immediate entity-verb action statements.</p>
+                <span class="stat-source">LLM extraction analysis</span>
+              </li>
+            </ul>
+          </article>
+
+          <article class="research-card reveal">
+            <span class="card-index" aria-hidden="true">=</span>
+            <h3>3. The GEO Result Component</h3>
+            <p class="concept">Visibility shift, citation share, and high-intent conversions.</p>
+
+            <ul class="stat-list">
+              <li class="stat">
+                <div class="stat-title">Visibility Shift</div>
+                <p>Presence moves from ranked link positions to inclusion inside the synthesized answer itself.</p>
+              </li>
+              <li class="stat">
+                <div class="stat-title">Citation Share</div>
+                <p>The measurable percentage of answers in which the engine names your entity as a source.</p>
+              </li>
+              <li class="stat">
+                <div class="stat-title">High-Intent Conversions</div>
+                <p>Referrals arrive pre-qualified—the engine has already recommended the entity before the click.</p>
+              </li>
+            </ul>
+
+            <p class="result-callout">The output of the formula: transforming traditional search traffic into direct AI recommendation share.</p>
+          </article>
         </div>
 
-        <div class="tools-grid" data-filter-target="tools" data-reveal-group="90">
-          <article class="tool-item reveal" data-filter-item data-filter-tags="live scripts docker devtools instastack"
-                   itemscope itemtype="https://schema.org/SoftwareApplication">
+        <div class="table-wrap reveal" id="geo-market-reality">
+          <h3>The GEO Market Reality</h3>
+          <p class="table-note">Macro benchmarks describing how quickly discovery is moving from ranked links to generated answers.</p>
+
+          <table class="data-table">
+            <caption class="sr-only-caption">Summary of generative engine optimization market benchmarks, with sources.</caption>
+            <thead>
+              <tr>
+                <th scope="col">Metric / Dimension</th>
+                <th scope="col">Benchmark Statistic</th>
+                <th scope="col">Industry Source / Context</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">Market Scale</th>
+                <td class="figure" data-label="Benchmark Statistic">$1.08B (2026) → $17.1B (2034) at 40.6% CAGR</td>
+                <td data-label="Source / Context">Dimension Market Research</td>
+              </tr>
+              <tr>
+                <th scope="row">AI Overview Trigger Rate</th>
+                <td class="figure" data-label="Benchmark Statistic">&gt;50% of US informational queries</td>
+                <td data-label="Source / Context">Search Engine Journal / Ntooitive</td>
+              </tr>
+              <tr>
+                <th scope="row">Zero-Click Shift</th>
+                <td class="figure" data-label="Benchmark Statistic">Zero-click searches up from 56% to 69%</td>
+                <td data-label="Source / Context">Similarweb</td>
+              </tr>
+              <tr>
+                <th scope="row">Product Discovery</th>
+                <td class="figure" data-label="Benchmark Statistic">35% use AI tools vs 13.6% traditional search</td>
+                <td data-label="Source / Context">Similarweb AI Index</td>
+              </tr>
+              <tr>
+                <th scope="row">Adoption Gap</th>
+                <td class="figure" data-label="Benchmark Statistic">92% plan to optimize for GEO, only 40.6% do</td>
+                <td data-label="Source / Context">ConvertMate Benchmark</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- Featured tools -->
+    <section class="section" id="tools" style="padding-top: 0;">
+      <div class="container">
+        <p class="section-label reveal">Featured tools</p>
+        <h2 class="section-title reveal">GEO utilities that ship authority</h2>
+        <p class="section-lead reveal">Launch INSTASTACK or Citationscape—or <a href="tools.html">browse all abcGEO tools</a>, including what’s next on the roadmap.</p>
+
+        <div class="tools-grid">
+          <article class="tool-item reveal" itemscope itemtype="https://schema.org/SoftwareApplication">
             <meta itemprop="name" content="INSTASTACK" />
             <meta itemprop="applicationCategory" content="DeveloperApplication" />
             <meta itemprop="operatingSystem" content="Web" />
             <span class="badge badge-live">Live</span>
+            <span class="card-icon card-icon--coral" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M4 7h16v10H4z"/><path d="M8 11h3M8 14h6"/><path d="m16 10 2 2-2 2"/></svg>
+            </span>
             <h3 itemprop="name">INSTASTACK</h3>
-            <p itemprop="description">Generates ready-to-run setup scripts, Dockerfiles, and READMEs for your OS, languages, databases, and developer tools.</p>
-
-            <div class="tool-metrics">
-              <span class="metric"><span class="metric-value">23</span><span class="metric-label">Tools</span></span>
-              <span class="metric"><span class="metric-value">3</span><span class="metric-label">OS targets</span></span>
-              <span class="metric"><span class="metric-value">3</span><span class="metric-label">Output formats</span></span>
-            </div>
-
-            <div class="quickstart">
-              <p class="quickstart-label">Quick-start templates</p>
-              <div class="qs-chips">
-                <a class="qs-chip" href="tools/instastack.html#s=eyJvcyI6ImxpbnV4X21pbnQiLCJ0b29scyI6WyJnaXQiLCJub2RlanMiLCJkb2NrZXIiLCJwb3N0Z3Jlc3FsIiwicmVkaXMiLCJ2c2NvZGUiLCJjdXJzb3IiLCJwb3N0bWFuIl19">Full-Stack Node</a>
-                <a class="qs-chip" href="tools/instastack.html#s=eyJvcyI6ImxpbnV4X21pbnQiLCJ0b29scyI6WyJnaXQiLCJmbHV0dGVyIiwiYW5kcm9pZF9zdHVkaW8iLCJ2c2NvZGUiLCJzcWxpdGUiXX0">Flutter Mobile</a>
-                <a class="qs-chip" href="tools/instastack.html#s=eyJvcyI6ImxpbnV4X21pbnQiLCJ0b29scyI6WyJnaXQiLCJweXRob24iLCJkb2NrZXIiLCJzcWxpdGUiLCJ2c2NvZGUiLCJjdXJzb3IiXX0">Data Science</a>
-                <a class="qs-chip" href="tools/instastack.html#s=eyJvcyI6ImxpbnV4X21pbnQiLCJ0b29scyI6WyJnaXQiLCJ6c2giLCJzdGFyc2hpcCJdfQ">Minimal Shell</a>
-              </div>
-            </div>
-
+            <p itemprop="description">Generates standardized project stack configs that AI engines can parse as authoritative GEO output.</p>
             <div class="tool-meta">
               <span>A: INSTASTACK · B: Generates</span>
               <a href="tools/instastack.html">Open tool →</a>
             </div>
           </article>
 
-          <article class="tool-item is-upcoming reveal" data-filter-item data-filter-tags="soon schema entities mapper">
-            <span class="badge">Soon</span>
-            <h3>Entity Mapper</h3>
-            <p>Structures brand entities into citation graphs optimized for answer-engine retrieval.</p>
-
-            <div class="tool-metrics">
-              <span class="metric"><span class="metric-value">JSON-LD</span><span class="metric-label">Output</span></span>
-              <span class="metric"><span class="metric-value">Graph</span><span class="metric-label">Model</span></span>
-            </div>
-
+          <article class="tool-item reveal" itemscope itemtype="https://schema.org/SoftwareApplication">
+            <meta itemprop="name" content="Citationscape" />
+            <meta itemprop="applicationCategory" content="DeveloperApplication" />
+            <meta itemprop="operatingSystem" content="Web" />
+            <span class="badge badge-live">Live</span>
+            <span class="card-icon card-icon--teal" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="2.5"/><circle cx="5" cy="7" r="2"/><circle cx="19" cy="7" r="2"/><circle cx="5" cy="17" r="2"/><circle cx="19" cy="17" r="2"/><path d="M10 11 6.5 8.2M14 11l3.5-2.8M10 13l-3.5 2.8M14 13l3.5 2.8"/></svg>
+            </span>
+            <h3 itemprop="name">Citationscape</h3>
+            <p itemprop="description">Structures brand entities into citation graphs and validated JSON-LD optimized for answer-engine retrieval.</p>
             <div class="tool-meta">
-              <span>A: Entity Mapper · B: Structures</span>
-              <span>Coming soon</span>
+              <span>A: Citationscape · B: Structures</span>
+              <a href="tools/citationscape.html">Open tool →</a>
             </div>
           </article>
 
-          <article class="tool-item is-upcoming reveal" data-filter-item data-filter-tags="soon schema scoring citescore">
+          <article class="tool-item reveal">
             <span class="badge">Soon</span>
+            <span class="card-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M11 5a7 7 0 1 0 6.3 4H22v2h-2.1A7 7 0 0 1 11 19"/><circle cx="11" cy="12" r="2.5"/></svg>
+            </span>
             <h3>CiteScore Lab</h3>
             <p>Scores how likely AI engines are to cite your page based on A + B clarity and schema depth.</p>
-
-            <div class="tool-metrics">
-              <span class="metric"><span class="metric-value">0–100</span><span class="metric-label">Score band</span></span>
-              <span class="metric"><span class="metric-value">Live</span><span class="metric-label">Audit</span></span>
-            </div>
-
             <div class="tool-meta">
               <span>A: CiteScore Lab · B: Scores</span>
-              <span>Coming soon</span>
+              <a href="tools.html#upcoming">See roadmap →</a>
             </div>
           </article>
         </div>
-
-        <p class="filter-empty" data-filter-empty="tools" hidden>
-          <strong>No tools match that search.</strong> Try “scripts”, “schema”, or clear the filter.
-        </p>
       </div>
     </section>
 
-    <!-- Blog stream — Editorial Blog 60/30/10 -->
-    <section class="section theme-blog" id="articles" data-theme="blog" style="padding-top: 0;">
+    <!-- Blog stream -->
+    <section class="section" id="articles" style="padding-top: 0;">
       <div class="container">
         <p class="section-label reveal">GEO editorial</p>
-        <h2 class="section-title reveal text-gradient">Recent articles</h2>
+        <h2 class="section-title reveal">Recent articles</h2>
         <p class="section-lead reveal">Answer-first writing designed for ChatGPT, Perplexity, Gemini—and the humans who still read.</p>
 
-        <div class="filter-bar reveal" data-filter="articles">
-          <div class="filter-search">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-              <circle cx="11" cy="11" r="7" /><path d="M20 20l-3.5-3.5" stroke-linecap="round" />
-            </svg>
-            <input type="search" data-filter-input placeholder="Search articles…" aria-label="Search articles" />
-          </div>
-          <div class="filter-chips" role="group" aria-label="Filter articles by topic">
-            <button type="button" class="filter-chip is-active" data-filter-tag="all" aria-pressed="true">All</button>
-            <button type="button" class="filter-chip" data-filter-tag="framework" aria-pressed="false">Framework</button>
-            <button type="button" class="filter-chip" data-filter-tag="engineering" aria-pressed="false">Engineering</button>
-            <button type="button" class="filter-chip" data-filter-tag="tools" aria-pressed="false">Tools</button>
-          </div>
-          <p class="filter-status" data-filter-status aria-live="polite"></p>
-        </div>
-
-        <div class="blog-list" data-filter-target="articles" data-reveal-group="90">
-          <article class="blog-item reveal" data-filter-item data-filter-tags="framework">
+        <div class="blog-list">
+          <article class="blog-item reveal">
             <h3><a href="blog/post-template.html">Why Generative Engine Optimization Is Replacing Classic SEO Playbooks</a></h3>
             <div class="answer-box">
               <div class="label">Quick answer</div>
@@ -261,7 +508,7 @@
             <p class="blog-meta">Framework · 8 min read · abcGEO Editorial</p>
           </article>
 
-          <article class="blog-item reveal" data-filter-item data-filter-tags="engineering">
+          <article class="blog-item reveal">
             <h3><a href="blog/post-template.html">How AI Crawlers Parse Structured Entities on Tool Pages</a></h3>
             <div class="answer-box">
               <div class="label">Quick answer</div>
@@ -270,7 +517,7 @@
             <p class="blog-meta">Engineering · 6 min read · abcGEO Editorial</p>
           </article>
 
-          <article class="blog-item reveal" data-filter-item data-filter-tags="tools">
+          <article class="blog-item reveal">
             <h3><a href="blog/post-template.html">Applying A + B = GEO to Developer Utilities like INSTASTACK</a></h3>
             <div class="answer-box">
               <div class="label">Quick answer</div>
@@ -279,10 +526,6 @@
             <p class="blog-meta">Tools · 5 min read · abcGEO Editorial</p>
           </article>
         </div>
-
-        <p class="filter-empty" data-filter-empty="articles" hidden>
-          <strong>No articles match that search.</strong> Try “GEO”, “crawlers”, or clear the filter.
-        </p>
       </div>
     </section>
   </main>
@@ -290,43 +533,19 @@
   <footer class="site-footer">
     <div class="container footer-inner">
       <div>
-        <a href="index.html" class="logo">abc<span class="geo">GEO</span></a>
+        <a href="index.html" class="logo"><span class="logo-mark" aria-hidden="true"></span>abc<span class="geo">GEO</span></a>
         <p style="margin-top: 0.5rem;">A + B = GEO · Built for answer engines.</p>
       </div>
       <nav class="footer-links" aria-label="Footer">
-        <a href="tools/instastack.html">Tools</a>
-        <a href="framework.html">Framework</a>
-        <a href="blog/post-template.html">Articles</a>
-        <a href="tools/instastack.html">Launch INSTASTACK</a>
+        <a href="index.html">Home</a>
+        <a href="framework.html">Formula</a>
+        <a href="tools.html">Tools</a>
+        <a href="blog.html">Blog</a>
+        <a href="contact.html">Contact</a>
       </nav>
     </div>
   </footer>
 
-  <!-- Floating quick-tool launcher -->
-  <div class="quick-launcher" data-quick-launcher>
-    <div class="ql-panel" id="ql-panel" data-ql-panel aria-hidden="true">
-      <p class="ql-title">Quick start</p>
-      <p class="ql-sub">Open INSTASTACK with a stack already selected.</p>
-      <ul class="ql-list">
-        <li><a class="ql-item" href="tools/instastack.html#s=eyJvcyI6ImxpbnV4X21pbnQiLCJ0b29scyI6WyJnaXQiLCJub2RlanMiLCJkb2NrZXIiLCJwb3N0Z3Jlc3FsIiwicmVkaXMiLCJ2c2NvZGUiLCJjdXJzb3IiLCJwb3N0bWFuIl19"><span>Full-Stack Node</span><span>8 tools</span></a></li>
-        <li><a class="ql-item" href="tools/instastack.html#s=eyJvcyI6ImxpbnV4X21pbnQiLCJ0b29scyI6WyJnaXQiLCJmbHV0dGVyIiwiYW5kcm9pZF9zdHVkaW8iLCJ2c2NvZGUiLCJzcWxpdGUiXX0"><span>Flutter Mobile</span><span>5 tools</span></a></li>
-        <li><a class="ql-item" href="tools/instastack.html#s=eyJvcyI6ImxpbnV4X21pbnQiLCJ0b29scyI6WyJnaXQiLCJweXRob24iLCJkb2NrZXIiLCJzcWxpdGUiLCJ2c2NvZGUiLCJjdXJzb3IiXX0"><span>Data Science</span><span>6 tools</span></a></li>
-        <li><a class="ql-item" href="tools/instastack.html#s=eyJvcyI6ImxpbnV4X21pbnQiLCJ0b29scyI6WyJnaXQiLCJ6c2giLCJzdGFyc2hpcCJdfQ"><span>Minimal Shell</span><span>3 tools</span></a></li>
-      </ul>
-      <a class="ql-launch" href="tools/instastack.html">Open INSTASTACK →</a>
-    </div>
-    <button class="ql-toggle" type="button" data-ql-toggle aria-expanded="false" aria-controls="ql-panel">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true">
-        <path d="M13 2L4.5 13.5H11l-1 8.5 8.5-11.5H12l1-8.5z" stroke-linejoin="round" />
-      </svg>
-      <span>Quick start</span>
-      <svg class="ql-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true">
-        <path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round" />
-      </svg>
-    </button>
-  </div>
-
   <script src="js/main.js"></script>
-  <script src="js/ui.js"></script>
 </body>
 </html>

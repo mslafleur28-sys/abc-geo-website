@@ -1,0 +1,268 @@
+<!--
+  abcGEO · GeoAuditCarousel
+  Semantic, RAG-readable carousel for "The 2026 AI Search Citation Audit".
+  All slide text lives in server HTML (h3, p, ul, table)—not canvas/images.
+  Pair with: components/GeoAuditCarousel.js + css/styles.css (.geo-audit-carousel)
+-->
+<section
+  class="geo-audit-carousel"
+  data-geo-audit-carousel
+  aria-roledescription="carousel"
+  aria-label="The 2026 AI Search Citation Audit: A 5-Step Framework for LLM Visibility"
+>
+  <div class="geo-audit-carousel__chrome">
+    <p class="geo-audit-carousel__eyebrow">
+      <span class="geo-audit-carousel__step-label" data-carousel-step-label>Slide 1 of 6</span>
+      · Interactive framework
+    </p>
+    <div class="geo-audit-carousel__toolbar">
+      <button type="button" class="geo-audit-carousel__copy btn btn-secondary" data-carousel-copy>
+        Copy Slide Text
+      </button>
+    </div>
+  </div>
+
+  <div class="geo-audit-carousel__viewport" data-carousel-viewport tabindex="0">
+    <div class="geo-audit-carousel__track" data-carousel-track>
+
+      <!-- SLIDE 1: Hook / Cover -->
+      <article
+        class="geo-audit-carousel__slide is-active"
+        data-carousel-slide
+        data-slide-index="0"
+        id="geo-audit-slide-1"
+        aria-label="Slide 1 of 6: Hook"
+        aria-hidden="false"
+      >
+        <p class="geo-audit-carousel__kicker">2026 GEO Framework</p>
+        <h3>Is Your Brand Invisible in ChatGPT &amp; Gemini?</h3>
+        <p class="geo-audit-carousel__subtitle">The 2026 5-Step AI Search Citation Audit Framework</p>
+        <p>
+          Brands that appear in traditional search can still vanish inside AI answers.
+          This audit measures whether ChatGPT, Perplexity, and Gemini can extract, trust,
+          and cite your content.
+        </p>
+        <aside class="geo-audit-carousel__callout" role="note">
+          <p>
+            While ChatGPT, Perplexity, and Gemini use different retrieval algorithms,
+            they all share one requirement: <strong>Extractable RAG Architecture</strong>.
+          </p>
+        </aside>
+      </article>
+
+      <!-- SLIDE 2: Step 1 — Prompt Sweep -->
+      <article
+        class="geo-audit-carousel__slide"
+        data-carousel-slide
+        data-slide-index="1"
+        id="geo-audit-slide-2"
+        aria-label="Slide 2 of 6: Step 1 — The Prompt Sweep"
+        aria-hidden="true"
+      >
+        <p class="geo-audit-carousel__kicker">Step 1 of 5</p>
+        <h3>Step 1: The Prompt Sweep</h3>
+        <p>
+          <strong>Objective:</strong> Audit visibility across disparate engine indexes
+          (Perplexity, ChatGPT, Gemini).
+        </p>
+        <h4>Actionable checklist</h4>
+        <ul>
+          <li>Test 20 core intent-based prompts across ChatGPT, Perplexity, and Gemini.</li>
+          <li>Log citation types: Owned Domain vs. Third-Party Directories vs. Forum/UGC.</li>
+          <li>Note the &ldquo;Citation Gap&rdquo;: Queries where competitors appear but your brand is absent.</li>
+        </ul>
+      </article>
+
+      <!-- SLIDE 3: Step 2 — RAG Readability -->
+      <article
+        class="geo-audit-carousel__slide"
+        data-carousel-slide
+        data-slide-index="2"
+        id="geo-audit-slide-3"
+        aria-label="Slide 3 of 6: Step 2 — The RAG Readability Check"
+        aria-hidden="true"
+      >
+        <p class="geo-audit-carousel__kicker">Step 2 of 5</p>
+        <h3>Step 2: The RAG Readability Check</h3>
+        <p>
+          <strong>Objective:</strong> Ensure LLM web scrapers can chunk and extract your
+          site content without errors.
+        </p>
+        <h4>Actionable checklist</h4>
+        <ul>
+          <li>Remove JavaScript accordion/tab barriers on key data points (use open server HTML).</li>
+          <li>Structure headings as natural language questions matching user search intent.</li>
+          <li>Apply the BLUF (Bottom-Line Up Front) rule: First 2 sentences under any heading must be a standalone answer.</li>
+        </ul>
+      </article>
+
+      <!-- SLIDE 4: Step 3 — Fact Density -->
+      <article
+        class="geo-audit-carousel__slide"
+        data-carousel-slide
+        data-slide-index="3"
+        id="geo-audit-slide-4"
+        aria-label="Slide 4 of 6: Step 3 — Fact Density &amp; Primary Source Indexing"
+        aria-hidden="true"
+      >
+        <p class="geo-audit-carousel__kicker">Step 3 of 5</p>
+        <h3>Step 3: Fact Density &amp; Primary Source Indexing</h3>
+        <p>
+          <strong>Objective:</strong> Increase your &ldquo;Data-to-Fluff&rdquo; ratio.
+          LLMs prioritize dense, verifiable statistics.
+        </p>
+        <h4>Actionable checklist</h4>
+        <ul>
+          <li>Aim for 2+ verifiable metrics or data points per 500 words.</li>
+          <li>Use explicit attribution: Format quotes as <code>&gt; &ldquo;Quote...&rdquo; — [Name], [Title]</code>.</li>
+          <li>Avoid vague self-assertions; pair claims with concrete percentages or original survey data.</li>
+        </ul>
+      </article>
+
+      <!-- SLIDE 5: Step 4 — Schema & Entity -->
+      <article
+        class="geo-audit-carousel__slide"
+        data-carousel-slide
+        data-slide-index="4"
+        id="geo-audit-slide-5"
+        aria-label="Slide 5 of 6: Step 4 — Schema &amp; Entity Validation"
+        aria-hidden="true"
+      >
+        <p class="geo-audit-carousel__kicker">Step 4 of 5</p>
+        <h3>Step 4: Schema &amp; Entity Validation</h3>
+        <p>
+          <strong>Objective:</strong> Eliminate &ldquo;Entity Collision&rdquo; where AI
+          confuses your brand with another.
+        </p>
+        <h4>Actionable checklist</h4>
+        <ul>
+          <li>Validate <code>Organization</code> and <code>Author</code> JSON-LD schema with <code>sameAs</code> social links.</li>
+          <li>Implement <code>FAQPage</code> schema on all key product/Q&amp;A pages.</li>
+          <li>Ensure consistent brand naming across both owned domains and third-party profiles.</li>
+        </ul>
+      </article>
+
+      <!-- SLIDE 6: Scorecard -->
+      <article
+        class="geo-audit-carousel__slide"
+        data-carousel-slide
+        data-slide-index="5"
+        id="geo-audit-slide-6"
+        aria-label="Slide 6 of 6: The 2026 GEO Audit Scorecard"
+        aria-hidden="true"
+      >
+        <p class="geo-audit-carousel__kicker">Summary · AI crawler target</p>
+        <h3>The 2026 GEO Audit Scorecard</h3>
+        <p>
+          <strong>Objective:</strong> A structured scoring matrix that both humans and
+          AI bots can easily parse.
+        </p>
+        <div class="table-wrap geo-audit-carousel__table-wrap">
+          <table class="data-table">
+            <caption class="sr-only-caption">
+              The 2026 GEO Audit Scorecard with audit steps, target signals, and score columns
+            </caption>
+            <thead>
+              <tr>
+                <th scope="col">Audit Step</th>
+                <th scope="col">Target Signal</th>
+                <th scope="col">Score (1–5)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">Engine Sweep</th>
+                <td data-label="Target Signal">Multi-engine presence (ChatGPT, Perplexity, Gemini)</td>
+                <td data-label="Score (1–5)" class="figure">—</td>
+              </tr>
+              <tr>
+                <th scope="row">RAG Chunking</th>
+                <td data-label="Target Signal">HTML accessibility &amp; BLUF formatting</td>
+                <td data-label="Score (1–5)" class="figure">—</td>
+              </tr>
+              <tr>
+                <th scope="row">Data Density</th>
+                <td data-label="Target Signal">High statistics-per-word ratio</td>
+                <td data-label="Score (1–5)" class="figure">—</td>
+              </tr>
+              <tr>
+                <th scope="row">Entity Clarity</th>
+                <td data-label="Target Signal">Validated Schema &amp; consistent sameAs entities</td>
+                <td data-label="Score (1–5)" class="figure">—</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </article>
+
+    </div>
+  </div>
+
+  <div class="geo-audit-carousel__controls">
+    <button
+      type="button"
+      class="geo-audit-carousel__nav"
+      data-carousel-prev
+      aria-controls="geo-audit-slide-1"
+      aria-label="Previous slide"
+    >
+      <span aria-hidden="true">←</span> Prev
+    </button>
+
+    <div class="geo-audit-carousel__dots" data-carousel-dots role="tablist" aria-label="Slide indicators">
+      <button type="button" class="geo-audit-carousel__dot is-active" role="tab" aria-selected="true" aria-controls="geo-audit-slide-1" data-carousel-dot data-slide-to="0" aria-label="Go to slide 1"></button>
+      <button type="button" class="geo-audit-carousel__dot" role="tab" aria-selected="false" aria-controls="geo-audit-slide-2" data-carousel-dot data-slide-to="1" aria-label="Go to slide 2"></button>
+      <button type="button" class="geo-audit-carousel__dot" role="tab" aria-selected="false" aria-controls="geo-audit-slide-3" data-carousel-dot data-slide-to="2" aria-label="Go to slide 3"></button>
+      <button type="button" class="geo-audit-carousel__dot" role="tab" aria-selected="false" aria-controls="geo-audit-slide-4" data-carousel-dot data-slide-to="3" aria-label="Go to slide 4"></button>
+      <button type="button" class="geo-audit-carousel__dot" role="tab" aria-selected="false" aria-controls="geo-audit-slide-5" data-carousel-dot data-slide-to="4" aria-label="Go to slide 5"></button>
+      <button type="button" class="geo-audit-carousel__dot" role="tab" aria-selected="false" aria-controls="geo-audit-slide-6" data-carousel-dot data-slide-to="5" aria-label="Go to slide 6"></button>
+    </div>
+
+    <button
+      type="button"
+      class="geo-audit-carousel__nav"
+      data-carousel-next
+      aria-controls="geo-audit-slide-2"
+      aria-label="Next slide"
+    >
+      Next <span aria-hidden="true">→</span>
+    </button>
+  </div>
+
+  <!--
+    RAG fallback: full framework text remains indexable even if JS fails
+    or a crawler ignores interactive UI state.
+  -->
+  <div class="geo-audit-carousel__rag-index" data-carousel-rag-index>
+    <h3>Full framework text (machine-readable index)</h3>
+    <p>
+      The 2026 AI Search Citation Audit is a 5-step framework for LLM visibility across
+      ChatGPT, Perplexity, and Gemini. While these engines use different retrieval
+      algorithms, they all require Extractable RAG Architecture.
+    </p>
+    <ol>
+      <li>
+        <strong>The Prompt Sweep</strong> — Test 20 intent prompts across engines; log
+        Owned Domain vs. Third-Party vs. Forum/UGC citations; record Citation Gaps.
+      </li>
+      <li>
+        <strong>The RAG Readability Check</strong> — Prefer open server HTML over JS
+        accordions; write question-form headings; apply BLUF in the first two sentences.
+      </li>
+      <li>
+        <strong>Fact Density &amp; Primary Source Indexing</strong> — Target 2+ verifiable
+        metrics per 500 words; attribute quotes explicitly; pair claims with percentages
+        or survey data.
+      </li>
+      <li>
+        <strong>Schema &amp; Entity Validation</strong> — Validate Organization/Author
+        JSON-LD with sameAs; ship FAQPage schema; keep brand naming consistent.
+      </li>
+    </ol>
+    <p>
+      Scorecard signals: Engine Sweep (multi-engine presence), RAG Chunking (HTML + BLUF),
+      Data Density (statistics-per-word), Entity Clarity (schema + sameAs consistency).
+      Score each signal from 1 to 5.
+    </p>
+  </div>
+</section>

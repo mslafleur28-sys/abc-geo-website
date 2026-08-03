@@ -1,46 +1,21 @@
 /* abcGEO — shared interactions */
 (function () {
-  /** Semantic design tokens — mirrors css/styles.css :root for dynamic JS use.
-   *  Values ending in `Ink` are the contrast-safe (AAA) text variants of the
-   *  vibrant fills above them. */
   const designTokens = {
-    // Primary accent — electric amber / coral
-    coral: '#FF6B4A',
-    coralDeep: '#E8502B',
-    amber: '#FF8C00',
-    amberHi: '#FFA033',
-    warmInk: '#8F2F10',
-
-    // Secondary accent — vibrant cyan / teal
-    teal: '#00C9A7',
-    tealHi: '#2BDCC0',
-    cyan: '#00B4D8',
-    tealInk: '#00564C',
-    cyanInk: '#0A5A72',
-
-    // Text — soft dark slate
-    ink: '#1A202C',
-    inkSoft: '#2D3748',
-    inkMuted: '#455063',
-    inkOnFill: '#141A23',
-
-    // Surfaces — warm off-whites, crisp white cards
-    cream: '#FAF9F6',
-    creamAlt: '#F4F7F6',
-    white: '#FFFFFF',
-
-    // Status
-    successGreen: '#0F7B4F',
-    warningAmber: '#8A5200',
-    errorCrimson: '#C2261B',
-
-    segments: {
-      seo: { surface: '#F4F7F6', onSurface: '#1A202C', accent: '#0A5A72', fill: '#00B4D8' },
-      geo: { surface: '#FAF9F6', onSurface: '#1A202C', accent: '#00564C', fill: '#00C9A7' },
-      blog: { surface: '#FFFFFF', onSurface: '#1A202C', accent: '#8F2F10', fill: '#FF6B4A' },
-    },
+    primaryCoral: '#FF6B4A',
+    hoverAmber: '#FF8C00',
+    aiCyan: '#00B4D8',
+    cyanInk: '#00566B',
+    successTeal: '#00C9A7',
+    tealInk: '#00594E',
+    errorCrimson: '#EF4444',
+    charcoalBody: '#1A202C',
+    deepSlate: '#2D3748',
+    textMuted: '#64748B',
+    bgCream: '#FAF9F6',
+    bgSoft: '#F4F7F6',
+    bgCleanWhite: '#FFFFFF',
+    border: 'rgba(45, 55, 72, 0.12)',
   };
-
   window.abcGEO = window.abcGEO || {};
   window.abcGEO.designTokens = designTokens;
 
@@ -58,6 +33,57 @@
         links.classList.remove('open');
         toggle.setAttribute('aria-expanded', 'false');
       });
+    });
+  }
+
+  // Typewriter brand mark
+  const typer = document.querySelector('[data-typewriter]');
+  const typeOut = typer?.querySelector('[data-type-out]');
+
+  if (typer && typeOut) {
+    const full = typer.dataset.typewriter || 'abc GEO';
+    const splitAt = Number(typer.dataset.typeSplit) || full.length;
+    const head = document.createElement('span');
+    const tail = document.createElement('span');
+    tail.className = 'geo';
+    typeOut.append(head, tail);
+
+    const render = (count) => {
+      head.textContent = full.slice(0, Math.min(count, splitAt));
+      tail.textContent = count > splitAt ? full.slice(splitAt, count) : '';
+    };
+
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (reduceMotion) {
+      render(full.length);
+      typer.classList.add('is-done');
+    } else {
+      let typed = 0;
+      const step = () => {
+        typed += 1;
+        render(typed);
+        if (typed < full.length) {
+          setTimeout(step, 130);
+        } else {
+          typer.classList.add('is-done');
+        }
+      };
+      setTimeout(step, 450);
+    }
+  }
+
+  // Contact form (no backend — confirm locally)
+  const contactForm = document.querySelector('[data-contact-form]');
+  if (contactForm) {
+    const status = contactForm.querySelector('[data-contact-status]');
+    contactForm.addEventListener('submit', (event) => {
+      event.preventDefault();
+      const name = contactForm.querySelector('#contact-name')?.value?.trim() || 'there';
+      if (status) {
+        status.textContent = `Thanks, ${name} — your message is ready to send. Email hello@abcgeo.com to reach us directly.`;
+      }
+      contactForm.reset();
     });
   }
 
@@ -107,5 +133,72 @@
     renderFormula();
   }
 
-  // INSTASTACK lives in js/instastack.js on tools/instastack.html
+  // INSTASTACK generator
+  const generateBtn = document.querySelector('[data-generate-stack]');
+  const copyBtn = document.querySelector('[data-copy-stack]');
+  const stackOut = document.querySelector('[data-stack-output]');
+
+  function buildStackConfig() {
+    const checked = Array.from(document.querySelectorAll('[data-stack-opt]:checked')).map(
+      (el) => el.value
+    );
+    const project = document.querySelector('[data-stack-name]')?.value?.trim() || 'my-geo-project';
+    const mode = document.querySelector('[data-stack-mode]')?.value || 'standard';
+
+    const config = {
+      entity: 'INSTASTACK',
+      transitiveVerb: 'Generates',
+      geoOutput: 'A standardized, machine-readable project stack configuration for AI citation and developer reuse.',
+      project,
+      mode,
+      modules: checked,
+      generatedAt: new Date().toISOString(),
+      brand: 'abcGEO',
+      framework: 'A + B = GEO',
+    };
+
+    return `# abcGEO · INSTASTACK output
+# A (Entity): INSTASTACK
+# B (Verb): Generates
+# GEO: Citation-ready stack config
+
+project: ${config.project}
+mode: ${config.mode}
+framework: ${config.framework}
+modules:
+${config.modules.map((m) => `  - ${m}`).join('\n') || '  - (none selected)'}
+
+metadata:
+  brand: ${config.brand}
+  entity: ${config.entity}
+  action: ${config.transitiveVerb}
+  purpose: ${config.geoOutput}
+  generated_at: ${config.generatedAt}
+`;
+  }
+
+  if (generateBtn && stackOut) {
+    generateBtn.addEventListener('click', () => {
+      stackOut.textContent = buildStackConfig();
+    });
+    // seed default
+    stackOut.textContent = buildStackConfig();
+  }
+
+  if (copyBtn && stackOut) {
+    copyBtn.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(stackOut.textContent || '');
+        copyBtn.textContent = 'Copied';
+        setTimeout(() => {
+          copyBtn.textContent = 'Copy output';
+        }, 1600);
+      } catch {
+        copyBtn.textContent = 'Copy failed';
+        setTimeout(() => {
+          copyBtn.textContent = 'Copy output';
+        }, 1600);
+      }
+    });
+  }
 })();

@@ -4,44 +4,46 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Optimizing for AI Overviews vs. ChatGPT vs. Perplexity: A Comparative Guide | abcGEO</title>
+    <meta name="theme-color" content="#FF6B4A">
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
-            darkMode: 'class',
             theme: {
                 extend: {
-                    colors: {
-                        'primary-electric': '#FF8C00',
-                        'secondary-slate': '#455063',
-                        'trust-blue': '#0A5A72',
+                                                                                colors: {
+                        'primary-electric': '#FF6B4A',
+                        'secondary-slate': '#64748B',
+                        'trust-blue': '#00B4D8',
                         'deep-slate': '#2D3748',
-                        'ai-cyan': '#00C9A7',
-                        'space-navy': '#FAF9F6',
-                        'success-green': '#0F7B4F',
-                        'warning-amber': '#8A5200',
-                        'error-crimson': '#C2261B',
+                        'ai-cyan': '#00B4D8',
+                        'space-navy': '#1A202C',
+                        'success-green': '#00C9A7',
+                        'warning-amber': '#FF8C00',
+                        'error-crimson': '#EF4444',
                         'charcoal-body': '#1A202C',
-                        'text-muted': '#455063',
+                        'text-muted': '#64748B',
                         'bg-clean-white': '#FFFFFF',
                         'bg-soft-gray': '#FAF9F6',
                         'bg-grid-gray': '#F4F7F6',
-                        /* Editorial Blog 60/30/10 remaps for existing utilities */
+                        white: '#1A202C',
                         slate: {
-                            950: '#FAF9F6',
+                            100: '#1A202C',
+                            200: '#2D3748',
+                            300: '#4A5568',
+                            400: '#64748B',
+                            500: '#718096',
+                            700: '#D1D9E0',
+                            800: '#E8EEF2',
                             900: '#FFFFFF',
-                            800: '#EAE7DF',
-                            700: '#DCD8CE',
-                            500: '#414B5C',
-                            400: '#455063',
-                            300: '#2D3748',
-                            200: '#1A202C',
-                            100: '#1A202C'
+                            950: '#FAF9F6'
                         },
-                        sky: { 300: '#0A5A72', 400: '#004F45', 500: '#003F37' },
-                        orange: { 400: '#8F2F10', 500: '#FFA033', 600: '#FFB65C' },
-                        emerald: { 300: '#0B5F38', 400: '#09522E' },
-                        red: { 400: '#951810', 500: '#8A160F' }
+                        /* 300/400/500 stay vivid for fills, borders, gradients and glows.
+                           700 is the text-only ink shade. */
+                        sky: { 300: '#00B4D8', 400: '#00B4D8', 500: '#0096C7', 700: '#00566B' },
+                        orange: { 400: '#FF6B4A', 500: '#FF6B4A', 600: '#FF8C00' },
+                        emerald: { 300: '#00C9A7', 400: '#00C9A7', 700: '#00594E' },
+                        red: { 400: '#DC2626', 500: '#EF4444' }
                     }
                 }
             }
@@ -59,29 +61,29 @@
       "description": "A technical breakdown of how Google's AI Overviews, PerplexityBot, and GPTBot crawl, parse, and cite web pages differently—and how to optimize for multi-platform GEO visibility."
     }
     </script>
-  <link rel="stylesheet" href="../css/ui.css" />
-  <noscript><style>.reveal,.reveal-left,.reveal-right,.reveal-scale{opacity:1 !important;transform:none !important}</style></noscript>
 </head>
 <body class="bg-bg-soft-gray text-charcoal-body font-sans antialiased min-h-screen flex flex-col justify-between">
 
     <!-- Top Reading Progress Indicator Bar -->
     <div class="fixed top-0 left-0 w-full h-1 bg-slate-800 z-50">
-        <div class="h-full bg-gradient-to-r from-[#00C9A7] via-[#FF8C00] to-[#00B4D8] w-1/3"></div>
+        <div class="h-full bg-gradient-to-r from-sky-400 via-orange-500 to-emerald-400 w-1/3"></div>
     </div>
 
     <!-- Navigation Bar -->
-    <header class="border-b border-slate-800/80 bg-slate-900/90 backdrop-blur-md sticky top-0 z-40">
+    <header class="border-b border-slate-800/80 bg-slate-950/90 backdrop-blur-md sticky top-0 z-40">
         <div class="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
             <a href="/" class="flex items-center space-x-2">
                 <span class="text-slate-400 font-light text-xl">abc</span>
                 <span class="text-charcoal-body font-bold text-xl tracking-wide">GEO</span>
             </a>
             <nav class="hidden md:flex space-x-6 text-sm font-medium text-slate-300">
-                <a href="/tools" class="hover:text-sky-400 transition">Tools</a>
-                <a href="/framework.html" class="hover:text-sky-400 transition">The A+B Framework</a>
-                <a href="/blog" class="text-sky-400">Articles</a>
+                <a href="../index.html" class="hover:text-sky-700 transition">Home</a>
+                <a href="../framework.html" class="hover:text-sky-700 transition">Formula</a>
+                <a href="../tools.html" class="hover:text-sky-700 transition">Tools</a>
+                <a href="../blog.html" class="text-sky-700">Blog</a>
+                <a href="../contact.html" class="hover:text-sky-700 transition">Contact</a>
             </nav>
-            <a href="/tools/instastack.html" class="bg-orange-500 hover:bg-orange-600 text-charcoal-body px-4 py-2 rounded-lg text-sm font-semibold transition shadow-lg shadow-orange-500/20">
+            <a href="../tools/instastack.html" class="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-lg text-sm font-semibold transition shadow-lg shadow-orange-500/20">
                 Launch INSTASTACK
             </a>
         </div>
@@ -93,7 +95,7 @@
         <!-- Article Header -->
         <header class="max-w-3xl mx-auto mb-8">
             <div class="flex flex-wrap items-center gap-3 mb-4">
-                <span class="bg-sky-400/10 border border-sky-400/20 text-sky-400 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
+                <span class="bg-sky-400/10 border border-sky-400/20 text-sky-700 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
                     GEO Platform Comparison
                 </span>
                 <span class="text-slate-500 text-xs">•</span>
@@ -117,17 +119,17 @@
                 <!-- Glowing Badge Header -->
                 <div class="flex items-center space-x-2 mb-4 border-b border-slate-800/80 pb-4">
                     <span class="inline-block w-2.5 h-2.5 rounded-full bg-sky-400 animate-pulse"></span>
-                    <h2 class="text-xs font-black uppercase tracking-widest text-sky-400">
+                    <h2 class="text-xs font-black uppercase tracking-widest text-sky-700">
                         Executive Answer / AI Quick Summary
                     </h2>
                 </div>
 
                 <!-- Target Question Heading -->
-                <h3 class="text-lg sm:text-xl font-extrabold text-charcoal-body mb-3">Target Question: <span class="text-sky-300">How do AI Overviews, PerplexityBot, and GPTBot differ in how they crawl and cite web content?</span></h3>
+                <h3 class="text-lg sm:text-xl font-extrabold text-charcoal-body mb-3">Target Question: <span class="text-sky-700">How do AI Overviews, PerplexityBot, and GPTBot differ in how they crawl and cite web content?</span></h3>
 
                 <!-- Core Answer Content -->
                 <p class="text-slate-200 font-medium text-base sm:text-lg leading-relaxed">
-                    Google AI Overviews lean heavily on Google Search's knowledge graph and rendered page signals, while <strong>PerplexityBot</strong> prioritizes real-time semantic extraction from clean HTML, and <strong>GPTBot</strong> indexes structured microdata via JSON-LD. Optimizing across all three requires combining semantic HTML tags, microdata schemas, and an active <code class="text-sky-400 text-sm">llms.txt</code> file so each crawler receives an unambiguous, citation-ready representation of your entities.
+                    Google AI Overviews lean heavily on Google Search's knowledge graph and rendered page signals, while <strong>PerplexityBot</strong> prioritizes real-time semantic extraction from clean HTML, and <strong>GPTBot</strong> indexes structured microdata via JSON-LD. Optimizing across all three requires combining semantic HTML tags, microdata schemas, and an active <code class="text-sky-700 text-sm">llms.txt</code> file so each crawler receives an unambiguous, citation-ready representation of your entities.
                 </p>
             </div>
 
@@ -135,11 +137,11 @@
             <div class="flex items-center justify-center sm:justify-start">
                 <div class="text-xs font-mono bg-slate-900 border border-slate-700/80 px-4 py-2 rounded-xl text-slate-300 flex items-center gap-2 flex-wrap shadow-md">
                     <span class="text-slate-500 font-bold">Eq:</span>
-                    <span class="text-sky-400 font-bold">[A: Bot-Specific Schema]</span>
+                    <span class="text-sky-700 font-bold">[A: Bot-Specific Schema]</span>
                     <span class="text-slate-500">+</span>
                     <span class="text-orange-400 font-bold">[B: Optimizes Multimodal Indexing]</span>
                     <span class="text-slate-500">=</span>
-                    <span class="text-emerald-400 font-bold">[GEO Result: Multi-Platform Visibility]</span>
+                    <span class="text-emerald-700 font-bold">[GEO Result: Multi-Platform Visibility]</span>
                 </div>
             </div>
         </section>
@@ -152,9 +154,9 @@
                 <div class="sticky top-24 space-y-4 text-xs">
                     <h3 class="text-slate-400 font-bold uppercase tracking-wider mb-3">On This Page</h3>
                     <nav class="space-y-2 border-l border-slate-800 pl-3 text-slate-400">
-                        <a href="#crawling" class="block hover:text-sky-400 transition">1. Crawling &amp; Ingestion Mechanics</a>
-                        <a href="#schema" class="block hover:text-sky-400 transition">2. Bot-Specific Schema &amp; Indexing</a>
-                        <a href="#checklist" class="block hover:text-sky-400 transition">3. Multi-Platform GEO Checklist</a>
+                        <a href="#crawling" class="block hover:text-sky-700 transition">1. Crawling &amp; Ingestion Mechanics</a>
+                        <a href="#schema" class="block hover:text-sky-700 transition">2. Bot-Specific Schema &amp; Indexing</a>
+                        <a href="#checklist" class="block hover:text-sky-700 transition">3. Multi-Platform GEO Checklist</a>
                     </nav>
                 </div>
             </aside>
@@ -185,19 +187,19 @@
                         <h4 class="text-xs font-bold uppercase tracking-wider text-slate-400">Key Takeaways</h4>
                         <ul class="space-y-2 text-sm text-slate-300">
                             <li class="flex items-start space-x-2">
-                                <span class="text-sky-400 font-bold">✓</span>
+                                <span class="text-sky-700 font-bold">✓</span>
                                 <span>Google AI Overviews combine rendered DOM signals with knowledge-graph grounding—classic Search quality still gates visibility.</span>
                             </li>
                             <li class="flex items-start space-x-2">
-                                <span class="text-sky-400 font-bold">✓</span>
+                                <span class="text-sky-700 font-bold">✓</span>
                                 <span>PerplexityBot prioritizes fast semantic extraction from clean HTML; avoid critical content locked behind JS hydration.</span>
                             </li>
                             <li class="flex items-start space-x-2">
-                                <span class="text-sky-400 font-bold">✓</span>
+                                <span class="text-sky-700 font-bold">✓</span>
                                 <span>GPTBot elevates JSON-LD and structured microdata as explicit entity data for ChatGPT citation and indexing.</span>
                             </li>
                             <li class="flex items-start space-x-2">
-                                <span class="text-sky-400 font-bold">✓</span>
+                                <span class="text-sky-700 font-bold">✓</span>
                                 <span>Ship a crawlable HTML source of truth first; treat JS enhancement as progressive, not required for core facts.</span>
                             </li>
                         </ul>
@@ -210,20 +212,20 @@
                         2. The Role of Bot-Specific Schema in Multimodal Indexing
                     </h2>
                     <p>
-                        Schema is not decoration for rich results alone—it is a shared language that LLM crawlers use to attach properties to entities without guessing. When you declare <code class="text-sky-400 text-sm">Article</code>, <code class="text-sky-400 text-sm">FAQPage</code>, and <code class="text-sky-400 text-sm">SoftwareApplication</code> in JSON-LD, you hand GPTBot, Perplexity's parsers, and Google's entity extractors the same typed graph: what the page is, who published it, which questions it answers, and which product it describes.
+                        Schema is not decoration for rich results alone—it is a shared language that LLM crawlers use to attach properties to entities without guessing. When you declare <code class="text-sky-700 text-sm">Article</code>, <code class="text-sky-700 text-sm">FAQPage</code>, and <code class="text-sky-700 text-sm">SoftwareApplication</code> in JSON-LD, you hand GPTBot, Perplexity's parsers, and Google's entity extractors the same typed graph: what the page is, who published it, which questions it answers, and which product it describes.
                     </p>
                     <p>
-                        Multimodal indexing benefits when schema and visible content stay synchronized. Image <code class="text-sky-400 text-sm">alt</code> text, <code class="text-sky-400 text-sm">og:image</code>, and <code class="text-sky-400 text-sm">ImageObject</code> nodes reinforce the same entity name; FAQ answers in JSON-LD should match the on-page answer blocks word-for-word enough that no engine has to reconcile conflicting strings. This dual channel—semantic HTML for Perplexity-style extractors and JSON-LD for GPTBot-style indexers—is the bot-specific schema layer of multi-platform GEO.
+                        Multimodal indexing benefits when schema and visible content stay synchronized. Image <code class="text-sky-700 text-sm">alt</code> text, <code class="text-sky-700 text-sm">og:image</code>, and <code class="text-sky-700 text-sm">ImageObject</code> nodes reinforce the same entity name; FAQ answers in JSON-LD should match the on-page answer blocks word-for-word enough that no engine has to reconcile conflicting strings. This dual channel—semantic HTML for Perplexity-style extractors and JSON-LD for GPTBot-style indexers—is the bot-specific schema layer of multi-platform GEO.
                     </p>
                     <p>
-                        Prefer a single <code class="text-sky-400 text-sm">@graph</code> (or co-located script blocks) that links the article, the FAQs, and the software entity via <code class="text-sky-400 text-sm">@id</code> references. That graph travels cleanly across Google's structured-data pipeline, OpenAI's microdata ingestion, and any retrieval system that strips HTML down to typed triples.
+                        Prefer a single <code class="text-sky-700 text-sm">@graph</code> (or co-located script blocks) that links the article, the FAQs, and the software entity via <code class="text-sky-700 text-sm">@id</code> references. That graph travels cleanly across Google's structured-data pipeline, OpenAI's microdata ingestion, and any retrieval system that strips HTML down to typed triples.
                     </p>
 
                     <!-- Code Block with Copy Badge -->
                     <div class="relative bg-slate-900 border border-slate-800 rounded-xl overflow-hidden font-mono text-xs text-slate-300 my-4">
                         <div class="flex items-center justify-between bg-slate-800/60 px-4 py-2 text-slate-400 border-b border-slate-800">
                             <span>multi-platform-schema.json</span>
-                            <span class="text-[10px] text-sky-400 uppercase font-bold tracking-wider">JSON-LD</span>
+                            <span class="text-[10px] text-sky-700 uppercase font-bold tracking-wider">JSON-LD</span>
                         </div>
                         <pre class="p-4 overflow-x-auto"><code>{
   "@context": "https://schema.org",
@@ -264,11 +266,11 @@
                 <aside class="bg-gradient-to-r from-slate-900 via-slate-900 to-slate-800 border border-slate-700/80 rounded-2xl p-6 sm:p-8 my-8 shadow-xl">
                     <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
                         <div>
-                            <span class="text-xs uppercase tracking-widest text-orange-400 font-bold">Interactive Tool</span>
+                            <span class="text-xs uppercase tracking-widest text-orange-500 font-bold">Interactive Tool</span>
                             <h3 class="text-xl font-bold text-charcoal-body mt-1">Try INSTASTACK Setup Generator</h3>
                             <p class="text-slate-400 text-sm mt-1">Configure your full development environment in under 10 seconds.</p>
                         </div>
-                        <a href="/tools/instastack.html" class="bg-sky-400 hover:bg-sky-500 text-slate-950 font-bold px-6 py-3 rounded-xl text-sm transition shrink-0 shadow-lg shadow-sky-400/20">
+                        <a href="../tools/instastack.html" class="bg-sky-400 hover:bg-sky-500 text-white font-bold px-6 py-3 rounded-xl text-sm transition shrink-0 shadow-lg shadow-sky-400/20">
                             Launch Tool →
                         </a>
                     </div>
@@ -287,32 +289,32 @@
                         <h4 class="text-xs font-bold uppercase tracking-wider text-slate-400">Unified Multi-Platform Checklist</h4>
                         <ul class="space-y-3 text-sm text-slate-300">
                             <li class="flex items-start space-x-2">
-                                <span class="text-emerald-400 font-bold">☐</span>
-                                <span><strong class="text-charcoal-body">Semantic HTML first:</strong> Put the primary answer, entity name, and key claims in server-rendered <code class="text-sky-400">&lt;h1&gt;</code>–<code class="text-sky-400">&lt;h3&gt;</code>, lists, and short definition paragraphs—not only inside client components.</span>
+                                <span class="text-emerald-700 font-bold">☐</span>
+                                <span><strong class="text-charcoal-body">Semantic HTML first:</strong> Put the primary answer, entity name, and key claims in server-rendered <code class="text-sky-700">&lt;h1&gt;</code>–<code class="text-sky-700">&lt;h3&gt;</code>, lists, and short definition paragraphs—not only inside client components.</span>
                             </li>
                             <li class="flex items-start space-x-2">
-                                <span class="text-emerald-400 font-bold">☐</span>
-                                <span><strong class="text-charcoal-body">JSON-LD entity graph:</strong> Ship <code class="text-sky-400">Article</code> + <code class="text-sky-400">FAQPage</code> + product/tool types (<code class="text-sky-400">SoftwareApplication</code>) with matching on-page copy for GPTBot and Google structured data.</span>
+                                <span class="text-emerald-700 font-bold">☐</span>
+                                <span><strong class="text-charcoal-body">JSON-LD entity graph:</strong> Ship <code class="text-sky-700">Article</code> + <code class="text-sky-700">FAQPage</code> + product/tool types (<code class="text-sky-700">SoftwareApplication</code>) with matching on-page copy for GPTBot and Google structured data.</span>
                             </li>
                             <li class="flex items-start space-x-2">
-                                <span class="text-emerald-400 font-bold">☐</span>
-                                <span><strong class="text-charcoal-body">Active <code class="text-sky-400">llms.txt</code>:</strong> Publish a root <code class="text-sky-400">llms.txt</code> that maps canonical URLs, entity names, and preferred summary snippets so LLM crawlers can discover your source-of-truth pages.</span>
+                                <span class="text-emerald-700 font-bold">☐</span>
+                                <span><strong class="text-charcoal-body">Active <code class="text-sky-700">llms.txt</code>:</strong> Publish a root <code class="text-sky-700">llms.txt</code> that maps canonical URLs, entity names, and preferred summary snippets so LLM crawlers can discover your source-of-truth pages.</span>
                             </li>
                             <li class="flex items-start space-x-2">
-                                <span class="text-emerald-400 font-bold">☐</span>
+                                <span class="text-emerald-700 font-bold">☐</span>
                                 <span><strong class="text-charcoal-body">Fast, crawlable HTML:</strong> Keep TTFB low, avoid soft 404 patterns, and ensure core facts appear in the initial HTML response for PerplexityBot-style extractors.</span>
                             </li>
                             <li class="flex items-start space-x-2">
-                                <span class="text-emerald-400 font-bold">☐</span>
-                                <span><strong class="text-charcoal-body">Bot allowlists:</strong> Confirm <code class="text-sky-400">robots.txt</code> permits Googlebot, GPTBot, and PerplexityBot on citation-critical paths; do not block the crawlers you want citations from.</span>
+                                <span class="text-emerald-700 font-bold">☐</span>
+                                <span><strong class="text-charcoal-body">Bot allowlists:</strong> Confirm <code class="text-sky-700">robots.txt</code> permits Googlebot, GPTBot, and PerplexityBot on citation-critical paths; do not block the crawlers you want citations from.</span>
                             </li>
                             <li class="flex items-start space-x-2">
-                                <span class="text-emerald-400 font-bold">☐</span>
+                                <span class="text-emerald-700 font-bold">☐</span>
                                 <span><strong class="text-charcoal-body">Answer-first blocks:</strong> Open sections with 2–3 sentence executive answers so AI Overviews and Perplexity can extract quotable units without scanning the entire page.</span>
                             </li>
                             <li class="flex items-start space-x-2">
-                                <span class="text-emerald-400 font-bold">☐</span>
-                                <span><strong class="text-charcoal-body">Entity consistency:</strong> Use one canonical product/brand string across H1, schema <code class="text-sky-400">name</code>, title tag, and <code class="text-sky-400">llms.txt</code> entries to strengthen multi-platform disambiguation.</span>
+                                <span class="text-emerald-700 font-bold">☐</span>
+                                <span><strong class="text-charcoal-body">Entity consistency:</strong> Use one canonical product/brand string across H1, schema <code class="text-sky-700">name</code>, title tag, and <code class="text-sky-700">llms.txt</code> entries to strengthen multi-platform disambiguation.</span>
                             </li>
                         </ul>
                     </div>
@@ -326,34 +328,9 @@
     </main>
 
     <!-- Footer -->
-    <footer class="border-t border-slate-800 bg-slate-900/30 py-8 mt-16 text-center text-xs text-slate-500">
+    <footer class="border-t border-slate-800 bg-slate-950 py-8 mt-16 text-center text-xs text-slate-500">
         <p>&copy; 2026 abcGEO. All rights reserved. Pioneering Generative Engine Optimization.</p>
     </footer>
 
-  <!-- Floating quick-tool launcher -->
-  <div class="quick-launcher" data-quick-launcher>
-    <div class="ql-panel" id="ql-panel" data-ql-panel aria-hidden="true">
-      <p class="ql-title">Quick start</p>
-      <p class="ql-sub">Open INSTASTACK with a stack already selected.</p>
-      <ul class="ql-list">
-        <li><a class="ql-item" href="../tools/instastack.html#s=eyJvcyI6ImxpbnV4X21pbnQiLCJ0b29scyI6WyJnaXQiLCJub2RlanMiLCJkb2NrZXIiLCJwb3N0Z3Jlc3FsIiwicmVkaXMiLCJ2c2NvZGUiLCJjdXJzb3IiLCJwb3N0bWFuIl19"><span>Full-Stack Node</span><span>8 tools</span></a></li>
-        <li><a class="ql-item" href="../tools/instastack.html#s=eyJvcyI6ImxpbnV4X21pbnQiLCJ0b29scyI6WyJnaXQiLCJmbHV0dGVyIiwiYW5kcm9pZF9zdHVkaW8iLCJ2c2NvZGUiLCJzcWxpdGUiXX0"><span>Flutter Mobile</span><span>5 tools</span></a></li>
-        <li><a class="ql-item" href="../tools/instastack.html#s=eyJvcyI6ImxpbnV4X21pbnQiLCJ0b29scyI6WyJnaXQiLCJweXRob24iLCJkb2NrZXIiLCJzcWxpdGUiLCJ2c2NvZGUiLCJjdXJzb3IiXX0"><span>Data Science</span><span>6 tools</span></a></li>
-        <li><a class="ql-item" href="../tools/instastack.html#s=eyJvcyI6ImxpbnV4X21pbnQiLCJ0b29scyI6WyJnaXQiLCJ6c2giLCJzdGFyc2hpcCJdfQ"><span>Minimal Shell</span><span>3 tools</span></a></li>
-      </ul>
-      <a class="ql-launch" href="../tools/instastack.html">Open INSTASTACK →</a>
-    </div>
-    <button class="ql-toggle" type="button" data-ql-toggle aria-expanded="false" aria-controls="ql-panel">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true">
-        <path d="M13 2L4.5 13.5H11l-1 8.5 8.5-11.5H12l1-8.5z" stroke-linejoin="round" />
-      </svg>
-      <span>Quick start</span>
-      <svg class="ql-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true">
-        <path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round" />
-      </svg>
-    </button>
-  </div>
-
-  <script src="../js/ui.js"></script>
 </body>
 </html>

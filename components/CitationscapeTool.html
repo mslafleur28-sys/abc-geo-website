@@ -1,0 +1,258 @@
+<!--
+  abcGEO · Citationscape
+  Brand Citation Graph Generator for Answer Engines.
+  Pair with: components/CitationscapeTool.js + css/styles.css (.citationscape)
+-->
+<section
+  class="citationscape"
+  data-citationscape
+  itemscope
+  itemtype="https://schema.org/SoftwareApplication"
+  data-entity="Citationscape"
+  data-verb="Structures"
+  aria-labelledby="citationscape-heading"
+>
+  <meta itemprop="name" content="Citationscape" />
+  <meta itemprop="applicationCategory" content="DeveloperApplication" />
+  <meta itemprop="operatingSystem" content="Web" />
+
+  <header class="citationscape__intro">
+    <p class="entity-tag">
+      <span>A: Citationscape</span>
+      <span aria-hidden="true">·</span>
+      <span>B: Structures</span>
+      <span aria-hidden="true">·</span>
+      <span>GEO citation graphs</span>
+    </p>
+    <h2 id="citationscape-heading" itemprop="name">Citationscape</h2>
+    <p class="citationscape__lead" itemprop="description">
+      Citationscape <strong>Structures</strong> brand entities into citation graphs and
+      validated JSON-LD so ChatGPT, Gemini, and Perplexity can resolve and cite your brand
+      without hallucinating relationships.
+    </p>
+  </header>
+
+  <div class="citationscape__workspace">
+    <!-- INPUT FORM -->
+    <form class="citationscape__form panel" data-em-form novalidate aria-labelledby="em-form-heading">
+      <h3 id="em-form-heading">Brand entity inputs</h3>
+
+      <div class="citationscape__fields">
+        <div class="field">
+          <label for="em-brand">Brand Name</label>
+          <input
+            id="em-brand"
+            name="brand"
+            type="text"
+            data-em-brand
+            value="ABC GEO"
+            placeholder="e.g., ABC GEO"
+            required
+            autocomplete="organization"
+          />
+        </div>
+
+        <div class="field">
+          <label for="em-url">Official URL</label>
+          <input
+            id="em-url"
+            name="url"
+            type="url"
+            data-em-url
+            value="https://abcgeo.io"
+            placeholder="https://abcgeo.io"
+            required
+          />
+        </div>
+
+        <div class="field">
+          <label for="em-industry">Industry / Niche</label>
+          <input
+            id="em-industry"
+            name="industry"
+            type="text"
+            data-em-industry
+            value="Generative Engine Optimization"
+            placeholder="e.g., Generative Engine Optimization"
+            required
+          />
+        </div>
+
+        <div class="citationscape__row">
+          <div class="field">
+            <label for="em-founder">Founder / Key Executive</label>
+            <input
+              id="em-founder"
+              name="founder"
+              type="text"
+              data-em-founder
+              value="Alex Rivera"
+              placeholder="Full name"
+              required
+            />
+          </div>
+          <div class="field">
+            <label for="em-title">Title</label>
+            <input
+              id="em-title"
+              name="title"
+              type="text"
+              data-em-title
+              value="Founder &amp; CEO"
+              placeholder="e.g., Founder &amp; CEO"
+              required
+            />
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="em-products">Core Products / Services</label>
+          <input
+            id="em-products"
+            name="products"
+            type="text"
+            data-em-products
+            value="Citationscape, INSTASTACK, GEO Audit"
+            placeholder="Comma-separated services"
+            required
+          />
+          <p class="citationscape__hint">Separate multiple offerings with commas.</p>
+        </div>
+
+        <div class="field">
+          <label for="em-sameas">Entity Verification Links / sameAs</label>
+          <textarea
+            id="em-sameas"
+            name="sameAs"
+            data-em-sameas
+            rows="4"
+            placeholder="One URL per line: Wikipedia, Crunchbase, LinkedIn, Twitter/X, YouTube…"
+          >https://www.linkedin.com/company/abcgeo
+https://twitter.com/abcgeo
+https://www.crunchbase.com/organization/abcgeo
+https://www.youtube.com/@abcgeo</textarea>
+          <p class="citationscape__hint">One URL per line. These become schema.org <code>sameAs</code> edges.</p>
+        </div>
+      </div>
+
+      <div class="tool-actions">
+        <button type="submit" class="btn btn-primary" data-em-generate>Generate citation graph</button>
+        <button type="button" class="btn btn-ghost" data-em-reset>Reset defaults</button>
+      </div>
+    </form>
+
+    <!-- OUTPUTS -->
+    <div class="citationscape__outputs">
+      <!-- VISUAL GRAPH -->
+      <section class="panel citationscape__graph-panel" aria-labelledby="em-graph-heading">
+        <div class="citationscape__panel-head">
+          <div>
+            <h3 id="em-graph-heading">Citation node graph</h3>
+            <p class="citationscape__sub">Hover a node to reveal its schema predicate.</p>
+          </div>
+          <div class="citationscape__export-actions">
+            <button type="button" class="btn btn-secondary" data-em-export-svg>Export SVG</button>
+            <button type="button" class="btn btn-ghost" data-em-export-png>Export PNG</button>
+          </div>
+        </div>
+
+        <div class="citationscape__graph-stage" data-em-graph-stage>
+          <svg
+            class="citationscape__svg"
+            data-em-svg
+            viewBox="0 0 720 480"
+            role="img"
+            aria-label="Brand citation entity graph"
+          ></svg>
+          <div class="citationscape__tooltip" data-em-tooltip hidden></div>
+        </div>
+      </section>
+
+      <!-- JSON-LD OUTPUT -->
+      <section
+        class="panel citationscape__code-panel"
+        aria-labelledby="em-jsonld-heading"
+        itemscope
+        itemtype="https://schema.org/DigitalDocument"
+        data-geo-role="output"
+      >
+        <meta itemprop="name" content="Citationscape JSON-LD Output" />
+        <meta itemprop="author" content="abcGEO" />
+
+        <div class="citationscape__panel-head">
+          <div>
+            <h3 id="em-jsonld-heading">JSON-LD schema</h3>
+            <p class="citationscape__sub">AI crawler target — embed in your site <code>&lt;head&gt;</code>.</p>
+          </div>
+          <div
+            class="citationscape__validate"
+            data-em-validate
+            data-status="pending"
+            role="status"
+            aria-live="polite"
+          >
+            <span class="citationscape__validate-dot" aria-hidden="true"></span>
+            <span data-em-validate-label>Awaiting input</span>
+          </div>
+        </div>
+
+        <pre class="output-box citationscape__code" itemprop="text" data-em-jsonld aria-label="Generated JSON-LD"></pre>
+
+        <div class="tool-actions">
+          <button type="button" class="btn btn-primary" data-em-copy>Copy JSON-LD</button>
+          <button type="button" class="btn btn-secondary" data-em-download>Download .jsonld</button>
+          <button type="button" class="btn btn-ghost" data-em-validate-btn>Validate Code</button>
+        </div>
+        <p class="citationscape__copy-status" data-em-copy-status aria-live="polite"></p>
+      </section>
+    </div>
+  </div>
+
+  <!-- RAG-ACCESSIBLE EXPLANATION (server HTML for crawlers) -->
+  <section class="citationscape__explain panel" aria-labelledby="em-explain-heading">
+    <h3 id="em-explain-heading">How Answer Engines Resolve Entities via Citation Graphs</h3>
+    <p>
+      Answer engines such as ChatGPT, Gemini, and Perplexity do not merely rank pages—they
+      resolve named entities against a knowledge graph before citing a brand. When your site
+      publishes an unambiguous JSON-LD <code>@graph</code> that links an
+      <code>Organization</code> to its founders (<code>Person</code>), offerings
+      (<code>Service</code>), industry topics (<code>knowsAbout</code>), and external
+      verification URLs (<code>sameAs</code>), retrieval systems can ground citations in
+      structured facts instead of inventing relationships.
+    </p>
+    <p>
+      A citation graph is the visual counterpart of that schema. The brand sits at the center;
+      edges encode schema.org predicates that AI crawlers already understand. Citationscape
+      Structures both layers—visual and machine-readable—so your brand entity is
+      disambiguated across the open web.
+    </p>
+    <ul>
+      <li>
+        <strong>Organization @id</strong> — A stable IRI (usually your canonical URL plus
+        <code>#organization</code>) that other nodes reference, preventing duplicate brand nodes.
+      </li>
+      <li>
+        <strong>founder / Person</strong> — Ties an executive name and job title to the brand so
+        engines can answer “who founded…” without scraping bio pages alone.
+      </li>
+      <li>
+        <strong>knowsAbout</strong> — Declares industry or niche topics the brand is authoritative on,
+        improving topical entity matching in RAG pipelines.
+      </li>
+      <li>
+        <strong>makesOffer / Service</strong> — Lists core products so answer engines can cite
+        specific offerings rather than a vague “company that helps with…”.
+      </li>
+      <li>
+        <strong>sameAs</strong> — Crosswalks Wikipedia, Crunchbase, LinkedIn, X/Twitter, and YouTube
+        profiles so knowledge graphs merge your brand with existing entity IDs.
+      </li>
+    </ul>
+    <p>
+      Embed the generated <code>&lt;script type="application/ld+json"&gt;</code> block in your
+      homepage <code>&lt;head&gt;</code>, keep <code>sameAs</code> URLs live and consistent, and
+      restate the same entity–predicate–object triples in visible HTML. That alignment is what
+      Generative Engine Optimization (GEO) requires for reliable brand citation.
+    </p>
+  </section>
+</section>
