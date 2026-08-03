@@ -1,0 +1,11 @@
+/* TEAM */
+Organization: abcGEO
+Site: https://abcgeo.dev/
+Contact: hello@abcgeo.com
+Focus: Generative Engine Optimization (GEO)
+
+/* SITE */
+Standards: HTML5, CSS3, JSON-LD, llms.txt
+Framework: A + B = GEO (Entity + Verb = citation-ready output)
+Last update: 2026-08
+Language: English

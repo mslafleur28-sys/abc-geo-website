@@ -8,7 +8,7 @@
 
   const DEFAULTS = {
     brand: 'ABC GEO',
-    url: 'https://abcgeo.io',
+    url: 'https://abcgeo.dev',
     industry: 'Generative Engine Optimization',
     founder: 'Alex Rivera',
     title: 'Founder & CEO',

@@ -1,0 +1,40 @@
+# abcGEO — https://abcgeo.dev
+# Allow classic search + major AI / LLM crawlers for Generative Engine Optimization
+
+User-agent: *
+Allow: /
+
+# OpenAI
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+# Anthropic
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+# Perplexity
+User-agent: PerplexityBot
+Allow: /
+
+# Google AI / Gemini
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Googlebot
+Allow: /
+
+# Common Crawl (training corpora often used by LLMs)
+User-agent: CCBot
+Allow: /
+
+# Block draft / template paths from indexing when crawled
+Disallow: /blog/post-template-02.html
+Disallow: /components/
+
+Sitemap: https://abcgeo.dev/sitemap.xml
