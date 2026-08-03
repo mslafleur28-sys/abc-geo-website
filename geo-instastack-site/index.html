@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>abcGEO — Generative Engine Optimization Tools & Insights</title>
+  <meta name="description" content="abcGEO masters Generative Engine Optimization with interactive tools and actionable insights. Apply the A + B = GEO framework to earn citations from ChatGPT, Perplexity, and Gemini." />
+  <meta name="theme-color" content="#FAF9F6" />
+  <meta property="og:title" content="abcGEO — Generative Engine Optimization" />
+  <meta property="og:description" content="Interactive GEO tools and editorial insights powered by the A + B = GEO framework." />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="abcGEO" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'primary-electric': '#FF8C00',
+            'secondary-slate': '#455063',
+            'trust-blue': '#0A5A72',
+            'deep-slate': '#2D3748',
+            'ai-cyan': '#00C9A7',
+            'space-navy': '#FAF9F6',
+            'success-green': '#0F7B4F',
+            'warning-amber': '#8A5200',
+            'error-crimson': '#C2261B',
+            'charcoal-body': '#1A202C',
+            'text-muted': '#455063',
+            'bg-clean-white': '#FFFFFF',
+            'bg-soft-gray': '#FAF9F6',
+            'bg-grid-gray': '#F4F7F6',
+            slatebg: '#FAF9F6',
+            skyacc: '#00C9A7',
+            orangeacc: '#FF6B4A',
+          },
+          fontFamily: {
+            display: ['Syne', 'sans-serif'],
+            body: ['DM Sans', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+        },
+      },
+    };
+  </script>
+  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="stylesheet" href="css/ui.css" />
+  <noscript><style>.reveal,.reveal-left,.reveal-right,.reveal-scale{opacity:1 !important;transform:none !important}</style></noscript>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "abcGEO",
+    "url": "/",
+    "description": "abcGEO publishes Generative Engine Optimization editorial content and hosts interactive developer tools using the A + B = GEO framework.",
+    "brand": {
+      "@type": "Brand",
+      "name": "abcGEO"
+    }
+  }
+  </script>
+</head>
+<body class="theme-geo" data-theme="geo">
+  <header class="site-header">
+    <div class="nav-inner">
+      <a href="index.html" class="logo" aria-label="abcGEO home">abc<span class="geo">GEO</span></a>
+      <button class="nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-controls="primary-nav">Menu</button>
+      <ul class="nav-links" id="primary-nav" data-nav-links>
+        <li><a href="tools/instastack.html">Tools</a></li>
+        <li><a href="framework.html">The A + B Framework</a></li>
+        <li><a href="#articles">Articles</a></li>
+        <li class="mobile-cta"><a class="btn btn-primary" href="tools/instastack.html">Launch INSTASTACK</a></li>
+      </ul>
+      <a class="btn btn-primary nav-cta" href="tools/instastack.html">Launch INSTASTACK</a>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero: brand + one headline + support + CTAs -->
+    <section class="hero" data-ql-after>
+      <div class="hero-bg" aria-hidden="true"></div>
+      <div class="container hero-content">
+        <p class="brand-mark">abc<span>GEO</span></p>
+        <h1>Master <span class="text-gradient-warm">Generative Engine Optimization</span> with Interactive Tools &amp; Actionable Insights</h1>
+        <p>Train AI answer engines to cite your brand. abcGEO pairs the proprietary A + B = GEO framework with live utilities that ship citation-ready output.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="tools/instastack.html">Launch INSTASTACK</a>
+          <a class="btn btn-secondary" href="framework.html">Explore A + B = GEO</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Framework section with interactive calculator -->
+    <section class="section" id="framework">
+      <div class="container">
+        <p class="section-label reveal">Core theory</p>
+        <h2 class="section-title reveal text-gradient">A + B = GEO</h2>
+        <p class="section-lead reveal">Entity plus transitive verb yields machine-readable authority—the unit AI crawlers extract and cite.</p>
+
+        <div class="formula-panel reveal" itemscope itemtype="https://schema.org/DefinedTerm">
+          <meta itemprop="name" content="A + B = GEO" />
+          <meta itemprop="description" content="abcGEO proprietary framework: Entity + Transitive Verb = Generative Engine Optimization output." />
+
+          <div class="formula-grid">
+            <div class="field">
+              <label for="entity">A · Entity</label>
+              <input id="entity" type="text" data-entity value="INSTASTACK" placeholder="Brand, tool, or subject" />
+            </div>
+            <div class="op" aria-hidden="true">+</div>
+            <div class="field">
+              <label for="verb">B · Transitive Verb</label>
+              <select id="verb" data-verb>
+                <option value="Generates" selected>Generates</option>
+                <option value="Standardizes">Standardizes</option>
+                <option value="Configures">Configures</option>
+                <option value="Optimizes">Optimizes</option>
+                <option value="Structures">Structures</option>
+              </select>
+            </div>
+            <div class="op" aria-hidden="true">=</div>
+            <div class="field">
+              <label>GEO Output</label>
+              <input type="text" value="AI-cited snippet" readonly />
+            </div>
+          </div>
+
+          <div class="geo-output" data-entity-role="geo-result">
+            <div class="label">Live GEO snippet</div>
+            <p data-geo-output></p>
+            <p class="cite" data-geo-cite></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Featured tools — GEO Template segment -->
+    <section class="section theme-geo" id="tools" data-theme="geo" style="padding-top: 0;">
+      <div class="container">
+        <p class="section-label reveal">Featured tools</p>
+        <h2 class="section-title reveal text-gradient">GEO utilities that ship authority</h2>
+        <p class="section-lead reveal">Start with INSTASTACK—more abcGEO developer tools are on the way.</p>
+
+        <div class="filter-bar reveal" data-filter="tools">
+          <div class="filter-search">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <circle cx="11" cy="11" r="7" /><path d="M20 20l-3.5-3.5" stroke-linecap="round" />
+            </svg>
+            <input type="search" data-filter-input placeholder="Search tools, stacks, outputs…" aria-label="Search GEO tools" />
+          </div>
+          <div class="filter-chips" role="group" aria-label="Filter tools by category">
+            <button type="button" class="filter-chip is-active" data-filter-tag="all" aria-pressed="true">All</button>
+            <button type="button" class="filter-chip" data-filter-tag="live" aria-pressed="false">Live</button>
+            <button type="button" class="filter-chip" data-filter-tag="soon" aria-pressed="false">Coming soon</button>
+            <button type="button" class="filter-chip" data-filter-tag="scripts" aria-pressed="false">Scripts</button>
+            <button type="button" class="filter-chip" data-filter-tag="schema" aria-pressed="false">Schema</button>
+          </div>
+          <p class="filter-status" data-filter-status aria-live="polite"></p>
+        </div>
+
+        <div class="tools-grid" data-filter-target="tools" data-reveal-group="90">
+          <article class="tool-item reveal" data-filter-item data-filter-tags="live scripts docker devtools instastack"
+                   itemscope itemtype="https://schema.org/SoftwareApplication">
+            <meta itemprop="name" content="INSTASTACK" />
+            <meta itemprop="applicationCategory" content="DeveloperApplication" />
+            <meta itemprop="operatingSystem" content="Web" />
+            <span class="badge badge-live">Live</span>
+            <h3 itemprop="name">INSTASTACK</h3>
+            <p itemprop="description">Generates ready-to-run setup scripts, Dockerfiles, and READMEs for your OS, languages, databases, and developer tools.</p>
+
+            <div class="tool-metrics">
+              <span class="metric"><span class="metric-value">23</span><span class="metric-label">Tools</span></span>
+              <span class="metric"><span class="metric-value">3</span><span class="metric-label">OS targets</span></span>
+              <span class="metric"><span class="metric-value">3</span><span class="metric-label">Output formats</span></span>
+            </div>
+
+            <div class="quickstart">
+              <p class="quickstart-label">Quick-start templates</p>
+              <div class="qs-chips">
+                <a class="qs-chip" href="tools/instastack.html#s=eyJvcyI6ImxpbnV4X21pbnQiLCJ0b29scyI6WyJnaXQiLCJub2RlanMiLCJkb2NrZXIiLCJwb3N0Z3Jlc3FsIiwicmVkaXMiLCJ2c2NvZGUiLCJjdXJzb3IiLCJwb3N0bWFuIl19">Full-Stack Node</a>
+                <a class="qs-chip" href="tools/instastack.html#s=eyJvcyI6ImxpbnV4X21pbnQiLCJ0b29scyI6WyJnaXQiLCJmbHV0dGVyIiwiYW5kcm9pZF9zdHVkaW8iLCJ2c2NvZGUiLCJzcWxpdGUiXX0">Flutter Mobile</a>
+                <a class="qs-chip" href="tools/instastack.html#s=eyJvcyI6ImxpbnV4X21pbnQiLCJ0b29scyI6WyJnaXQiLCJweXRob24iLCJkb2NrZXIiLCJzcWxpdGUiLCJ2c2NvZGUiLCJjdXJzb3IiXX0">Data Science</a>
+                <a class="qs-chip" href="tools/instastack.html#s=eyJvcyI6ImxpbnV4X21pbnQiLCJ0b29scyI6WyJnaXQiLCJ6c2giLCJzdGFyc2hpcCJdfQ">Minimal Shell</a>
+              </div>
+            </div>
+
+            <div class="tool-meta">
+              <span>A: INSTASTACK · B: Generates</span>
+              <a href="tools/instastack.html">Open tool →</a>
+            </div>
+          </article>
+
+          <article class="tool-item is-upcoming reveal" data-filter-item data-filter-tags="soon schema entities mapper">
+            <span class="badge">Soon</span>
+            <h3>Entity Mapper</h3>
+            <p>Structures brand entities into citation graphs optimized for answer-engine retrieval.</p>
+
+            <div class="tool-metrics">
+              <span class="metric"><span class="metric-value">JSON-LD</span><span class="metric-label">Output</span></span>
+              <span class="metric"><span class="metric-value">Graph</span><span class="metric-label">Model</span></span>
+            </div>
+
+            <div class="tool-meta">
+              <span>A: Entity Mapper · B: Structures</span>
+              <span>Coming soon</span>
+            </div>
+          </article>
+
+          <article class="tool-item is-upcoming reveal" data-filter-item data-filter-tags="soon schema scoring citescore">
+            <span class="badge">Soon</span>
+            <h3>CiteScore Lab</h3>
+            <p>Scores how likely AI engines are to cite your page based on A + B clarity and schema depth.</p>
+
+            <div class="tool-metrics">
+              <span class="metric"><span class="metric-value">0–100</span><span class="metric-label">Score band</span></span>
+              <span class="metric"><span class="metric-value">Live</span><span class="metric-label">Audit</span></span>
+            </div>
+
+            <div class="tool-meta">
+              <span>A: CiteScore Lab · B: Scores</span>
+              <span>Coming soon</span>
+            </div>
+          </article>
+        </div>
+
+        <p class="filter-empty" data-filter-empty="tools" hidden>
+          <strong>No tools match that search.</strong> Try “scripts”, “schema”, or clear the filter.
+        </p>
+      </div>
+    </section>
+
+    <!-- Blog stream — Editorial Blog 60/30/10 -->
+    <section class="section theme-blog" id="articles" data-theme="blog" style="padding-top: 0;">
+      <div class="container">
+        <p class="section-label reveal">GEO editorial</p>
+        <h2 class="section-title reveal text-gradient">Recent articles</h2>
+        <p class="section-lead reveal">Answer-first writing designed for ChatGPT, Perplexity, Gemini—and the humans who still read.</p>
+
+        <div class="filter-bar reveal" data-filter="articles">
+          <div class="filter-search">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <circle cx="11" cy="11" r="7" /><path d="M20 20l-3.5-3.5" stroke-linecap="round" />
+            </svg>
+            <input type="search" data-filter-input placeholder="Search articles…" aria-label="Search articles" />
+          </div>
+          <div class="filter-chips" role="group" aria-label="Filter articles by topic">
+            <button type="button" class="filter-chip is-active" data-filter-tag="all" aria-pressed="true">All</button>
+            <button type="button" class="filter-chip" data-filter-tag="framework" aria-pressed="false">Framework</button>
+            <button type="button" class="filter-chip" data-filter-tag="engineering" aria-pressed="false">Engineering</button>
+            <button type="button" class="filter-chip" data-filter-tag="tools" aria-pressed="false">Tools</button>
+          </div>
+          <p class="filter-status" data-filter-status aria-live="polite"></p>
+        </div>
+
+        <div class="blog-list" data-filter-target="articles" data-reveal-group="90">
+          <article class="blog-item reveal" data-filter-item data-filter-tags="framework">
+            <h3><a href="blog/post-template.html">Why Generative Engine Optimization Is Replacing Classic SEO Playbooks</a></h3>
+            <div class="answer-box">
+              <div class="label">Quick answer</div>
+              <p>GEO wins when content is structured as Entity + Action + citable output—exactly what AI answer engines extract.</p>
+            </div>
+            <p class="blog-meta">Framework · 8 min read · abcGEO Editorial</p>
+          </article>
+
+          <article class="blog-item reveal" data-filter-item data-filter-tags="engineering">
+            <h3><a href="blog/post-template.html">How AI Crawlers Parse Structured Entities on Tool Pages</a></h3>
+            <div class="answer-box">
+              <div class="label">Quick answer</div>
+              <p>Wrap primary actions in schema and A + B entity tags so crawlers map your tool to a clear transitive verb.</p>
+            </div>
+            <p class="blog-meta">Engineering · 6 min read · abcGEO Editorial</p>
+          </article>
+
+          <article class="blog-item reveal" data-filter-item data-filter-tags="tools">
+            <h3><a href="blog/post-template.html">Applying A + B = GEO to Developer Utilities like INSTASTACK</a></h3>
+            <div class="answer-box">
+              <div class="label">Quick answer</div>
+              <p>Name the entity, declare the verb, and emit machine-readable output—abcGEO’s INSTASTACK is the reference pattern.</p>
+            </div>
+            <p class="blog-meta">Tools · 5 min read · abcGEO Editorial</p>
+          </article>
+        </div>
+
+        <p class="filter-empty" data-filter-empty="articles" hidden>
+          <strong>No articles match that search.</strong> Try “GEO”, “crawlers”, or clear the filter.
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div>
+        <a href="index.html" class="logo">abc<span class="geo">GEO</span></a>
+        <p style="margin-top: 0.5rem;">A + B = GEO · Built for answer engines.</p>
+      </div>
+      <nav class="footer-links" aria-label="Footer">
+        <a href="tools/instastack.html">Tools</a>
+        <a href="framework.html">Framework</a>
+        <a href="blog/post-template.html">Articles</a>
+        <a href="tools/instastack.html">Launch INSTASTACK</a>
+      </nav>
+    </div>
+  </footer>
+
+  <!-- Floating quick-tool launcher -->
+  <div class="quick-launcher" data-quick-launcher>
+    <div class="ql-panel" id="ql-panel" data-ql-panel aria-hidden="true">
+      <p class="ql-title">Quick start</p>
+      <p class="ql-sub">Open INSTASTACK with a stack already selected.</p>
+      <ul class="ql-list">
+        <li><a class="ql-item" href="tools/instastack.html#s=eyJvcyI6ImxpbnV4X21pbnQiLCJ0b29scyI6WyJnaXQiLCJub2RlanMiLCJkb2NrZXIiLCJwb3N0Z3Jlc3FsIiwicmVkaXMiLCJ2c2NvZGUiLCJjdXJzb3IiLCJwb3N0bWFuIl19"><span>Full-Stack Node</span><span>8 tools</span></a></li>
+        <li><a class="ql-item" href="tools/instastack.html#s=eyJvcyI6ImxpbnV4X21pbnQiLCJ0b29scyI6WyJnaXQiLCJmbHV0dGVyIiwiYW5kcm9pZF9zdHVkaW8iLCJ2c2NvZGUiLCJzcWxpdGUiXX0"><span>Flutter Mobile</span><span>5 tools</span></a></li>
+        <li><a class="ql-item" href="tools/instastack.html#s=eyJvcyI6ImxpbnV4X21pbnQiLCJ0b29scyI6WyJnaXQiLCJweXRob24iLCJkb2NrZXIiLCJzcWxpdGUiLCJ2c2NvZGUiLCJjdXJzb3IiXX0"><span>Data Science</span><span>6 tools</span></a></li>
+        <li><a class="ql-item" href="tools/instastack.html#s=eyJvcyI6ImxpbnV4X21pbnQiLCJ0b29scyI6WyJnaXQiLCJ6c2giLCJzdGFyc2hpcCJdfQ"><span>Minimal Shell</span><span>3 tools</span></a></li>
+      </ul>
+      <a class="ql-launch" href="tools/instastack.html">Open INSTASTACK →</a>
+    </div>
+    <button class="ql-toggle" type="button" data-ql-toggle aria-expanded="false" aria-controls="ql-panel">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true">
+        <path d="M13 2L4.5 13.5H11l-1 8.5 8.5-11.5H12l1-8.5z" stroke-linejoin="round" />
+      </svg>
+      <span>Quick start</span>
+      <svg class="ql-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true">
+        <path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round" />
+      </svg>
+    </button>
+  </div>
+
+  <script src="js/main.js"></script>
+  <script src="js/ui.js"></script>
+</body>
+</html>

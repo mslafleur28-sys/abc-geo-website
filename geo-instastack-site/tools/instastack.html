@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>INSTASTACK — Dev Environment Configurator | abcGEO</title>
+  <meta name="description" content="INSTASTACK by abcGEO generates ready-to-run setup scripts, Dockerfiles, and READMEs for your OS, languages, databases, and developer tools." />
+  <meta name="theme-color" content="#FAF9F6" />
+  <meta property="og:title" content="INSTASTACK — Dev Environment Configurator | abcGEO" />
+  <meta property="og:description" content="A: INSTASTACK · B: Generates · GEO: setup scripts, Dockerfiles, and stack READMEs." />
+  <meta property="og:site_name" content="abcGEO" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'primary-electric': '#FF8C00',
+            'secondary-slate': '#455063',
+            'trust-blue': '#0A5A72',
+            'deep-slate': '#2D3748',
+            'ai-cyan': '#00C9A7',
+            'space-navy': '#FAF9F6',
+            'success-green': '#0F7B4F',
+            'warning-amber': '#8A5200',
+            'error-crimson': '#C2261B',
+            'charcoal-body': '#1A202C',
+            'text-muted': '#455063',
+            'bg-clean-white': '#FFFFFF',
+            'bg-soft-gray': '#FAF9F6',
+            'bg-grid-gray': '#F4F7F6',
+            slatebg: '#FAF9F6',
+            skyacc: '#00C9A7',
+            orangeacc: '#FF6B4A',
+          },
+          fontFamily: {
+            display: ['Syne', 'sans-serif'],
+            body: ['DM Sans', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+        },
+      },
+    };
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/devicon.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css" />
+  <link rel="stylesheet" href="../css/styles.css" />
+  <link rel="stylesheet" href="../css/instastack-tool.css" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "INSTASTACK",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "Web",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "description": "INSTASTACK Generates ready-to-run setup scripts, Dockerfiles, and README documentation for developer environments across Linux, macOS, and Windows.",
+    "publisher": {
+      "@type": "Organization",
+      "name": "abcGEO"
+    },
+    "brand": {
+      "@type": "Brand",
+      "name": "abcGEO"
+    },
+    "featureList": [
+      "Cross-platform setup script generation (bash and PowerShell)",
+      "Dockerfile and README export",
+      "Preset stacks for Node/React, Flutter, data science, and minimal terminals",
+      "Live stack architecture visualizer",
+      "Shareable configuration URLs",
+      "A + B = GEO metadata embedding"
+    ]
+  }
+  </script>
+  <link rel="stylesheet" href="../css/ui.css" />
+  <noscript><style>.reveal,.reveal-left,.reveal-right,.reveal-scale{opacity:1 !important;transform:none !important}</style></noscript>
+</head>
+<body class="theme-geo" data-theme="geo">
+  <header class="site-header">
+    <div class="nav-inner">
+      <a href="../index.html" class="logo" aria-label="abcGEO home">abc<span class="geo">GEO</span></a>
+      <button class="nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-controls="primary-nav">Menu</button>
+      <ul class="nav-links" id="primary-nav" data-nav-links>
+        <li><a href="instastack.html" class="active">Tools</a></li>
+        <li><a href="../framework.html">The A + B Framework</a></li>
+        <li><a href="../index.html#articles">Articles</a></li>
+        <li class="mobile-cta"><a class="btn btn-primary" href="instastack.html">Launch INSTASTACK</a></li>
+      </ul>
+      <a class="btn btn-primary nav-cta" href="instastack.html">Launch INSTASTACK</a>
+    </div>
+  </header>
+
+  <main class="tool-shell">
+    <div class="container">
+      <header class="tool-header" itemscope itemtype="https://schema.org/SoftwareApplication" data-entity="INSTASTACK" data-verb="Generates">
+        <meta itemprop="name" content="INSTASTACK" />
+        <meta itemprop="applicationCategory" content="DeveloperApplication" />
+        <div class="entity-tag">
+          <span>A: INSTASTACK</span>
+          <span aria-hidden="true">·</span>
+          <span>B: Generates</span>
+          <span aria-hidden="true">·</span>
+          <span>GEO output</span>
+        </div>
+        <h1 itemprop="name">INSTASTACK</h1>
+        <p itemprop="description" class="section-lead">
+          INSTASTACK <strong>Generates</strong> ready-to-run setup scripts, Dockerfiles, and READMEs—
+          citation-ready GEO output for developer environments, published under the abcGEO brand.
+        </p>
+      </header>
+    </div>
+
+    <div
+      id="instastack-app"
+      class="reveal"
+      itemscope
+      itemtype="https://schema.org/DigitalDocument"
+      data-entity="INSTASTACK"
+      data-verb="Generates"
+      data-geo-role="output"
+    >
+      <meta itemprop="name" content="INSTASTACK GEO Output" />
+      <meta itemprop="author" content="abcGEO" />
+<div class="container">
+  <header class="hero">
+    <div class="brand">
+      <div class="brand-mark" aria-hidden="true"></div>
+      <div class="brand-name">INSTASTACK</div>
+    </div>
+    <p class="hero-sub">Pick your OS, languages, and tools — get a ready-to-run setup script in seconds.</p>
+  </header>
+
+  <section class="presets" aria-label="Preset stacks">
+    <p class="presets-label">1-Click Preset Stacks</p>
+    <div class="preset-row">
+      <button type="button" class="preset-btn" data-preset="fullstack" onclick="applyPreset('fullstack')">Full-Stack Node/React</button>
+      <button type="button" class="preset-btn" data-preset="flutter" onclick="applyPreset('flutter')">Flutter Mobile Dev</button>
+      <button type="button" class="preset-btn" data-preset="datascience" onclick="applyPreset('datascience')">Data Science / Python</button>
+      <button type="button" class="preset-btn" data-preset="minimal" onclick="applyPreset('minimal')">Minimal Linux Terminal</button>
+    </div>
+  </section>
+
+  <div class="grid">
+    <div class="panel">
+      <h2 class="panel-label"><span class="step">1</span> Target OS</h2>
+      <div class="tool-grid">
+      <label class="tool-card">
+        <input type="radio" name="os" value="linux_mint" checked onchange="onManualChange()">
+        <span class="tool-card-face">
+          <span class="tool-icon"><i class="devicon-linux-plain colored" aria-hidden="true"></i></span>
+          <span class="tool-card-name">Linux Mint / Ubuntu</span>
+        </span>
+      </label>
+      <label class="tool-card">
+        <input type="radio" name="os" value="macos" onchange="onManualChange()">
+        <span class="tool-card-face">
+          <span class="tool-icon"><i class="devicon-apple-original" aria-hidden="true"></i></span>
+          <span class="tool-card-name">macOS</span>
+        </span>
+      </label>
+      <label class="tool-card">
+        <input type="radio" name="os" value="windows" onchange="onManualChange()">
+        <span class="tool-card-face">
+          <span class="tool-icon"><i class="devicon-windows11-original colored" aria-hidden="true"></i></span>
+          <span class="tool-card-name">Windows</span>
+        </span>
+      </label>
+      </div>
+    </div>
+
+    <div class="panel">
+      <h2 class="panel-label"><span class="step">2</span> Languages & Runtimes</h2>
+      <div class="tool-grid">
+      <label class="tool-card">
+        <input type="checkbox" value="git" checked onchange="onManualChange()">
+        <span class="tool-card-face">
+          <span class="tool-icon"><i class="devicon-git-plain colored" aria-hidden="true"></i></span>
+          <span class="tool-card-name">Git</span>
+        </span>
+      </label>
+      <label class="tool-card">
+        <input type="checkbox" value="nodejs" checked onchange="onManualChange()">
+        <span class="tool-card-face">
+          <span class="tool-icon"><i class="devicon-nodejs-plain colored" aria-hidden="true"></i></span>
+          <span class="tool-card-name">Node.js</span>
+        </span>
+      </label>
+      <label class="tool-card">
+        <input type="checkbox" value="python" onchange="onManualChange()">
+        <span class="tool-card-face">
+          <span class="tool-icon"><i class="devicon-python-plain colored" aria-hidden="true"></i></span>
+          <span class="tool-card-name">Python</span>
+        </span>
+      </label>
+      <label class="tool-card">
+        <input type="checkbox" value="go" onchange="onManualChange()">
+        <span class="tool-card-face">
+          <span class="tool-icon"><i class="devicon-go-original-wordmark" aria-hidden="true"></i></span>
+          <span class="tool-card-name">Go</span>
+        </span>
+      </label>
+      <label class="tool-card">
+        <input type="checkbox" value="rust" onchange="onManualChange()">
+        <span class="tool-card-face">
+          <span class="tool-icon"><i class="devicon-rust-original" aria-hidden="true"></i></span>
+          <span class="tool-card-name">Rust</span>
+        </span>
+      </label>
+      <label class="tool-card">
+        <input type="checkbox" value="java" onchange="onManualChange()">
+        <span class="tool-card-face">
+          <span class="tool-icon"><i class="devicon-java-plain colored" aria-hidden="true"></i></span>
+          <span class="tool-card-name">Java / JDK</span>
+        </span>
+      </label>
+      <label class="tool-card">
+        <input type="checkbox" value="php" onchange="onManualChange()">
+        <span class="tool-card-face">
+          <span class="tool-icon"><i class="devicon-php-plain colored" aria-hidden="true"></i></span>
+          <span class="tool-card-name">PHP</span>
+        </span>
+      </label>
+      <label class="tool-card">
+        <input type="checkbox" value="ruby" onchange="onManualChange()">
+        <span class="tool-card-face">
+          <span class="tool-icon"><i class="devicon-ruby-plain colored" aria-hidden="true"></i></span>
+          <span class="tool-card-name">Ruby</span>
+        </span>
+      </label>
+      <label class="tool-card">
+        <input type="checkbox" value="flutter" onchange="onManualChange()">
+        <span class="tool-card-face">
+          <span class="tool-icon"><i class="devicon-flutter-plain colored" aria-hidden="true"></i></span>
+          <span class="tool-card-name">Flutter</span>
+        </span>
+      </label>
+      <label class="tool-card">
+        <input type="checkbox" value="docker" onchange="onManualChange()">
+        <span class="tool-card-face">
+          <span class="tool-icon"><i class="devicon-docker-plain colored" aria-hidden="true"></i></span>
+          <span class="tool-card-name">Docker</span>
+        </span>
+      </label>
+      </div>
+    </div>
+
+    <div class="panel">
+      <h2 class="panel-label orange"><span class="step">3</span> Databases & Local Services</h2>
+      <div class="tool-grid">
+      <label class="tool-card">
+        <input type="checkbox" value="postgresql" onchange="onManualChange()">
+        <span class="tool-card-face">
+          <span class="tool-icon"><i class="devicon-postgresql-plain colored" aria-hidden="true"></i></span>
+          <span class="tool-card-name">PostgreSQL</span>
+        </span>
+      </label>
+      <label class="tool-card">
+        <input type="checkbox" value="mysql" onchange="onManualChange()">
+        <span class="tool-card-face">
+          <span class="tool-icon"><i class="devicon-mysql-plain colored" aria-hidden="true"></i></span>
+          <span class="tool-card-name">MySQL</span>
+        </span>
+      </label>
+      <label class="tool-card">
+        <input type="checkbox" value="redis" onchange="onManualChange()">
+        <span class="tool-card-face">
+          <span class="tool-icon"><i class="devicon-redis-plain colored" aria-hidden="true"></i></span>
+          <span class="tool-card-name">Redis</span>
+        </span>
+      </label>
+      <label class="tool-card">
+        <input type="checkbox" value="sqlite" onchange="onManualChange()">
+        <span class="tool-card-face">
+          <span class="tool-icon"><i class="devicon-sqlite-plain colored" aria-hidden="true"></i></span>
+          <span class="tool-card-name">SQLite</span>
+        </span>
+      </label>
+      </div>
+    </div>
+
+    <div class="panel">
+      <h2 class="panel-label orange"><span class="step">4</span> IDEs & Developer Tools</h2>
+      <div class="tool-grid">
+      <label class="tool-card">
+        <input type="checkbox" value="vscode" checked onchange="onManualChange()">
+        <span class="tool-card-face">
+          <span class="tool-icon"><i class="devicon-vscode-plain colored" aria-hidden="true"></i></span>
+          <span class="tool-card-name">VS Code</span>
+        </span>
+      </label>
+      <label class="tool-card">
+        <input type="checkbox" value="cursor" onchange="onManualChange()">
+        <span class="tool-card-face">
+          <span class="tool-icon"><svg class="tool-svg" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M4 3l16 8.5-7.2 1.9L9.5 21 4 3zm7.1 10.2l3.7-1 3.2-6.9-8.4 4.5 1.5 3.4z"/></svg></span>
+          <span class="tool-card-name">Cursor Pro</span>
+        </span>
+      </label>
+      <label class="tool-card">
+        <input type="checkbox" value="android_studio" onchange="onManualChange()">
+        <span class="tool-card-face">
+          <span class="tool-icon"><i class="devicon-androidstudio-plain colored" aria-hidden="true"></i></span>
+          <span class="tool-card-name">Android Studio</span>
+        </span>
+      </label>
+      <label class="tool-card">
+        <input type="checkbox" value="postman" onchange="onManualChange()">
+        <span class="tool-card-face">
+          <span class="tool-icon"><i class="devicon-postman-plain colored" aria-hidden="true"></i></span>
+          <span class="tool-card-name">Postman</span>
+        </span>
+      </label>
+      <label class="tool-card">
+        <input type="checkbox" value="insomnia" onchange="onManualChange()">
+        <span class="tool-card-face">
+          <span class="tool-icon"><svg class="tool-svg" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 100 20 10 10 0 000-20zm0 3a7 7 0 017 7c0 2.8-1.6 5.2-4 6.3A7 7 0 0112 5z"/></svg></span>
+          <span class="tool-card-name">Insomnia</span>
+        </span>
+      </label>
+      <label class="tool-card">
+        <input type="checkbox" value="zsh" onchange="onManualChange()">
+        <span class="tool-card-face">
+          <span class="tool-icon"><svg class="tool-svg" viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M4 7l5 5-5 5M12 17h8"/></svg></span>
+          <span class="tool-card-name">Zsh / OMZ</span>
+        </span>
+      </label>
+      <label class="tool-card">
+        <input type="checkbox" value="starship" onchange="onManualChange()">
+        <span class="tool-card-face">
+          <span class="tool-icon"><svg class="tool-svg" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2l2.2 6.8H21l-5.5 4 2.1 6.7L12 15.8 6.4 19.5 8.5 12.8 3 8.8h6.8L12 2z"/></svg></span>
+          <span class="tool-card-name">Starship</span>
+        </span>
+      </label>
+      <label class="tool-card">
+        <input type="checkbox" value="gitkraken" onchange="onManualChange()">
+        <span class="tool-card-face">
+          <span class="tool-icon"><i class="devicon-gitkraken-plain colored" aria-hidden="true"></i></span>
+          <span class="tool-card-name">GitKraken</span>
+        </span>
+      </label>
+      <label class="tool-card">
+        <input type="checkbox" value="github_desktop" onchange="onManualChange()">
+        <span class="tool-card-face">
+          <span class="tool-icon"><i class="devicon-github-original" aria-hidden="true"></i></span>
+          <span class="tool-card-name">GitHub Desktop</span>
+        </span>
+      </label>
+      </div>
+    </div>
+  </div>
+
+  <section class="env-panel" id="env-panel">
+    <h2 class="panel-label"><span class="step">5</span> Variable Customization</h2>
+    <p class="env-intro">These values are written into your setup script as defaults — override anytime with CLI flags.</p>
+    <div class="env-grid">
+      <div class="field">
+        <label for="git-name">
+          Git User Name
+          <span class="field-flag">--git-name</span>
+        </label>
+        <input id="git-name" type="text" placeholder="Ada Lovelace" autocomplete="name" oninput="generate()">
+        <p class="field-hint">Sets <code>git config --global user.name</code></p>
+      </div>
+      <div class="field">
+        <label for="git-email">
+          Git Email
+          <span class="field-flag">--git-email</span>
+        </label>
+        <input id="git-email" type="email" placeholder="ada@example.com" autocomplete="email" oninput="generate()">
+        <p class="field-hint">Sets <code>git config --global user.email</code></p>
+      </div>
+      <div class="field">
+        <label for="install-dir">
+          Preferred Installation Directory
+          <span class="field-flag">--install-dir</span>
+        </label>
+        <input id="install-dir" type="text" placeholder="~/Projects" autocomplete="off" oninput="generate()">
+        <p class="field-hint">Created on disk and exported as <code>INSTALL_DIR</code></p>
+      </div>
+    </div>
+    <div class="env-flags-preview is-empty" id="env-flags-preview" aria-live="polite">./setup.sh</div>
+  </section>
+
+  <div class="output-section">
+    <div class="output-header">
+      <div class="tabs">
+        <button type="button" class="tab-btn active" data-tab="script" onclick="switchTab('script', this)">setup.sh</button>
+        <button type="button" class="tab-btn" data-tab="dockerfile" onclick="switchTab('dockerfile', this)">Dockerfile</button>
+        <button type="button" class="tab-btn" data-tab="readme" onclick="switchTab('readme', this)">README.md</button>
+      </div>
+    </div>
+
+    <div class="export-actions" role="group" aria-label="Export actions">
+      <button type="button" class="btn btn-primary" id="copy-btn" onclick="copyOutput()">Copy to Terminal</button>
+      <button type="button" class="btn btn-accent" id="download-btn" onclick="downloadOutput()">Download setup.sh</button>
+      <button type="button" class="btn btn-curl" id="curl-btn" onclick="copyQuickRun()">1-Click Curl Command</button>
+    </div>
+
+    <div class="quick-run" id="quick-run">
+      <span class="quick-run-meta" id="quick-run-meta">1-Click Curl</span>
+      <code class="quick-run-cmd" id="quick-run-cmd" title="Click to copy" onclick="copyQuickRun()">curl -sSL https://instastack.app/s/config | bash</code>
+      <button type="button" class="btn btn-ghost" id="quick-copy-btn" onclick="copyQuickRun()">Copy</button>
+      <p class="quick-run-hint" id="quick-run-hint">Paste into your terminal to fetch and run this stack installer in one shot.</p>
+    </div>
+
+    <div class="code-frame">
+      <div class="code-chrome">
+        <span></span><span></span><span></span>
+        <div class="filename" id="output-filename">setup.sh</div>
+      </div>
+      <pre class="language-bash"><code id="output-code" class="language-bash"></code></pre>
+    </div>
+  </div>
+
+  <section class="arch-section" id="arch-section" aria-label="Stack architecture visualizer">
+    <div class="arch-header">
+      <div class="arch-header-copy">
+        <h2>Stack Architecture</h2>
+        <p>Live map of how your selected client, API, and data layers connect.</p>
+      </div>
+      <div class="arch-legend" aria-hidden="true">
+        <span class="lg-frontend">Frontend</span>
+        <span class="lg-backend">Backend</span>
+        <span class="lg-data">Database</span>
+      </div>
+    </div>
+
+    <div class="arch-canvas is-empty" id="arch-canvas">
+      <div class="arch-docker-badge" id="arch-docker-badge">
+        <i class="devicon-docker-plain colored" aria-hidden="true"></i>
+        Containerized
+      </div>
+
+      <svg width="0" height="0" aria-hidden="true">
+        <defs>
+          <linearGradient id="arch-grad-a" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#00B4D8"/>
+            <stop offset="100%" stop-color="#FF6B4A"/>
+          </linearGradient>
+          <linearGradient id="arch-grad-b" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#FF6B4A"/>
+            <stop offset="100%" stop-color="#00C9A7"/>
+          </linearGradient>
+        </defs>
+      </svg>
+
+      <div class="arch-flow" id="arch-flow">
+        <div class="arch-layer" data-layer="frontend">
+          <p class="arch-layer-title">Frontend</p>
+          <div class="arch-nodes" id="arch-frontend"></div>
+        </div>
+
+        <div class="arch-connector" data-edge="api" id="arch-edge-api">
+          <svg viewBox="0 0 72 28" aria-hidden="true">
+            <path class="arch-line" d="M4 14 H58"></path>
+            <path class="arch-arrow" d="M52 8 L64 14 L52 20"></path>
+          </svg>
+          <span class="arch-connector-label">HTTP / API</span>
+        </div>
+
+        <div class="arch-layer" data-layer="backend">
+          <p class="arch-layer-title">Backend</p>
+          <div class="arch-nodes" id="arch-backend"></div>
+        </div>
+
+        <div class="arch-connector" data-edge="data" id="arch-edge-data">
+          <svg viewBox="0 0 72 28" aria-hidden="true">
+            <path class="arch-line" d="M4 14 H58"></path>
+            <path class="arch-arrow" d="M52 8 L64 14 L52 20"></path>
+          </svg>
+          <span class="arch-connector-label">SQL / Cache</span>
+        </div>
+
+        <div class="arch-layer" data-layer="data">
+          <p class="arch-layer-title">Database</p>
+          <div class="arch-nodes" id="arch-data"></div>
+        </div>
+      </div>
+
+      <div class="arch-empty" id="arch-empty">
+        Select a frontend, backend, or database tool above to visualize your architecture.
+      </div>
+    </div>
+
+    <div class="arch-detail" id="arch-detail" aria-live="polite">
+      Hover or focus a node to inspect how it fits in the request flow.
+    </div>
+  </section>
+</div>
+    </div>
+
+    <div class="container">
+      <div class="callout reveal" style="margin-top: 2rem;">
+        <strong>A + B in practice:</strong> INSTASTACK is the Entity; <em>Generates</em> is the Verb;
+        the setup script, Dockerfile, and README are the GEO Output. Learn the full model on
+        <a href="../framework.html">The A + B Framework</a> page from abcGEO.
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div>
+        <a href="../index.html" class="logo">abc<span class="geo">GEO</span></a>
+        <p style="margin-top: 0.5rem;">A + B = GEO · Built for answer engines.</p>
+      </div>
+      <nav class="footer-links" aria-label="Footer">
+        <a href="instastack.html">Tools</a>
+        <a href="../framework.html">Framework</a>
+        <a href="../blog/post-template.html">Articles</a>
+        <a href="instastack.html">Launch INSTASTACK</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-bash.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-powershell.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-docker.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-markdown.min.js"></script>
+  <script src="../js/main.js"></script>
+  <script src="../js/instastack.js"></script>
+  <script src="../js/ui.js"></script>
+</body>
+</html>

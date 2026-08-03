@@ -1,0 +1,674 @@
+/* ============================================================================
+   abcGEO — UI layer
+   Glassmorphism, micro-interactions and engagement widgets.
+
+   Layers on top of css/styles.css. Every token below falls back to a literal,
+   so this file can also be dropped onto the Tailwind-only blog posts that do
+   not load the shared design system.
+   Load order: styles.css → instastack-tool.css → ui.css
+   ========================================================================== */
+
+:root {
+  --ui-coral:      var(--color-coral, #FF6B4A);
+  --ui-amber:      var(--color-amber, #FF8C00);
+  --ui-teal:       var(--color-teal, #00C9A7);
+  --ui-cyan:       var(--color-cyan, #00B4D8);
+  --ui-warm-ink:   var(--color-warm-ink, #8F2F10);
+  --ui-teal-ink:   var(--color-teal-ink, #00564C);
+  --ui-cyan-ink:   var(--color-cyan-ink, #0A5A72);
+  --ui-ink:        var(--color-ink, #1A202C);
+  --ui-ink-muted:  var(--color-ink-muted, #455063);
+  --ui-ink-on-fill:var(--color-ink-cta, #141A23);
+  --ui-cream:      var(--color-cream, #FAF9F6);
+  --ui-cream-alt:  var(--color-cream-alt, #F4F7F6);
+  --ui-white:      var(--color-white, #FFFFFF);
+  --ui-border:     var(--color-border, rgba(26, 32, 44, 0.12));
+  --ui-font-display: var(--font-display, 'Syne', sans-serif);
+  --ui-font-mono:    var(--font-mono, 'JetBrains Mono', monospace);
+  --ui-ease:       var(--ease-energetic, cubic-bezier(0.34, 1.56, 0.64, 1));
+
+  /* Frosted glass: kept at high opacity so text on top stays AAA-legible */
+  --ui-glass:        rgba(255, 255, 255, 0.74);
+  --ui-glass-strong: rgba(255, 255, 255, 0.86);
+  --ui-glass-blur:   saturate(180%) blur(16px);
+  --ui-glass-edge:   inset 0 1px 0 rgba(255, 255, 255, 0.85);
+
+  /* Multi-layered ambient glow — warm coral + cool teal, cast softly */
+  --ui-ambient: 0 1px 2px rgba(26, 32, 44, 0.04),
+                0 8px 20px -12px rgba(255, 107, 74, 0.16),
+                0 6px 18px -14px rgba(0, 201, 167, 0.18);
+  --ui-ambient-hover: 0 2px 6px rgba(26, 32, 44, 0.05),
+                      0 22px 44px -18px rgba(255, 107, 74, 0.30),
+                      0 18px 40px -22px rgba(0, 201, 167, 0.32),
+                      0 0 0 1px rgba(0, 201, 167, 0.22);
+  --ui-ambient-warm:  0 2px 6px rgba(26, 32, 44, 0.05),
+                      0 24px 48px -18px rgba(255, 140, 0, 0.34),
+                      0 16px 36px -22px rgba(255, 107, 74, 0.30);
+}
+
+/* Anchors clear the sticky header when smooth-scrolled to */
+html { scroll-behavior: smooth; }
+:target,
+[id] { scroll-margin-top: 5.5rem; }
+
+/* ============================================================================
+   1. Glassmorphism & depth
+   ========================================================================== */
+
+.glass,
+.site-header {
+  background: var(--ui-glass);
+  -webkit-backdrop-filter: var(--ui-glass-blur);
+  backdrop-filter: var(--ui-glass-blur);
+}
+
+.site-header {
+  box-shadow: var(--ui-glass-edge), 0 1px 0 var(--ui-border);
+  transition: background 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Header firms up once the page scrolls under it */
+.site-header.is-scrolled {
+  background: var(--ui-glass-strong);
+  box-shadow: var(--ui-glass-edge), 0 10px 30px -18px rgba(255, 107, 74, 0.30),
+              0 6px 20px -14px rgba(0, 201, 167, 0.26);
+}
+
+/* Frosted surfaces for cards and tool containers */
+.formula-panel,
+.tool-item,
+.blog-item,
+.eq-part,
+#instastack-app .panel,
+#instastack-app .env-panel,
+#instastack-app .output-section,
+#instastack-app .arch-section {
+  background: var(--ui-glass-strong);
+  -webkit-backdrop-filter: var(--ui-glass-blur);
+  backdrop-filter: var(--ui-glass-blur);
+  box-shadow: var(--ui-glass-edge), var(--ui-ambient);
+}
+
+/* ============================================================================
+   2. Micro-interactions
+   ========================================================================== */
+
+.tool-item,
+.blog-item,
+.eq-part,
+#instastack-app .panel {
+  transition: transform 0.3s var(--ui-ease), box-shadow 0.3s ease,
+              border-color 0.3s ease, background 0.3s ease;
+  will-change: transform;
+}
+
+.tool-item:hover,
+.blog-item:hover,
+.eq-part:hover {
+  transform: translateY(-4px) scale(1.02);
+  border-color: rgba(0, 201, 167, 0.45);
+  box-shadow: var(--ui-glass-edge), var(--ui-ambient-hover);
+}
+
+/* Tool panels lift without scaling — they hold live checkboxes and inputs,
+   so scaling mid-interaction would soften the text under the cursor. */
+#instastack-app .panel:hover {
+  transform: translateY(-4px);
+  border-color: rgba(0, 201, 167, 0.45);
+  box-shadow: var(--ui-glass-edge), var(--ui-ambient-hover);
+}
+
+/* Buttons: soft lift + scale + accent glow */
+.btn,
+.nav-links a.btn {
+  transition: transform 0.24s var(--ui-ease), background 0.24s ease,
+              border-color 0.24s ease, box-shadow 0.24s ease, color 0.24s ease;
+}
+
+.btn:hover,
+.nav-links a.btn:hover {
+  transform: translateY(-2px) scale(1.02);
+}
+
+.btn:active,
+.nav-links a.btn:active {
+  transform: translateY(0) scale(0.99);
+}
+
+.btn-primary:hover,
+.nav-links a.btn-primary:hover {
+  box-shadow: var(--ui-ambient-warm);
+}
+
+.btn-secondary:hover,
+.btn-ghost:hover {
+  box-shadow: var(--ui-ambient-hover);
+}
+
+/* Shimmer sweep across the primary CTA */
+.btn-primary {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.btn-primary::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(115deg, transparent 20%, rgba(255, 255, 255, 0.55) 50%, transparent 80%);
+  transform: translateX(-120%);
+  transition: transform 0.7s ease;
+}
+
+.btn-primary:hover::after {
+  transform: translateX(120%);
+}
+
+/* ============================================================================
+   3. Entry animations (fade-in / slide-up on scroll)
+   `.reveal` toggling is handled by js/main.js; js/ui.js adds the stagger.
+   ========================================================================== */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity 0.65s ease, transform 0.65s var(--ui-ease);
+}
+
+.reveal-left  { transform: translateX(-22px); }
+.reveal-right { transform: translateX(22px); }
+.reveal-scale { transform: scale(0.96); }
+
+.reveal.visible,
+.reveal-left.visible,
+.reveal-right.visible,
+.reveal-scale.visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* ============================================================================
+   4. Gradient heading accents (text clipping)
+   Stops are all AAA-dark, so clipped text stays legible on cream and white.
+   ========================================================================== */
+
+.text-gradient {
+  background: linear-gradient(100deg, var(--ui-ink) 0%, var(--ui-warm-ink) 48%, var(--ui-teal-ink) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  /* Keeps descenders from being clipped by the background box */
+  padding-bottom: 0.08em;
+}
+
+.text-gradient-warm {
+  background: linear-gradient(100deg, var(--ui-warm-ink) 0%, #9A3412 55%, var(--ui-ink) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  padding-bottom: 0.08em;
+}
+
+/* ============================================================================
+   5. Live search / quick filter bar
+   ========================================================================== */
+
+.filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 1.75rem 0 0.5rem;
+  padding: 0.7rem 0.8rem;
+  border: 1px solid var(--ui-border);
+  border-radius: 999px;
+  background: var(--ui-glass-strong);
+  -webkit-backdrop-filter: var(--ui-glass-blur);
+  backdrop-filter: var(--ui-glass-blur);
+  box-shadow: var(--ui-glass-edge), var(--ui-ambient);
+  transition: box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.filter-bar:focus-within {
+  border-color: rgba(0, 201, 167, 0.5);
+  box-shadow: var(--ui-glass-edge), var(--ui-ambient-hover);
+}
+
+.filter-search {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  flex: 1 1 15rem;
+  min-width: 0;
+  padding-left: 0.65rem;
+}
+
+.filter-search svg {
+  width: 1.05rem;
+  height: 1.05rem;
+  flex-shrink: 0;
+  color: var(--ui-teal-ink);
+}
+
+.filter-search input {
+  flex: 1 1 auto;
+  min-width: 0;
+  border: 0;
+  background: transparent;
+  color: var(--ui-ink);
+  font-family: inherit;
+  font-size: 0.95rem;
+  padding: 0.35rem 0;
+}
+
+.filter-search input::placeholder { color: var(--ui-ink-muted); }
+.filter-search input:focus { outline: none; }
+.filter-search input::-webkit-search-cancel-button { cursor: pointer; }
+
+.filter-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.filter-chip {
+  border: 1px solid var(--ui-border);
+  background: var(--ui-white);
+  color: var(--ui-ink-muted);
+  font-family: inherit;
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 0.4rem 0.85rem;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: transform 0.22s var(--ui-ease), background 0.22s ease,
+              color 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease;
+}
+
+.filter-chip:hover {
+  transform: translateY(-1px) scale(1.02);
+  border-color: rgba(0, 201, 167, 0.5);
+  color: var(--ui-teal-ink);
+  box-shadow: 0 6px 14px -8px rgba(0, 201, 167, 0.5);
+}
+
+.filter-chip.is-active {
+  background: var(--ui-teal);
+  border-color: var(--ui-teal);
+  color: var(--ui-ink-on-fill);
+  box-shadow: 0 8px 18px -8px rgba(0, 201, 167, 0.6);
+}
+
+.filter-status {
+  flex: 0 0 auto;
+  margin: 0 0.5rem 0 auto;
+  font-family: var(--ui-font-mono);
+  font-size: 0.72rem;
+  color: var(--ui-ink-muted);
+}
+
+.filter-empty {
+  margin: 1.5rem 0 0;
+  padding: 1.5rem;
+  border: 1px dashed rgba(0, 201, 167, 0.45);
+  border-radius: 0.9rem;
+  background: rgba(0, 201, 167, 0.07);
+  color: var(--ui-ink-muted);
+  text-align: center;
+}
+
+.filter-empty strong { color: var(--ui-ink); }
+
+/* Items animate out/in as the filter runs */
+[data-filter-item] {
+  transition: opacity 0.28s ease, transform 0.28s var(--ui-ease);
+}
+
+[data-filter-item].is-filtered-out {
+  display: none;
+}
+
+@media (max-width: 620px) {
+  .filter-bar {
+    border-radius: 1.1rem;
+    align-items: stretch;
+  }
+
+  .filter-status {
+    margin: 0 0 0 0.65rem;
+  }
+}
+
+/* ============================================================================
+   6. Interactive tool cards
+   ========================================================================== */
+
+/* Column layout lets `.tool-meta` pin to the bottom so cards of differing
+   content length still line their footers up. */
+.tool-item {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  position: relative;
+  overflow: hidden;
+}
+
+.tool-item .badge {
+  align-self: flex-start;
+  margin-bottom: 0.75rem;
+}
+
+/* Accent wash that blooms in on hover */
+.tool-item::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  background: radial-gradient(circle at 85% 0%, rgba(255, 107, 74, 0.14), transparent 55%),
+              radial-gradient(circle at 0% 100%, rgba(0, 201, 167, 0.14), transparent 55%);
+  transition: opacity 0.35s ease;
+}
+
+.tool-item:hover::before { opacity: 1; }
+
+.tool-item > * { position: relative; }
+
+.tool-metrics {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin: 0.15rem 0 0.9rem;
+}
+
+.metric {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 0.05rem;
+  padding: 0.4rem 0.7rem;
+  border: 1px solid var(--ui-border);
+  border-radius: 0.6rem;
+  background: var(--ui-white);
+  transition: transform 0.22s var(--ui-ease), border-color 0.22s ease, box-shadow 0.22s ease;
+}
+
+.tool-item:hover .metric {
+  border-color: rgba(0, 201, 167, 0.4);
+  box-shadow: 0 6px 14px -10px rgba(0, 201, 167, 0.6);
+}
+
+.metric-value {
+  font-family: var(--ui-font-display);
+  font-size: 1.05rem;
+  font-weight: 800;
+  line-height: 1.1;
+  color: var(--ui-warm-ink);
+}
+
+.metric-label {
+  font-family: var(--ui-font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ui-ink-muted);
+}
+
+.quickstart {
+  margin: 0.35rem 0 1rem;
+}
+
+.quickstart-label {
+  margin: 0 0 0.5rem;
+  font-family: var(--ui-font-mono);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--ui-teal-ink);
+}
+
+.qs-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+/* Each chip deep-links into INSTASTACK with a pre-selected stack (#s= config) */
+.qs-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.35rem 0.7rem;
+  border: 1px solid rgba(0, 201, 167, 0.4);
+  border-radius: 999px;
+  background: rgba(0, 201, 167, 0.10);
+  color: #00463E;
+  font-size: 0.76rem;
+  font-weight: 600;
+  transition: transform 0.22s var(--ui-ease), background 0.22s ease,
+              border-color 0.22s ease, box-shadow 0.22s ease;
+}
+
+.qs-chip:hover {
+  transform: translateY(-2px) scale(1.03);
+  background: var(--ui-teal);
+  border-color: var(--ui-teal);
+  color: var(--ui-ink-on-fill);
+  box-shadow: 0 10px 20px -10px rgba(0, 201, 167, 0.75);
+}
+
+.qs-chip::before {
+  content: '▸';
+  font-size: 0.7em;
+  opacity: 0.8;
+}
+
+.tool-meta {
+  margin-top: auto;
+  padding-top: 0.85rem;
+  border-top: 1px solid var(--ui-border);
+}
+
+/* Cards for tools that are not shipped yet */
+.tool-item.is-upcoming {
+  background: var(--ui-glass);
+}
+
+.tool-item.is-upcoming .metric-value { color: var(--ui-ink-muted); }
+
+/* ============================================================================
+   7. Floating quick-tool launcher
+   ========================================================================== */
+
+.quick-launcher {
+  position: fixed;
+  right: max(1.1rem, env(safe-area-inset-right));
+  bottom: max(1.1rem, env(safe-area-inset-bottom));
+  z-index: 60;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.6rem;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(14px) scale(0.96);
+  transition: opacity 0.35s ease, transform 0.35s var(--ui-ease), visibility 0.35s;
+}
+
+.quick-launcher.is-visible {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+}
+
+.ql-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.8rem 1.15rem;
+  border: 0;
+  border-radius: 999px;
+  background: linear-gradient(135deg, var(--ui-amber) 0%, var(--ui-coral) 100%);
+  color: var(--ui-ink-on-fill);
+  font-family: inherit;
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: var(--ui-ambient-warm);
+  transition: transform 0.24s var(--ui-ease), box-shadow 0.24s ease, background 0.24s ease;
+}
+
+.ql-toggle:hover {
+  transform: translateY(-2px) scale(1.03);
+  background: linear-gradient(135deg, #FFA033 0%, var(--ui-amber) 100%);
+  box-shadow: 0 26px 52px -18px rgba(255, 140, 0, 0.55),
+              0 18px 40px -22px rgba(255, 107, 74, 0.5);
+}
+
+.ql-toggle svg {
+  width: 1.05rem;
+  height: 1.05rem;
+}
+
+.ql-toggle .ql-chevron {
+  transition: transform 0.3s var(--ui-ease);
+}
+
+.quick-launcher.is-open .ql-toggle .ql-chevron {
+  transform: rotate(180deg);
+}
+
+.ql-panel {
+  width: min(19rem, calc(100vw - 2.2rem));
+  padding: 0.9rem;
+  border: 1px solid var(--ui-border);
+  border-radius: 1rem;
+  background: var(--ui-glass-strong);
+  -webkit-backdrop-filter: var(--ui-glass-blur);
+  backdrop-filter: var(--ui-glass-blur);
+  box-shadow: var(--ui-glass-edge), 0 28px 60px -24px rgba(255, 107, 74, 0.34),
+              0 20px 46px -26px rgba(0, 201, 167, 0.34);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px) scale(0.97);
+  transform-origin: bottom right;
+  transition: opacity 0.28s ease, transform 0.28s var(--ui-ease), visibility 0.28s;
+}
+
+.quick-launcher.is-open .ql-panel {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+}
+
+.ql-title {
+  margin: 0 0 0.15rem;
+  font-family: var(--ui-font-mono);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ui-teal-ink);
+}
+
+.ql-sub {
+  margin: 0 0 0.7rem;
+  font-size: 0.8rem;
+  color: var(--ui-ink-muted);
+}
+
+.ql-list {
+  display: grid;
+  gap: 0.35rem;
+  margin: 0 0 0.7rem;
+  padding: 0;
+  list-style: none;
+}
+
+.ql-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.6rem;
+  padding: 0.55rem 0.7rem;
+  border: 1px solid var(--ui-border);
+  border-radius: 0.6rem;
+  background: var(--ui-white);
+  color: var(--ui-ink);
+  font-size: 0.85rem;
+  font-weight: 600;
+  transition: transform 0.22s var(--ui-ease), border-color 0.22s ease,
+              background 0.22s ease, box-shadow 0.22s ease;
+}
+
+.ql-item:hover {
+  transform: translateX(3px);
+  border-color: rgba(0, 201, 167, 0.5);
+  background: rgba(0, 201, 167, 0.09);
+  box-shadow: 0 8px 18px -10px rgba(0, 201, 167, 0.6);
+}
+
+.ql-item span:last-child {
+  font-family: var(--ui-font-mono);
+  font-size: 0.66rem;
+  color: var(--ui-ink-muted);
+}
+
+.ql-launch {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  padding: 0.6rem 0.9rem;
+  border-radius: 0.6rem;
+  background: var(--ui-teal);
+  color: var(--ui-ink-on-fill);
+  font-size: 0.85rem;
+  font-weight: 700;
+  transition: transform 0.22s var(--ui-ease), background 0.22s ease, box-shadow 0.22s ease;
+}
+
+.ql-launch:hover {
+  transform: translateY(-2px) scale(1.02);
+  background: #2BDCC0;
+  box-shadow: 0 12px 24px -10px rgba(0, 201, 167, 0.7);
+}
+
+@media (max-width: 520px) {
+  .quick-launcher { gap: 0.5rem; }
+  .ql-toggle { padding: 0.7rem 1rem; font-size: 0.85rem; }
+}
+
+/* ============================================================================
+   8. Reduced motion — disable transforms/animation, keep content visible
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+
+  .reveal,
+  .reveal-left,
+  .reveal-right,
+  .reveal-scale {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .btn-primary::after { display: none; }
+
+  .tool-item:hover,
+  .blog-item:hover,
+  .eq-part:hover,
+  .btn:hover,
+  .qs-chip:hover,
+  .ql-item:hover,
+  .ql-toggle:hover,
+  .filter-chip:hover,
+  #instastack-app .panel:hover {
+    transform: none !important;
+  }
+}
