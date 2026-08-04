@@ -55,6 +55,7 @@
     };
   </script>
   <link rel="stylesheet" href="../css/styles.css" />
+  <link rel="stylesheet" href="../css/author-sidebar.css" />
 
   <script type="application/ld+json">
   {
@@ -150,7 +151,8 @@
     </article>
 
     <section class="section" style="padding-top: 1.5rem;">
-      <div class="container prose">
+      <div class="container blog-layout">
+        <div class="blog-layout__main prose">
         <div class="answer-box">
           <div class="label">Answer-first</div>
           <p>Speed up web maps by shrinking GeoJSON (simplify geometries, drop unused properties), fetching only the viewport, and moving dense layers to vector tiles when FeatureCollections stop scaling.</p>
@@ -285,19 +287,43 @@ gdf.to_file("parcels-simplified.geojson", driver="GeoJSON")</code></pre>
           <a class="btn btn-primary" href="../web-mapping-guide.html">Back to Pillar 2</a>
           <a class="btn btn-secondary" href="../tools/shapefile-to-geojson.html" style="margin-left: 0.5rem;">Start from Shapefile</a>
         </p>
+</div>
 
-        <aside class="author-card author-card--flush" aria-labelledby="author-card-heading" style="margin-top: 2.5rem;">
-          <div class="author-card__inner">
-            <img class="author-card__avatar" src="../assets/kayla-lafleur.jpg" alt="Kayla LaFleur, Founder and Author, seated at a desk in a professional office setting." width="52" height="52" />
-            <div class="author-card__body">
-              <p class="author-card__label">About the Author</p>
-              <h2 id="author-card-heading" class="author-card__name">Kayla LaFleur</h2>
-              <p class="author-card__bio">Specialist in spatial data engineering and web mapping. Creator of the A+B=GEO framework for Generative Engine Optimization.</p>
-              <a class="author-card__link" href="../author/kayla-lafleur.html">Read full bio →</a>
-            </div>
+      <aside class="author-sidebar" aria-labelledby="author-sidebar-heading">
+        <div class="author-sidebar__inner">
+          <p class="author-sidebar__eyebrow">About the Author</p>
+          <img
+            class="author-sidebar__photo"
+            src="../images/kayla-lafleur.jpg"
+            alt="Kayla LaFleur, Founder and Author, seated at a desk in a professional office setting."
+            width="116"
+            height="116"
+          />
+          <h2 id="author-sidebar-heading" class="author-sidebar__name">Kayla LaFleur</h2>
+          <p class="author-sidebar__role">Geospatial &amp; GEO Specialist</p>
+
+          <div class="author-sidebar__block">
+            <h3 class="author-sidebar__block-title">Key Frameworks:</h3>
+            <ul>
+              <li>Creator of the A+B=GEO Formula</li>
+              <li>Pillar-based Geospatial Authority Mapping</li>
+              <li>Conversion-driven Technical Schema</li>
+            </ul>
           </div>
-        </aside>
-      </div>
+
+          <div class="author-sidebar__block">
+            <h3 class="author-sidebar__block-title">Knows About:</h3>
+            <ul>
+              <li>Technical SEO &amp; GEO Strategy</li>
+              <li>Geospatial Data &amp; Web Mapping</li>
+              <li>Schema.org Structured Data</li>
+            </ul>
+          </div>
+
+          <a class="author-sidebar__cta" href="../author/kayla-lafleur.html">Read full bio &amp; connect</a>
+        </div>
+      </aside>
+    </div>
     </section>
   </main>
 
