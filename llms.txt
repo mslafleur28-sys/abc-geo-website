@@ -24,6 +24,9 @@ abcGEO applies the proprietary formula **A + B = GEO**: pair a named Entity (A) 
 - [All tools](https://abcgeo.dev/tools.html)
 
 ## Key editorial (answer-first)
+- [Complete Guide to Modern Web Mapping & Spatial Analysis](https://abcgeo.dev/web-mapping-guide.html): Pillar 2 guide to Leaflet.js, Mapbox GL / MapLibre, PostGIS, and GeoPandas
+- [Build Custom Interactive Maps with Leaflet and Mapbox](https://abcgeo.dev/blog/build-interactive-maps-leaflet-mapbox.html): Cluster tutorial for open-source interactive web maps
+- [Optimizing Heavy GeoJSON for Faster Web Performance](https://abcgeo.dev/blog/optimize-geojson-vector-tiles-performance.html): Simplification and vector tiles for faster maps
 - [Complete Guide to Geographic Data Conversion](https://abcgeo.dev/pillar-1-geographic-data-conversion.html): Pillar guide to GeoJSON, KML/KMZ, Shapefile, and spatial CSV conversion
 - [The 2026 AI Search Citation Audit](https://abcgeo.dev/blog/ai-search-citation-audit-2026.html)
 - [Optimizing for AI Overviews, ChatGPT & Perplexity](https://abcgeo.dev/blog/optimizing-ai-overviews-chatgpt-perplexity.html)

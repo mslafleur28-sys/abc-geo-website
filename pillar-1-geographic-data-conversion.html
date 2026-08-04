@@ -67,9 +67,9 @@
     "datePublished": "2026-08-03",
     "dateModified": "2026-08-03",
     "author": {
-      "@type": "Organization",
-      "name": "abcGEO",
-      "url": "https://abcgeo.dev/"
+      "@type": "Person",
+      "name": "Kayla LaFleur",
+      "url": "https://abcgeo.dev/author/kayla-lafleur.html"
     },
     "publisher": {
       "@type": "Organization",
@@ -752,20 +752,20 @@
           </p>
 
           <div class="cluster-grid">
-            <a class="cluster-card cluster-card--soon" href="blog.html" aria-label="Shapefile vs GeoJSON Performance Benchmark — coming soon">
-              <p class="cluster-card__tag">Coming soon · Cluster</p>
-              <h3>Shapefile vs GeoJSON Performance Benchmark</h3>
-              <p>Load times, parse cost, and file size trade-offs for web maps—when to keep Shapefile in the warehouse and ship GeoJSON to the browser.</p>
+            <a class="cluster-card" href="web-mapping-guide.html">
+              <p class="cluster-card__tag">Pillar 2 · Web mapping</p>
+              <h3>Modern web mapping &amp; spatial analysis</h3>
+              <p>Leaflet, Mapbox GL, PostGIS, and GeoPandas—where converted GeoJSON actually ships in production apps.</p>
+            </a>
+            <a class="cluster-card" href="blog/optimize-geojson-vector-tiles-performance.html">
+              <p class="cluster-card__tag">Cluster · Performance</p>
+              <h3>Optimizing heavy GeoJSON &amp; vector tiles</h3>
+              <p>Simplification and tiling strategies when FeatureCollections get too heavy for the browser.</p>
             </a>
             <a class="cluster-card cluster-card--soon" href="blog.html" aria-label="Fixing Invalid Geometries — coming soon">
               <p class="cluster-card__tag">Coming soon · Cluster</p>
               <h3>Fixing Invalid Geometries</h3>
               <p>Closed rings, winding order, self-intersections, and multi-polygon repair before your converter or map renderer rejects the layer.</p>
-            </a>
-            <a class="cluster-card" href="blog/interactive-web-utilities-as-traffic-drivers.html">
-              <p class="cluster-card__tag">Related · Editorial</p>
-              <h3>Interactive Web Utilities as Traffic Drivers</h3>
-              <p>Why live converters and tools outperform static explainers for engagement and topical authority.</p>
             </a>
             <a class="cluster-card" href="tools.html#converters">
               <p class="cluster-card__tag">Action · Tools</p>
@@ -777,7 +777,8 @@
           <div class="callout" style="margin-top: 1.75rem;">
             <strong>Keep building the cluster:</strong> pair this pillar with hands-on runs on
             <a href="tools/kml-to-geojson.html">KML to GeoJSON</a> and
-            <a href="tools/geojson-to-kml.html">GeoJSON to KML</a>, share cleaned GeoJSON with your team, and watch for upcoming deep-dives on performance and geometry validity.
+            <a href="tools/geojson-to-kml.html">GeoJSON to KML</a>, then continue into
+            <a href="web-mapping-guide.html">Pillar 2 web mapping</a> when you are ready to render and optimize layers.
           </div>
 
           <p style="margin-top: 2rem;">
@@ -787,6 +788,18 @@
         </section>
       </article>
     </div>
+
+    <aside class="author-card" aria-labelledby="author-card-heading">
+      <div class="author-card__inner">
+        <img class="author-card__avatar" src="assets/kayla-lafleur.jpg" alt="Kayla LaFleur, Founder and Author, seated at a desk in a professional office setting." width="52" height="52" />
+        <div class="author-card__body">
+          <p class="author-card__label">About the Author</p>
+          <h2 id="author-card-heading" class="author-card__name">Kayla LaFleur</h2>
+          <p class="author-card__bio">Specialist in spatial data engineering and web mapping. Creator of the A+B=GEO framework for Generative Engine Optimization.</p>
+          <a class="author-card__link" href="author/kayla-lafleur.html">Read full bio →</a>
+        </div>
+      </div>
+    </aside>
   </main>
 
   <footer class="site-footer">
@@ -801,6 +814,8 @@
         <a href="tools.html">Tools</a>
         <a href="blog.html">Blog</a>
         <a href="contact.html">Contact</a>
+        <a href="web-mapping-guide.html">Web mapping</a>
+        <a href="pillar-1-geographic-data-conversion.html">Data conversion</a>
       </nav>
     </div>
   </footer>
