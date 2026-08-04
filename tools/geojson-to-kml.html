@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="twitter:image" content="https://abcgeo.dev/assets/og-abcgeo.png" />
+  <meta name="twitter:description" content="Convert GeoJSON to KML online with abcGEO. Paste or upload FeatureCollections and download Google Earth–ready KML. Free, browser-based, no install." />
+  <meta name="twitter:title" content="GeoJSON to KML Converter — Free Online Tool | abcGEO" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta property="og:image" content="https://abcgeo.dev/assets/og-abcgeo.png" />
+  <meta property="og:url" content="https://abcgeo.dev/tools/geojson-to-kml.html" />
+  <meta property="og:type" content="website" />
+  <link rel="apple-touch-icon" href="../assets/favicon.svg" />
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
+  <link rel="canonical" href="https://abcgeo.dev/tools/geojson-to-kml.html" />
+  <title>GeoJSON to KML Converter — Free Online Tool | abcGEO</title>
+  <meta name="description" content="Convert GeoJSON to KML online with abcGEO. Paste or upload FeatureCollections and download Google Earth–ready KML. Free, browser-based, no install." />
+  <meta name="keywords" content="GeoJSON to KML, convert GeoJSON, KML converter, Google Earth" />
+  <meta name="theme-color" content="#FF6B4A" />
+  <meta property="og:title" content="GeoJSON to KML Converter — Free Online Tool | abcGEO" />
+  <meta property="og:description" content="Convert GeoJSON to KML online with abcGEO. Paste or upload FeatureCollections and download Google Earth–ready KML. Free, browser-based, no install." />
+  <meta property="og:site_name" content="abcGEO" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'primary-electric': '#FF6B4A',
+            'secondary-slate': '#64748B',
+            'trust-blue': '#00B4D8',
+            'deep-slate': '#2D3748',
+            'ai-cyan': '#00B4D8',
+            'space-navy': '#1A202C',
+            'success-green': '#00C9A7',
+            'warning-amber': '#FF8C00',
+            'error-crimson': '#EF4444',
+            'charcoal-body': '#1A202C',
+            'text-muted': '#64748B',
+            'bg-clean-white': '#FFFFFF',
+            'bg-soft-gray': '#FAF9F6',
+            'bg-grid-gray': '#F4F7F6',
+            slatebg: '#FAF9F6',
+            skyacc: '#00B4D8',
+            orangeacc: '#FF6B4A',
+          },
+          fontFamily: {
+            display: ['Syne', 'sans-serif'],
+            body: ['DM Sans', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+        },
+      },
+    };
+  </script>
+  <link rel="stylesheet" href="../css/styles.css" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "GeoJSON to KML Converter",
+    "url": "https://abcgeo.dev/tools/geojson-to-kml.html",
+    "applicationCategory": "BrowserApplication",
+    "operatingSystem": "Web",
+    "browserRequirements": "Requires JavaScript",
+    "description": "Convert GeoJSON to KML online with abcGEO. Paste or upload FeatureCollections and download Google Earth–ready KML. Free, browser-based, no install.",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "abcGEO",
+      "url": "https://abcgeo.dev/"
+    },
+    "brand": {
+      "@type": "Brand",
+      "name": "abcGEO"
+    },
+    "featureList": [
+      "GeoJSON → KML conversion",
+      "Browser-based processing",
+      "Copy and download output"
+    ],
+    "isAccessibleForFree": true,
+    "isPartOf": {
+      "@type": "WebSite",
+      "name": "abcGEO",
+      "url": "https://abcgeo.dev/"
+    }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "GeoJSON to KML Converter",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "Web",
+    "url": "https://abcgeo.dev/tools/geojson-to-kml.html",
+    "description": "Convert GeoJSON to KML online with abcGEO. Paste or upload FeatureCollections and download Google Earth–ready KML. Free, browser-based, no install.",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "abcGEO"
+    }
+  }
+  </script>
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://abcgeo.dev/"},{"@type":"ListItem","position":2,"name":"Tools","item":"https://abcgeo.dev/tools.html"},{"@type":"ListItem","position":3,"name":"GeoJSON to KML Converter","item":"https://abcgeo.dev/tools/geojson-to-kml.html"}]}
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Is the GeoJSON to KML Converter free?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. The GeoJSON to KML Converter on abcGEO is free to use in the browser with no account required."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does abcGEO upload my geographic files to a server?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Conversion runs in your browser. Paste and file reads stay on your device for this tool’s processing path."
+        }
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="nav-inner">
+      <a href="../index.html" class="logo" aria-label="abcGEO home">
+        <span class="logo-mark" aria-hidden="true"></span>abc<span class="geo">GEO</span>
+      </a>
+      <button class="nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-controls="primary-nav">Menu</button>
+      <ul class="nav-links" id="primary-nav" data-nav-links>
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="../framework.html">Formula</a></li>
+        <li><a href="../tools.html" class="active">Tools</a></li>
+        <li><a href="../blog.html">Blog</a></li>
+        <li><a href="../contact.html">Contact</a></li>
+        <li class="mobile-cta"><a class="btn btn-primary" href="instastack.html">Launch INSTASTACK</a></li>
+      </ul>
+      <a class="btn btn-primary nav-cta" href="instastack.html">Launch INSTASTACK</a>
+    </div>
+  </header>
+
+  <main class="tool-shell converter-shell">
+    <div class="container">
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a href="../index.html">Home</a>
+        <span aria-hidden="true">/</span>
+        <a href="../tools.html">Tools</a>
+        <span aria-hidden="true">/</span>
+        <span aria-current="page">GeoJSON → KML</span>
+      </nav>
+
+      <header class="tool-header" itemscope itemtype="https://schema.org/WebApplication" data-entity="GeoJSON to KML Converter" data-verb="Converts">
+        <meta itemprop="name" content="GeoJSON to KML Converter" />
+        <meta itemprop="applicationCategory" content="BrowserApplication" />
+        <meta itemprop="operatingSystem" content="Web" />
+        <div class="entity-tag">
+          <span>A: GeoJSON to KML Converter</span>
+          <span aria-hidden="true">·</span>
+          <span>B: Converts</span>
+          <span aria-hidden="true">·</span>
+          <span>Spatial GEO tool</span>
+        </div>
+        <p class="section-label">Spatial converter</p>
+        <h1 itemprop="name">GeoJSON to KML Converter</h1>
+        <p itemprop="description" class="section-lead">Converts GeoJSON FeatureCollections into Keyhole Markup Language (KML) for Google Earth, Maps, and visualization workflows—entirely in your browser.</p>
+      </header>
+
+      <div
+        class="converter-workspace reveal"
+        data-geo-converter="geojson-to-kml"
+        data-output-ext="kml"
+        data-output-mime="application/vnd.google-earth.kml+xml"
+        data-output-name="abcgeo-converted.kml"
+      >
+        <section class="panel converter-panel" aria-labelledby="input-heading-geojson-to-kml">
+          <h2 id="input-heading-geojson-to-kml">GeoJSON input</h2>
+          <div class="converter-file">
+            <label class="btn btn-ghost" for="file-geojson-to-kml">Upload a .geojson or .json file</label>
+            <input id="file-geojson-to-kml" type="file" accept=".geojson,.json,application/geo+json,application/json,text/plain" data-convert-file style="position:absolute;width:1px;height:1px;opacity:0;overflow:hidden;clip:rect(0,0,0,0)" />
+          </div>
+          <textarea data-convert-input spellcheck="false" placeholder="Paste GeoJSON here…"></textarea>
+          <div class="converter-toolbar">
+            <button type="button" class="btn btn-primary" data-convert-run>Convert</button>
+            <button type="button" class="btn btn-secondary" data-convert-sample>Load GeoJSON sample</button>
+            <button type="button" class="btn btn-ghost" data-convert-clear>Clear</button>
+          </div>
+          <p class="converter-status" data-convert-status hidden></p>
+        </section>
+
+        <section class="panel converter-panel" aria-labelledby="output-heading-geojson-to-kml" data-geo-role="output">
+          <h2 id="output-heading-geojson-to-kml">KML output</h2>
+          <textarea data-convert-output spellcheck="false" readonly placeholder="Converted output appears here…"></textarea>
+          <div class="converter-toolbar">
+            <button type="button" class="btn btn-primary" data-convert-download>Download .kml</button>
+            <button type="button" class="btn btn-ghost" data-convert-copy>Copy output</button>
+          </div>
+        </section>
+      </div>
+
+      <section class="converter-howto reveal" aria-labelledby="about-heading-geojson-to-kml">
+        <div class="answer-box">
+          <div class="label">Answer-first</div>
+          <p>The abcGEO GeoJSON to KML Converter converts RFC 7946 GeoJSON (points, lines, polygons, and multi-geometries) into OGC KML Placemarks you can open in Google Earth—coordinates stay longitude, latitude.</p>
+        </div>
+        <h2 id="about-heading-geojson-to-kml">Convert GeoJSON to KML for Google Earth and web maps</h2>
+        <ul>
+          <li>Preserves feature names from common property keys (name, title, id).</li>
+          <li>Supports Point, LineString, Polygon, and Multi* geometries.</li>
+          <li>Runs locally in the browser—your file is not uploaded to a server.</li>
+          <li>Pairs with the KML to GeoJSON tool for round-trip checks.</li>
+        </ul>
+        <h3>How to use this converter</h3>
+        <ol>
+          <li>Paste GeoJSON or upload a .geojson / .json file (or load the sample).</li>
+          <li>Click Convert to generate KML Placemarks inside a Document.</li>
+          <li>Copy or download the .kml and open it in Google Earth to verify.</li>
+          <li>Need the reverse path? Use the KML to GeoJSON converter next.</li>
+        </ol>
+        <p style="margin-top: 1.25rem;">
+          Read the full format guide in the
+          <a href="../pillar-1-geographic-data-conversion.html" style="color: var(--sky-ink); font-weight: 600;">Complete Guide to Geographic Data Conversion</a>,
+          or browse every utility on <a href="../tools.html" style="color: var(--sky-ink); font-weight: 600;">tools.html</a>.
+        </p>
+      </section>
+
+      <section class="cluster-section reveal" aria-labelledby="related-heading-geojson-to-kml">
+        <h2 id="related-heading-geojson-to-kml">Related converters</h2>
+        <div class="converter-related">
+          <a class="cluster-card" href="kml-to-geojson.html"><p class="cluster-card__tag">Related tool</p><h3>KML to GeoJSON</h3><p>Open the KML to GeoJSON utility on abcGEO.</p></a>
+          <a class="cluster-card" href="geojson-to-csv.html"><p class="cluster-card__tag">Related tool</p><h3>GeoJSON to CSV</h3><p>Open the GeoJSON to CSV utility on abcGEO.</p></a>
+          <a class="cluster-card" href="csv-to-geojson.html"><p class="cluster-card__tag">Related tool</p><h3>CSV to GeoJSON</h3><p>Open the CSV to GeoJSON utility on abcGEO.</p></a>
+          <a class="cluster-card" href="../pillar-1-geographic-data-conversion.html"><p class="cluster-card__tag">Related tool</p><h3>Geographic conversion pillar</h3><p>Open the Geographic conversion pillar utility on abcGEO.</p></a>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div>
+        <a href="../index.html" class="logo"><span class="logo-mark" aria-hidden="true"></span>abc<span class="geo">GEO</span></a>
+        <p style="margin-top: 0.5rem;">A + B = GEO · Built for answer engines.</p>
+      </div>
+      <nav class="footer-links" aria-label="Footer">
+        <a href="../index.html">Home</a>
+        <a href="../framework.html">Formula</a>
+        <a href="../tools.html">Tools</a>
+        <a href="../blog.html">Blog</a>
+        <a href="../contact.html">Contact</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script src="../js/main.js"></script>
+  <script src="../js/geo-converters.js"></script>
+</body>
+</html>

@@ -105,9 +105,19 @@
   </header>
 
   <main>
-    <!-- Hero: brand + citation graph visual -->
+    <!-- Hero: brand + information landscape cover -->
     <section class="hero hero--showcase">
-      <div class="hero-bg" aria-hidden="true"></div>
+      <div class="hero-bg" aria-hidden="true">
+        <img
+          class="hero-bg__image"
+          src="assets/hero-information-landscape.jpg"
+          alt=""
+          width="1024"
+          height="571"
+          decoding="async"
+          fetchpriority="high"
+        />
+      </div>
       <div class="container hero-content">
         <div class="type-card" data-typewriter="abc GEO" data-type-split="4">
           <p class="type-line" aria-label="abc GEO">
@@ -124,66 +134,6 @@
           </div>
         </div>
       </div>
-
-      <figure class="hero-graph" aria-labelledby="hero-graph-caption">
-        <div class="hero-graph__inner">
-          <svg class="hero-graph__svg" viewBox="0 0 960 280" role="img" aria-label="Citation graph: Brand Entity connected to LLM Index, Schema.org, Verified Sources, and AI Answer">
-            <defs>
-              <linearGradient id="cg-line-a" x1="0%" y1="0%" x2="100%" y2="0%">
-                <stop offset="0%" stop-color="#FF6B4A" stop-opacity="0.9" />
-                <stop offset="100%" stop-color="#00B4D8" stop-opacity="0.85" />
-              </linearGradient>
-              <linearGradient id="cg-line-b" x1="0%" y1="100%" x2="100%" y2="0%">
-                <stop offset="0%" stop-color="#00C9A7" stop-opacity="0.85" />
-                <stop offset="100%" stop-color="#00B4D8" stop-opacity="0.9" />
-              </linearGradient>
-              <filter id="cg-glow" x="-40%" y="-40%" width="180%" height="180%">
-                <feDropShadow dx="0" dy="0" stdDeviation="4" flood-color="#00B4D8" flood-opacity="0.55" />
-              </filter>
-            </defs>
-
-            <!-- Edges -->
-            <line class="cg-flow" x1="480" y1="140" x2="180" y2="70" stroke="url(#cg-line-a)" stroke-width="1.75" />
-            <line class="cg-flow" x1="480" y1="140" x2="780" y2="70" stroke="url(#cg-line-b)" stroke-width="1.75" style="animation-delay:0.4s" />
-            <line class="cg-flow" x1="480" y1="140" x2="200" y2="220" stroke="url(#cg-line-b)" stroke-width="1.75" style="animation-delay:0.8s" />
-            <line class="cg-flow" x1="480" y1="140" x2="760" y2="220" stroke="url(#cg-line-a)" stroke-width="1.75" style="animation-delay:1.2s" />
-
-            <!-- Branch nodes -->
-            <g>
-              <circle class="cg-pulse" cx="180" cy="70" r="28" fill="#00B4D8" opacity="0.22" />
-              <circle class="cg-node-core" cx="180" cy="70" r="20" fill="#0F172A" stroke="#00B4D8" stroke-width="2" filter="url(#cg-glow)" />
-              <text x="180" y="74" text-anchor="middle" fill="#F8FAFC" font-family="Syne, sans-serif" font-size="11" font-weight="700">LLM Index</text>
-            </g>
-            <g>
-              <circle class="cg-pulse cg-pulse--delay" cx="780" cy="70" r="28" fill="#00C9A7" opacity="0.22" />
-              <circle class="cg-node-core" cx="780" cy="70" r="20" fill="#0F172A" stroke="#00C9A7" stroke-width="2" />
-              <text x="780" y="74" text-anchor="middle" fill="#F8FAFC" font-family="Syne, sans-serif" font-size="11" font-weight="700">Schema.org</text>
-            </g>
-            <g>
-              <circle class="cg-pulse" cx="200" cy="220" r="28" fill="#94A3B8" opacity="0.2" />
-              <circle class="cg-node-core" cx="200" cy="220" r="20" fill="#0F172A" stroke="#94A3B8" stroke-width="2" />
-              <text x="200" y="217" text-anchor="middle" fill="#F8FAFC" font-family="Syne, sans-serif" font-size="10" font-weight="700">Verified</text>
-              <text x="200" y="229" text-anchor="middle" fill="#F8FAFC" font-family="Syne, sans-serif" font-size="10" font-weight="700">Sources</text>
-            </g>
-            <g>
-              <circle class="cg-pulse cg-pulse--delay" cx="760" cy="220" r="28" fill="#FF8C00" opacity="0.22" />
-              <circle class="cg-node-core" cx="760" cy="220" r="20" fill="#0F172A" stroke="#FF8C00" stroke-width="2" />
-              <text x="760" y="224" text-anchor="middle" fill="#F8FAFC" font-family="Syne, sans-serif" font-size="11" font-weight="700">AI Answer</text>
-            </g>
-
-            <!-- Central brand entity -->
-            <g>
-              <circle class="cg-pulse" cx="480" cy="140" r="48" fill="#FF6B4A" opacity="0.18" />
-              <circle class="cg-node-core" cx="480" cy="140" r="36" fill="#0F172A" stroke="#FF6B4A" stroke-width="3" filter="url(#cg-glow)" />
-              <text x="480" y="136" text-anchor="middle" fill="#F8FAFC" font-family="Syne, sans-serif" font-size="12" font-weight="800">Brand</text>
-              <text x="480" y="151" text-anchor="middle" fill="#F8FAFC" font-family="Syne, sans-serif" font-size="12" font-weight="800">Entity</text>
-            </g>
-          </svg>
-          <figcaption id="hero-graph-caption" class="hero-graph__caption">
-            <strong>Citation graph:</strong> a Brand Entity resolves through Schema.org markup and Verified Sources into an LLM Index, enabling grounded AI Answer citations—without hallucinated brand relationships.
-          </figcaption>
-        </div>
-      </figure>
     </section>
 
     <!-- Quick paths panel -->
