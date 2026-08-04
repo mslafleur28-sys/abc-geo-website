@@ -1401,7 +1401,8 @@ img {
 }
 
 .contact-form input,
-.contact-form textarea {
+.contact-form textarea,
+.contact-form select {
   width: 100%;
   background: var(--bg-soft);
   border: 1px solid var(--border);
@@ -1412,15 +1413,154 @@ img {
   font-size: 1rem;
 }
 
+.contact-form select {
+  appearance: none;
+  background-image:
+    linear-gradient(45deg, transparent 50%, var(--muted) 50%),
+    linear-gradient(135deg, var(--muted) 50%, transparent 50%);
+  background-position:
+    calc(100% - 1.15rem) 55%,
+    calc(100% - 0.75rem) 55%;
+  background-size: 0.4rem 0.4rem, 0.4rem 0.4rem;
+  background-repeat: no-repeat;
+  padding-right: 2.25rem;
+}
+
 .contact-form textarea {
   min-height: 9rem;
   resize: vertical;
 }
 
 .contact-form input:focus,
-.contact-form textarea:focus {
+.contact-form textarea:focus,
+.contact-form select:focus {
   outline: 2px solid rgba(0, 180, 216, 0.5);
   outline-offset: 1px;
+}
+
+.contact-form input.is-invalid,
+.contact-form textarea.is-invalid,
+.contact-form select.is-invalid {
+  border-color: var(--error-crimson, #EF4444);
+}
+
+.field-error {
+  margin: 0.35rem 0 0;
+  font-size: 0.82rem;
+  color: var(--error-crimson, #EF4444);
+}
+
+/* ——— Link building services ——— */
+.lb-service-grid {
+  display: grid;
+  gap: 1.25rem;
+}
+
+@media (min-width: 768px) {
+  .lb-service-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.lb-service-card {
+  padding: 1.4rem 1.35rem 1.45rem;
+  border-radius: 1rem;
+  background: linear-gradient(165deg, rgba(0, 180, 216, 0.05), transparent 55%), var(--bg-elevated);
+  border: 1px solid var(--border);
+  transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.lb-service-card:hover {
+  border-color: rgba(0, 180, 216, 0.45);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-cyan);
+}
+
+.lb-service-card h3 {
+  margin: 0.7rem 0 0.55rem;
+  font-size: 1.1rem;
+}
+
+.lb-service-card > p {
+  margin: 0 0 0.9rem;
+  color: var(--muted);
+  font-size: 0.95rem;
+  line-height: 1.55;
+}
+
+.lb-service-card__list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 0.4rem;
+}
+
+.lb-service-card__list li {
+  position: relative;
+  padding-left: 1rem;
+  font-size: 0.88rem;
+  color: var(--text);
+}
+
+.lb-service-card__list li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.55em;
+  width: 0.35rem;
+  height: 0.35rem;
+  border-radius: 50%;
+  background: var(--sky);
+}
+
+.lb-guarantee {
+  display: grid;
+  gap: 1.5rem;
+  padding: 1.75rem 1.5rem;
+  border-radius: 1.1rem;
+  border: 1px solid rgba(0, 180, 216, 0.3);
+  background:
+    linear-gradient(135deg, rgba(0, 180, 216, 0.08), transparent 50%),
+    linear-gradient(225deg, rgba(255, 107, 74, 0.06), transparent 45%),
+    #FFFFFF;
+  box-shadow: var(--shadow-cyan);
+}
+
+@media (min-width: 800px) {
+  .lb-guarantee {
+    grid-template-columns: 1fr 1.1fr;
+    align-items: center;
+    gap: 2rem;
+    padding: 2rem 2.1rem;
+  }
+}
+
+.lb-guarantee__list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 0.65rem;
+}
+
+.lb-guarantee__list li {
+  position: relative;
+  padding: 0.7rem 0.85rem 0.7rem 2.1rem;
+  border-radius: 0.65rem;
+  background: rgba(250, 249, 246, 0.9);
+  border: 1px solid var(--border);
+  font-size: 0.95rem;
+  color: var(--text);
+}
+
+.lb-guarantee__list li::before {
+  content: '✓';
+  position: absolute;
+  left: 0.75rem;
+  top: 0.7rem;
+  font-weight: 700;
+  color: var(--sky-ink);
 }
 
 .contact-status {

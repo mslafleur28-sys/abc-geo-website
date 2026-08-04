@@ -87,6 +87,88 @@
     });
   }
 
+  // Link-building pitch intake (front-end validation; no backend)
+  const pitchForm = document.querySelector('[data-pitch-form]');
+  if (pitchForm) {
+    const status = pitchForm.querySelector('[data-pitch-status]');
+    const emailOk = (value) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+    const urlOk = (value) => {
+      try {
+        const parsed = new URL(value);
+        return parsed.protocol === 'http:' || parsed.protocol === 'https:';
+      } catch {
+        return false;
+      }
+    };
+
+    const setError = (id, message) => {
+      const field = pitchForm.querySelector(`#${id}`);
+      const error = pitchForm.querySelector(`[data-error-for="${id}"]`);
+      if (field) field.classList.toggle('is-invalid', Boolean(message));
+      if (error) {
+        error.hidden = !message;
+        error.textContent = message || '';
+      }
+    };
+
+    const clearErrors = () => {
+      ['pitch-name', 'pitch-email', 'pitch-website', 'pitch-service', 'pitch-budget', 'pitch-brief'].forEach((id) => {
+        setError(id, '');
+      });
+    };
+
+    pitchForm.addEventListener('submit', (event) => {
+      event.preventDefault();
+      clearErrors();
+
+      const name = pitchForm.querySelector('#pitch-name')?.value?.trim() || '';
+      const email = pitchForm.querySelector('#pitch-email')?.value?.trim() || '';
+      const website = pitchForm.querySelector('#pitch-website')?.value?.trim() || '';
+      const service = pitchForm.querySelector('#pitch-service')?.value || '';
+      const budget = pitchForm.querySelector('#pitch-budget')?.value || '';
+      const brief = pitchForm.querySelector('#pitch-brief')?.value?.trim() || '';
+
+      let valid = true;
+      if (!name) {
+        setError('pitch-name', 'Please enter your name.');
+        valid = false;
+      }
+      if (!email || !emailOk(email)) {
+        setError('pitch-email', 'Enter a valid email address.');
+        valid = false;
+      }
+      if (!website || !urlOk(website)) {
+        setError('pitch-website', 'Enter a full URL starting with https://');
+        valid = false;
+      }
+      if (!service) {
+        setError('pitch-service', 'Select a service interest.');
+        valid = false;
+      }
+      if (!budget) {
+        setError('pitch-budget', 'Select a monthly budget range.');
+        valid = false;
+      }
+      if (!brief || brief.length < 20) {
+        setError('pitch-brief', 'Add a brief of at least 20 characters.');
+        valid = false;
+      }
+
+      if (!valid) {
+        if (status) status.textContent = 'Please fix the highlighted fields and try again.';
+        const firstInvalid = pitchForm.querySelector('.is-invalid');
+        firstInvalid?.focus();
+        return;
+      }
+
+      if (status) {
+        status.textContent = `Thanks, ${name} — your brief is ready. Email hello@abcgeo.com with these details to start collaboration.`;
+      }
+      pitchForm.reset();
+      clearErrors();
+    });
+  }
+
   // Reveal on scroll
   const reveals = document.querySelectorAll('.reveal');
   if (reveals.length && 'IntersectionObserver' in window) {
