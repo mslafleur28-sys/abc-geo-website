@@ -87,6 +87,103 @@
     });
   }
 
+  // Pitch / link-building intake form with front-end validation
+  const pitchForm = document.querySelector('[data-pitch-form]');
+  if (pitchForm) {
+    const status = pitchForm.querySelector('[data-pitch-status]');
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    const clearErrors = () => {
+      pitchForm.querySelectorAll('.is-invalid').forEach((el) => el.classList.remove('is-invalid'));
+      pitchForm.querySelectorAll('[data-error-for]').forEach((el) => {
+        el.hidden = true;
+        el.textContent = '';
+      });
+      if (status) {
+        status.textContent = '';
+        status.classList.remove('is-error');
+      }
+    };
+
+    const setError = (name, message) => {
+      const field = pitchForm.elements.namedItem(name);
+      const errorEl = pitchForm.querySelector(`[data-error-for="${name}"]`);
+      if (field && 'classList' in field) field.classList.add('is-invalid');
+      if (errorEl) {
+        errorEl.textContent = message;
+        errorEl.hidden = false;
+      }
+    };
+
+    const normalizeUrl = (value) => {
+      const trimmed = value.trim();
+      if (!trimmed) return '';
+      if (/^https?:\/\//i.test(trimmed)) return trimmed;
+      return `https://${trimmed}`;
+    };
+
+    pitchForm.addEventListener('submit', (event) => {
+      event.preventDefault();
+      clearErrors();
+
+      const name = pitchForm.querySelector('#pitch-name')?.value?.trim() || '';
+      const email = pitchForm.querySelector('#pitch-email')?.value?.trim() || '';
+      const websiteRaw = pitchForm.querySelector('#pitch-website')?.value?.trim() || '';
+      const website = normalizeUrl(websiteRaw);
+      const service = pitchForm.querySelector('#pitch-service')?.value || '';
+      const budget = pitchForm.querySelector('#pitch-budget')?.value?.trim() || '';
+      const brief = pitchForm.querySelector('#pitch-brief')?.value?.trim() || '';
+
+      let valid = true;
+
+      if (name.length < 2) {
+        setError('name', 'Please enter your name.');
+        valid = false;
+      }
+      if (!emailPattern.test(email)) {
+        setError('email', 'Enter a valid email address.');
+        valid = false;
+      }
+      try {
+        const parsed = new URL(website);
+        if (!['http:', 'https:'].includes(parsed.protocol) || !parsed.hostname.includes('.')) {
+          throw new Error('invalid');
+        }
+        const websiteInput = pitchForm.querySelector('#pitch-website');
+        if (websiteInput) websiteInput.value = parsed.href;
+      } catch {
+        setError('website', 'Enter a valid website URL (e.g. https://yoursite.com).');
+        valid = false;
+      }
+      if (!service) {
+        setError('service', 'Select a service interest.');
+        valid = false;
+      }
+      if (budget.length < 2) {
+        setError('budget', 'Share an approximate monthly budget.');
+        valid = false;
+      }
+      if (brief.length < 20) {
+        setError('brief', 'Add a short project brief (at least a couple of sentences).');
+        valid = false;
+      }
+
+      if (!valid) {
+        if (status) {
+          status.textContent = 'Please fix the highlighted fields and try again.';
+          status.classList.add('is-error');
+        }
+        pitchForm.querySelector('.is-invalid')?.focus();
+        return;
+      }
+
+      if (status) {
+        status.textContent = `Thanks, ${name} — your brief is ready. Email hello@abcgeo.com with these details to start the collaboration.`;
+      }
+      pitchForm.reset();
+    });
+  }
+
   // Reveal on scroll
   const reveals = document.querySelectorAll('.reveal');
   if (reveals.length && 'IntersectionObserver' in window) {

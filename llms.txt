@@ -35,6 +35,9 @@ abcGEO applies the proprietary formula **A + B = GEO**: pair a named Entity (A) 
 - [Why GEO Is Replacing Classic SEO Playbooks](https://abcgeo.dev/blog/post-template.html)
 - [Blog index](https://abcgeo.dev/blog.html)
 
+## Services
+- [Link Building & Guest Posting Services](https://abcgeo.dev/link-building-guest-posting.html): Ethical GEO and SEO guest posts, niche edits, and AI-ready brand authority signals
+
 ## Optional
 - [Contact](https://abcgeo.dev/contact.html)
 - [Sitemap](https://abcgeo.dev/sitemap.xml)
