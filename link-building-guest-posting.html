@@ -103,7 +103,7 @@
           <p class="section-lead">Earn high-authority, contextual backlinks and guest placements that drive real organic visibility in traditional and AI search engines.</p>
           <div class="hero-actions" style="margin-top: 1.5rem;">
             <a class="btn btn-primary" href="#pitch-form">Submit a Brief</a>
-            <a class="btn btn-secondary" href="#packages">Explore Packages</a>
+            <a class="btn btn-secondary" href="#pricing-calculator">Price a Placement</a>
           </div>
         </div>
         <figure class="page-hero__visual hero-graph" aria-labelledby="linkbuild-graph-caption">
@@ -210,6 +210,142 @@
             Collaboration flow: brief → manual outreach → transparent reporting.
           </figcaption>
         </figure>
+      </div>
+    </section>
+
+    <section class="section" id="pricing-calculator" style="padding-top: 0;">
+      <div class="container reveal">
+        <!-- Component include: components/LinkPricingCalculator.html -->
+        <section
+          class="link-calc"
+          data-link-calc
+          itemscope
+          itemtype="https://schema.org/SoftwareApplication"
+          aria-labelledby="link-calc-heading"
+        >
+          <meta itemprop="name" content="Guest Post & Link Placement Value Calculator" />
+          <meta itemprop="applicationCategory" content="BusinessApplication" />
+          <meta itemprop="operatingSystem" content="Web" />
+
+          <header class="link-calc__intro">
+            <p class="section-label">Pricing intelligence</p>
+            <h2 id="link-calc-heading" itemprop="name">Guest Post &amp; Link Placement Value Calculator</h2>
+            <p class="link-calc__lead" itemprop="description">
+              Analyze site authority metrics to determine a fair market price for guest posts and niche edits.
+            </p>
+          </header>
+
+          <div class="link-calc__workspace">
+            <form class="link-calc__form" data-lc-form novalidate aria-labelledby="lc-form-heading">
+              <h3 id="lc-form-heading">Placement inputs</h3>
+
+              <div class="link-calc__fields">
+                <div class="field link-calc__field--full">
+                  <label for="lc-url">Target URL</label>
+                  <input
+                    id="lc-url"
+                    name="url"
+                    type="url"
+                    data-lc-url
+                    placeholder="https://example.com/article"
+                    required
+                    autocomplete="url"
+                  />
+                  <p class="field-error" data-error-for="url" hidden></p>
+                </div>
+
+                <div class="field">
+                  <label for="lc-price">Quoted Price ($) <span class="link-calc__optional">optional</span></label>
+                  <input
+                    id="lc-price"
+                    name="price"
+                    type="number"
+                    data-lc-price
+                    min="0"
+                    step="1"
+                    placeholder="What were you quoted?"
+                    inputmode="decimal"
+                  />
+                  <p class="field-error" data-error-for="price" hidden></p>
+                </div>
+
+                <div class="field">
+                  <label for="lc-dr">
+                    Domain Authority / DR
+                    <span class="link-calc__dr-value" data-lc-dr-label>40</span>
+                  </label>
+                  <input
+                    id="lc-dr"
+                    name="dr"
+                    type="range"
+                    data-lc-dr
+                    min="0"
+                    max="100"
+                    value="40"
+                    aria-valuemin="0"
+                    aria-valuemax="100"
+                    aria-valuenow="40"
+                  />
+                  <div class="link-calc__range-meta" aria-hidden="true">
+                    <span>0</span>
+                    <span>100</span>
+                  </div>
+                </div>
+
+                <div class="field">
+                  <label for="lc-traffic">Estimated Monthly Organic Traffic</label>
+                  <select id="lc-traffic" name="traffic" data-lc-traffic required>
+                    <option value="under-1k">&lt;1k</option>
+                    <option value="1k-10k" selected>1k–10k</option>
+                    <option value="10k-50k">10k–50k</option>
+                    <option value="50k-100k">50k–100k</option>
+                    <option value="100k-plus">100k+</option>
+                  </select>
+                </div>
+
+                <div class="field">
+                  <label for="lc-niche">Niche / Industry</label>
+                  <select id="lc-niche" name="niche" data-lc-niche required>
+                    <option value="general" selected>General</option>
+                    <option value="tech">Tech/SaaS</option>
+                    <option value="finance">Finance/Crypto</option>
+                    <option value="health">Health</option>
+                    <option value="lifestyle">Lifestyle</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="link-calc__actions">
+                <button class="btn btn-primary" type="submit" data-lc-submit>
+                  Calculate Fair Value &amp; Deal Rating
+                </button>
+              </div>
+            </form>
+
+            <div class="link-calc__results" data-lc-results hidden aria-live="polite">
+              <div class="link-calc__results-head">
+                <div>
+                  <p class="link-calc__eyebrow">Fair value estimate</p>
+                  <p class="link-calc__range" data-lc-range>$0 – $0</p>
+                  <p class="link-calc__host" data-lc-host></p>
+                </div>
+                <div class="link-calc__badge" data-lc-badge hidden>
+                  <span data-lc-badge-label></span>
+                </div>
+              </div>
+
+              <div class="link-calc__signals">
+                <h3>Metric breakdown &amp; signals</h3>
+                <ul class="link-calc__checklist" data-lc-signals></ul>
+              </div>
+
+              <div class="link-calc__cta">
+                <p>Looking for vetted placements at guaranteed fair rates?</p>
+                <a class="btn btn-secondary" href="#packages">Explore Our Link Building Packages</a>
+              </div>
+            </div>
+          </div>
+        </section>
       </div>
     </section>
 
@@ -332,5 +468,6 @@
   </footer>
 
   <script src="js/main.js"></script>
+  <script src="components/LinkPricingCalculator.js"></script>
 </body>
 </html>
