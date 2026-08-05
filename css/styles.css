@@ -585,6 +585,22 @@ img {
   min-width: 0;
 }
 
+.page-hero__photo {
+  margin: 0;
+  overflow: hidden;
+  border-radius: 1rem;
+  border: 1px solid var(--border);
+  box-shadow: 0 18px 40px -28px rgba(26, 32, 44, 0.45);
+}
+
+.page-hero__photo img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1024 / 558;
+  object-fit: cover;
+}
+
 .page-hero__visual.hero-graph,
 .page-hero__visual .hero-graph {
   margin: 0;
