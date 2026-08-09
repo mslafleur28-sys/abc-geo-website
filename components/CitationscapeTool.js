@@ -416,7 +416,7 @@
     return `<?xml version="1.0" encoding="UTF-8"?>\n${new XMLSerializer().serializeToString(clone)}`;
   }
 
-  function initMapper(root) {
+  function initCitationscape(root) {
     const form = root.querySelector('[data-em-form]');
     const svg = root.querySelector('[data-em-svg]');
     const jsonOut = root.querySelector('[data-em-jsonld]');
@@ -569,7 +569,7 @@
   }
 
   function boot() {
-    document.querySelectorAll('[data-citationscape]').forEach(initMapper);
+    document.querySelectorAll('[data-citationscape]').forEach(initCitationscape);
   }
 
   if (document.readyState === 'loading') {

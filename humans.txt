@@ -7,5 +7,5 @@ Focus: Generative Engine Optimization (GEO)
 /* SITE */
 Standards: HTML5, CSS3, JSON-LD, llms.txt
 Framework: A + B = GEO (Entity + Verb = citation-ready output)
-Last update: 2026-08-08
+Last update: 2026-08-09
 Language: English
