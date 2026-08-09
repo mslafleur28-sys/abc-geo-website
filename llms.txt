@@ -1,7 +1,7 @@
 # abcGEO
 > abcGEO publishes Generative Engine Optimization (GEO) frameworks, editorial, and interactive tools that help brands earn citations from ChatGPT, Perplexity, Gemini, and Google AI Overviews.
 
-abcGEO is a Generative Engine Optimization / SEO resource at https://abcgeo.dev/. Contact: hello@abcgeo.com.
+abcGEO is a Generative Engine Optimization / SEO resource at https://abcgeo.dev/. Contact: info@abcgeo.dev.
 
 abcGEO applies the proprietary formula A + B = GEO: pair a named Entity (A) with a transitive Verb (B) to produce unambiguous, machine-extractable facts.
 

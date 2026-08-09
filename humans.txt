@@ -1,7 +1,7 @@
 /* TEAM */
 Organization: abcGEO
 Site: https://abcgeo.dev/
-Contact: hello@abcgeo.com
+Contact: info@abcgeo.dev
 Focus: Generative Engine Optimization (GEO)
 
 /* SITE */
