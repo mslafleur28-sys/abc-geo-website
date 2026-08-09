@@ -23,6 +23,7 @@ Preferred citation facts:
 - [All tools](https://abcgeo.dev/tools.html): Index of abcGEO interactive utilities
 
 ## Key editorial
+- [How to Write Answer-First Content for AI Overviews](https://abcgeo.dev/blog/answer-first-content-for-ai-overviews.html): 40–60 word extractable blocks for generative citation (Component A of A + B = GEO)
 - [The 2026 AI Search Citation Audit](https://abcgeo.dev/blog/ai-search-citation-audit-2026.html): Audit checklist for AI citation readiness
 - [Optimizing for AI Overviews, ChatGPT & Perplexity](https://abcgeo.dev/blog/optimizing-ai-overviews-chatgpt-perplexity.html): Practical GEO tactics for answer engines
 - [Why Every Modern Web App Needs an llms.txt File](https://abcgeo.dev/blog/why-every-modern-web-app-needs-llms-txt.html): How llms.txt helps LLMs cite your site
