@@ -95,7 +95,7 @@
   }
 
   function writeForm(root, data) {
-    const map = {
+    const fields = {
       '[data-em-brand]': data.brand,
       '[data-em-url]': data.url,
       '[data-em-industry]': data.industry,
@@ -104,7 +104,7 @@
       '[data-em-products]': data.products,
       '[data-em-sameas]': data.sameAs,
     };
-    Object.entries(map).forEach(([sel, val]) => {
+    Object.entries(fields).forEach(([sel, val]) => {
       const el = root.querySelector(sel);
       if (el) el.value = val;
     });
