@@ -10,8 +10,9 @@ abcGEO applies the proprietary formula **A + B = GEO**: pair a named Entity (A) 
 - Contact: hello@abcgeo.com
 
 ## Core framework
-- [The A + B = GEO Framework](https://abcgeo.dev/framework.html): Entity + transitive action verb = citation-ready GEO output
+- [The A + B = GEO Framework](https://abcgeo.dev/framework.html): Entity + transitive action verb = citation-ready GEO output (includes Daikin HVAC case study)
 - [Deep dive: Structuring content for LLM crawlers](https://abcgeo.dev/blog/the-a-plus-b-geo-framework.html): How NLP models extract subject–action–object triples
+- [Case study: Daikin & A + B = GEO](https://abcgeo.dev/blog/daikin-a-plus-b-geo-case-study.html): How a $33B HVAC leader earned ChatGPT and Perplexity citations with entity infrastructure and transitive verbs
 
 ## Interactive tools
 - [INSTASTACK](https://abcgeo.dev/tools/instastack.html): INSTASTACK generates standardized, machine-readable project stack configurations with embedded A + B = GEO metadata
@@ -24,6 +25,7 @@ abcGEO applies the proprietary formula **A + B = GEO**: pair a named Entity (A) 
 - [All tools](https://abcgeo.dev/tools.html)
 
 ## Key editorial (answer-first)
+- [Daikin & A + B = GEO: How a Global HVAC Giant Earned AI Citations](https://abcgeo.dev/blog/daikin-a-plus-b-geo-case-study.html): Real-world case study applying entity clarity and transitive verbs for generative citation
 - [Complete Guide to Modern Web Mapping & Spatial Analysis](https://abcgeo.dev/web-mapping-guide.html): Pillar 2 guide to Leaflet.js, Mapbox GL / MapLibre, PostGIS, and GeoPandas
 - [Build Custom Interactive Maps with Leaflet and Mapbox](https://abcgeo.dev/blog/build-interactive-maps-leaflet-mapbox.html): Cluster tutorial for open-source interactive web maps
 - [Optimizing Heavy GeoJSON for Faster Web Performance](https://abcgeo.dev/blog/optimize-geojson-vector-tiles-performance.html): Simplification and vector tiles for faster maps

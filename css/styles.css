@@ -610,6 +610,11 @@ img {
   font-size: 1.55rem;
 }
 
+.prose h3 {
+  margin: 1.75rem 0 0.6rem;
+  font-size: 1.2rem;
+}
+
 .prose p {
   color: #2D3748;
   margin: 0 0 1rem;
