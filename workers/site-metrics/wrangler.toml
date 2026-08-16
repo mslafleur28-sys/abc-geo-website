@@ -1,0 +1,21 @@
+name = "abcgeo-site-metrics"
+main = "src/index.js"
+compatibility_date = "2026-08-16"
+
+# DataForSEO credentials must be Worker secrets (never committed):
+#   npx wrangler secret put DATAFORSEO_LOGIN
+#   npx wrangler secret put DATAFORSEO_PASSWORD
+#
+# Cache lookups for 24h to limit DataForSEO spend.
+
+[vars]
+CACHE_TTL_SECONDS = "86400"
+
+# Requires abcgeo.dev to be a Cloudflare-proxied zone in front of GitHub Pages.
+# Until the custom route is live, test via the workers.dev URL that `wrangler deploy` prints.
+routes = [
+  { pattern = "abcgeo.dev/api/collaboration-quote*", zone_name = "abcgeo.dev" },
+  { pattern = "www.abcgeo.dev/api/collaboration-quote*", zone_name = "abcgeo.dev" },
+  { pattern = "abcgeo.dev/api/site-metrics*", zone_name = "abcgeo.dev" },
+  { pattern = "www.abcgeo.dev/api/site-metrics*", zone_name = "abcgeo.dev" },
+]

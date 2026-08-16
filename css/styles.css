@@ -3637,6 +3637,53 @@ img {
   font-weight: 500;
 }
 
+.link-calc__auto {
+  text-transform: none;
+  letter-spacing: 0;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: var(--teal-ink, #00594e);
+  background: var(--success-dim, rgba(0, 201, 167, 0.14));
+  border: 1px solid rgba(0, 201, 167, 0.35);
+  border-radius: 999px;
+  padding: 0.08rem 0.45rem;
+}
+
+.link-calc .field.is-autofilled input,
+.link-calc .field.is-autofilled select,
+.link-calc .field.is-autofilled input[type="range"] {
+  box-shadow: inset 0 0 0 1px rgba(0, 201, 167, 0.28);
+}
+
+.link-calc__status {
+  margin: 0;
+  padding: 0.7rem 0.85rem;
+  border-radius: 0.55rem;
+  font-size: 0.88rem;
+  line-height: 1.4;
+  color: var(--sky-ink, #00566b);
+  background: var(--sky-dim, rgba(0, 180, 216, 0.1));
+  border: 1px solid rgba(0, 180, 216, 0.28);
+}
+
+.link-calc__status[data-tone="ok"] {
+  color: var(--teal-ink, #00594e);
+  background: var(--success-dim, rgba(0, 201, 167, 0.12));
+  border-color: rgba(0, 201, 167, 0.32);
+}
+
+.link-calc__status[data-tone="warn"] {
+  color: #92400e;
+  background: rgba(255, 140, 0, 0.12);
+  border-color: rgba(255, 140, 0, 0.35);
+}
+
+.link-calc__actions .btn[aria-busy="true"] {
+  opacity: 0.78;
+  cursor: wait;
+}
+
 .link-calc__dr-value {
   font-family: var(--font-mono);
   font-size: 0.85rem;

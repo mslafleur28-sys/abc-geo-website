@@ -1,10 +1,12 @@
 <!--
   abcGEO · Guest Post & Link Placement Value Calculator
   Pair with: components/LinkPricingCalculator.js + css/styles.css (.link-calc)
+  Metrics: GET /api/collaboration-quote (DataForSEO via backend)
 -->
 <section
   class="link-calc"
   data-link-calc
+  data-lc-metrics-endpoint="/api/collaboration-quote"
   itemscope
   itemtype="https://schema.org/SoftwareApplication"
   aria-labelledby="link-calc-heading"
@@ -17,7 +19,7 @@
     <p class="section-label">Pricing intelligence</p>
     <h2 id="link-calc-heading" itemprop="name">Guest Post &amp; Link Placement Value Calculator</h2>
     <p class="link-calc__lead" itemprop="description">
-      Analyze site authority metrics to determine a fair market price for guest posts and niche edits.
+      Paste a site URL. We look up domain rating and monthly organic traffic automatically, then estimate a fair guest-post or niche-edit price. Add a quote to see if it is a deal.
     </p>
   </header>
 
@@ -27,18 +29,21 @@
 
       <div class="link-calc__fields">
         <div class="field link-calc__field--full">
-          <label for="lc-url">Target URL</label>
+          <label for="lc-url">Target Website</label>
           <input
             id="lc-url"
             name="url"
-            type="url"
+            type="text"
+            inputmode="url"
             data-lc-url
-            placeholder="https://example.com/article"
+            placeholder="example.com or https://example.com/article"
             required
             autocomplete="url"
           />
           <p class="field-error" data-error-for="url" hidden></p>
         </div>
+
+        <p class="link-calc__status link-calc__field--full" data-lc-status role="status" aria-live="polite" hidden></p>
 
         <div class="field">
           <label for="lc-price">Quoted Price ($) <span class="link-calc__optional">optional</span></label>
@@ -56,8 +61,20 @@
         </div>
 
         <div class="field">
+          <label for="lc-niche">Niche / Industry</label>
+          <select id="lc-niche" name="niche" data-lc-niche required>
+            <option value="general" selected>General</option>
+            <option value="tech">Tech/SaaS</option>
+            <option value="finance">Finance/Crypto</option>
+            <option value="health">Health</option>
+            <option value="lifestyle">Lifestyle</option>
+          </select>
+        </div>
+
+        <div class="field" data-lc-field="dr">
           <label for="lc-dr">
             Domain Authority / DR
+            <span class="link-calc__auto" data-lc-auto="dr" hidden>Auto</span>
             <span class="link-calc__dr-value" data-lc-dr-label>40</span>
           </label>
           <input
@@ -78,25 +95,17 @@
           </div>
         </div>
 
-        <div class="field">
-          <label for="lc-traffic">Estimated Monthly Organic Traffic</label>
-          <select id="lc-traffic" name="traffic" data-lc-traffic required>
+        <div class="field" data-lc-field="traffic">
+          <label for="lc-traffic">
+            Estimated Monthly Organic Traffic
+            <span class="link-calc__auto" data-lc-auto="traffic" hidden>Auto</span>
+          </label>
+          <select id="lc-traffic" name="traffic" data-lc-traffic>
             <option value="under-1k">&lt;1k</option>
             <option value="1k-10k" selected>1k–10k</option>
             <option value="10k-50k">10k–50k</option>
             <option value="50k-100k">50k–100k</option>
             <option value="100k-plus">100k+</option>
-          </select>
-        </div>
-
-        <div class="field">
-          <label for="lc-niche">Niche / Industry</label>
-          <select id="lc-niche" name="niche" data-lc-niche required>
-            <option value="general" selected>General</option>
-            <option value="tech">Tech/SaaS</option>
-            <option value="finance">Finance/Crypto</option>
-            <option value="health">Health</option>
-            <option value="lifestyle">Lifestyle</option>
           </select>
         </div>
       </div>
@@ -127,7 +136,7 @@
 
       <div class="link-calc__cta">
         <p>Looking for vetted placements at guaranteed fair rates?</p>
-        <a class="btn btn-secondary" href="#packages">Explore Our Link Building Packages</a>
+        <a class="btn btn-secondary" href="link-building.html#packages">Explore Our Link Building Packages</a>
       </div>
     </div>
   </div>
