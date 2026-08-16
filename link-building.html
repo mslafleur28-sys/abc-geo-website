@@ -238,30 +238,31 @@
             <p class="section-label">Pricing intelligence</p>
             <h2 id="link-calc-heading" itemprop="name">Guest Post &amp; Link Placement Value Calculator</h2>
             <p class="link-calc__lead" itemprop="description">
-              Analyze site authority metrics to determine a fair market price for guest posts and niche edits.
+              Paste a website URL (and an optional quoted price). We look up traffic and authority signals, then estimate a fair guest-post / niche-edit rate—and tell you if the quote is a good deal.
             </p>
           </header>
 
           <div class="link-calc__workspace">
             <form class="link-calc__form" data-lc-form novalidate aria-labelledby="lc-form-heading">
-              <h3 id="lc-form-heading">Placement inputs</h3>
+              <h3 id="lc-form-heading">Check a placement</h3>
 
               <div class="link-calc__fields">
                 <div class="field link-calc__field--full">
-                  <label for="lc-url">Target URL</label>
+                  <label for="lc-url">Website URL</label>
                   <input
                     id="lc-url"
                     name="url"
                     type="url"
                     data-lc-url
-                    placeholder="https://example.com/article"
+                    placeholder="https://example.com"
                     required
                     autocomplete="url"
                   />
+                  <p class="field-hint">We’ll estimate domain authority and monthly traffic automatically.</p>
                   <p class="field-error" data-error-for="url" hidden></p>
                 </div>
 
-                <div class="field">
+                <div class="field link-calc__field--full">
                   <label for="lc-price">Quoted Price ($) <span class="link-calc__optional">optional</span></label>
                   <input
                     id="lc-price"
@@ -273,60 +274,18 @@
                     placeholder="What were you quoted?"
                     inputmode="decimal"
                   />
+                  <p class="field-hint">Add a quote to see Great Deal / Fair / Overpriced.</p>
                   <p class="field-error" data-error-for="price" hidden></p>
-                </div>
-
-                <div class="field">
-                  <label for="lc-dr">
-                    Domain Authority / DR
-                    <span class="link-calc__dr-value" data-lc-dr-label>40</span>
-                  </label>
-                  <input
-                    id="lc-dr"
-                    name="dr"
-                    type="range"
-                    data-lc-dr
-                    min="0"
-                    max="100"
-                    value="40"
-                    aria-valuemin="0"
-                    aria-valuemax="100"
-                    aria-valuenow="40"
-                  />
-                  <div class="link-calc__range-meta" aria-hidden="true">
-                    <span>0</span>
-                    <span>100</span>
-                  </div>
-                </div>
-
-                <div class="field">
-                  <label for="lc-traffic">Estimated Monthly Organic Traffic</label>
-                  <select id="lc-traffic" name="traffic" data-lc-traffic required>
-                    <option value="under-1k">&lt;1k</option>
-                    <option value="1k-10k" selected>1k–10k</option>
-                    <option value="10k-50k">10k–50k</option>
-                    <option value="50k-100k">50k–100k</option>
-                    <option value="100k-plus">100k+</option>
-                  </select>
-                </div>
-
-                <div class="field">
-                  <label for="lc-niche">Niche / Industry</label>
-                  <select id="lc-niche" name="niche" data-lc-niche required>
-                    <option value="general" selected>General</option>
-                    <option value="tech">Tech/SaaS</option>
-                    <option value="finance">Finance/Crypto</option>
-                    <option value="health">Health</option>
-                    <option value="lifestyle">Lifestyle</option>
-                  </select>
                 </div>
               </div>
 
               <div class="link-calc__actions">
                 <button class="btn btn-primary" type="submit" data-lc-submit>
-                  Calculate Fair Value &amp; Deal Rating
+                  Get Fair Value Estimate
                 </button>
               </div>
+
+              <p class="link-calc__status" data-lc-status hidden role="status" aria-live="polite"></p>
             </form>
 
             <div class="link-calc__results" data-lc-results hidden aria-live="polite">
@@ -338,6 +297,25 @@
                 </div>
                 <div class="link-calc__badge" data-lc-badge hidden>
                   <span data-lc-badge-label></span>
+                </div>
+              </div>
+
+              <div class="link-calc__metrics" data-lc-metrics hidden>
+                <div class="link-calc__metric">
+                  <span class="link-calc__metric-label">Est. domain authority</span>
+                  <span class="link-calc__metric-value" data-lc-metric-dr>—</span>
+                </div>
+                <div class="link-calc__metric">
+                  <span class="link-calc__metric-label">Est. monthly traffic</span>
+                  <span class="link-calc__metric-value" data-lc-metric-traffic>—</span>
+                </div>
+                <div class="link-calc__metric">
+                  <span class="link-calc__metric-label">Detected niche</span>
+                  <span class="link-calc__metric-value" data-lc-metric-niche>—</span>
+                </div>
+                <div class="link-calc__metric">
+                  <span class="link-calc__metric-label">Global popularity</span>
+                  <span class="link-calc__metric-value" data-lc-metric-rank>—</span>
                 </div>
               </div>
 
