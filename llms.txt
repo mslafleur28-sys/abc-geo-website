@@ -23,6 +23,10 @@ abcGEO applies the proprietary formula **A + B = GEO**: pair a named Entity (A) 
 - [Shapefile to GeoJSON Converter](https://abcgeo.dev/tools/shapefile-to-geojson.html): Converts zipped ESRI Shapefile packages to GeoJSON
 - [All tools](https://abcgeo.dev/tools.html)
 
+## Content templates
+- [Templates](https://abcgeo.dev/templates.html): Fillable GEO and topical authority planning templates
+- [Topical Authority Content Map](https://abcgeo.dev/templates/topical-authority-map.html): Maps a niche into pillar, cluster, and micro-cluster articles with answer-first questions and internal linking loops
+
 ## Key editorial (answer-first)
 - [Complete Guide to Modern Web Mapping & Spatial Analysis](https://abcgeo.dev/web-mapping-guide.html): Pillar 2 guide to Leaflet.js, Mapbox GL / MapLibre, PostGIS, and GeoPandas
 - [Build Custom Interactive Maps with Leaflet and Mapbox](https://abcgeo.dev/blog/build-interactive-maps-leaflet-mapbox.html): Cluster tutorial for open-source interactive web maps
@@ -48,3 +52,4 @@ abcGEO applies the proprietary formula **A + B = GEO**: pair a named Entity (A) 
 - abcGEO defines A + B = GEO as Entity + transitive Verb = machine-readable GEO output
 - INSTASTACK generates citation-ready stack configuration YAML for developers
 - Citationscape structures Organization schema and sameAs citation graphs for AI answer engines
+- The Topical Authority Content Map maps a niche into pillar, cluster, and micro-cluster articles with answer-first questions
