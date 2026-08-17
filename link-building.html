@@ -106,6 +106,7 @@
         <li><a href="index.html">Home</a></li>
         <li><a href="framework.html">Formula</a></li>
         <li><a href="tools.html">Tools</a></li>
+        <li><a href="templates.html">Templates</a></li>
         <li><a href="blog.html">Blog</a></li>
         <li><a href="link-building.html" class="active">Collaborate</a></li>
         <li><a href="contact.html">Contact</a></li>
@@ -127,43 +128,15 @@
             <a class="btn btn-secondary" href="#pricing-calculator">Price a Placement</a>
           </div>
         </div>
-        <figure class="page-hero__visual hero-graph" aria-labelledby="linkbuild-graph-caption">
-          <div class="hero-graph__inner">
-            <svg class="hero-graph__svg" viewBox="0 0 520 180" role="img" aria-label="Link authority graph: Brand connects to Guest Post, Niche Edit, and GEO Signal paths">
-              <defs>
-                <linearGradient id="lb-line" x1="0%" y1="0%" x2="100%" y2="0%">
-                  <stop offset="0%" stop-color="#FF6B4A" />
-                  <stop offset="100%" stop-color="#00B4D8" />
-                </linearGradient>
-              </defs>
-              <line class="cg-flow" x1="120" y1="90" x2="250" y2="40" stroke="url(#lb-line)" stroke-width="1.5" />
-              <line class="cg-flow" x1="120" y1="90" x2="250" y2="90" stroke="#00C9A7" stroke-width="1.5" style="animation-delay:0.4s" />
-              <line class="cg-flow" x1="120" y1="90" x2="250" y2="140" stroke="#00B4D8" stroke-width="1.5" style="animation-delay:0.8s" />
-              <line class="cg-flow" x1="290" y1="40" x2="400" y2="90" stroke="#FF8C00" stroke-width="1.4" style="animation-delay:1.1s" />
-              <line class="cg-flow" x1="290" y1="90" x2="400" y2="90" stroke="#00B4D8" stroke-width="1.4" style="animation-delay:1.2s" />
-              <line class="cg-flow" x1="290" y1="140" x2="400" y2="90" stroke="#FF6B4A" stroke-width="1.4" style="animation-delay:1.3s" />
-
-              <circle class="cg-pulse" cx="90" cy="90" r="26" fill="#FF6B4A" opacity="0.18" />
-              <circle cx="90" cy="90" r="20" fill="#0F172A" stroke="#FF6B4A" stroke-width="2.5" />
-              <text x="90" y="94" text-anchor="middle" fill="#F8FAFC" font-family="Syne, sans-serif" font-size="10" font-weight="800">Brand</text>
-
-              <circle cx="270" cy="40" r="15" fill="#0F172A" stroke="#00B4D8" stroke-width="2" />
-              <text x="270" y="44" text-anchor="middle" fill="#F8FAFC" font-family="Syne, sans-serif" font-size="8" font-weight="700">Guest</text>
-
-              <circle cx="270" cy="90" r="15" fill="#0F172A" stroke="#00C9A7" stroke-width="2" />
-              <text x="270" y="94" text-anchor="middle" fill="#F8FAFC" font-family="Syne, sans-serif" font-size="8" font-weight="700">Edit</text>
-
-              <circle cx="270" cy="140" r="15" fill="#0F172A" stroke="#94A3B8" stroke-width="2" />
-              <text x="270" y="144" text-anchor="middle" fill="#F8FAFC" font-family="Syne, sans-serif" font-size="8" font-weight="700">GEO</text>
-
-              <circle class="cg-pulse cg-pulse--delay" cx="430" cy="90" r="22" fill="#00B4D8" opacity="0.18" />
-              <circle cx="430" cy="90" r="18" fill="#0F172A" stroke="#00B4D8" stroke-width="2.5" />
-              <text x="430" y="94" text-anchor="middle" fill="#F8FAFC" font-family="Syne, sans-serif" font-size="9" font-weight="800">Authority</text>
-            </svg>
-            <figcaption id="linkbuild-graph-caption" class="hero-graph__caption">
-              <strong>Authority paths:</strong> guest posts, niche edits, and GEO signals reinforce a single brand entity graph for search and AI citation.
-            </figcaption>
-          </div>
+        <figure class="page-hero__visual page-hero__photo">
+          <img
+            src="assets/collaborate-team.jpg"
+            alt="A collaborative team brainstorming around a table with wireframes, color swatches, and notebooks in the abcGEO office."
+            width="1024"
+            height="558"
+            decoding="async"
+            fetchpriority="high"
+          />
         </figure>
       </div>
     </section>
@@ -225,7 +198,6 @@
         <section
           class="link-calc"
           data-link-calc
-          data-lc-metrics-endpoint="/api/collaboration-quote"
           itemscope
           itemtype="https://schema.org/SoftwareApplication"
           aria-labelledby="link-calc-heading"
@@ -238,33 +210,31 @@
             <p class="section-label">Pricing intelligence</p>
             <h2 id="link-calc-heading" itemprop="name">Guest Post &amp; Link Placement Value Calculator</h2>
             <p class="link-calc__lead" itemprop="description">
-              Paste a site URL. We look up domain rating and monthly organic traffic automatically, then estimate a fair guest-post or niche-edit price. Add a quote to see if it is a deal.
+              Paste a website URL (and an optional quoted price). We look up traffic and authority signals, then estimate a fair guest-post / niche-edit rate—and tell you if the quote is a good deal.
             </p>
           </header>
 
           <div class="link-calc__workspace">
             <form class="link-calc__form" data-lc-form novalidate aria-labelledby="lc-form-heading">
-              <h3 id="lc-form-heading">Placement inputs</h3>
+              <h3 id="lc-form-heading">Check a placement</h3>
 
               <div class="link-calc__fields">
                 <div class="field link-calc__field--full">
-                  <label for="lc-url">Target Website</label>
+                  <label for="lc-url">Website URL</label>
                   <input
                     id="lc-url"
                     name="url"
-                    type="text"
-                    inputmode="url"
+                    type="url"
                     data-lc-url
-                    placeholder="example.com or https://example.com/article"
+                    placeholder="https://example.com"
                     required
                     autocomplete="url"
                   />
+                  <p class="field-hint">We’ll estimate domain authority and monthly traffic automatically.</p>
                   <p class="field-error" data-error-for="url" hidden></p>
                 </div>
 
-                <p class="link-calc__status link-calc__field--full" data-lc-status role="status" aria-live="polite" hidden></p>
-
-                <div class="field">
+                <div class="field link-calc__field--full">
                   <label for="lc-price">Quoted Price ($) <span class="link-calc__optional">optional</span></label>
                   <input
                     id="lc-price"
@@ -276,64 +246,18 @@
                     placeholder="What were you quoted?"
                     inputmode="decimal"
                   />
+                  <p class="field-hint">Add a quote to see Great Deal / Fair / Overpriced.</p>
                   <p class="field-error" data-error-for="price" hidden></p>
-                </div>
-
-                <div class="field">
-                  <label for="lc-niche">Niche / Industry</label>
-                  <select id="lc-niche" name="niche" data-lc-niche required>
-                    <option value="general" selected>General</option>
-                    <option value="tech">Tech/SaaS</option>
-                    <option value="finance">Finance/Crypto</option>
-                    <option value="health">Health</option>
-                    <option value="lifestyle">Lifestyle</option>
-                  </select>
-                </div>
-
-                <div class="field" data-lc-field="dr">
-                  <label for="lc-dr">
-                    Domain Authority / DR
-                    <span class="link-calc__auto" data-lc-auto="dr" hidden>Auto</span>
-                    <span class="link-calc__dr-value" data-lc-dr-label>40</span>
-                  </label>
-                  <input
-                    id="lc-dr"
-                    name="dr"
-                    type="range"
-                    data-lc-dr
-                    min="0"
-                    max="100"
-                    value="40"
-                    aria-valuemin="0"
-                    aria-valuemax="100"
-                    aria-valuenow="40"
-                  />
-                  <div class="link-calc__range-meta" aria-hidden="true">
-                    <span>0</span>
-                    <span>100</span>
-                  </div>
-                </div>
-
-                <div class="field" data-lc-field="traffic">
-                  <label for="lc-traffic">
-                    Estimated Monthly Organic Traffic
-                    <span class="link-calc__auto" data-lc-auto="traffic" hidden>Auto</span>
-                  </label>
-                  <select id="lc-traffic" name="traffic" data-lc-traffic>
-                    <option value="under-1k">&lt;1k</option>
-                    <option value="1k-10k" selected>1k–10k</option>
-                    <option value="10k-50k">10k–50k</option>
-                    <option value="50k-100k">50k–100k</option>
-                    <option value="100k-plus">100k+</option>
-                  </select>
                 </div>
               </div>
 
               <div class="link-calc__actions">
                 <button class="btn btn-primary" type="submit" data-lc-submit>
-                  Calculate Fair Value &amp; Deal Rating
+                  Get Fair Value Estimate
                 </button>
               </div>
+
+              <p class="link-calc__status" data-lc-status hidden role="status" aria-live="polite"></p>
             </form>
 
             <div class="link-calc__results" data-lc-results hidden aria-live="polite">
@@ -345,6 +269,25 @@
                 </div>
                 <div class="link-calc__badge" data-lc-badge hidden>
                   <span data-lc-badge-label></span>
+                </div>
+              </div>
+
+              <div class="link-calc__metrics" data-lc-metrics hidden>
+                <div class="link-calc__metric">
+                  <span class="link-calc__metric-label">Est. domain authority</span>
+                  <span class="link-calc__metric-value" data-lc-metric-dr>—</span>
+                </div>
+                <div class="link-calc__metric">
+                  <span class="link-calc__metric-label">Est. monthly traffic</span>
+                  <span class="link-calc__metric-value" data-lc-metric-traffic>—</span>
+                </div>
+                <div class="link-calc__metric">
+                  <span class="link-calc__metric-label">Detected niche</span>
+                  <span class="link-calc__metric-value" data-lc-metric-niche>—</span>
+                </div>
+                <div class="link-calc__metric">
+                  <span class="link-calc__metric-label">Global popularity</span>
+                  <span class="link-calc__metric-value" data-lc-metric-rank>—</span>
                 </div>
               </div>
 
@@ -440,7 +383,7 @@
               </div>
               <div class="hero-actions">
                 <button class="btn btn-primary" type="submit">Submit a Brief</button>
-                <a class="btn btn-secondary" href="mailto:hello@abcgeo.com?subject=Link%20Building%20Brief">Email instead</a>
+                <a class="btn btn-secondary" href="mailto:info@abcgeo.dev?subject=Link%20Building%20Brief">Email instead</a>
               </div>
               <p class="contact-status" data-pitch-status role="status" aria-live="polite"></p>
             </form>
@@ -462,7 +405,7 @@
               </li>
               <li>
                 <div class="k">Direct</div>
-                <a href="mailto:hello@abcgeo.com">hello@abcgeo.com</a>
+                <a href="mailto:info@abcgeo.dev">info@abcgeo.dev</a>
               </li>
               <li>
                 <div class="k">Related</div>
@@ -485,6 +428,7 @@
         <a href="index.html">Home</a>
         <a href="framework.html">Formula</a>
         <a href="tools.html">Tools</a>
+        <a href="templates.html">Templates</a>
         <a href="blog.html">Blog</a>
         <a href="link-building.html">Collaborate</a>
         <a href="contact.html">Contact</a>
@@ -493,7 +437,6 @@
   </footer>
 
   <script src="js/main.js"></script>
-  <script src="js/collaborationQuote.js"></script>
   <script src="components/LinkPricingCalculator.js"></script>
 </body>
 </html>

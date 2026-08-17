@@ -1,14 +1,14 @@
 /**
  * abcGEO · Guest Post & Link Placement Value Calculator
  * Expects markup from components/LinkPricingCalculator.html ([data-link-calc] root).
- * Domain rating and organic traffic are auto-filled from /api/collaboration-quote
- * (backend → DataForSEO) when a target URL is entered.
+ *
+ * User enters a URL (+ optional quoted price). Traffic & authority are estimated
+ * from the site's Tranco global popularity rank (free, CORS-enabled public API).
  */
 (function () {
   'use strict';
 
-  const DEFAULT_ENDPOINT = '/api/collaboration-quote';
-  const LOOKUP_DEBOUNCE_MS = 700;
+  const TRANCO_RANK_URL = 'https://tranco-list.eu/api/ranks/domain/';
 
   const TRAFFIC_MULTIPLIERS = {
     'under-1k': { mult: 0.8, label: '<1k monthly traffic', signal: 'Traffic multiplier 0.8× (low volume)' },
@@ -25,6 +25,29 @@
     health: { mult: 1.3, label: 'Health', signal: 'Niche premium 1.3× (Health / YMYL)' },
     lifestyle: { mult: 1.0, label: 'Lifestyle', signal: 'Niche multiplier 1.0× (Lifestyle baseline)' },
   };
+
+  const NICHE_PATTERNS = [
+    {
+      key: 'finance',
+      pattern:
+        /(financ|bank|invest|crypto|bitcoin|ethereum|nft|insurance|loan|mortgage|trading|forex|legal|attorney|lawyer|tax|fintech|coin|paypal|stripe|wealth|capital|broker)/i,
+    },
+    {
+      key: 'health',
+      pattern:
+        /(health|medic|clinic|pharma|dental|wellness|fitness|nutrition|therapy|hospital|doctor|mental|yoga|diet|webmd|mayo)/i,
+    },
+    {
+      key: 'tech',
+      pattern:
+        /(tech|saas|software|cloud|devops|cyber|\bai\b|\bml\b|data|developer|startup|\bapp\b|\bapi\b|hosting|seo|marketing|b2b|github|stack)/i,
+    },
+    {
+      key: 'lifestyle',
+      pattern:
+        /(lifestyle|travel|food|recipe|fashion|beauty|garden|parent|wedding|\bdiy\b|hobby|entertainment|vogue|bonappetit)/i,
+    },
+  ];
 
   function getBasePrice(dr) {
     const n = Number(dr);
@@ -43,40 +66,72 @@
     }).format(Math.round(value));
   }
 
-  function formatTrafficCount(value) {
-    const n = Number(value) || 0;
-    if (n >= 1_000_000) return `${(n / 1_000_000).toFixed(1).replace(/\.0$/, '')}M`;
-    if (n >= 1000) return `${(n / 1000).toFixed(n >= 10_000 ? 0 : 1).replace(/\.0$/, '')}k`;
-    return String(Math.round(n));
-  }
-
-  function normalizeUrl(value) {
-    const raw = (value || '').trim();
-    if (!raw) return '';
-    if (/^https?:\/\//i.test(raw)) return raw;
-    return `https://${raw}`;
+  function formatRank(rank) {
+    if (rank == null) return 'Outside Tranco top 1M';
+    return `#${Number(rank).toLocaleString('en-US')} (Tranco)`;
   }
 
   function hostLabel(url) {
     try {
-      return new URL(normalizeUrl(url)).hostname.replace(/^www\./, '').toLowerCase();
+      return new URL(url).hostname.replace(/^www\./, '');
     } catch {
       return '';
     }
   }
 
+  function normalizeUrl(value) {
+    const raw = String(value || '').trim();
+    if (!raw) return '';
+    if (/^https?:\/\//i.test(raw)) return raw;
+    return `https://${raw}`;
+  }
+
   function isValidUrl(value) {
     try {
-      const u = new URL(normalizeUrl(value));
-      return (
-        (u.protocol === 'http:' || u.protocol === 'https:') &&
-        Boolean(u.hostname) &&
-        u.hostname.includes('.') &&
-        u.hostname !== 'localhost'
-      );
+      const u = new URL(value);
+      return u.protocol === 'http:' || u.protocol === 'https:';
     } catch {
       return false;
     }
+  }
+
+  /**
+   * Map Tranco global popularity rank → estimated Domain Authority (0–100).
+   * Logarithmic curve: rank 1 ≈ 95, rank ~1M ≈ 12, unranked ≈ 10.
+   */
+  function estimateDrFromRank(rank) {
+    if (rank == null || !Number.isFinite(rank) || rank <= 0) return 10;
+    const clamped = Math.min(Math.max(rank, 1), 1_000_000);
+    const t = Math.log10(clamped) / 6; // 0..1 across 1..1e6
+    return Math.round(Math.min(95, Math.max(8, 95 - t * 83)));
+  }
+
+  /**
+   * Map Tranco rank → monthly organic traffic band used by the pricing model.
+   */
+  function estimateTrafficBandFromRank(rank) {
+    if (rank == null || !Number.isFinite(rank) || rank <= 0) return 'under-1k';
+    if (rank <= 500) return '100k-plus';
+    if (rank <= 5_000) return '50k-100k';
+    if (rank <= 25_000) return '10k-50k';
+    if (rank <= 150_000) return '1k-10k';
+    return 'under-1k';
+  }
+
+  function inferNicheFromUrl(url) {
+    const host = hostLabel(url).toLowerCase();
+    let path = '';
+    try {
+      path = new URL(url).pathname.toLowerCase();
+    } catch {
+      path = '';
+    }
+    const haystack = `${host} ${path}`.replace(/[._/-]+/g, ' ');
+
+    for (const entry of NICHE_PATTERNS) {
+      if (entry.pattern.test(haystack)) return entry.key;
+    }
+    return 'general';
   }
 
   function calculateFairValue({ dr, traffic, niche }) {
@@ -108,6 +163,51 @@
     return { key: 'fair', label: 'Fair Price', hint: 'Quoted within the fair market range' };
   }
 
+  async function fetchTrancoRank(domain) {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 10000);
+
+    try {
+      const response = await fetch(`${TRANCO_RANK_URL}${encodeURIComponent(domain)}`, {
+        signal: controller.signal,
+        headers: { Accept: 'application/json' },
+      });
+
+      if (!response.ok) {
+        throw new Error(`Lookup failed (${response.status})`);
+      }
+
+      const payload = await response.json();
+      const ranks = Array.isArray(payload?.ranks) ? payload.ranks : [];
+      if (!ranks.length) return null;
+
+      const latest = ranks[0];
+      const rank = Number(latest?.rank);
+      return Number.isFinite(rank) && rank > 0 ? rank : null;
+    } finally {
+      clearTimeout(timeoutId);
+    }
+  }
+
+  async function lookupSiteMetrics(url) {
+    const domain = hostLabel(url);
+    if (!domain) throw new Error('Could not parse domain from URL.');
+
+    const rank = await fetchTrancoRank(domain);
+    const dr = estimateDrFromRank(rank);
+    const traffic = estimateTrafficBandFromRank(rank);
+    const niche = inferNicheFromUrl(url);
+
+    return {
+      domain,
+      rank,
+      dr,
+      traffic,
+      niche,
+      source: 'Tranco global popularity list',
+    };
+  }
+
   function setError(root, field, message) {
     const el = root.querySelector(`[data-error-for="${field}"]`);
     const input = root.querySelector(`[data-lc-${field}]`);
@@ -125,35 +225,32 @@
 
   function setStatus(root, message, tone) {
     const el = root.querySelector('[data-lc-status]');
+    const submit = root.querySelector('[data-lc-submit]');
     if (!el) return;
+
     if (!message) {
       el.hidden = true;
       el.textContent = '';
       delete el.dataset.tone;
-      return;
+    } else {
+      el.hidden = false;
+      el.textContent = message;
+      el.dataset.tone = tone || 'info';
     }
-    el.hidden = false;
-    el.textContent = message;
-    el.dataset.tone = tone || 'info';
-  }
 
-  function markAuto(root, field, isAuto) {
-    const wrap = root.querySelector(`[data-lc-field="${field}"]`);
-    const flag = root.querySelector(`[data-lc-auto="${field}"]`);
-    wrap?.classList.toggle('is-autofilled', Boolean(isAuto));
-    if (flag) flag.hidden = !isAuto;
+    if (submit) {
+      const busy = tone === 'loading';
+      submit.disabled = busy;
+      submit.setAttribute('aria-busy', busy ? 'true' : 'false');
+      submit.textContent = busy ? 'Looking up metrics…' : 'Get Fair Value Estimate';
+    }
   }
 
   function readForm(root) {
-    const rawUrl = root.querySelector('[data-lc-url]')?.value?.trim() || '';
-    const url = isValidUrl(rawUrl) ? normalizeUrl(rawUrl) : rawUrl;
+    const url = normalizeUrl(root.querySelector('[data-lc-url]')?.value || '');
     const priceRaw = root.querySelector('[data-lc-price]')?.value?.trim() || '';
-    const dr = Number(root.querySelector('[data-lc-dr]')?.value ?? 40);
-    const traffic = root.querySelector('[data-lc-traffic]')?.value || '1k-10k';
-    const niche = root.querySelector('[data-lc-niche]')?.value || 'general';
     const quoted = priceRaw === '' ? null : Number(priceRaw);
-
-    return { url, quoted, dr, traffic, niche };
+    return { url, quoted };
   }
 
   function validate(root, data) {
@@ -161,10 +258,10 @@
     let ok = true;
 
     if (!data.url) {
-      setError(root, 'url', 'Enter a target URL.');
+      setError(root, 'url', 'Enter a website URL.');
       ok = false;
     } else if (!isValidUrl(data.url)) {
-      setError(root, 'url', 'Enter a valid URL, e.g. example.com or https://example.com.');
+      setError(root, 'url', 'Enter a valid http(s) URL or domain.');
       ok = false;
     }
 
@@ -177,20 +274,16 @@
   }
 
   function renderSignals(listEl, result, deal, metrics) {
-    const items = [];
-
-    if (metrics?.source === 'dataforseo') {
-      items.push(
-        `Live metrics for ${metrics.domain}: DR ${metrics.dr}, ~${formatTrafficCount(metrics.organicTraffic || metrics.etv)} monthly US organic`
-      );
-    }
-
-    items.push(
-      `Base price ${formatUsd(result.base.price)} from ${result.base.band}`,
+    const items = [
+      `Looked up ${metrics.domain} via ${metrics.source}`,
+      metrics.rank != null
+        ? `Global popularity rank ${formatRank(metrics.rank)}`
+        : 'Not listed in the Tranco top 1M (treated as low-traffic)',
+      `Estimated domain authority ${metrics.dr}/100 → base ${formatUsd(result.base.price)} (${result.base.band})`,
       result.trafficMeta.signal,
       result.nicheMeta.signal,
-      `Point estimate ${formatUsd(result.estimated)} (±15% market band)`
-    );
+      `Point estimate ${formatUsd(result.estimated)} (±15% market band)`,
+    ];
 
     if (deal) {
       items.push(`${deal.label}: ${deal.hint}`);
@@ -201,7 +294,21 @@
     listEl.innerHTML = items.map((text) => `<li>${text}</li>`).join('');
   }
 
-  function renderResults(root, data, result) {
+  function renderMetrics(root, metrics, result) {
+    const wrap = root.querySelector('[data-lc-metrics]');
+    const drEl = root.querySelector('[data-lc-metric-dr]');
+    const trafficEl = root.querySelector('[data-lc-metric-traffic]');
+    const nicheEl = root.querySelector('[data-lc-metric-niche]');
+    const rankEl = root.querySelector('[data-lc-metric-rank]');
+
+    if (drEl) drEl.textContent = String(metrics.dr);
+    if (trafficEl) trafficEl.textContent = result.trafficMeta.label;
+    if (nicheEl) nicheEl.textContent = result.nicheMeta.label;
+    if (rankEl) rankEl.textContent = formatRank(metrics.rank);
+    if (wrap) wrap.hidden = false;
+  }
+
+  function renderResults(root, data, result, metrics) {
     const resultsEl = root.querySelector('[data-lc-results]');
     const rangeEl = root.querySelector('[data-lc-range]');
     const hostEl = root.querySelector('[data-lc-host]');
@@ -212,15 +319,12 @@
     if (!resultsEl || !rangeEl || !signalsEl) return;
 
     const deal = rateDeal(data.quoted, result.min, result.max);
-    const host = hostLabel(data.url);
-    const metrics = root._lc?.auto && root._lc.auto.domain === host ? root._lc.auto : null;
+    const host = metrics.domain || hostLabel(data.url);
 
     rangeEl.textContent = `${formatUsd(result.min)} – ${formatUsd(result.max)}`;
     if (hostEl) {
       hostEl.textContent = host
-        ? metrics
-          ? `Based on live metrics for ${host}`
-          : `Based on metrics for ${host}`
+        ? `Based on auto-detected traffic & authority for ${host}`
         : '';
     }
 
@@ -236,237 +340,21 @@
       }
     }
 
+    renderMetrics(root, metrics, result);
     renderSignals(signalsEl, result, deal, metrics);
     resultsEl.hidden = false;
     resultsEl.classList.add('is-visible');
   }
 
-  function syncDrLabel(root) {
-    const slider = root.querySelector('[data-lc-dr]');
-    const label = root.querySelector('[data-lc-dr-label]');
-    if (!slider || !label) return;
-    const value = slider.value;
-    label.textContent = value;
-    slider.setAttribute('aria-valuenow', value);
-  }
-
-  function applyMetrics(root, metrics) {
-    const state = root._lc;
-    const slider = root.querySelector('[data-lc-dr]');
-    const traffic = root.querySelector('[data-lc-traffic]');
-
-    state.auto = metrics;
-
-    if (slider && !state.overridden.dr && typeof metrics.dr === 'number') {
-      slider.value = String(metrics.dr);
-      syncDrLabel(root);
-      markAuto(root, 'dr', true);
-    }
-
-    if (traffic && !state.overridden.traffic && metrics.trafficBucket) {
-      traffic.value = metrics.trafficBucket;
-      markAuto(root, 'traffic', true);
-    }
-
-    const etv = metrics.organicTraffic || metrics.etv || 0;
-    setStatus(
-      root,
-      `Auto-filled DR ${metrics.dr} and ~${formatTrafficCount(etv)} monthly organic for ${metrics.domain}. Adjust if needed.`,
-      'ok'
-    );
-
-    if (metrics.quote) {
-      const data = readForm(root);
-      const result = resultFromQuote(data, metrics);
-      renderResults(root, data, result);
-    }
-  }
-
-  function resultFromQuote(data, metrics) {
-    if (metrics?.quote && !rootIsOverridden(data, metrics)) {
-      return {
-        base: { price: metrics.quote.basePrice, band: metrics.quote.band },
-        trafficMeta: TRAFFIC_MULTIPLIERS[metrics.quote.trafficBucket] || TRAFFIC_MULTIPLIERS[data.traffic],
-        nicheMeta: NICHE_MULTIPLIERS[data.niche] || NICHE_MULTIPLIERS.general,
-        estimated: metrics.quote.estimated,
-        min: metrics.quote.min,
-        max: metrics.quote.max,
-      };
-    }
-    return calculateFairValue(data);
-  }
-
-  function rootIsOverridden(data, metrics) {
-    if (!metrics) return true;
-    if (Number(data.dr) !== Number(metrics.dr)) return true;
-    if (data.traffic !== (metrics.trafficBucket || metrics.quote?.trafficBucket)) return true;
-    if (metrics.niche && data.niche !== metrics.niche) return true;
-    return false;
-  }
-
-  function resetLookup(root) {
-    root._lc.auto = null;
-    root._lc.overridden = { dr: false, traffic: false };
-    markAuto(root, 'dr', false);
-    markAuto(root, 'traffic', false);
-  }
-
-  async function fetchSiteMetrics(endpoint, domain, extra) {
-    const helper = globalThis.AbcGeoCollaborationQuote;
-    if (helper?.fetchCollaborationQuote) {
-      return helper.fetchCollaborationQuote(domain, {
-        endpoint,
-        niche: extra?.niche,
-        quoted: extra?.quoted,
-      });
-    }
-
-    const params = new URLSearchParams({ domain });
-    if (extra?.niche) params.set('niche', extra.niche);
-    if (extra?.quoted != null && extra.quoted !== '') params.set('quoted', String(extra.quoted));
-    const url = `${endpoint}${endpoint.includes('?') ? '&' : '?'}${params.toString()}`;
-    const response = await fetch(url, { headers: { Accept: 'application/json' } });
-    let body = null;
-    try {
-      body = await response.json();
-    } catch {
-      body = null;
-    }
-
-    if (!response.ok || !body?.ok) {
-      const fallback =
-        response.status === 404 || response.status === 503
-          ? 'Live metrics are not available yet. Enter DR and traffic manually.'
-          : body?.error || 'Could not look up this site.';
-      throw new Error(fallback);
-    }
-
-    return body;
-  }
-
-  function lookupForUrl(root, rawUrl) {
-    const state = root._lc;
-    const domain = hostLabel(rawUrl);
-    if (!domain || !isValidUrl(rawUrl)) {
-      return Promise.resolve(null);
-    }
-
-    if (state.auto && state.auto.domain === domain) {
-      return Promise.resolve(state.auto);
-    }
-
-    if (state.pendingDomain === domain && state.pending) {
-      return state.pending;
-    }
-
-    if (state.lastDomain !== domain) {
-      resetLookup(root);
-      state.lastDomain = domain;
-    }
-
-    const seq = ++state.seq;
-    setStatus(root, `Looking up domain rating and organic traffic for ${domain}…`, 'info');
-
-    const form = readForm(root);
-    const request = fetchSiteMetrics(state.endpoint, domain, {
-      niche: form.niche,
-      quoted: form.quoted,
-    })
-      .then((metrics) => {
-        if (seq !== state.seq) return state.auto;
-        applyMetrics(root, metrics);
-        return metrics;
-      })
-      .catch((err) => {
-        if (seq !== state.seq) return null;
-        state.auto = null;
-        markAuto(root, 'dr', false);
-        markAuto(root, 'traffic', false);
-        setStatus(
-          root,
-          err.message || 'Could not look up this site. Enter DR and traffic manually.',
-          'warn'
-        );
-        return null;
-      })
-      .finally(() => {
-        if (state.pendingDomain === domain) {
-          state.pending = null;
-          state.pendingDomain = '';
-        }
-      });
-
-    state.pending = request;
-    state.pendingDomain = domain;
-    return request;
-  }
-
-  function scheduleLookup(root) {
-    const raw = root.querySelector('[data-lc-url]')?.value?.trim() || '';
-    clearTimeout(root._lc.timer);
-    if (!isValidUrl(raw)) {
-      root._lc.seq += 1;
-      root._lc.pending = null;
-      root._lc.pendingDomain = '';
-      if (raw) {
-        setStatus(root, 'Enter a full domain (example.com) to auto-fill DR and traffic.', 'info');
-      } else {
-        setStatus(root, '', '');
-      }
-      return;
-    }
-    root._lc.timer = setTimeout(() => {
-      lookupForUrl(root, raw);
-    }, LOOKUP_DEBOUNCE_MS);
-  }
-
-  function setBusy(root, busy) {
-    const btn = root.querySelector('[data-lc-submit]');
-    if (!btn) return;
-    btn.disabled = busy;
-    btn.setAttribute('aria-busy', busy ? 'true' : 'false');
-    if (!btn.dataset.label) btn.dataset.label = btn.textContent.trim();
-    btn.textContent = busy ? 'Looking up metrics…' : btn.dataset.label;
-  }
-
   function initRoot(root) {
     const form = root.querySelector('[data-lc-form]');
-    const slider = root.querySelector('[data-lc-dr]');
-    const traffic = root.querySelector('[data-lc-traffic]');
     const urlInput = root.querySelector('[data-lc-url]');
 
-    root._lc = {
-      endpoint: root.getAttribute('data-lc-metrics-endpoint') || DEFAULT_ENDPOINT,
-      timer: null,
-      seq: 0,
-      pending: null,
-      pendingDomain: '',
-      lastDomain: '',
-      auto: null,
-      overridden: { dr: false, traffic: false },
-    };
-
-    syncDrLabel(root);
-
-    urlInput?.addEventListener('input', () => scheduleLookup(root));
     urlInput?.addEventListener('blur', () => {
-      const raw = urlInput.value.trim();
-      if (isValidUrl(raw)) lookupForUrl(root, raw);
-    });
-
-    slider?.addEventListener('input', () => {
-      syncDrLabel(root);
-      const autoDr = root._lc.auto?.dr;
-      const isAuto = autoDr != null && Number(slider.value) === Number(autoDr);
-      root._lc.overridden.dr = !isAuto && autoDr != null;
-      markAuto(root, 'dr', isAuto);
-    });
-
-    traffic?.addEventListener('change', () => {
-      const autoBucket = root._lc.auto?.trafficBucket;
-      const isAuto = autoBucket != null && traffic.value === autoBucket;
-      root._lc.overridden.traffic = !isAuto && autoBucket != null;
-      markAuto(root, 'traffic', isAuto);
+      const normalized = normalizeUrl(urlInput.value);
+      if (normalized && normalized !== urlInput.value.trim()) {
+        urlInput.value = normalized;
+      }
     });
 
     form?.addEventListener('submit', async (event) => {
@@ -474,19 +362,26 @@
       const data = readForm(root);
       if (!validate(root, data)) return;
 
-      const domain = hostLabel(data.url);
-      if (domain && (!root._lc.auto || root._lc.auto.domain !== domain)) {
-        setBusy(root, true);
-        try {
-          await lookupForUrl(root, data.url);
-        } finally {
-          setBusy(root, false);
-        }
-      }
+      const host = hostLabel(data.url);
+      setStatus(root, `Looking up traffic & authority for ${host}…`, 'loading');
 
-      const next = readForm(root);
-      const result = resultFromQuote(next, root._lc.auto);
-      renderResults(root, next, result);
+      try {
+        const metrics = await lookupSiteMetrics(data.url);
+        const result = calculateFairValue({
+          dr: metrics.dr,
+          traffic: metrics.traffic,
+          niche: metrics.niche,
+        });
+        renderResults(root, data, result, metrics);
+        setStatus(root, '', '');
+      } catch (error) {
+        console.error('[AbcGeoLinkPricing]', error);
+        setStatus(
+          root,
+          'Could not look up site metrics right now. Check the URL and try again in a moment.',
+          'error'
+        );
+      }
     });
   }
 
@@ -504,11 +399,9 @@
     calculateFairValue,
     rateDeal,
     getBasePrice,
-    fetchCollaborationQuote: (domain, options) =>
-      fetchSiteMetrics(
-        options?.endpoint || DEFAULT_ENDPOINT,
-        domain,
-        options
-      ),
+    estimateDrFromRank,
+    estimateTrafficBandFromRank,
+    inferNicheFromUrl,
+    lookupSiteMetrics,
   };
 })();
