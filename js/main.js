@@ -81,7 +81,7 @@
       event.preventDefault();
       const name = contactForm.querySelector('#contact-name')?.value?.trim() || 'there';
       if (status) {
-        status.textContent = `Thanks, ${name} — your message is ready to send. Email hello@abcgeo.com to reach us directly.`;
+        status.textContent = `Thanks, ${name} — your message is ready to send. Email info@abcgeo.dev to reach us directly.`;
       }
       contactForm.reset();
     });
@@ -162,7 +162,7 @@
       }
 
       if (status) {
-        status.textContent = `Thanks, ${name} — your brief is ready. Email hello@abcgeo.com with these details to start collaboration.`;
+        status.textContent = `Thanks, ${name} — your brief is ready. Email info@abcgeo.dev with these details to start collaboration.`;
       }
       pitchForm.reset();
       clearErrors();

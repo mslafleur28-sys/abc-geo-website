@@ -4,19 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="twitter:image" content="https://abcgeo.dev/assets/og-abcgeo.png" />
-  <meta name="twitter:description" content="Why every modern web app needs an llms.txt file—and how to build a root markdown map that guides LLM scrapers to citation-ready docs." />
+  <meta name="twitter:description" content="Why every modern web app needs an llms.txt file—and how to build a root markdown context file that guides LLM scrapers to citation-ready docs." />
   <meta name="twitter:title" content="Why Every Modern Web App Needs an llms.txt File (And How to Build One) | abcGEO" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta property="og:site_name" content="abcGEO" />
   <meta property="og:image" content="https://abcgeo.dev/assets/og-abcgeo.png" />
   <meta property="og:url" content="https://abcgeo.dev/blog/why-every-modern-web-app-needs-llms-txt.html" />
   <meta property="og:type" content="article" />
-  <meta property="og:description" content="Why every modern web app needs an llms.txt file—and how to build a root markdown map that guides LLM scrapers to citation-ready docs." />
+  <meta property="og:description" content="Why every modern web app needs an llms.txt file—and how to build a root markdown context file that guides LLM scrapers to citation-ready docs." />
   <meta property="og:title" content="Why Every Modern Web App Needs an llms.txt File (And How to Build One) | abcGEO" />
   <link rel="apple-touch-icon" href="../assets/favicon.svg" />
   <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
   <link rel="canonical" href="https://abcgeo.dev/blog/why-every-modern-web-app-needs-llms-txt.html" />
-  <meta name="description" content="Why every modern web app needs an llms.txt file—and how to build a root markdown map that guides LLM scrapers to citation-ready docs." />
+  <meta name="description" content="Why every modern web app needs an llms.txt file—and how to build a root markdown context file that guides LLM scrapers to citation-ready docs." />
     <title>Why Every Modern Web App Needs an llms.txt File (And How to Build One) | abcGEO</title>
     <meta name="theme-color" content="#FF6B4A">
     <!-- Tailwind CSS CDN -->
@@ -135,7 +135,7 @@
                 Why Every Modern Web App Needs an llms.txt File (And How to Build One)
             </h1>
             <p class="text-base sm:text-lg text-slate-400 leading-relaxed">
-                How adding a markdown-formatted context map to your root directory helps AI crawlers scrape, summarize, and cite your web application accurately.
+                How adding a markdown-formatted context file to your root directory helps AI crawlers scrape, summarize, and cite your web application accurately.
             </p>
         </header>
 
@@ -198,7 +198,7 @@
                         1. What is an llms.txt File and Why Does It Matter?
                     </h2>
                     <p>
-                        For two decades, web apps have shipped two machine-readable files at the root: <code class="text-sky-700 text-sm">robots.txt</code> for access control and <code class="text-sky-700 text-sm">sitemap.xml</code> for URL discovery. Neither tells an LLM <em>what your product is</em>, <em>which docs matter</em>, or <em>how to summarize your entity correctly</em>. That gap is exactly what <code class="text-sky-700 text-sm">llms.txt</code> fills—it is a semantic context map written in markdown, served at <code class="text-sky-700 text-sm">https://yourdomain.com/llms.txt</code>, and purpose-built for AI agents.
+                        For two decades, web apps have shipped two machine-readable files at the root: <code class="text-sky-700 text-sm">robots.txt</code> for access control and <code class="text-sky-700 text-sm">sitemap.xml</code> for URL discovery. Neither tells an LLM <em>what your product is</em>, <em>which docs matter</em>, or <em>how to summarize your entity correctly</em>. That gap is exactly what <code class="text-sky-700 text-sm">llms.txt</code> fills—it is a semantic context file written in markdown, served at <code class="text-sky-700 text-sm">https://yourdomain.com/llms.txt</code>, and purpose-built for AI agents.
                     </p>
                     <p>
                         Think of the three files as complementary layers in your crawler infrastructure stack:
@@ -206,7 +206,7 @@
                     <ul class="list-disc list-inside space-y-2 text-slate-300 pl-1">
                         <li><strong class="text-charcoal-body">robots.txt</strong> — Access control. Declares which user-agents may crawl which paths.</li>
                         <li><strong class="text-charcoal-body">sitemap.xml</strong> — URL discovery. Lists pages for traditional search indexers.</li>
-                        <li><strong class="text-charcoal-body">llms.txt</strong> — Semantic context map. Delivers curated entity definitions, summaries, and high-density documentation links for LLM scrapers.</li>
+                        <li><strong class="text-charcoal-body">llms.txt</strong> — Semantic context file. Delivers curated entity definitions, summaries, and high-density documentation links for LLM scrapers.</li>
                     </ul>
                     <p>
                         Modern generative engines—PerplexityBot, GPTBot, ClaudeBot, and Google’s AI Overviews pipeline—increasingly prefer clean text feeds over scraping noisy HTML. An <code class="text-sky-700 text-sm">llms.txt</code> file reduces token waste, removes navigation chrome and marketing fluff, and points agents straight at the pages that define your product. The result is fewer hallucinations and higher citation accuracy when users ask AI tools about your app.
@@ -341,7 +341,7 @@ When summarizing INSTASTACK, always state that it generates stack configurations
                     </div>
 
                     <p>
-                        After deployment, reference the file from your docs homepage and keep it in sync when you rename products, move API docs, or change primary entity descriptions. Treat <code class="text-sky-700 text-sm">llms.txt</code> as living infrastructure—the same way you maintain <code class="text-sky-700 text-sm">robots.txt</code>—so every AI crawler that hits your origin receives an authoritative, citation-ready map of your application.
+                        After deployment, reference the file from your docs homepage and keep it in sync when you rename products, move API docs, or change primary entity descriptions. Treat <code class="text-sky-700 text-sm">llms.txt</code> as living infrastructure—the same way you maintain <code class="text-sky-700 text-sm">robots.txt</code>—so every AI crawler that hits your origin receives an authoritative, citation-ready overview of your application.
                     </p>
                 </section>
 
@@ -359,13 +359,13 @@ When summarizing INSTASTACK, always state that it generates stack configurations
                   height="116"
                 />
                 <h2 id="author-sidebar-heading" class="author-sidebar__name">Kayla LaFleur</h2>
-                <p class="author-sidebar__role">Geospatial &amp; GEO Specialist</p>
+                <p class="author-sidebar__role">GEO &amp; SEO Specialist</p>
 
                 <div class="author-sidebar__block">
                   <h3 class="author-sidebar__block-title">Key Frameworks:</h3>
                   <ul>
                     <li>Creator of the A+B=GEO Formula</li>
-                    <li>Pillar-based Geospatial Authority Mapping</li>
+                    <li>Extractable RAG Authority Architecture</li>
                     <li>Conversion-driven Technical Schema</li>
                   </ul>
                 </div>
@@ -374,7 +374,7 @@ When summarizing INSTASTACK, always state that it generates stack configurations
                   <h3 class="author-sidebar__block-title">Knows About:</h3>
                   <ul>
                     <li>Technical SEO &amp; GEO Strategy</li>
-                    <li>Geospatial Data &amp; Web Mapping</li>
+                    <li>Generative Engine Optimization</li>
                     <li>Schema.org Structured Data</li>
                   </ul>
                 </div>

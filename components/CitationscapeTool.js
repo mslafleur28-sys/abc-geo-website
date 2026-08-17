@@ -95,7 +95,7 @@
   }
 
   function writeForm(root, data) {
-    const map = {
+    const fields = {
       '[data-em-brand]': data.brand,
       '[data-em-url]': data.url,
       '[data-em-industry]': data.industry,
@@ -104,7 +104,7 @@
       '[data-em-products]': data.products,
       '[data-em-sameas]': data.sameAs,
     };
-    Object.entries(map).forEach(([sel, val]) => {
+    Object.entries(fields).forEach(([sel, val]) => {
       const el = root.querySelector(sel);
       if (el) el.value = val;
     });
@@ -416,7 +416,7 @@
     return `<?xml version="1.0" encoding="UTF-8"?>\n${new XMLSerializer().serializeToString(clone)}`;
   }
 
-  function initMapper(root) {
+  function initCitationscape(root) {
     const form = root.querySelector('[data-em-form]');
     const svg = root.querySelector('[data-em-svg]');
     const jsonOut = root.querySelector('[data-em-jsonld]');
@@ -569,7 +569,7 @@
   }
 
   function boot() {
-    document.querySelectorAll('[data-citationscape]').forEach(initMapper);
+    document.querySelectorAll('[data-citationscape]').forEach(initCitationscape);
   }
 
   if (document.readyState === 'loading') {
