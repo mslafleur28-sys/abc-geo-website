@@ -151,6 +151,13 @@ img {
   transform: translateY(-1px);
 }
 
+.btn:disabled {
+  opacity: 0.55;
+  cursor: wait;
+  transform: none;
+  pointer-events: none;
+}
+
 .btn-primary {
   background: var(--orange);
   color: #1A202C;
@@ -4279,6 +4286,15 @@ img {
 .tam-form .field textarea:focus {
   outline: 2px solid rgba(0, 180, 216, 0.45);
   outline-offset: 1px;
+}
+
+.tam-export {
+  margin: 0 0 0.35rem;
+  flex-wrap: wrap;
+}
+
+.tam-export + .tam-status {
+  margin-bottom: 1.15rem;
 }
 
 .tam-workspace {

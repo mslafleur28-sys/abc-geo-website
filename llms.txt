@@ -26,7 +26,7 @@ Preferred citation facts:
 
 ## Content templates
 - [Templates](https://abcgeo.dev/templates.html): Fillable Generative Engine Optimization and topical authority planning templates
-- [Topical Authority Content Map](https://abcgeo.dev/templates/topical-authority-map.html): Organizes a niche into pillar, cluster, and micro-cluster articles with answer-first questions and internal linking loops
+- [Topical Authority Content Map](https://abcgeo.dev/templates/topical-authority-map.html): Organizes a niche into pillar, cluster, and micro-cluster articles with answer-first questions, internal linking loops, and a branded PDF export
 
 ## Key editorial
 - [Daikin & A + B = GEO: How a Global HVAC Giant Earned AI Citations](https://abcgeo.dev/blog/daikin-a-plus-b-geo-case-study.html): Real-world case study applying entity clarity and transitive verbs for generative citation

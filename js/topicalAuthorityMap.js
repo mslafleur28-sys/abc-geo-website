@@ -11,7 +11,7 @@
   const treeEl = root.querySelector('[data-tam-tree]');
   const markdownEl = root.querySelector('[data-tam-markdown]');
   const promptEl = root.querySelector('[data-tam-prompt]');
-  const statusEl = root.querySelector('[data-tam-status]');
+  const statusEls = root.querySelectorAll('[data-tam-status]');
   const INTENTS = ['Informational', 'How-To', 'Commercial', 'Transactional', 'Navigational'];
   const PRIORITIES = ['P1', 'P2', 'P3'];
 
@@ -482,13 +482,18 @@ Please generate a complete Topical Authority Content Map using the structure abo
 `;
   }
 
-  function setStatus(message) {
-    if (!statusEl) return;
-    statusEl.textContent = message;
+  function setStatus(message, persist) {
+    if (!statusEls.length) return;
+    statusEls.forEach((el) => {
+      el.textContent = message;
+    });
     window.clearTimeout(setStatus.timer);
+    if (persist) return;
     setStatus.timer = window.setTimeout(() => {
-      if (statusEl.textContent === message) statusEl.textContent = '';
-    }, 2400);
+      statusEls.forEach((el) => {
+        if (el.textContent === message) el.textContent = '';
+      });
+    }, 3200);
   }
 
   function refreshOutputs() {
@@ -534,6 +539,7 @@ Please generate a complete Topical Authority Content Map using the structure abo
     const removeMicro = event.target.closest('[data-tam-remove-micro]');
     const copyMd = event.target.closest('[data-tam-copy-markdown]');
     const copyPrompt = event.target.closest('[data-tam-copy-prompt]');
+    const downloadPdf = event.target.closest('[data-tam-download-pdf]');
     const downloadMd = event.target.closest('[data-tam-download]');
     const blankBtn = event.target.closest('[data-tam-blank]');
     const sampleBtn = event.target.closest('[data-tam-sample]');
@@ -650,6 +656,35 @@ Please generate a complete Topical Authority Content Map using the structure abo
 
     if (copyPrompt) {
       navigator.clipboard.writeText(promptEl.value).then(() => setStatus('Generator prompt copied.')).catch(() => setStatus('Copy failed — select the prompt manually.'));
+      return;
+    }
+
+    if (downloadPdf) {
+      event.preventDefault();
+      syncFieldsFromForm();
+      const buttons = root.querySelectorAll('[data-tam-download-pdf]');
+      buttons.forEach((button) => {
+        button.disabled = true;
+      });
+      setStatus('Preparing branded PDF…', true);
+      const exportPdf = typeof window.abcgeoExportTamPdf === 'function'
+        ? window.abcgeoExportTamPdf
+        : null;
+      if (!exportPdf) {
+        buttons.forEach((button) => {
+          button.disabled = false;
+        });
+        setStatus('PDF export is unavailable. Refresh the page and try again.');
+        return;
+      }
+      exportPdf(state)
+        .then(() => setStatus('PDF downloaded — every row and field is in the brief.'))
+        .catch(() => setStatus('PDF export failed. Check your connection and try again.'))
+        .finally(() => {
+          buttons.forEach((button) => {
+            button.disabled = false;
+          });
+        });
       return;
     }
 

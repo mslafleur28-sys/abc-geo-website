@@ -82,7 +82,8 @@
       "Hub-and-spoke pillar, cluster, and micro-cluster planning",
       "Answer-first question for every planned article",
       "Internal linking targets for topical authority loops",
-      "Markdown export and LLM generator prompt"
+      "Markdown export and LLM generator prompt",
+      "Branded PDF download of the completed content map"
     ],
     "isAccessibleForFree": true,
     "isPartOf": {
@@ -214,6 +215,11 @@
         <p class="section-label">Content map tables</p>
         <h2 class="section-title" id="tam-map-heading" style="font-size: 1.55rem;">Fill every row before you draft</h2>
         <p class="section-lead">Use one table per pillar. Sub-clusters expand the hub. Micro-clusters capture how-tos, comparisons, and direct Q&amp;A. Parent link targets enforce the authority loop.</p>
+        <div class="tool-actions tam-export">
+          <button type="button" class="btn btn-primary" data-tam-download-pdf>Download PDF</button>
+          <button type="button" class="btn btn-secondary" data-tam-download>Download Markdown</button>
+        </div>
+        <p class="tam-status" data-tam-status role="status" aria-live="polite"></p>
         <div class="tam-workspace" data-tam-map></div>
       </section>
 
@@ -222,13 +228,15 @@
           <div class="citationscape__panel-head">
             <div>
               <h2 id="tam-md-heading">Markdown map</h2>
-              <p class="citationscape__sub">Copy into Notion, Git, or a content brief. Tables keep the exact schema.</p>
+              <p class="citationscape__sub">Copy into Notion, Git, or a content brief. Download a branded PDF of the completed outline when you need a portable brief.</p>
             </div>
             <div class="tool-actions" style="margin: 0;">
-              <button type="button" class="btn btn-primary" data-tam-copy-markdown>Copy Markdown</button>
-              <button type="button" class="btn btn-secondary" data-tam-download>Download .md</button>
+              <button type="button" class="btn btn-primary" data-tam-download-pdf>Download PDF</button>
+              <button type="button" class="btn btn-secondary" data-tam-copy-markdown>Copy Markdown</button>
+              <button type="button" class="btn btn-ghost" data-tam-download>Download .md</button>
             </div>
           </div>
+          <p class="tam-status" data-tam-status role="status" aria-live="polite"></p>
           <textarea class="output-box tam-code" data-tam-markdown spellcheck="false" aria-label="Generated Markdown topical authority map"></textarea>
         </section>
 
@@ -260,7 +268,7 @@
           <li>Generate a starter outline from your niche, or start from a blank worksheet.</li>
           <li>Rewrite titles and keywords until each row owns one distinct intent.</li>
           <li>Confirm parent link targets form closed loops—no orphans.</li>
-          <li>Export Markdown and assign priorities (P1 first, P2 next).</li>
+          <li>Export Markdown or a branded PDF so the full outline—including questions, keywords, and parent links—is on hand when you draft.</li>
         </ol>
         <p style="margin-top: 1.25rem;">
           Pair the outline with
@@ -302,6 +310,7 @@
   </footer>
 
   <script src="../js/main.js"></script>
+  <script src="../js/topicalAuthorityMapPdf.js"></script>
   <script src="../js/topicalAuthorityMap.js"></script>
 </body>
 </html>
