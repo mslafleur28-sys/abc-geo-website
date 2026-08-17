@@ -1,0 +1,12 @@
+{
+  "name": "abcgeo-site",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "api": "node server/index.js"
+  },
+  "dependencies": {
+    "dotenv": "^16.6.1",
+    "express": "^4.21.2"
+  }
+}
