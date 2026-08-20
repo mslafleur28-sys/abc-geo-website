@@ -1,0 +1,76 @@
+<!--
+  abcGEO · Answer-First Question Recommender
+  Pair with: components/AnswerFirstRecommender.js
+-->
+<section class="answer-first-tool" data-answer-first-tool aria-labelledby="answer-first-heading">
+  <header class="answer-first-tool__intro">
+    <p class="entity-tag">
+      <span>A: Entity (Subject)</span>
+      <span aria-hidden="true">·</span>
+      <span>B: Intent Verb</span>
+      <span aria-hidden="true">·</span>
+      <span>C: GEO Question Score</span>
+    </p>
+    <h2 id="answer-first-heading">Answer-First Question Recommender</h2>
+    <p class="answer-first-tool__lead">
+      Paste your draft, discover real market questions, and get the best Answer-First target with a ready snippet.
+    </p>
+  </header>
+
+  <form class="answer-first-tool__form panel" data-af-form novalidate>
+    <div class="field">
+      <label for="af-draft">Drafted text</label>
+      <textarea
+        id="af-draft"
+        data-af-draft
+        rows="8"
+        required
+        placeholder="Paste a draft paragraph, blog intro, or landing page copy..."
+      ></textarea>
+    </div>
+    <div class="answer-first-tool__row">
+      <div class="field">
+        <label for="af-market">Market</label>
+        <input id="af-market" data-af-market type="text" value="United States" />
+      </div>
+      <div class="field">
+        <label for="af-language">Language</label>
+        <input id="af-language" data-af-language type="text" value="English" />
+      </div>
+    </div>
+    <div class="tool-actions">
+      <button type="submit" class="btn btn-primary" data-af-submit>Find Best Answer-First Question</button>
+    </div>
+    <p class="answer-first-tool__status" data-af-status aria-live="polite"></p>
+  </form>
+
+  <section class="answer-first-tool__result" data-af-result hidden>
+    <article class="panel answer-first-tool__card" data-af-card>
+      <p class="answer-first-tool__card-label">Target Question &amp; Answer Snippet</p>
+      <h3 class="answer-first-tool__question" data-af-winning-question></h3>
+      <div class="answer-first-tool__snippet" data-af-snippet></div>
+      <p class="answer-first-tool__ab">
+        <strong>A:</strong> <span data-af-entity>—</span>
+        <span aria-hidden="true">·</span>
+        <strong>B:</strong> <span data-af-action>—</span>
+      </p>
+    </article>
+
+    <section class="panel answer-first-tool__runners">
+      <h3>Runner-Up Questions</h3>
+      <div class="answer-first-tool__table-wrap">
+        <table class="answer-first-tool__table" data-af-table>
+          <thead>
+            <tr>
+              <th>Question</th>
+              <th>Volume</th>
+              <th>KD</th>
+              <th>GEO Score</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </section>
+  </section>
+</section>

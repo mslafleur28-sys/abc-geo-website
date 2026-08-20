@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI SEO Keyword Recommender | abcGEO</title>
+  <meta
+    name="description"
+    content="Analyze drafted copy and return the best long-tail keyword with A+B=GEO scoring."
+  />
+  <link rel="stylesheet" href="../css/styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="nav-inner">
+      <a href="../index.html" class="logo" aria-label="abcGEO home">
+        <span class="logo-mark" aria-hidden="true"></span>abc<span class="geo">GEO</span>
+      </a>
+      <ul class="nav-links" id="primary-nav">
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="../tools.html" class="active">Tools</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <main class="tool-shell section">
+    <div class="container">
+      <!-- Embeddable tool markup -->
+      <div>
+        <!-- include component -->
+        <section
+          class="seo-keyword-tool"
+          data-seo-keyword-tool
+          data-api-base="http://localhost:8000"
+          aria-labelledby="seo-keyword-heading"
+        >
+          <header class="seo-keyword-tool__intro">
+            <p class="entity-tag">
+              <span>A: Entity (Subject)</span>
+              <span aria-hidden="true">·</span>
+              <span>B: Intent Verb</span>
+              <span aria-hidden="true">·</span>
+              <span>C: GEO Opportunity</span>
+            </p>
+            <h2 id="seo-keyword-heading">AI SEO Keyword Recommender</h2>
+            <p class="seo-keyword-tool__lead">
+              Paste your drafted text, extract A+B, and return the best long-tail keyword with top candidates.
+            </p>
+          </header>
+
+          <form class="seo-keyword-tool__form panel" data-seo-form novalidate>
+            <div class="field">
+              <label for="seo-draft">Drafted text</label>
+              <textarea
+                id="seo-draft"
+                data-seo-draft
+                rows="8"
+                required
+                placeholder="Paste a draft paragraph, blog intro, or landing page copy..."
+              ></textarea>
+            </div>
+            <div class="seo-keyword-tool__row">
+              <div class="field">
+                <label for="seo-market">Market</label>
+                <input id="seo-market" data-seo-market type="text" value="United States" />
+              </div>
+              <div class="field">
+                <label for="seo-language">Language</label>
+                <input id="seo-language" data-seo-language type="text" value="English" />
+              </div>
+            </div>
+            <div class="tool-actions">
+              <button type="submit" class="btn btn-primary" data-seo-submit>Analyze Keyword Opportunity</button>
+            </div>
+            <p class="seo-keyword-tool__status" data-seo-status aria-live="polite"></p>
+          </form>
+
+          <section class="panel seo-keyword-tool__result" data-seo-result hidden>
+            <h3>Best Target Keyword</h3>
+            <p class="seo-keyword-tool__best" data-seo-best></p>
+            <p class="seo-keyword-tool__ab">
+              <strong>A:</strong> <span data-seo-entity>—</span>
+              <span aria-hidden="true">·</span>
+              <strong>B:</strong> <span data-seo-action>—</span>
+            </p>
+
+            <div class="seo-keyword-tool__table-wrap">
+              <table class="seo-keyword-tool__table" data-seo-table>
+                <thead>
+                  <tr>
+                    <th>Keyword</th>
+                    <th>Volume</th>
+                    <th>KD</th>
+                    <th>GEO Score</th>
+                    <th>Opportunity</th>
+                  </tr>
+                </thead>
+                <tbody></tbody>
+              </table>
+            </div>
+          </section>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <script src="../js/main.js"></script>
+  <script src="../components/SeoKeywordRecommender.js"></script>
+</body>
+</html>
