@@ -160,11 +160,12 @@ img {
 
 .btn-primary {
   background: var(--orange);
-  color: #1A202C;
+  color: #FFFFFF;
 }
 
 .btn-primary:hover {
-  background: #FF8C00;
+  background: #E85A3C;
+  color: #FFFFFF;
   box-shadow: 0 8px 24px rgba(255, 107, 74, 0.28);
 }
 
@@ -1035,7 +1036,7 @@ img {
 
 .author-sidebar__cta:hover {
   background: var(--orange);
-  color: var(--text);
+  color: #FFFFFF;
   transform: translateY(-1px);
   box-shadow: 0 10px 22px rgba(255, 107, 74, 0.3);
 }
