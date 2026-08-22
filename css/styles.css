@@ -4638,6 +4638,20 @@ img {
   gap: 1.25rem;
 }
 
+.answer-first-tool__hero {
+  margin: 0;
+  overflow: hidden;
+  border-radius: 1rem;
+  border: 1px solid var(--border);
+  box-shadow: 0 18px 40px -28px rgba(26, 32, 44, 0.45);
+}
+
+.answer-first-tool__hero img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
 .answer-first-tool__intro h2 {
   margin-bottom: 0.35rem;
 }
