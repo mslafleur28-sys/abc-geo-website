@@ -73,6 +73,32 @@
     }
   }
 
+  // Domino entrance for hero "A, B, C!" feature letters
+  const dominoPhrases = document.querySelectorAll('[data-domino]');
+  if (dominoPhrases.length) {
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const play = (el) => el.classList.add('is-live');
+
+    if (reduceMotion) {
+      dominoPhrases.forEach(play);
+    } else if ('IntersectionObserver' in window) {
+      const dio = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              play(entry.target);
+              dio.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.35 }
+      );
+      dominoPhrases.forEach((el) => dio.observe(el));
+    } else {
+      dominoPhrases.forEach(play);
+    }
+  }
+
   // Contact form (no backend — confirm locally)
   const contactForm = document.querySelector('[data-contact-form]');
   if (contactForm) {
