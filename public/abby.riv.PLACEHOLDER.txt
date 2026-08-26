@@ -1,0 +1,12 @@
+Place the compiled Rive file here as:
+
+  public/abby.riv
+
+Required state machine: AbbyState
+Required inputs:
+  - isThinking  (boolean)  — true while the chat is generating
+  - wave        (trigger)  — welcome / hello
+  - point       (trigger)  — suggestion bubble interaction
+
+Until this file exists, the UI falls back to PNG avatars
+(abby-avatar.png / abby-fullbody.png / pose PNGs).
