@@ -122,9 +122,18 @@ ${items}
     const title = block.title
       ? `                        <h4 class="text-sm font-bold ${titleClass} mb-2">${inlineHtml(block.title, definitions, usedTerms)}</h4>`
       : '';
-    return `                    <div class="rounded-xl border ${boxClass} p-5 my-6">
+    const bodyParas = (block.text || '')
+      .split(/\n{2,}/)
+      .map((part) => part.trim())
+      .filter(Boolean)
+      .map(
+        (part) =>
+          `                        <p class="text-slate-300 text-sm leading-relaxed${title ? ' mt-2' : ''} first:mt-0">${inlineHtml(part, definitions, usedTerms)}</p>`,
+      )
+      .join('\n');
+    return `                    <div class="rounded-xl border ${boxClass} p-5 my-6 space-y-2">
 ${title}
-                        <p class="text-slate-300 text-sm leading-relaxed m-0">${inlineHtml(block.text || '', definitions, usedTerms)}</p>
+${bodyParas || `                        <p class="text-slate-300 text-sm leading-relaxed m-0"></p>`}
                     </div>`;
   }
   if (block.type === 'table' && block.headers?.length) {
@@ -197,8 +206,8 @@ function renderSection(
   const headingTag = section.level === 2 ? 'h2' : 'h3';
   const headingClass =
     section.level === 2
-      ? `text-2xl sm:text-3xl font-bold text-charcoal-body tracking-tight border-b border-slate-800 pb-2${alignClass(section.align)}`
-      : `text-xl font-semibold text-charcoal-body mt-6${alignClass(section.align)}`;
+      ? `font-display text-2xl sm:text-3xl font-bold text-charcoal-body tracking-tight border-b border-slate-800 pb-2${alignClass(section.align)}`
+      : `font-display text-xl font-semibold text-charcoal-body mt-6${alignClass(section.align)}`;
 
   const blocks = section.blocks
     .map((block) => renderBlock(block, definitions, usedTerms))
@@ -432,6 +441,11 @@ ${KEY_TERM_CSS}
         tailwind.config = {
             theme: {
                 extend: {
+                    fontFamily: {
+                        sans: ['DM Sans', 'system-ui', 'sans-serif'],
+                        display: ['Syne', 'system-ui', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'ui-monospace', 'monospace'],
+                    },
                     colors: {
                         'primary-electric': '#FF6B4A',
                         'secondary-slate': '#64748B',
@@ -519,7 +533,7 @@ ${
                 <span class="text-slate-500 text-xs">•</span>
                 <span class="text-slate-400 text-xs font-medium">Updated ${escapeHtml(model.updatedLabel)}</span>
             </div>
-            <h1 class="text-3xl sm:text-4xl md:text-5xl font-black text-charcoal-body tracking-tight leading-tight mb-4">
+            <h1 class="font-display text-3xl sm:text-4xl md:text-5xl font-black text-charcoal-body tracking-tight leading-tight mb-4">
                 ${escapeHtml(title)}
             </h1>
             <p class="text-base sm:text-lg text-slate-400 leading-relaxed">
