@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Studio — abcGEO</title>
+  <meta name="robots" content="noindex, nofollow, noarchive" />
+  <meta name="description" content="Private abcGEO draft studio." />
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="css/styles.css" />
+  <style>
+    .studio-gate {
+      min-height: 100svh;
+      display: grid;
+      align-items: end;
+      padding: 2.5rem 1.25rem 3.5rem;
+    }
+    @media (min-width: 720px) {
+      .studio-gate {
+        align-items: center;
+        padding: 4rem 2rem;
+      }
+    }
+    .studio-gate__copy {
+      max-width: 28rem;
+    }
+    .studio-gate__brand {
+      font-family: var(--font-display);
+      font-size: clamp(2.8rem, 8vw, 4.5rem);
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      line-height: 0.92;
+      margin: 0;
+    }
+    .studio-gate__brand .geo {
+      color: var(--sky-ink);
+    }
+    .studio-gate h1 {
+      margin: 1.25rem 0 0;
+      font-size: clamp(1.35rem, 3vw, 1.7rem);
+    }
+    .studio-gate p {
+      margin: 0.85rem 0 0;
+      color: var(--muted);
+      font-size: 1.05rem;
+    }
+    .studio-gate .btn {
+      margin-top: 1.75rem;
+    }
+    .studio-gate__hint {
+      margin-top: 1rem;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.04em;
+      color: var(--muted);
+    }
+  </style>
+</head>
+<body>
+  <main class="studio-gate">
+    <div class="studio-gate__copy">
+      <p class="studio-gate__brand">abc<span class="geo">GEO</span></p>
+      <h1>Private studio</h1>
+      <p>Create and edit article drafts on this machine. They save into your Cursor project so you can post from there.</p>
+      <a class="btn btn-primary" id="studio-open" href="http://127.0.0.1:3000/admin">Open studio</a>
+      <p class="studio-gate__hint">Needs <code>npm run dev</code> running in the site repo.</p>
+    </div>
+  </main>
+  <script>
+    (function () {
+      var local = location.hostname === 'localhost' || location.hostname === '127.0.0.1';
+      var href = local && location.port === '3000' ? '/admin' : 'http://127.0.0.1:3000/admin';
+      var link = document.getElementById('studio-open');
+      if (link) link.setAttribute('href', href);
+    })();
+  </script>
+</body>
+</html>

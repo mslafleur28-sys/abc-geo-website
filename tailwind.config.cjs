@@ -20,6 +20,7 @@ module.exports = {
       fontFamily: {
         display: ['Syne', 'system-ui', 'sans-serif'],
         body: ['DM Sans', 'system-ui', 'sans-serif'],
+        mono: ['JetBrains Mono', 'ui-monospace', 'monospace'],
       },
       keyframes: {
         'abby-pulse-glow': {
