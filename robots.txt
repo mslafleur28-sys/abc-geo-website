@@ -4,6 +4,13 @@
 # --- General Search & AI Search Indexers ---
 User-agent: *
 Allow: /
+Disallow: /admin
+Disallow: /admin/
+Disallow: /admin.html
+Disallow: /api/articles
+Disallow: /api/articles/
+Disallow: /api/admin
+Disallow: /api/admin/
 
 User-agent: Googlebot
 Allow: /
