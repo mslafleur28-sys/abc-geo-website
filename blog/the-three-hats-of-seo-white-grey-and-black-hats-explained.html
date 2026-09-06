@@ -30,6 +30,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+    <!-- Self-hosted article styles (CMP blocks the Tailwind Play CDN) -->
+    <link rel="stylesheet" href="../css/published-article.css" />
+    <link rel="stylesheet" href="../css/author-sidebar.css" />
     <style>
       .font-brand-display { font-family: Syne, system-ui, sans-serif; }
       .font-brand-body { font-family: 'DM Sans', system-ui, sans-serif; }
@@ -98,52 +101,6 @@
 }
 
     </style>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['DM Sans', 'system-ui', 'sans-serif'],
-                        display: ['Syne', 'system-ui', 'sans-serif'],
-                        mono: ['JetBrains Mono', 'ui-monospace', 'monospace'],
-                    },
-                    colors: {
-                        'primary-electric': '#FF6B4A',
-                        'secondary-slate': '#64748B',
-                        'trust-blue': '#00B4D8',
-                        'deep-slate': '#2D3748',
-                        'ai-cyan': '#00B4D8',
-                        'space-navy': '#1A202C',
-                        'success-green': '#00C9A7',
-                        'warning-amber': '#FF8C00',
-                        'error-crimson': '#EF4444',
-                        'charcoal-body': '#1A202C',
-                        'text-muted': '#64748B',
-                        'bg-clean-white': '#FFFFFF',
-                        'bg-soft-gray': '#FAF9F6',
-                        'bg-grid-gray': '#F4F7F6',
-                        white: '#1A202C',
-                        slate: {
-                            100: '#1A202C',
-                            200: '#2D3748',
-                            300: '#4A5568',
-                            400: '#64748B',
-                            500: '#718096',
-                            700: '#D1D9E0',
-                            800: '#E8EEF2',
-                            900: '#FFFFFF',
-                            950: '#FAF9F6'
-                        },
-                        sky: { 300: '#00B4D8', 400: '#00B4D8', 500: '#0096C7', 700: '#00566B' },
-                        orange: { 400: '#FF6B4A', 500: '#FF6B4A', 600: '#FF8C00' },
-                        emerald: { 300: '#00C9A7', 400: '#00C9A7', 700: '#00594E' },
-                        red: { 400: '#DC2626', 500: '#EF4444' }
-                    }
-                }
-            }
-        }
-    </script>
     <script type="application/ld+json">
     {
   "@context": "https://schema.org",
@@ -175,10 +132,9 @@
   <script type="application/ld+json">
   {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://abcgeo.dev/"},{"@type":"ListItem","position":2,"name":"Blog","item":"https://abcgeo.dev/blog.html"},{"@type":"ListItem","position":3,"name":"The Three Hats of SEO: White, Grey, and Black Hats Explained","item":"https://abcgeo.dev/blog/the-three-hats-of-seo-white-grey-and-black-hats-explained.html"}]}
   </script>
-    <script type="application/ld+json">
+  <script type="application/ld+json">
   {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What do the White, Grey, and Black Hats represent in SEO?","acceptedAnswer":{"@type":"Answer","text":"The three SEO hats represent different ethical approaches to search optimization: White Hat SEO focuses on following guidelines and creating value, Grey Hat SEO pushes the boundaries of accepted practices, and Black Hat SEO uses deliberate manipulation to influence search rankings."}},{"@type":"Question","name":"What is White Hat SEO?","acceptedAnswer":{"@type":"Answer","text":"White Hat SEO uses ethical optimization strategies that follow search engine guidelines and focus on creating genuine value for users to build safe, long-term visibility."}},{"@type":"Question","name":"What is Grey Hat SEO?","acceptedAnswer":{"@type":"Answer","text":"Grey Hat SEO occupies the middle ground where tactics may push the boundaries of accepted practices without necessarily crossing an obvious line, often exploiting gaps in how rules are enforced."}},{"@type":"Question","name":"What is Black Hat SEO?","acceptedAnswer":{"@type":"Answer","text":"Black Hat SEO uses deliberate manipulation tactics that violate search engine guidelines to force short-term ranking gains at the cost of long-term visibility and trust."}},{"@type":"Question","name":"Does the SEO hat metaphor still apply to Generative Engine Optimization (GEO)?","acceptedAnswer":{"@type":"Answer","text":"Yes. White Hat GEO creates answer-first content worth citing, Grey Hat GEO games citation patterns or authority platforms, and Black Hat GEO manipulates AI training or retrieval data. The ethical divide remains even as tactics evolve."}}]}
   </script>
-  <link rel="stylesheet" href="../css/author-sidebar.css" />
 </head>
 <body class="bg-bg-soft-gray text-charcoal-body font-sans antialiased min-h-screen flex flex-col justify-between">
 
@@ -244,8 +200,8 @@
 
         <div class="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-10 max-w-6xl mx-auto items-start">
             <div class="min-w-0 space-y-10">
-            <aside class="hidden lg:block mb-2">
-                <div class="sticky top-24 space-y-4 text-xs">
+            <aside class="mb-2" aria-label="On this page">
+                <div class="lg:sticky lg:top-24 space-y-4 text-xs">
                     <h3 class="text-slate-400 font-bold uppercase tracking-wider mb-3">On This Page</h3>
                     <nav class="space-y-2 border-l border-slate-800 pl-3 text-slate-400">
                         <a href="#what-is-the-hat-metaphor" class="block hover:text-sky-700 transition">1. What Is The Hat Metaphor?</a>
