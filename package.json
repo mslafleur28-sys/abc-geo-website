@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "api": "node server/index.js"
+    "api": "node server/index.js",
+    "build:published-css": "tailwindcss -c tailwind.published.config.cjs -i ./css/published-article.src.css -o ./css/published-article.css --minify"
   },
   "dependencies": {
     "@ai-sdk/google": "^4.0.51",

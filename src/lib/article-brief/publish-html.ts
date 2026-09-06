@@ -122,9 +122,18 @@ ${items}
     const title = block.title
       ? `                        <h4 class="text-sm font-bold ${titleClass} mb-2">${inlineHtml(block.title, definitions, usedTerms)}</h4>`
       : '';
-    return `                    <div class="rounded-xl border ${boxClass} p-5 my-6">
+    const bodyParas = (block.text || '')
+      .split(/\n{2,}/)
+      .map((part) => part.trim())
+      .filter(Boolean)
+      .map(
+        (part) =>
+          `                        <p class="text-slate-300 text-sm leading-relaxed${title ? ' mt-2' : ''} first:mt-0">${inlineHtml(part, definitions, usedTerms)}</p>`,
+      )
+      .join('\n');
+    return `                    <div class="rounded-xl border ${boxClass} p-5 my-6 space-y-2">
 ${title}
-                        <p class="text-slate-300 text-sm leading-relaxed m-0">${inlineHtml(block.text || '', definitions, usedTerms)}</p>
+${bodyParas || `                        <p class="text-slate-300 text-sm leading-relaxed m-0"></p>`}
                     </div>`;
   }
   if (block.type === 'table' && block.headers?.length) {
@@ -197,8 +206,8 @@ function renderSection(
   const headingTag = section.level === 2 ? 'h2' : 'h3';
   const headingClass =
     section.level === 2
-      ? `text-2xl sm:text-3xl font-bold text-charcoal-body tracking-tight border-b border-slate-800 pb-2${alignClass(section.align)}`
-      : `text-xl font-semibold text-charcoal-body mt-6${alignClass(section.align)}`;
+      ? `font-display text-2xl sm:text-3xl font-bold text-charcoal-body tracking-tight border-b border-slate-800 pb-2${alignClass(section.align)}`
+      : `font-display text-xl font-semibold text-charcoal-body mt-6${alignClass(section.align)}`;
 
   const blocks = section.blocks
     .map((block) => renderBlock(block, definitions, usedTerms))
@@ -258,8 +267,8 @@ function renderToc(model: ArticlePreviewModel): string {
     )
     .join('\n');
   if (!links) return '';
-  return `            <aside class="hidden lg:block mb-2">
-                <div class="sticky top-24 space-y-4 text-xs">
+  return `            <aside class="mb-2" aria-label="On this page">
+                <div class="lg:sticky lg:top-24 space-y-4 text-xs">
                     <h3 class="text-slate-400 font-bold uppercase tracking-wider mb-3">On This Page</h3>
                     <nav class="space-y-2 border-l border-slate-800 pl-3 text-slate-400">
 ${links}
@@ -421,53 +430,15 @@ export function buildPublishedArticleHtml(
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+    <!-- Self-hosted article styles (CMP blocks the Tailwind Play CDN) -->
+    <link rel="stylesheet" href="../css/published-article.css" />
+    <link rel="stylesheet" href="../css/author-sidebar.css" />
     <style>
       .font-brand-display { font-family: Syne, system-ui, sans-serif; }
       .font-brand-body { font-family: 'DM Sans', system-ui, sans-serif; }
       .font-brand-mono { font-family: 'JetBrains Mono', ui-monospace, monospace; }
 ${KEY_TERM_CSS}
     </style>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        'primary-electric': '#FF6B4A',
-                        'secondary-slate': '#64748B',
-                        'trust-blue': '#00B4D8',
-                        'deep-slate': '#2D3748',
-                        'ai-cyan': '#00B4D8',
-                        'space-navy': '#1A202C',
-                        'success-green': '#00C9A7',
-                        'warning-amber': '#FF8C00',
-                        'error-crimson': '#EF4444',
-                        'charcoal-body': '#1A202C',
-                        'text-muted': '#64748B',
-                        'bg-clean-white': '#FFFFFF',
-                        'bg-soft-gray': '#FAF9F6',
-                        'bg-grid-gray': '#F4F7F6',
-                        white: '#1A202C',
-                        slate: {
-                            100: '#1A202C',
-                            200: '#2D3748',
-                            300: '#4A5568',
-                            400: '#64748B',
-                            500: '#718096',
-                            700: '#D1D9E0',
-                            800: '#E8EEF2',
-                            900: '#FFFFFF',
-                            950: '#FAF9F6'
-                        },
-                        sky: { 300: '#00B4D8', 400: '#00B4D8', 500: '#0096C7', 700: '#00566B' },
-                        orange: { 400: '#FF6B4A', 500: '#FF6B4A', 600: '#FF8C00' },
-                        emerald: { 300: '#00C9A7', 400: '#00C9A7', 700: '#00594E' },
-                        red: { 400: '#DC2626', 500: '#EF4444' }
-                    }
-                }
-            }
-        }
-    </script>
     <script type="application/ld+json">
     ${JSON.stringify(articleLd, null, 2)}
     </script>
@@ -475,14 +446,13 @@ ${KEY_TERM_CSS}
   ${JSON.stringify(breadcrumbLd)}
   </script>
 ${renderFaqSchema(model)}
-  <link rel="stylesheet" href="../css/author-sidebar.css" />
 </head>
 <body class="bg-bg-soft-gray text-charcoal-body font-sans antialiased min-h-screen flex flex-col justify-between">
 ${
   showProgress
     ? `
     <div class="fixed top-0 left-0 w-full h-1 bg-slate-800 z-50">
-        <div class="h-full bg-gradient-to-r from-sky-400 via-orange-500 to-emerald-400 w-1/3"></div>
+        <div data-reading-progress class="h-full bg-gradient-to-r from-sky-400 via-orange-500 to-emerald-400 w-0"></div>
     </div>`
     : ''
 }
@@ -519,7 +489,7 @@ ${
                 <span class="text-slate-500 text-xs">•</span>
                 <span class="text-slate-400 text-xs font-medium">Updated ${escapeHtml(model.updatedLabel)}</span>
             </div>
-            <h1 class="text-3xl sm:text-4xl md:text-5xl font-black text-charcoal-body tracking-tight leading-tight mb-4">
+            <h1 class="font-display text-3xl sm:text-4xl md:text-5xl font-black text-charcoal-body tracking-tight leading-tight mb-4">
                 ${escapeHtml(title)}
             </h1>
             <p class="text-base sm:text-lg text-slate-400 leading-relaxed">
@@ -614,6 +584,24 @@ ${renderDefinitions(model)}
     <footer class="border-t border-slate-800 bg-slate-950 py-8 mt-16 text-center text-xs text-slate-500">
         <p>&copy; ${year} abcGEO. All rights reserved. Pioneering Generative Engine Optimization.</p>
     </footer>
+${
+  showProgress
+    ? `    <script>
+      (function () {
+        var bar = document.querySelector('[data-reading-progress]');
+        if (!bar) return;
+        var onScroll = function () {
+          var el = document.documentElement;
+          var max = el.scrollHeight - el.clientHeight;
+          var pct = max > 0 ? (el.scrollTop / max) * 100 : 0;
+          bar.style.width = Math.min(100, Math.max(0, pct)) + '%';
+        };
+        window.addEventListener('scroll', onScroll, { passive: true });
+        onScroll();
+      })();
+    </script>`
+    : ''
+}
 </body>
 </html>
 `;
