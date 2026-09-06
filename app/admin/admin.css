@@ -1100,6 +1100,29 @@ a.admin-btn-primary {
   color: #00566b;
 }
 
+.draft-toolbox__btn--post {
+  margin-left: 0.15rem;
+  padding-inline: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: #fff;
+  background: linear-gradient(135deg, #ff6b4a, #ff8c00);
+  border-color: transparent;
+  box-shadow: 0 6px 16px rgba(255, 107, 74, 0.28);
+}
+
+.draft-toolbox__btn--post:hover:not(:disabled) {
+  filter: brightness(1.05);
+  background: linear-gradient(135deg, #ff6b4a, #ff8c00);
+  border-color: transparent;
+  color: #fff;
+}
+
+.draft-toolbox__btn--post:disabled {
+  opacity: 0.65;
+  box-shadow: none;
+}
+
 .draft-image-panel {
   display: grid;
   gap: 0.65rem;

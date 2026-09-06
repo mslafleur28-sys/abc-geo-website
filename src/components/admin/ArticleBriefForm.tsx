@@ -53,6 +53,9 @@ export interface ArticleBriefFormProps {
     saving: boolean;
     label: string;
   }) => void;
+  /** Optional Post action for the body toolbox (edit mode). */
+  onPost?: () => void;
+  postBusy?: boolean;
 }
 
 const AUTOSAVE_DELAY_MS = 2500;
@@ -71,6 +74,8 @@ const ArticleBriefForm = forwardRef<ArticleBriefFormHandle, ArticleBriefFormProp
       onSaved,
       onDirtyChange,
       onSaveStatusChange,
+      onPost,
+      postBusy = false,
     },
     ref,
   ) {
@@ -569,6 +574,9 @@ const ArticleBriefForm = forwardRef<ArticleBriefFormHandle, ArticleBriefFormProp
               placeholder="Why GEO matters — add headings, colors, and images with the toolbox"
               value={brief.rawBody}
               onChange={(next) => updateField('rawBody', next)}
+              onPost={onPost}
+              postBusy={postBusy}
+              postDisabled={mode !== 'edit' || postBusy}
             />
             {showError('rawBody') ? (
               <p className="admin-error" role="alert">

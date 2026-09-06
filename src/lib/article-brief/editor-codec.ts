@@ -543,12 +543,18 @@ function serializeBlock(el: HTMLElement): string[] {
 
   if (
     el.getAttribute('data-callout') === '1' ||
-    el.classList.contains('draft-callout')
+    el.classList.contains('draft-callout') ||
+    el.classList.contains('callout-block')
   ) {
     const variant = normalizeCalloutVariant(
-      el.getAttribute('data-variant') || undefined,
+      el.getAttribute('data-variant') ||
+        (el.classList.contains('pitfall') ? 'pitfall' : undefined) ||
+        undefined,
     );
-    const titleEl = el.querySelector('.draft-callout__title');
+    const titleEl =
+      el.querySelector('.draft-callout__title') ||
+      el.querySelector('h4') ||
+      el.querySelector('h3');
     const bodyParas = Array.from(el.querySelectorAll('p')).filter(
       (p) =>
         !p.classList.contains('draft-callout__label') &&
@@ -569,6 +575,23 @@ function serializeBlock(el: HTMLElement): string[] {
     }
     lines.push(':::');
     return lines;
+  }
+
+  if (
+    el.classList.contains('key-takeaways-box') ||
+    el.classList.contains('direct-answer-header')
+  ) {
+    const paras = Array.from(el.querySelectorAll('p')).map((p) =>
+      serializeInline(p).trim(),
+    );
+    const text = paras.filter(Boolean).join(' ');
+    if (el.classList.contains('direct-answer-header')) {
+      return [':::answer-first', text || 'Write a 40–60 word extractable claim here.', ':::'];
+    }
+    // Generic key-takeaways box used as section lead → answer-first fence.
+    if (text) {
+      return [':::answer-first', text, ':::'];
+    }
   }
 
   if (
@@ -614,7 +637,7 @@ function serializeBlock(el: HTMLElement): string[] {
     return [`- ${serializeInline(el).trim()}`];
   }
 
-  if (tag === 'aside' || tag === 'div') {
+  if (tag === 'aside' || tag === 'div' || tag === 'section' || tag === 'main' || tag === 'header' || tag === 'article') {
     const lines: string[] = [];
     for (const child of Array.from(el.childNodes)) {
       if (child.nodeType === Node.ELEMENT_NODE) {

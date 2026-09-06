@@ -403,6 +403,8 @@ export default function DraftEditor({ initialDraft }: DraftEditorProps) {
         initialBrief={draft.brief}
         initialStatus={draft.status}
         slugLocked={false}
+        onPost={() => void postToBlog()}
+        postBusy={busy === 'publish'}
         onDirtyChange={setDirty}
         onSaveStatusChange={({ dirty: nextDirty, label }) => {
           setDirty(nextDirty);
