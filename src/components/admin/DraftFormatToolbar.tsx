@@ -178,6 +178,10 @@ interface DraftFormatToolbarProps {
   /** Currently selected image figure in the editor (click-to-edit). */
   selectedFigure?: HTMLElement | null;
   onSelectedFigureChange?: (figure: HTMLElement | null) => void;
+  /** Optional Post action shown at the end of the toolbox (draft editor). */
+  onPost?: () => void;
+  postBusy?: boolean;
+  postDisabled?: boolean;
 }
 
 function clearFigureSelection(editor: HTMLDivElement | null) {
@@ -257,6 +261,9 @@ function DraftFormatToolbar({
   sticky = false,
   selectedFigure = null,
   onSelectedFigureChange,
+  onPost,
+  postBusy = false,
+  postDisabled = false,
 }: DraftFormatToolbarProps) {
   const [imageOpen, setImageOpen] = useState(false);
   const [emojiOpen, setEmojiOpen] = useState(false);
@@ -1114,6 +1121,21 @@ function DraftFormatToolbar({
             </button>
           ))}
         </div>
+
+        {onPost ? (
+          <div className="draft-toolbox__group" aria-label="Publish">
+            <button
+              type="button"
+              className="draft-toolbox__btn draft-toolbox__btn--post"
+              title="Save and post this article to the live blog"
+              aria-label="Post to blog"
+              disabled={postBusy || postDisabled}
+              onClick={() => onPost()}
+            >
+              {postBusy ? 'Posting…' : 'Post'}
+            </button>
+          </div>
+        ) : null}
       </div>
 
       {emojiOpen ? (
@@ -1313,6 +1335,9 @@ interface FormattedTextareaProps
   placeholder?: string;
   rows?: number;
   'aria-invalid'?: boolean;
+  onPost?: () => void;
+  postBusy?: boolean;
+  postDisabled?: boolean;
 }
 
 export function FormattedTextarea({
@@ -1324,6 +1349,9 @@ export function FormattedTextarea({
   placeholder,
   rows = 8,
   id,
+  onPost,
+  postBusy,
+  postDisabled,
   ...rest
 }: FormattedTextareaProps) {
   const editorRef = useRef<HTMLDivElement>(null);
@@ -1502,6 +1530,9 @@ export function FormattedTextarea({
           onRedo={redo}
           canUndo={historyUi.canUndo}
           canRedo={historyUi.canRedo}
+          onPost={onPost}
+          postBusy={postBusy}
+          postDisabled={postDisabled}
         />
       ) : null}
       <div

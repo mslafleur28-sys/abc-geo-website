@@ -557,10 +557,11 @@ export function serializeDraft(
     createdAt: string;
     updatedAt: string;
     format?: 'markdown' | 'json';
+    title?: string;
   },
 ): { contents: string; extension: '.md' | '.json' } {
   const brief = normalizeBrief(briefInput);
-  const title = titleFromBrief(brief);
+  const title = options.title?.trim() || titleFromBrief(brief);
   const format = options.format ?? 'markdown';
 
   if (format === 'json') {
@@ -597,6 +598,7 @@ export async function saveDraft(options: {
   brief: ArticleBriefInput;
   status?: DraftStatus;
   format?: 'markdown' | 'json';
+  title?: string;
   /** When renaming, remove the previous slug file. */
   previousSlug?: string;
 }): Promise<ArticleDraftRecord> {
@@ -612,12 +614,14 @@ export async function saveDraft(options: {
     ('draft' satisfies DraftStatus);
   const createdAt = existing?.createdAt ?? now;
   const format = options.format ?? existing?.format ?? 'markdown';
+  const title = options.title?.trim() || existing?.title;
 
   const { contents, extension } = serializeDraft(brief, {
     status,
     createdAt,
     updatedAt: now,
     format,
+    title,
   });
 
   // Published drafts stay in content/published; others in content/drafts.
