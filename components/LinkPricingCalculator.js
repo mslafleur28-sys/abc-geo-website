@@ -1,5 +1,5 @@
 /**
- * abcGEO · Guest Post & Link Placement Value Calculator
+ * abcGEO · Linkulator
  * Expects markup from components/LinkPricingCalculator.html ([data-link-calc] root).
  *
  * User enters a URL (+ optional quoted price). Traffic & authority are estimated
