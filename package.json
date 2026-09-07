@@ -4,13 +4,20 @@
   "type": "module",
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "prisma generate && next build",
     "start": "next start",
-    "api": "node server/index.js"
+    "api": "node server/index.js",
+    "db:generate": "prisma generate",
+    "db:push": "prisma db push",
+    "db:migrate": "prisma migrate dev",
+    "db:seed": "tsx prisma/seed.ts",
+    "db:studio": "prisma studio",
+    "postinstall": "prisma generate"
   },
   "dependencies": {
     "@ai-sdk/google": "^4.0.51",
     "@ai-sdk/react": "^4.0.82",
+    "@prisma/client": "^6.19.3",
     "@rive-app/react-canvas": "^4.32.1",
     "ai": "^7.0.79",
     "dotenv": "^16.6.1",
@@ -25,7 +32,12 @@
     "@types/react-dom": "^19.2.5",
     "autoprefixer": "^10.5.4",
     "postcss": "^8.5.26",
+    "prisma": "^6.19.3",
     "tailwindcss": "^3.4.19",
+    "tsx": "^4.23.13",
     "typescript": "^5.9.3"
+  },
+  "prisma": {
+    "seed": "tsx prisma/seed.ts"
   }
 }

@@ -1,0 +1,40 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+/// AI answer-engine citation discovered for a tracked keyword.
+model Citation {
+  id             String   @id @default(uuid())
+  keyword        String
+  engine         String
+  citedUrl       String
+  status         String
+  discoveryDate  DateTime @default(now())
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  @@unique([keyword, engine, citedUrl])
+  @@index([engine])
+  @@index([status])
+  @@index([discoveryDate])
+}
+
+/// GA4 AI-referrer conversion / traffic row attributed to a landing page.
+model Ga4Conversion {
+  id          String   @id @default(uuid())
+  timestamp   DateTime @default(now())
+  engine      String
+  landingPage String
+  sessions    Int
+  conversions Int
+  revenue     Float
+
+  @@index([engine])
+  @@index([landingPage])
+  @@index([timestamp])
+}

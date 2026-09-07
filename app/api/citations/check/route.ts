@@ -1,58 +1,69 @@
 import { NextRequest, NextResponse } from 'next/server';
+import type { Citation } from '@prisma/client';
 import type {
   CitationsCheckRequest,
   CitationsCheckResponse,
   PerplexityApiResponse,
-  TrackedCitation,
 } from '@lib/types';
+import { prisma } from '@lib/prisma';
 import {
-  extractPathFromUrl,
   normalizeDomain,
-  saveTrackedCitation,
   urlMatchesTargetDomain,
-} from '@lib/trackedCitations';
+} from '@lib/citationUrl';
 
 export const runtime = 'nodejs';
 
 const PERPLEXITY_API_URL = 'https://api.perplexity.ai/chat/completions';
 const PERPLEXITY_MODEL = 'sonar-reasoning';
+const DEFAULT_ENGINE = 'Perplexity';
 
 interface ProcessCitationsResult {
-  matchedCitations: TrackedCitation[];
+  matchedCitations: Citation[];
   savedCount: number;
 }
 
 /**
  * Loops Perplexity `citations`, flags URLs on the registered target
- * domain as valid GEO citations, extracts paths, and persists rows
- * to the `tracked_citations` table.
+ * domain as valid GEO citations, and upserts them into SQLite via Prisma.
  */
-export function processPerplexityCitations(
+export async function processPerplexityCitations(
   response: PerplexityApiResponse,
+  keyword: string,
   targetDomain: string,
-  targetKeyword: string,
-): ProcessCitationsResult {
-  const matchedCitations: TrackedCitation[] = [];
+  engine: string = DEFAULT_ENGINE,
+): Promise<ProcessCitationsResult> {
+  const matchedCitations: Citation[] = [];
   const domain = normalizeDomain(targetDomain);
+  const now = new Date();
 
-  response.citations.forEach((citationUrl, index) => {
+  for (const citationUrl of response.citations) {
     if (!urlMatchesTargetDomain(citationUrl, domain)) {
-      return;
+      continue;
     }
 
-    const pagePath = extractPathFromUrl(citationUrl);
-    const saved = saveTrackedCitation({
-      targetDomain: domain,
-      citationUrl,
-      pagePath,
-      targetKeyword,
-      perplexityResponseId: response.id,
-      model: response.model,
-      citationIndex: index + 1,
+    const saved = await prisma.citation.upsert({
+      where: {
+        keyword_engine_citedUrl: {
+          keyword,
+          engine,
+          citedUrl: citationUrl,
+        },
+      },
+      create: {
+        keyword,
+        engine,
+        citedUrl: citationUrl,
+        status: 'active',
+        discoveryDate: now,
+      },
+      update: {
+        status: 'active',
+        discoveryDate: now,
+      },
     });
 
     matchedCitations.push(saved);
-  });
+  }
 
   return {
     matchedCitations,
@@ -62,7 +73,7 @@ export function processPerplexityCitations(
 
 function buildSimulatedPerplexityResponse(
   targetDomain: string,
-  targetKeyword: string,
+  keyword: string,
   focusPaths: string[] = [],
 ): PerplexityApiResponse {
   const domain = normalizeDomain(targetDomain);
@@ -96,7 +107,7 @@ function buildSimulatedPerplexityResponse(
         message: {
           role: 'assistant',
           content: [
-            `For the query “${targetKeyword}”, Generative Engine Optimization`,
+            `For the query “${keyword}”, Generative Engine Optimization`,
             `(GEO) pairs a named entity with a transitive verb so answer engines`,
             `can extract a closed fact span [1]. Google’s Analytics Data API`,
             `can attribute resulting click-throughs once sessions arrive [2].`,
@@ -122,14 +133,14 @@ function buildSimulatedPerplexityResponse(
  * `api.perplexity.ai/chat/completions` with `sonar-reasoning`.
  */
 async function callPerplexityChatCompletions(
-  targetKeyword: string,
+  keyword: string,
   targetDomain: string,
   focusPaths: string[] = [],
 ): Promise<PerplexityApiResponse> {
   const apiKey = process.env.PERPLEXITY_API_KEY;
 
   if (!apiKey) {
-    return buildSimulatedPerplexityResponse(targetDomain, targetKeyword, focusPaths);
+    return buildSimulatedPerplexityResponse(targetDomain, keyword, focusPaths);
   }
 
   const response = await fetch(PERPLEXITY_API_URL, {
@@ -148,7 +159,7 @@ async function callPerplexityChatCompletions(
         },
         {
           role: 'user',
-          content: `Explain “${targetKeyword}” with emphasis on sources hosted on ${normalizeDomain(targetDomain)} when relevant.`,
+          content: `Explain “${keyword}” with emphasis on sources hosted on ${normalizeDomain(targetDomain)} when relevant.`,
         },
       ],
       return_citations: true,
@@ -160,7 +171,7 @@ async function callPerplexityChatCompletions(
     console.warn(
       `[citations/check] Perplexity API ${response.status}; using simulated response.`,
     );
-    return buildSimulatedPerplexityResponse(targetDomain, targetKeyword, focusPaths);
+    return buildSimulatedPerplexityResponse(targetDomain, keyword, focusPaths);
   }
 
   const payload = (await response.json()) as PerplexityApiResponse;
@@ -189,26 +200,28 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
   }
 
   const targetDomain = body.targetDomain?.trim();
-  const targetKeyword = body.targetKeyword?.trim();
+  const keyword = (body.keyword ?? body.targetKeyword)?.trim();
+  const engine = (body.engine ?? DEFAULT_ENGINE).trim() || DEFAULT_ENGINE;
 
-  if (!targetDomain || !targetKeyword) {
+  if (!targetDomain || !keyword) {
     return NextResponse.json(
-      { error: 'Both `targetDomain` and `targetKeyword` are required.' },
+      { error: 'Both `keyword` (or `targetKeyword`) and `targetDomain` are required.' },
       { status: 400 },
     );
   }
 
   try {
     const perplexity = await callPerplexityChatCompletions(
-      targetKeyword,
+      keyword,
       targetDomain,
       body.focusPaths ?? [],
     );
 
-    const { matchedCitations, savedCount } = processPerplexityCitations(
+    const { matchedCitations, savedCount } = await processPerplexityCitations(
       perplexity,
+      keyword,
       targetDomain,
-      targetKeyword,
+      engine,
     );
 
     const payload: CitationsCheckResponse = {

@@ -1,7 +1,9 @@
 /**
- * Generatometrics — shared schema types for Perplexity citation tracking
- * and GA4 OAuth / Data API (v1beta) attribution.
+ * Generatometrics — shared TypeScript contracts for Perplexity citation
+ * tracking, GA4 Data API rows, and dashboard attribution joins.
  */
+
+import type { Citation, Ga4Conversion } from '@prisma/client';
 
 /** Single choice message returned by Perplexity chat/completions. */
 export interface PerplexityChoiceMessage {
@@ -41,6 +43,7 @@ export interface PerplexityApiResponse {
 /** Named GA4 dimension bag for a single report row. */
 export interface GA4DimensionValues {
   pagePath: string;
+  sessionSource: string;
   sessionSourceMedium: string;
 }
 
@@ -59,66 +62,58 @@ export interface GA4MetricValues {
 export interface GA4SessionRow {
   dimensionValues: GA4DimensionValues;
   metricValues: GA4MetricValues;
+  /** Canonical AI engine label derived from session source / medium. */
+  engine: string;
 }
 
-/** Persisted row in the `tracked_citations` table. */
-export interface TrackedCitation {
-  id: string;
-  /** Registered brand / site domain, e.g. `abcgeo.dev`. */
-  targetDomain: string;
-  /** Absolute cited URL that matched the target domain. */
-  citationUrl: string;
-  /** Path extracted from `citationUrl` (matches GA4 `pagePath`). */
-  pagePath: string;
-  /** Keyword / prompt that produced the Perplexity answer. */
-  targetKeyword: string;
-  /** Perplexity response id that contained this citation. */
-  perplexityResponseId: string;
-  /** Model used for the completion (e.g. `sonar-reasoning`). */
-  model: string;
-  /** 1-based index into the Perplexity `citations` array. */
-  citationIndex: number;
-  isValidGeoCitation: true;
-  citedAt: string;
-  createdAt: string;
-  updatedAt: string;
-}
-
-export type CitationStatus = 'cited' | 'not_cited';
+export type CitationStatus = 'active' | 'inactive' | 'cited' | 'not_cited';
 
 /**
- * Dashboard attribution row: Perplexity citation joined to GA4
- * Perplexity / AI-assistant traffic for the same `pagePath`.
+ * Dashboard attribution row: Prisma Citation joined to GA4 /
+ * Ga4Conversion traffic for the same landing path.
  */
 export interface GeneratometricsAttributionRow {
+  citationId: string | null;
   pagePath: string;
   citationUrl: string | null;
-  targetKeyword: string;
-  citationStatus: CitationStatus;
-  isCitedByPerplexity: boolean;
-  ga4Sessions: number;
-  ga4EngagedSessions: number;
-  ga4Conversions: number;
-  ga4TotalRevenue: number;
+  keyword: string;
+  engine: string;
+  status: string;
+  discoveryDate: string | null;
+  sessions: number;
+  conversions: number;
+  revenue: number;
   /** Direct conversion rate: conversions / sessions * 100. */
   conversionRatePercent: number;
   /**
-   * True when Perplexity cites the URL but GA4 reports 0 sessions
-   * from AI referrers for that path in the selected date range.
+   * True when the citation is active in the database but GA4 reports
+   * 0 sessions for that path in the selected feed.
    */
   isZeroClickCitation: boolean;
 }
 
+export interface GeneratometricsDashboardMetrics {
+  totalTrackedAiCitations: number;
+  attributedAiClicks: number;
+  conversionRatePercent: number;
+  totalAttributedRevenue: number;
+  zeroClickCount: number;
+}
+
 export interface CitationsCheckRequest {
+  /** Alias accepted by the API — preferred field name. */
+  keyword?: string;
+  /** Backward-compatible alias for `keyword`. */
+  targetKeyword?: string;
   targetDomain: string;
-  targetKeyword: string;
-  /** Optional registered page paths to bias the simulated / live prompt. */
+  engine?: string;
+  /** Optional registered page paths to bias the simulated prompt. */
   focusPaths?: string[];
 }
 
 export interface CitationsCheckResponse {
   perplexity: PerplexityApiResponse;
-  matchedCitations: TrackedCitation[];
+  matchedCitations: Citation[];
   savedCount: number;
 }
 
@@ -126,3 +121,5 @@ export interface Ga4DateRange {
   startDate: string;
   endDate: string;
 }
+
+export type { Citation, Ga4Conversion };
