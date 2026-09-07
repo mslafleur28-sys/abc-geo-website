@@ -1174,10 +1174,15 @@ img {
   height: auto;
   max-height: 2.75rem;
   max-width: min(22rem, 52vw);
-  aspect-ratio: 987 / 156;
+  aspect-ratio: 983 / 152;
   object-fit: contain;
   object-position: left center;
   flex: none;
+  padding: 0.2rem 0.45rem;
+  border-radius: 0.45rem;
+  background: rgba(255, 255, 255, 0.28);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
 
 .logo-mark {

@@ -32,7 +32,7 @@ export default function AdminChrome({ children }: { children: ReactNode }) {
                 alt=""
                 width={412}
                 height={226}
-                className="h-7 w-auto object-contain"
+                className="h-7 w-auto rounded-md bg-white/30 px-1.5 py-0.5 object-contain backdrop-blur-sm"
               />
               <span className="font-display text-lg font-extrabold tracking-tight text-abby-ink">
                 abc<span className="text-abby-sky-ink">GEO</span>
