@@ -1164,12 +1164,20 @@ img {
   align-items: center;
 }
 
+.site-header .logo {
+  flex: 0 0 auto;
+}
+
 .logo-img {
   display: block;
   width: auto;
-  height: clamp(2.25rem, 5vw, 3rem);
-  max-width: min(19rem, 62vw);
+  height: auto;
+  max-height: 2.75rem;
+  max-width: min(22rem, 52vw);
+  aspect-ratio: 987 / 156;
   object-fit: contain;
+  object-position: left center;
+  flex: none;
 }
 
 .logo-mark {
@@ -1181,10 +1189,17 @@ img {
   flex: none;
 }
 
+@media (max-width: 899px) {
+  .logo-img {
+    max-height: 2.35rem;
+    max-width: min(18rem, 70vw);
+  }
+}
+
 @media (max-width: 520px) {
   .logo-img {
+    max-height: 2.1rem;
     max-width: min(15.5rem, 72vw);
-    height: 2.15rem;
   }
 }
 
