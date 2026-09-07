@@ -28,6 +28,7 @@ import {
   renderRichInline,
   type TextAlign,
 } from './rich-text';
+import { normalizeTableKind, tableKindLabel } from './table-kinds';
 
 function escapeHtml(text: string): string {
   return text
@@ -108,7 +109,13 @@ function editorCalloutHtml(
   return `<aside class="draft-callout draft-callout--${variant}" data-callout="1" data-variant="${variant}"><p class="draft-callout__label" contenteditable="false">Callout · ${variant}</p><p class="draft-callout__title">${titleHtml}</p><p>${bodyHtml}</p></aside>`;
 }
 
-function editorTableHtml(headers: string[], rows: string[][]): string {
+function editorTableHtml(
+  headers: string[],
+  rows: string[][],
+  kindRaw?: string,
+): string {
+  const kind = normalizeTableKind(kindRaw);
+  const label = tableKindLabel(kind);
   const cols = Math.max(headers.length, 3);
   const head = [...headers];
   while (head.length < cols) head.push(`Column ${String.fromCharCode(65 + head.length)}`);
@@ -132,7 +139,7 @@ function editorTableHtml(headers: string[], rows: string[][]): string {
         .join('')}</tr>`;
     })
     .join('')}</tbody>`;
-  return `<div class="draft-table-wrap" data-draft-table="1"><table>${thead}${tbody}</table></div>`;
+  return `<div class="draft-table-wrap" data-draft-table="1" data-table-kind="${kind}"><p class="draft-table-wrap__label" contenteditable="false">${label}</p><table>${thead}${tbody}</table></div>`;
 }
 
 /** Convert stored draft markup into visual HTML for the contenteditable surface. */
@@ -226,6 +233,7 @@ export function markdownToEditorHtml(source: string): string {
         editorTableHtml(
           parsed?.headers || ['Column A', 'Column B', 'Column C'],
           parsed?.rows || [],
+          variant,
         ),
       );
     }
@@ -599,9 +607,16 @@ function serializeBlock(el: HTMLElement): string[] {
     tag === 'table' ||
     el.classList.contains('draft-table-wrap')
   ) {
+    const wrap =
+      tag === 'table'
+        ? (el.closest('.draft-table-wrap') as HTMLElement | null)
+        : el;
     const table =
       tag === 'table' ? el : (el.querySelector('table') as HTMLElement | null);
     if (table) {
+      const kind = normalizeTableKind(
+        wrap?.getAttribute('data-table-kind') || undefined,
+      );
       const headers = Array.from(table.querySelectorAll('thead th')).map((th) =>
         serializeInline(th).trim(),
       );
@@ -616,8 +631,9 @@ function serializeBlock(el: HTMLElement): string[] {
           : Array.from(table.querySelectorAll('tr:first-child th, tr:first-child td')).map(
               (cell) => serializeInline(cell).trim(),
             );
+      const open = kind === 'data' ? ':::table' : `:::table ${kind}`;
       return [
-        ':::table',
+        open,
         ...serializePipeTable(
           fallbackHeaders.length ? fallbackHeaders : ['Column A', 'Column B', 'Column C'],
           headers.length ? rows : rows.slice(1),

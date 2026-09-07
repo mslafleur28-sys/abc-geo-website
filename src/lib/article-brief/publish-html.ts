@@ -9,6 +9,8 @@ import {
 } from './preview-model';
 import { renderRichInline } from './rich-text';
 import type { ArticleBriefInput, KeyDefinition } from './schema';
+import { renderChartSvg } from './chart-svg';
+import { getTableKindOption, tableKindLabel } from './table-kinds';
 
 function escapeHtml(text: string): string {
   return text
@@ -137,6 +139,15 @@ ${bodyParas || `                        <p class="text-slate-300 text-sm leading
                     </div>`;
   }
   if (block.type === 'table' && block.headers?.length) {
+    const kind = getTableKindOption(block.tableKind);
+    const kindLabel = tableKindLabel(kind.id);
+    if (kind.isChart) {
+      const svg = renderChartSvg(kind.id, block.headers, block.rows || []);
+      return `                    <figure class="my-6 rounded-xl border border-slate-800 bg-slate-900/60 p-4 overflow-x-auto">
+                        <figcaption class="text-xs font-bold uppercase tracking-wider text-sky-700 mb-3">${escapeHtml(kindLabel)}</figcaption>
+                        <div class="w-full max-w-3xl mx-auto text-charcoal-body">${svg}</div>
+                    </figure>`;
+    }
     const head = block.headers
       .map(
         (h) =>
@@ -157,6 +168,7 @@ ${cells
       })
       .join('\n');
     return `                    <div class="my-6 overflow-x-auto rounded-xl border border-slate-800">
+                        <p class="text-xs font-bold uppercase tracking-wider text-sky-700 px-3 pt-3">${escapeHtml(kindLabel)}</p>
                         <table class="w-full border-collapse">
                             <thead>
                                 <tr>

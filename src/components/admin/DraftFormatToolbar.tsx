@@ -31,6 +31,13 @@ import {
   type TextAlign,
   type TextSizeId,
 } from '@/lib/article-brief/rich-text';
+import {
+  TABLE_KIND_CATEGORIES,
+  TABLE_KIND_OPTIONS,
+  getTableKindOption,
+  normalizeTableKind,
+  tableKindLabel,
+} from '@/lib/article-brief/table-kinds';
 
 /** Curated set for article writing — insert as plain Unicode. */
 const TOOLBOX_EMOJIS = [
@@ -178,6 +185,9 @@ interface DraftFormatToolbarProps {
   /** Currently selected image figure in the editor (click-to-edit). */
   selectedFigure?: HTMLElement | null;
   onSelectedFigureChange?: (figure: HTMLElement | null) => void;
+  /** Currently selected draft table wrap (click-to-edit). */
+  selectedTable?: HTMLElement | null;
+  onSelectedTableChange?: (table: HTMLElement | null) => void;
   /** Optional Post action shown at the end of the toolbox (draft editor). */
   onPost?: () => void;
   postBusy?: boolean;
@@ -188,6 +198,116 @@ function clearFigureSelection(editor: HTMLDivElement | null) {
   editor
     ?.querySelectorAll('.draft-editor-figure--selected')
     .forEach((el) => el.classList.remove('draft-editor-figure--selected'));
+}
+
+function clearTableSelection(editor: HTMLDivElement | null) {
+  editor
+    ?.querySelectorAll('.draft-table-wrap--selected')
+    .forEach((el) => el.classList.remove('draft-table-wrap--selected'));
+}
+
+function createDraftTableElement(
+  cols: number,
+  rows: number,
+  kindRaw?: string,
+): HTMLDivElement {
+  const kind = normalizeTableKind(kindRaw);
+  const wrap = document.createElement('div');
+  wrap.className = 'draft-table-wrap';
+  wrap.setAttribute('data-draft-table', '1');
+  wrap.setAttribute('data-table-kind', kind);
+
+  const label = document.createElement('p');
+  label.className = 'draft-table-wrap__label';
+  label.contentEditable = 'false';
+  label.textContent = tableKindLabel(kind);
+  wrap.appendChild(label);
+
+  const table = document.createElement('table');
+  const thead = document.createElement('thead');
+  const headRow = document.createElement('tr');
+  for (let c = 0; c < cols; c++) {
+    const th = document.createElement('th');
+    th.textContent = `Column ${String.fromCharCode(65 + c)}`;
+    headRow.appendChild(th);
+  }
+  thead.appendChild(headRow);
+
+  const tbody = document.createElement('tbody');
+  for (let r = 0; r < rows; r++) {
+    const tr = document.createElement('tr');
+    for (let c = 0; c < cols; c++) {
+      const td = document.createElement('td');
+      td.textContent = c === 0 ? `Item ${r + 1}` : '0';
+      tr.appendChild(td);
+    }
+    tbody.appendChild(tr);
+  }
+  table.appendChild(thead);
+  table.appendChild(tbody);
+  wrap.appendChild(table);
+  return wrap;
+}
+
+function applyTableKind(wrap: HTMLElement, kindRaw: string) {
+  const kind = normalizeTableKind(kindRaw);
+  wrap.setAttribute('data-table-kind', kind);
+  let label = wrap.querySelector('.draft-table-wrap__label');
+  if (!label) {
+    label = document.createElement('p');
+    label.className = 'draft-table-wrap__label';
+    (label as HTMLElement).contentEditable = 'false';
+    wrap.insertBefore(label, wrap.firstChild);
+  }
+  label.textContent = tableKindLabel(kind);
+}
+
+function addTableColumn(wrap: HTMLElement) {
+  const table = wrap.querySelector('table');
+  if (!table) return;
+  const colCount = table.querySelectorAll('thead th').length;
+  const letter = String.fromCharCode(65 + colCount);
+  table.querySelectorAll('thead tr').forEach((tr) => {
+    const th = document.createElement('th');
+    th.textContent = `Column ${letter}`;
+    tr.appendChild(th);
+  });
+  table.querySelectorAll('tbody tr').forEach((tr) => {
+    const td = document.createElement('td');
+    td.textContent = '0';
+    tr.appendChild(td);
+  });
+}
+
+function removeTableColumn(wrap: HTMLElement) {
+  const table = wrap.querySelector('table');
+  if (!table) return;
+  const colCount = table.querySelectorAll('thead th').length;
+  if (colCount <= 1) return;
+  table.querySelectorAll('tr').forEach((tr) => {
+    const cell = tr.lastElementChild;
+    if (cell) cell.remove();
+  });
+}
+
+function addTableRow(wrap: HTMLElement) {
+  const table = wrap.querySelector('table');
+  const tbody = table?.querySelector('tbody');
+  if (!table || !tbody) return;
+  const colCount = Math.max(1, table.querySelectorAll('thead th').length);
+  const tr = document.createElement('tr');
+  for (let c = 0; c < colCount; c++) {
+    const td = document.createElement('td');
+    td.textContent = c === 0 ? `Item ${tbody.children.length + 1}` : '0';
+    tr.appendChild(td);
+  }
+  tbody.appendChild(tr);
+}
+
+function removeTableRow(wrap: HTMLElement) {
+  const tbody = wrap.querySelector('tbody');
+  if (!tbody || tbody.children.length <= 1) return;
+  tbody.lastElementChild?.remove();
 }
 
 function readFigureFields(figure: HTMLElement): {
@@ -261,12 +381,18 @@ function DraftFormatToolbar({
   sticky = false,
   selectedFigure = null,
   onSelectedFigureChange,
+  selectedTable = null,
+  onSelectedTableChange,
   onPost,
   postBusy = false,
   postDisabled = false,
 }: DraftFormatToolbarProps) {
   const [imageOpen, setImageOpen] = useState(false);
   const [emojiOpen, setEmojiOpen] = useState(false);
+  const [tableOpen, setTableOpen] = useState(false);
+  const [tableKind, setTableKind] = useState('data');
+  const [tableCols, setTableCols] = useState(3);
+  const [tableRows, setTableRows] = useState(3);
   const [imageUrl, setImageUrl] = useState('');
   const [imageAlt, setImageAlt] = useState('');
   const [imageCaption, setImageCaption] = useState('');
@@ -275,7 +401,9 @@ function DraftFormatToolbar({
   const fileInputRef = useRef<HTMLInputElement>(null);
   const savedRange = useRef<Range | null>(null);
   const editingExisting = Boolean(selectedFigure);
+  const editingTable = Boolean(selectedTable);
   const wasEditingRef = useRef(false);
+  const wasEditingTableRef = useRef(false);
 
   useEffect(() => {
     clearFigureSelection(editorRef.current);
@@ -296,7 +424,35 @@ function DraftFormatToolbar({
     setImageError('');
     setImageOpen(true);
     setEmojiOpen(false);
-  }, [editorRef, selectedFigure]);
+    setTableOpen(false);
+    onSelectedTableChange?.(null);
+  }, [editorRef, selectedFigure, onSelectedTableChange]);
+
+  useEffect(() => {
+    clearTableSelection(editorRef.current);
+    if (!selectedTable) {
+      if (wasEditingTableRef.current) {
+        wasEditingTableRef.current = false;
+      }
+      return;
+    }
+    wasEditingTableRef.current = true;
+    selectedTable.classList.add('draft-table-wrap--selected');
+    const kind = normalizeTableKind(
+      selectedTable.getAttribute('data-table-kind') || undefined,
+    );
+    setTableKind(kind);
+    setTableCols(
+      Math.max(1, selectedTable.querySelectorAll('thead th').length || 3),
+    );
+    setTableRows(
+      Math.max(1, selectedTable.querySelectorAll('tbody tr').length || 2),
+    );
+    setTableOpen(true);
+    setImageOpen(false);
+    setEmojiOpen(false);
+    onSelectedFigureChange?.(null);
+  }, [editorRef, selectedTable, onSelectedFigureChange]);
 
   const saveSelection = useCallback(() => {
     const selection = window.getSelection();
@@ -949,52 +1105,19 @@ function DraftFormatToolbar({
           </button>
           <button
             type="button"
-            className="draft-toolbox__btn"
-            title="Comparison / data table"
-            aria-label="Comparison / data table"
-            onClick={() =>
-              runCommand(() => {
-                const selection = window.getSelection();
-                if (!selection || selection.rangeCount === 0) return;
-
-                const wrap = document.createElement('div');
-                wrap.className = 'draft-table-wrap';
-                wrap.setAttribute('data-draft-table', '1');
-
-                const table = document.createElement('table');
-                const thead = document.createElement('thead');
-                const headRow = document.createElement('tr');
-                ['Column A', 'Column B', 'Column C'].forEach((label) => {
-                  const th = document.createElement('th');
-                  th.textContent = label;
-                  headRow.appendChild(th);
-                });
-                thead.appendChild(headRow);
-
-                const tbody = document.createElement('tbody');
-                for (let r = 0; r < 2; r++) {
-                  const tr = document.createElement('tr');
-                  for (let c = 0; c < 3; c++) {
-                    const td = document.createElement('td');
-                    td.textContent = '…';
-                    tr.appendChild(td);
-                  }
-                  tbody.appendChild(tr);
-                }
-                table.appendChild(thead);
-                table.appendChild(tbody);
-                wrap.appendChild(table);
-                insertBlockAfterSelection(editorRef.current, wrap);
-
-                selection.removeAllRanges();
-                const next = document.createRange();
-                const firstCell = table.querySelector('tbody td');
-                if (firstCell) {
-                  next.selectNodeContents(firstCell);
-                  selection.addRange(next);
-                }
-              })
-            }
+            className={`draft-toolbox__btn ${tableOpen ? 'draft-toolbox__btn--active' : ''}`}
+            title="Insert or edit table / chart"
+            aria-label="Insert or edit table or chart"
+            aria-expanded={tableOpen}
+            onClick={() => {
+              saveSelection();
+              setEmojiOpen(false);
+              setImageOpen(false);
+              if (!selectedTable) {
+                onSelectedFigureChange?.(null);
+              }
+              setTableOpen((open) => !open);
+            }}
           >
             Table
           </button>
@@ -1137,6 +1260,180 @@ function DraftFormatToolbar({
           </div>
         ) : null}
       </div>
+
+      {tableOpen ? (
+        <div className="draft-table-panel" role="region" aria-label="Table and chart editor">
+          <p className="draft-table-panel__hint">
+            {editingTable
+              ? 'Edit the selected table — change type, add or remove rows and columns, or delete it. Click inside cells to edit values.'
+              : 'Choose a table or chart type, set columns and rows, then insert. Charts use the same editable grid (first column = labels, other columns = numbers).'}
+          </p>
+          <label className="draft-table-panel__field">
+            <span>Type</span>
+            <select
+              className="admin-input"
+              value={tableKind}
+              onChange={(e) => {
+                const next = normalizeTableKind(e.target.value);
+                setTableKind(next);
+                if (selectedTable) {
+                  runCommand(() => applyTableKind(selectedTable, next));
+                }
+              }}
+            >
+              {TABLE_KIND_CATEGORIES.map((cat) => (
+                <optgroup key={cat.id} label={cat.label}>
+                  {TABLE_KIND_OPTIONS.filter((o) => o.category === cat.id).map(
+                    (opt) => (
+                      <option key={opt.id} value={opt.id}>
+                        {opt.label}
+                      </option>
+                    ),
+                  )}
+                </optgroup>
+              ))}
+            </select>
+          </label>
+          <p className="draft-table-panel__desc">
+            {getTableKindOption(tableKind).description}
+          </p>
+          {!editingTable ? (
+            <div className="draft-table-panel__dims">
+              <label className="draft-table-panel__field">
+                <span>Columns</span>
+                <input
+                  className="admin-input"
+                  type="number"
+                  min={1}
+                  max={12}
+                  value={tableCols}
+                  onChange={(e) =>
+                    setTableCols(
+                      Math.min(12, Math.max(1, Number(e.target.value) || 1)),
+                    )
+                  }
+                />
+              </label>
+              <label className="draft-table-panel__field">
+                <span>Rows</span>
+                <input
+                  className="admin-input"
+                  type="number"
+                  min={1}
+                  max={40}
+                  value={tableRows}
+                  onChange={(e) =>
+                    setTableRows(
+                      Math.min(40, Math.max(1, Number(e.target.value) || 1)),
+                    )
+                  }
+                />
+              </label>
+            </div>
+          ) : null}
+          <div className="draft-table-panel__actions">
+            {editingTable ? (
+              <>
+                <button
+                  type="button"
+                  className="admin-btn-ghost"
+                  onClick={() =>
+                    runCommand(() => {
+                      if (!selectedTable) return;
+                      addTableRow(selectedTable);
+                      setTableRows((n) => n + 1);
+                    })
+                  }
+                >
+                  + Row
+                </button>
+                <button
+                  type="button"
+                  className="admin-btn-ghost"
+                  onClick={() =>
+                    runCommand(() => {
+                      if (!selectedTable) return;
+                      removeTableRow(selectedTable);
+                      setTableRows((n) => Math.max(1, n - 1));
+                    })
+                  }
+                >
+                  − Row
+                </button>
+                <button
+                  type="button"
+                  className="admin-btn-ghost"
+                  onClick={() =>
+                    runCommand(() => {
+                      if (!selectedTable) return;
+                      addTableColumn(selectedTable);
+                      setTableCols((n) => n + 1);
+                    })
+                  }
+                >
+                  + Column
+                </button>
+                <button
+                  type="button"
+                  className="admin-btn-ghost"
+                  onClick={() =>
+                    runCommand(() => {
+                      if (!selectedTable) return;
+                      removeTableColumn(selectedTable);
+                      setTableCols((n) => Math.max(1, n - 1));
+                    })
+                  }
+                >
+                  − Column
+                </button>
+                <button
+                  type="button"
+                  className="admin-btn-ghost text-red-700"
+                  onClick={() =>
+                    runCommand(() => {
+                      if (!selectedTable) return;
+                      const spacer = document.createElement('p');
+                      spacer.innerHTML = '<br>';
+                      selectedTable.replaceWith(spacer);
+                      onSelectedTableChange?.(null);
+                      setTableOpen(false);
+                    })
+                  }
+                >
+                  Delete table
+                </button>
+              </>
+            ) : (
+              <button
+                type="button"
+                className="admin-btn-primary"
+                onClick={() =>
+                  runCommand(() => {
+                    const selection = window.getSelection();
+                    if (!selection) return;
+                    const wrap = createDraftTableElement(
+                      tableCols,
+                      tableRows,
+                      tableKind,
+                    );
+                    insertBlockAfterSelection(editorRef.current, wrap);
+                    onSelectedTableChange?.(wrap);
+                    selection.removeAllRanges();
+                    const next = document.createRange();
+                    const firstCell = wrap.querySelector('tbody td');
+                    if (firstCell) {
+                      next.selectNodeContents(firstCell);
+                      selection.addRange(next);
+                    }
+                  })
+                }
+              >
+                Insert {tableKindLabel(tableKind)}
+              </button>
+            )}
+          </div>
+        </div>
+      ) : null}
 
       {emojiOpen ? (
         <div className="draft-emoji-panel" role="listbox" aria-label="Emoji picker">
@@ -1362,6 +1659,7 @@ export function FormattedTextarea({
   const applyingHistoryRef = useRef(false);
   const [historyUi, setHistoryUi] = useState({ canUndo: false, canRedo: false });
   const [selectedFigure, setSelectedFigure] = useState<HTMLElement | null>(null);
+  const [selectedTable, setSelectedTable] = useState<HTMLElement | null>(null);
   const [pasteImageBusy, setPasteImageBusy] = useState(false);
   const minHeight = Math.max(7, rows) * 1.55;
 
@@ -1521,6 +1819,8 @@ export function FormattedTextarea({
           sticky={stickyToolbox}
           selectedFigure={selectedFigure}
           onSelectedFigureChange={setSelectedFigure}
+          selectedTable={selectedTable}
+          onSelectedTableChange={setSelectedTable}
           onBeforeMutate={() => {
             const el = editorRef.current;
             if (el) pushHistory(el.innerHTML, { immediate: true });
@@ -1586,10 +1886,22 @@ export function FormattedTextarea({
           ) as HTMLElement | null;
           if (figure && editorRef.current?.contains(figure)) {
             setSelectedFigure(figure);
+            setSelectedTable(null);
+            return;
+          }
+          const tableWrap = target.closest(
+            '.draft-table-wrap',
+          ) as HTMLElement | null;
+          if (tableWrap && editorRef.current?.contains(tableWrap)) {
+            setSelectedTable(tableWrap);
+            setSelectedFigure(null);
             return;
           }
           if (selectedFigure) {
             setSelectedFigure(null);
+          }
+          if (selectedTable) {
+            setSelectedTable(null);
           }
 
           const label = target.closest('.draft-callout__label');

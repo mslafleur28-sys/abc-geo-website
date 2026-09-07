@@ -1562,6 +1562,18 @@ a.admin-btn-primary {
   background: #fff;
 }
 
+.draft-table-wrap__label {
+  margin: 0;
+  padding: 0.45rem 0.7rem 0.2rem;
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #00566b;
+  user-select: none;
+}
+
 .draft-table-wrap table {
   width: 100%;
   border-collapse: collapse;
@@ -1585,9 +1597,83 @@ a.admin-btn-primary {
   background: rgba(0, 180, 216, 0.08);
 }
 
-.draft-table-wrap:focus-within {
-  outline: 2px solid rgba(0, 180, 216, 0.35);
+.draft-table-wrap:focus-within,
+.draft-table-wrap--selected {
+  outline: 2px solid rgba(0, 180, 216, 0.45);
   outline-offset: 2px;
+}
+
+.draft-table-panel {
+  margin-top: 0.55rem;
+  padding: 0.85rem 0.9rem;
+  border: 1px solid rgba(26, 32, 44, 0.12);
+  border-radius: 0.85rem;
+  background: #faf9f6;
+  display: grid;
+  gap: 0.65rem;
+}
+
+.draft-table-panel__hint,
+.draft-table-panel__desc {
+  margin: 0;
+  font-size: 0.8rem;
+  color: #64748b;
+  line-height: 1.45;
+}
+
+.draft-table-panel__field {
+  display: grid;
+  gap: 0.3rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #1a202c;
+}
+
+.draft-table-panel__dims {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.65rem;
+}
+
+.draft-table-panel__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.preview-table-wrap__label,
+.preview-chart-wrap__label {
+  margin: 0 0 0.5rem;
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #00566b;
+}
+
+.preview-chart-wrap {
+  margin: 1rem 0;
+  padding: 0.9rem 1rem;
+  border: 1px solid rgba(26, 32, 44, 0.12);
+  border-radius: 0.85rem;
+  background: #fff;
+}
+
+.preview-chart-wrap__svg svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.preview-chart-wrap__hint {
+  margin: 0.75rem 0 0.4rem;
+  font-size: 0.75rem;
+  color: #64748b;
+}
+
+.preview-table-wrap--source {
+  margin-top: 0.35rem;
 }
 
 .draft-editor-figure--selected {
