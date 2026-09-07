@@ -2,7 +2,6 @@
 <html lang="en" class="scroll-smooth">
 <head>
 <script type="text/javascript" data-cmp-ab="1" src="https://cdn.consentmanager.net/delivery/autoblocking/5add6cdca2e35.js" data-cmp-host="b.delivery.consentmanager.net" data-cmp-cdn="cdn.consentmanager.net" data-cmp-codesrc="16"></script>
-<!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-PMLDXZ244T"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -13,97 +12,136 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="twitter:image" content="https://abcgeo.dev/assets/og-abcgeo.png" />
-  <meta name="twitter:description" content="How to optimize pages for Google AI Overviews, ChatGPT, and PerplexityBot with schema, answer-first copy, and entity-consistent GEO structure." />
+  <meta name="twitter:description" content="Generative engines do not share a single crawl pipeline. Each bot applies a different fetch strategy, rendering budget, and content priority—which means the sam" />
   <meta name="twitter:title" content="Optimizing for AI Overviews vs. ChatGPT vs. Perplexity: A Comparative Guide | abcGEO" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta property="og:site_name" content="abcGEO" />
   <meta property="og:image" content="https://abcgeo.dev/assets/og-abcgeo.png" />
   <meta property="og:url" content="https://abcgeo.dev/blog/optimizing-ai-overviews-chatgpt-perplexity.html" />
   <meta property="og:type" content="article" />
-  <meta property="og:description" content="How to optimize pages for Google AI Overviews, ChatGPT, and PerplexityBot with schema, answer-first copy, and entity-consistent GEO structure." />
+  <meta property="og:description" content="Generative engines do not share a single crawl pipeline. Each bot applies a different fetch strategy, rendering budget, and content priority—which means the sam" />
   <meta property="og:title" content="Optimizing for AI Overviews vs. ChatGPT vs. Perplexity: A Comparative Guide | abcGEO" />
   <link rel="apple-touch-icon" href="../assets/favicon.png" />
   <link rel="icon" href="../assets/favicon.png" type="image/png" />
   <link rel="canonical" href="https://abcgeo.dev/blog/optimizing-ai-overviews-chatgpt-perplexity.html" />
-  <meta name="description" content="How to optimize pages for Google AI Overviews, ChatGPT, and PerplexityBot with schema, answer-first copy, and entity-consistent GEO structure." />
+  <meta name="description" content="Generative engines do not share a single crawl pipeline. Each bot applies a different fetch strategy, rendering budget, and content priority—which means the sam" />
     <title>Optimizing for AI Overviews vs. ChatGPT vs. Perplexity: A Comparative Guide | abcGEO</title>
     <meta name="theme-color" content="#FF6B4A">
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                                                                                colors: {
-                        'primary-electric': '#FF6B4A',
-                        'secondary-slate': '#64748B',
-                        'trust-blue': '#00B4D8',
-                        'deep-slate': '#2D3748',
-                        'ai-cyan': '#00B4D8',
-                        'space-navy': '#1A202C',
-                        'success-green': '#00C9A7',
-                        'warning-amber': '#FF8C00',
-                        'error-crimson': '#EF4444',
-                        'charcoal-body': '#1A202C',
-                        'text-muted': '#64748B',
-                        'bg-clean-white': '#FFFFFF',
-                        'bg-soft-gray': '#FAF9F6',
-                        'bg-grid-gray': '#F4F7F6',
-                        white: '#1A202C',
-                        slate: {
-                            100: '#1A202C',
-                            200: '#2D3748',
-                            300: '#4A5568',
-                            400: '#64748B',
-                            500: '#718096',
-                            700: '#D1D9E0',
-                            800: '#E8EEF2',
-                            900: '#FFFFFF',
-                            950: '#FAF9F6'
-                        },
-                        /* 300/400/500 stay vivid for fills, borders, gradients and glows.
-                           700 is the text-only ink shade. */
-                        sky: { 300: '#00B4D8', 400: '#00B4D8', 500: '#0096C7', 700: '#00566B' },
-                        orange: { 400: '#FF6B4A', 500: '#FF6B4A', 600: '#FF8C00' },
-                        emerald: { 300: '#00C9A7', 400: '#00C9A7', 700: '#00594E' },
-                        red: { 400: '#DC2626', 500: '#EF4444' }
-                    }
-                }
-            }
-        }
-    </script>
-    <!-- JSON-LD Article Schema for AI Engine Citation -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+    <!-- Self-hosted article styles (CMP blocks the Tailwind Play CDN) -->
+    <link rel="stylesheet" href="../css/published-article.css" />
+    <link rel="stylesheet" href="../css/author-sidebar.css" />
+    <style>
+      .font-brand-display { font-family: Syne, system-ui, sans-serif; }
+      .font-brand-body { font-family: 'DM Sans', system-ui, sans-serif; }
+      .font-brand-mono { font-family: 'JetBrains Mono', ui-monospace, monospace; }
+
+.key-term {
+  color: #00566b;
+  border-bottom: 1px dotted rgba(0, 86, 107, 0.55);
+  text-decoration: none;
+  cursor: help;
+  position: relative;
+  transition: color 120ms ease, border-color 120ms ease;
+}
+.key-term:hover,
+.key-term:focus-visible {
+  color: #00b4d8;
+  border-bottom-color: #00b4d8;
+  outline: none;
+}
+.key-term::after {
+  content: attr(data-tip);
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% + 0.45rem);
+  transform: translateX(-50%) translateY(4px);
+  width: max-content;
+  max-width: min(22rem, 70vw);
+  padding: 0.55rem 0.7rem;
+  border-radius: 0.55rem;
+  border: 1px solid rgba(26, 32, 44, 0.12);
+  background: #1a202c;
+  color: #faf9f6;
+  font-size: 0.78rem;
+  font-weight: 500;
+  line-height: 1.45;
+  letter-spacing: 0;
+  text-transform: none;
+  white-space: normal;
+  box-shadow: 0 12px 28px -14px rgba(26, 32, 44, 0.55);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 140ms ease, transform 140ms ease, visibility 140ms ease;
+  z-index: 40;
+}
+.key-term::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% + 0.2rem);
+  transform: translateX(-50%);
+  border: 6px solid transparent;
+  border-top-color: #1a202c;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 140ms ease, visibility 140ms ease;
+  z-index: 41;
+}
+.key-term:hover::after,
+.key-term:focus-visible::after,
+.key-term:hover::before,
+.key-term:focus-visible::before {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0);
+}
+
+    </style>
     <script type="application/ld+json">
     {
-      "@context": "https://schema.org",
-      "@type": "Article",
-      "mainEntityOfPage": "https://abcgeo.dev/blog/optimizing-ai-overviews-chatgpt-perplexity.html",
-      "image": ["https://abcgeo.dev/assets/og-abcgeo.png"],
-      "headline": "Optimizing for AI Overviews vs. ChatGPT vs. Perplexity: A Comparative Guide",
-      "author": {
-        "@type": "Person",
-        "name": "Kayla LaFleur",
-        "url": "https://abcgeo.dev/author/kayla-lafleur.html"
-      },
-      "publisher": { "@type": "Organization", "name": "abcGEO", "url": "https://abcgeo.dev/", "logo": { "@type": "ImageObject", "url": "https://abcgeo.dev/assets/logo.png" } },
-      "datePublished": "2026-08-01",
-      "dateModified": "2026-08-03",
-      "description": "A technical breakdown of how Google's AI Overviews, PerplexityBot, and GPTBot crawl, parse, and cite web pages differently—and how to optimize for multi-platform GEO visibility."
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "mainEntityOfPage": "https://abcgeo.dev/blog/optimizing-ai-overviews-chatgpt-perplexity.html",
+  "image": [
+    "https://abcgeo.dev/assets/og-abcgeo.png"
+  ],
+  "headline": "Optimizing for AI Overviews vs. ChatGPT vs. Perplexity: A Comparative Guide",
+  "author": {
+    "@type": "Person",
+    "name": "Kayla LaFleur",
+    "url": "https://abcgeo.dev/author/kayla-lafleur.html"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "abcGEO",
+    "url": "https://abcgeo.dev/",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://abcgeo.dev/assets/logo.png"
     }
+  },
+  "datePublished": "2026-09-06",
+  "dateModified": "2026-09-06",
+  "description": "Generative engines do not share a single crawl pipeline. Each bot applies a different fetch strategy, rendering budget, and content priority—which means the sam"
+}
     </script>
   <script type="application/ld+json">
-  {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://abcgeo.dev/"}, {"@type": "ListItem", "position": 2, "name": "Blog", "item": "https://abcgeo.dev/blog.html"}, {"@type": "ListItem", "position": 3, "name": "Optimizing for AI Overviews vs. ChatGPT vs. Perplexity: A Comparative Guide", "item": "https://abcgeo.dev/blog/optimizing-ai-overviews-chatgpt-perplexity.html"}]}
+  {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://abcgeo.dev/"},{"@type":"ListItem","position":2,"name":"Blog","item":"https://abcgeo.dev/blog.html"},{"@type":"ListItem","position":3,"name":"Optimizing for AI Overviews vs. ChatGPT vs. Perplexity: A Comparative Guide","item":"https://abcgeo.dev/blog/optimizing-ai-overviews-chatgpt-perplexity.html"}]}
   </script>
-  <link rel="stylesheet" href="../css/author-sidebar.css" />
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is Optimizing for AI Overviews vs. ChatGPT vs. Perplexity: A Comparative Guide?","acceptedAnswer":{"@type":"Answer","text":"Generative engines do not share a single crawl pipeline. Each bot applies a different fetch strategy, rendering budget, and content priority—which means the same page can be fully understood by one system and partially invisible to another."}}]}
+  </script>
 </head>
 <body class="bg-bg-soft-gray text-charcoal-body font-sans antialiased min-h-screen flex flex-col justify-between">
 
-    <!-- Top Reading Progress Indicator Bar -->
     <div class="fixed top-0 left-0 w-full h-1 bg-slate-800 z-50">
-        <div class="h-full bg-gradient-to-r from-sky-400 via-orange-500 to-emerald-400 w-1/3"></div>
+        <div data-reading-progress class="h-full bg-gradient-to-r from-sky-400 via-orange-500 to-emerald-400 w-0"></div>
     </div>
 
-    <!-- Navigation Bar -->
     <header class="border-b border-slate-800/80 bg-slate-950/90 backdrop-blur-md sticky top-0 z-40">
         <div class="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
             <a href="../index.html" class="logo inline-flex items-center" aria-label="abcGEO home">
@@ -124,244 +162,190 @@
         </div>
     </header>
 
-    <!-- Main Container -->
     <main class="max-w-6xl mx-auto px-4 py-10 flex-grow">
-        
-        <!-- Article Header -->
         <header class="max-w-3xl mx-auto mb-8">
             <div class="flex flex-wrap items-center gap-3 mb-4">
                 <span class="bg-sky-400/10 border border-sky-400/20 text-sky-700 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
-                    GEO Platform Comparison
+                    A+B=GEO Strategy
                 </span>
                 <span class="text-slate-500 text-xs">•</span>
-                <span class="text-slate-400 text-xs font-medium">7 min read</span>
+                <span class="text-slate-400 text-xs font-medium">4 min read</span>
                 <span class="text-slate-500 text-xs">•</span>
-                <span class="text-slate-400 text-xs font-medium">Updated Aug 2026</span>
+                <span class="text-slate-400 text-xs font-medium">Updated Sep 2026</span>
             </div>
-
-            <h1 class="text-3xl sm:text-4xl md:text-5xl font-black text-charcoal-body tracking-tight leading-tight mb-4">
+            <h1 class="font-display text-3xl sm:text-4xl md:text-5xl font-black text-charcoal-body tracking-tight leading-tight mb-4">
                 Optimizing for AI Overviews vs. ChatGPT vs. Perplexity: A Comparative Guide
             </h1>
             <p class="text-base sm:text-lg text-slate-400 leading-relaxed">
-                A technical breakdown of how Google's AI Overviews, PerplexityBot, and GPTBot crawl, parse, and cite web pages differently.
+                Generative engines do not share a single crawl pipeline.
             </p>
         </header>
 
-        <!-- 🌟 FEATURE 1: Hero Top "Answer-First" Executive Summary Box + Post Formula -->
         <section class="max-w-3xl mx-auto mb-12 space-y-4">
             <div class="relative bg-gradient-to-br from-slate-900 via-slate-900 to-slate-800 border-2 border-sky-400/40 rounded-2xl p-6 sm:p-8 shadow-2xl shadow-sky-500/10">
-                
-                <!-- Glowing Badge Header -->
                 <div class="flex items-center space-x-2 mb-4 border-b border-slate-800/80 pb-4">
                     <span class="inline-block w-2.5 h-2.5 rounded-full bg-sky-400 animate-pulse"></span>
                     <h2 class="text-xs font-black uppercase tracking-widest text-sky-700">
                         Executive Answer / AI Quick Summary
                     </h2>
                 </div>
-
-                <!-- Target Question Heading -->
-                <h3 class="text-lg sm:text-xl font-extrabold text-charcoal-body mb-3">Target Question: <span class="text-sky-700">How do AI Overviews, PerplexityBot, and GPTBot differ in how they crawl and cite web content?</span></h3>
-
-                <!-- Core Answer Content -->
+                <h3 class="text-lg sm:text-xl font-extrabold text-charcoal-body mb-3">Target Question: <span class="text-sky-700">What is Optimizing for AI Overviews vs. ChatGPT vs. Perplexity: A Comparative Guide?</span></h3>
                 <p class="text-slate-200 font-medium text-base sm:text-lg leading-relaxed">
-                    Google AI Overviews lean heavily on Google Search's knowledge graph and rendered page signals, while <strong>PerplexityBot</strong> prioritizes real-time semantic extraction from clean HTML, and <strong>GPTBot</strong> indexes structured microdata via JSON-LD. Optimizing across all three requires combining semantic HTML tags, microdata schemas, and an active <code class="text-sky-700 text-sm">llms.txt</code> file so each crawler receives an unambiguous, citation-ready representation of your entities.
+                    Generative engines do not share a single crawl pipeline. Each bot applies a different fetch strategy, rendering budget, and content priority—which means the same page can be fully understood by one system and partially invisible to another.
                 </p>
             </div>
-
-            <!-- 🎯 Post-Specific A+B=GEO Equation (below Executive Answer Box) -->
             <div class="flex items-center justify-center sm:justify-start">
                 <div class="text-xs font-mono bg-slate-900 border border-slate-700/80 px-4 py-2 rounded-xl text-slate-300 flex items-center gap-2 flex-wrap shadow-md">
-                    <span class="text-slate-500 font-bold">Eq:</span>
-                    <span class="text-sky-700 font-bold">[A: Bot-Specific Schema]</span>
+                    <span class="text-slate-500 font-bold">Article formula</span>
+                    <span class="text-slate-500">→</span>
+                    <span class="text-sky-700 font-bold">Entity (A)</span>
                     <span class="text-slate-500">+</span>
-                    <span class="text-orange-400 font-bold">[B: Optimizes Multimodal Indexing]</span>
+                    <span class="text-orange-400 font-bold">Verb (B)</span>
                     <span class="text-slate-500">=</span>
-                    <span class="text-emerald-700 font-bold">[GEO Result: Multi-Platform Visibility]</span>
+                    <span class="text-emerald-700 font-bold">GEO Result</span>
                 </div>
             </div>
         </section>
 
-        <!-- Article Content + Sidebar Layout Grid -->
         <div class="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-10 max-w-6xl mx-auto items-start">
-            
-            <!-- Left Sticky Sidebar: Table of Contents -->
             <div class="min-w-0 space-y-10">
-            <aside class="hidden lg:block mb-2">
-                <div class="sticky top-24 space-y-4 text-xs">
+            <aside class="mb-2" aria-label="On this page">
+                <div class="lg:sticky lg:top-24 space-y-4 text-xs">
                     <h3 class="text-slate-400 font-bold uppercase tracking-wider mb-3">On This Page</h3>
                     <nav class="space-y-2 border-l border-slate-800 pl-3 text-slate-400">
-                        <a href="#crawling" class="block hover:text-sky-700 transition">1. Crawling &amp; Ingestion Mechanics</a>
-                        <a href="#schema" class="block hover:text-sky-700 transition">2. Bot-Specific Schema &amp; Indexing</a>
-                        <a href="#checklist" class="block hover:text-sky-700 transition">3. Multi-Platform GEO Checklist</a>
+                        <a href="#1-crawling-ingestion-mechanics-gptbot-vs-perplex" class="block hover:text-sky-700 transition">1. 1. Crawling &amp; Ingestion Mechanics: GPTBot vs. PerplexityBot vs. Google</a>
+                        <a href="#2-the-role-of-bot-specific-schema-in-multimodal-" class="block hover:text-sky-700 transition">2. 2. The Role of Bot-Specific Schema in Multimodal Indexing</a>
+                        <a href="#3-multi-platform-geo-strategy-the-unified-checkl" class="block hover:text-sky-700 transition">3. 3. Multi-Platform GEO Strategy: The Unified Checklist</a>
                     </nav>
                 </div>
             </aside>
-
-            <!-- Main Article Body -->
             <article class="space-y-10 text-slate-300 text-base sm:text-lg leading-relaxed">
-                
-                <!-- Section 1 -->
-                <section id="crawling" class="space-y-4">
-                    <h2 class="text-2xl sm:text-3xl font-bold text-charcoal-body tracking-tight border-b border-slate-800 pb-2">
+                <section id="1-crawling-ingestion-mechanics-gptbot-vs-perplex" class="space-y-4">
+                    <h2 class="font-display text-2xl sm:text-3xl font-bold text-charcoal-body tracking-tight border-b border-slate-800 pb-2">
                         1. Crawling &amp; Ingestion Mechanics: GPTBot vs. PerplexityBot vs. Google
                     </h2>
                     <p>
-                        Generative engines do not share a single crawl pipeline. Each bot applies a different fetch strategy, rendering budget, and content priority—which means the same page can be fully understood by one system and partially invisible to another.
+                        Generative engines do not share a single crawl pipeline. Each bot applies a different fetch strategy, rendering budget, and content priority—which means the same page can be fully understood by one system and partially invisible to another. <strong>Google (AI Overviews)</strong> inherits Googlebot's infrastructure: it can execute JavaScript, build a DOM snapshot, and reconcile on-page content against the knowledge graph and Search index. AI Overviews therefore favor pages that already rank well in classic Search, expose clear entity relationships, and survive full rendering. Soft 404s, client-only content behind hydration delays, and contradictory meta signals reduce Overview eligibility even when the HTML looks fine to a human reader. <strong>PerplexityBot</strong> is optimized for low-latency, real-time retrieval. It leans on clean, server-delivered HTML and strong semantic landmarks—headings, lists, definition-like paragraphs, and answer-first blocks—rather than waiting on heavy client-side rendering. Pages that bury primary facts inside JS-hydrated components or infinite scroll often underperform in Perplexity citations even when Google can eventually render them. <strong>GPTBot</strong> (and related OpenAI crawlers feeding ChatGPT browsing/training surfaces) places higher weight on structured, machine-readable payloads. JSON-LD and consistent microdata act as explicit entity graphs: product names, FAQ pairs, software categories, and authorship become first-class index inputs instead of being inferred from prose alone. Without schema, GPTBot still parses HTML, but citation confidence and entity disambiguation drop when claims are only implied in longform text. Key Takeaways
                     </p>
+
+                    <ul class="list-disc pl-5 my-4 space-y-2 text-slate-300">
+                            <li>✓</li>
+                    </ul>
+
                     <p>
-                        <strong class="text-charcoal-body">Google (AI Overviews)</strong> inherits Googlebot's infrastructure: it can execute JavaScript, build a DOM snapshot, and reconcile on-page content against the knowledge graph and Search index. AI Overviews therefore favor pages that already rank well in classic Search, expose clear entity relationships, and survive full rendering. Soft 404s, client-only content behind hydration delays, and contradictory meta signals reduce Overview eligibility even when the HTML looks fine to a human reader.
+                        Google AI Overviews combine rendered DOM signals with knowledge-graph grounding—classic Search quality still gates visibility.
                     </p>
+
+                    <ul class="list-disc pl-5 my-4 space-y-2 text-slate-300">
+                            <li>✓</li>
+                    </ul>
+
                     <p>
-                        <strong class="text-charcoal-body">PerplexityBot</strong> is optimized for low-latency, real-time retrieval. It leans on clean, server-delivered HTML and strong semantic landmarks—headings, lists, definition-like paragraphs, and answer-first blocks—rather than waiting on heavy client-side rendering. Pages that bury primary facts inside JS-hydrated components or infinite scroll often underperform in Perplexity citations even when Google can eventually render them.
+                        PerplexityBot prioritizes fast semantic extraction from clean HTML; avoid critical content locked behind JS hydration.
                     </p>
+
+                    <ul class="list-disc pl-5 my-4 space-y-2 text-slate-300">
+                            <li>✓</li>
+                    </ul>
+
                     <p>
-                        <strong class="text-charcoal-body">GPTBot</strong> (and related OpenAI crawlers feeding ChatGPT browsing/training surfaces) places higher weight on structured, machine-readable payloads. JSON-LD and consistent microdata act as explicit entity graphs: product names, FAQ pairs, software categories, and authorship become first-class index inputs instead of being inferred from prose alone. Without schema, GPTBot still parses HTML, but citation confidence and entity disambiguation drop when claims are only implied in longform text.
+                        GPTBot elevates JSON-LD and structured microdata as explicit entity data for ChatGPT citation and indexing.
                     </p>
-                    
-                    <!-- Key Takeaways Bullet List with Custom Icons -->
-                    <div class="bg-slate-900/80 border border-slate-800 rounded-xl p-5 my-6 space-y-3">
-                        <h4 class="text-xs font-bold uppercase tracking-wider text-slate-400">Key Takeaways</h4>
-                        <ul class="space-y-2 text-sm text-slate-300">
-                            <li class="flex items-start space-x-2">
-                                <span class="text-sky-700 font-bold">✓</span>
-                                <span>Google AI Overviews combine rendered DOM signals with knowledge-graph grounding—classic Search quality still gates visibility.</span>
-                            </li>
-                            <li class="flex items-start space-x-2">
-                                <span class="text-sky-700 font-bold">✓</span>
-                                <span>PerplexityBot prioritizes fast semantic extraction from clean HTML; avoid critical content locked behind JS hydration.</span>
-                            </li>
-                            <li class="flex items-start space-x-2">
-                                <span class="text-sky-700 font-bold">✓</span>
-                                <span>GPTBot elevates JSON-LD and structured microdata as explicit entity data for ChatGPT citation and indexing.</span>
-                            </li>
-                            <li class="flex items-start space-x-2">
-                                <span class="text-sky-700 font-bold">✓</span>
-                                <span>Ship a crawlable HTML source of truth first; treat JS enhancement as progressive, not required for core facts.</span>
-                            </li>
-                        </ul>
-                    </div>
+
+                    <ul class="list-disc pl-5 my-4 space-y-2 text-slate-300">
+                            <li>✓</li>
+                    </ul>
+
+                    <p>
+                        Ship a crawlable HTML source of truth first; treat JS enhancement as progressive, not required for core facts.
+                    </p>
                 </section>
 
-                <!-- Section 2 -->
-                <section id="schema" class="space-y-4">
-                    <h2 class="text-2xl sm:text-3xl font-bold text-charcoal-body tracking-tight border-b border-slate-800 pb-2">
+                <section id="2-the-role-of-bot-specific-schema-in-multimodal-" class="space-y-4">
+                    <h2 class="font-display text-2xl sm:text-3xl font-bold text-charcoal-body tracking-tight border-b border-slate-800 pb-2">
                         2. The Role of Bot-Specific Schema in Multimodal Indexing
                     </h2>
                     <p>
-                        Schema is not decoration for rich results alone—it is a shared language that LLM crawlers use to attach properties to entities without guessing. When you declare <code class="text-sky-700 text-sm">Article</code>, <code class="text-sky-700 text-sm">FAQPage</code>, and <code class="text-sky-700 text-sm">SoftwareApplication</code> in JSON-LD, you hand GPTBot, Perplexity's parsers, and Google's entity extractors the same typed graph: what the page is, who published it, which questions it answers, and which product it describes.
+                        Schema is not decoration for rich results alone—it is a shared language that LLM crawlers use to attach properties to entities without guessing. When you declare <code class="text-sky-700 text-sm">Article</code>, <code class="text-sky-700 text-sm">FAQPage</code>, and <code class="text-sky-700 text-sm">SoftwareApplication</code> in JSON-LD, you hand GPTBot, Perplexity's parsers, and Google's entity extractors the same typed graph: what the page is, who published it, which questions it answers, and which product it describes. Multimodal indexing benefits when schema and visible content stay synchronized. Image <code class="text-sky-700 text-sm">alt</code> text, <code class="text-sky-700 text-sm">og:image</code>, and <code class="text-sky-700 text-sm">ImageObject</code> nodes reinforce the same entity name; FAQ answers in JSON-LD should match the on-page answer blocks word-for-word enough that no engine has to reconcile conflicting strings. This dual channel—semantic HTML for Perplexity-style extractors and JSON-LD for GPTBot-style indexers—is the bot-specific schema layer of multi-platform GEO. Prefer a single <code class="text-sky-700 text-sm">@graph</code> (or co-located script blocks) that links the article, the FAQs, and the software entity via <code class="text-sky-700 text-sm">@id</code> references. That graph travels cleanly across Google's structured-data pipeline, OpenAI's microdata ingestion, and any retrieval system that strips HTML down to typed triples. multi-platform-schema.json JSON-LD <code class="text-sky-700 text-sm">{ &quot;@context&quot;: &quot;https://schema.org&quot;, &quot;@graph&quot;: [ { &quot;@type&quot;: &quot;Article&quot;, &quot;@id&quot;: &quot;https://example.com/blog/geo-platforms#article&quot;, &quot;headline&quot;: &quot;Optimizing for AI Overviews vs. ChatGPT vs. Perplexity&quot;, &quot;author&quot;: { &quot;@type&quot;: &quot;Person&quot;, &quot;name&quot;: &quot;Kayla LaFleur&quot;, &quot;url&quot;: &quot;https://abcgeo.dev/author/kayla-lafleur.html&quot; }, &quot;datePublished&quot;: &quot;2026-08-01&quot;, &quot;mainEntityOfPage&quot;: &quot;https://example.com/blog/geo-platforms&quot; }, { &quot;@type&quot;: &quot;FAQPage&quot;, &quot;@id&quot;: &quot;https://example.com/blog/geo-platforms#faq&quot;, &quot;mainEntity&quot;: [{ &quot;@type&quot;: &quot;Question&quot;, &quot;name&quot;: &quot;How do GPTBot and PerplexityBot differ?&quot;, &quot;acceptedAnswer&quot;: { &quot;@type&quot;: &quot;Answer&quot;, &quot;text&quot;: &quot;GPTBot prioritizes JSON-LD entity graphs; PerplexityBot extracts from clean semantic HTML in real time.&quot; } }] }, { &quot;@type&quot;: &quot;SoftwareApplication&quot;, &quot;@id&quot;: &quot;https://example.com/tools/instastack#app&quot;, &quot;name&quot;: &quot;INSTASTACK&quot;, &quot;applicationCategory&quot;: &quot;DeveloperApplication&quot;, &quot;offers&quot;: { &quot;@type&quot;: &quot;Offer&quot;, &quot;price&quot;: &quot;0&quot;, &quot;priceCurrency&quot;: &quot;USD&quot; } } ] }</code> Interactive Tool
                     </p>
-                    <p>
-                        Multimodal indexing benefits when schema and visible content stay synchronized. Image <code class="text-sky-700 text-sm">alt</code> text, <code class="text-sky-700 text-sm">og:image</code>, and <code class="text-sky-700 text-sm">ImageObject</code> nodes reinforce the same entity name; FAQ answers in JSON-LD should match the on-page answer blocks word-for-word enough that no engine has to reconcile conflicting strings. This dual channel—semantic HTML for Perplexity-style extractors and JSON-LD for GPTBot-style indexers—is the bot-specific schema layer of multi-platform GEO.
-                    </p>
-                    <p>
-                        Prefer a single <code class="text-sky-700 text-sm">@graph</code> (or co-located script blocks) that links the article, the FAQs, and the software entity via <code class="text-sky-700 text-sm">@id</code> references. That graph travels cleanly across Google's structured-data pipeline, OpenAI's microdata ingestion, and any retrieval system that strips HTML down to typed triples.
-                    </p>
-
-                    <!-- Code Block with Copy Badge -->
-                    <div class="relative bg-slate-900 border border-slate-800 rounded-xl overflow-hidden font-mono text-xs text-slate-300 my-4">
-                        <div class="flex items-center justify-between bg-slate-800/60 px-4 py-2 text-slate-400 border-b border-slate-800">
-                            <span>multi-platform-schema.json</span>
-                            <span class="text-[10px] text-sky-700 uppercase font-bold tracking-wider">JSON-LD</span>
-                        </div>
-                        <pre class="p-4 overflow-x-auto"><code>{
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "Article",
-      "@id": "https://example.com/blog/geo-platforms#article",
-      "headline": "Optimizing for AI Overviews vs. ChatGPT vs. Perplexity",
-      "author": {
-        "@type": "Person",
-        "name": "Kayla LaFleur",
-        "url": "https://abcgeo.dev/author/kayla-lafleur.html"
-      },
-      "datePublished": "2026-08-01",
-      "mainEntityOfPage": "https://example.com/blog/geo-platforms"
-    },
-    {
-      "@type": "FAQPage",
-      "@id": "https://example.com/blog/geo-platforms#faq",
-      "mainEntity": [{
-        "@type": "Question",
-        "name": "How do GPTBot and PerplexityBot differ?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "GPTBot prioritizes JSON-LD entity graphs; PerplexityBot extracts from clean semantic HTML in real time."
-        }
-      }]
-    },
-    {
-      "@type": "SoftwareApplication",
-      "@id": "https://example.com/tools/instastack#app",
-      "name": "INSTASTACK",
-      "applicationCategory": "DeveloperApplication",
-      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
-    }
-  ]
-}</code></pre>
-                    </div>
                 </section>
 
-                <!-- Embedded Tool Callout Banner -->
-                <aside class="bg-gradient-to-r from-slate-900 via-slate-900 to-slate-800 border border-slate-700/80 rounded-2xl p-6 sm:p-8 my-8 shadow-xl">
-                    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
-                        <div>
-                            <span class="text-xs uppercase tracking-widest text-orange-500 font-bold">Interactive Tool</span>
-                            <h3 class="text-xl font-bold text-charcoal-body mt-1">Try INSTASTACK Setup Generator</h3>
-                            <p class="text-slate-400 text-sm mt-1">Configure your full development environment in under 10 seconds.</p>
-                        </div>
-                        <a href="../tools/instastack.html" class="bg-sky-400 hover:bg-sky-500 text-white font-bold px-6 py-3 rounded-xl text-sm transition shrink-0 shadow-lg shadow-sky-400/20">
-                            Launch Tool →
-                        </a>
-                    </div>
-                </aside>
+                <section id="try-instastack-setup-generator" class="space-y-4">
+                    <h3 class="font-display text-xl font-semibold text-charcoal-body mt-6">
+                        Try INSTASTACK Setup Generator
+                    </h3>
+                    <p>
+                        Configure your full development environment in under 10 seconds. Launch Tool →
+                    </p>
+                </section>
 
-                <!-- Section 3 -->
-                <section id="checklist" class="space-y-4">
-                    <h2 class="text-2xl sm:text-3xl font-bold text-charcoal-body tracking-tight border-b border-slate-800 pb-2">
+                <section id="3-multi-platform-geo-strategy-the-unified-checkl" class="space-y-4">
+                    <h2 class="font-display text-2xl sm:text-3xl font-bold text-charcoal-body tracking-tight border-b border-slate-800 pb-2">
                         3. Multi-Platform GEO Strategy: The Unified Checklist
                     </h2>
                     <p>
-                        Use this checklist as a release gate before publishing tool pages or technical articles you want cited in AI Overviews, ChatGPT, and Perplexity. Each item targets at least one crawler's ingestion path without harming the others.
+                        Use this checklist as a release gate before publishing tool pages or technical articles you want cited in AI Overviews, ChatGPT, and Perplexity. Each item targets at least one crawler's ingestion path without harming the others. Unified Multi-Platform Checklist
                     </p>
 
-                    <div class="bg-slate-900/80 border border-slate-800 rounded-xl p-5 my-6 space-y-3">
-                        <h4 class="text-xs font-bold uppercase tracking-wider text-slate-400">Unified Multi-Platform Checklist</h4>
-                        <ul class="space-y-3 text-sm text-slate-300">
-                            <li class="flex items-start space-x-2">
-                                <span class="text-emerald-700 font-bold">☐</span>
-                                <span><strong class="text-charcoal-body">Semantic HTML first:</strong> Put the primary answer, entity name, and key claims in server-rendered <code class="text-sky-700">&lt;h1&gt;</code>–<code class="text-sky-700">&lt;h3&gt;</code>, lists, and short definition paragraphs—not only inside client components.</span>
-                            </li>
-                            <li class="flex items-start space-x-2">
-                                <span class="text-emerald-700 font-bold">☐</span>
-                                <span><strong class="text-charcoal-body">JSON-LD entity graph:</strong> Ship <code class="text-sky-700">Article</code> + <code class="text-sky-700">FAQPage</code> + product/tool types (<code class="text-sky-700">SoftwareApplication</code>) with matching on-page copy for GPTBot and Google structured data.</span>
-                            </li>
-                            <li class="flex items-start space-x-2">
-                                <span class="text-emerald-700 font-bold">☐</span>
-                                <span><strong class="text-charcoal-body">Active <code class="text-sky-700">llms.txt</code>:</strong> Publish a root <code class="text-sky-700">llms.txt</code> that lists canonical URLs, entity names, and preferred summary snippets so LLM crawlers can discover your source-of-truth pages.</span>
-                            </li>
-                            <li class="flex items-start space-x-2">
-                                <span class="text-emerald-700 font-bold">☐</span>
-                                <span><strong class="text-charcoal-body">Fast, crawlable HTML:</strong> Keep TTFB low, avoid soft 404 patterns, and ensure core facts appear in the initial HTML response for PerplexityBot-style extractors.</span>
-                            </li>
-                            <li class="flex items-start space-x-2">
-                                <span class="text-emerald-700 font-bold">☐</span>
-                                <span><strong class="text-charcoal-body">Bot allowlists:</strong> Confirm <code class="text-sky-700">robots.txt</code> permits Googlebot, GPTBot, and PerplexityBot on citation-critical paths; do not block the crawlers you want citations from.</span>
-                            </li>
-                            <li class="flex items-start space-x-2">
-                                <span class="text-emerald-700 font-bold">☐</span>
-                                <span><strong class="text-charcoal-body">Answer-first blocks:</strong> Open sections with 2–3 sentence executive answers so AI Overviews and Perplexity can extract quotable units without scanning the entire page.</span>
-                            </li>
-                            <li class="flex items-start space-x-2">
-                                <span class="text-emerald-700 font-bold">☐</span>
-                                <span><strong class="text-charcoal-body">Entity consistency:</strong> Use one canonical product/brand string across H1, schema <code class="text-sky-700">name</code>, title tag, and <code class="text-sky-700">llms.txt</code> entries to strengthen multi-platform disambiguation.</span>
-                            </li>
-                        </ul>
-                    </div>
+                    <ul class="list-disc pl-5 my-4 space-y-2 text-slate-300">
+                            <li>☐</li>
+                    </ul>
+
                     <p>
-                        Multi-platform GEO is not three separate optimization projects—it is one coherent page that satisfies Google's rendered + graph pipeline, Perplexity's clean-HTML extractors, and GPTBot's structured microdata index at the same time. Bot-specific schema plus multimodal-ready markup is what converts that coherence into citations across all three surfaces.
+                        <strong>Semantic HTML first:</strong> Put the primary answer, entity name, and key claims in server-rendered <code class="text-sky-700 text-sm">&lt;h1&gt;</code>–<code class="text-sky-700 text-sm">&lt;h3&gt;</code>, lists, and short definition paragraphs—not only inside client components.
+                    </p>
+
+                    <ul class="list-disc pl-5 my-4 space-y-2 text-slate-300">
+                            <li>☐</li>
+                    </ul>
+
+                    <p>
+                        <strong>JSON-LD entity graph:</strong> Ship <code class="text-sky-700 text-sm">Article</code> + <code class="text-sky-700 text-sm">FAQPage</code> + product/tool types (<code class="text-sky-700 text-sm">SoftwareApplication</code>) with matching on-page copy for GPTBot and Google structured data.
+                    </p>
+
+                    <ul class="list-disc pl-5 my-4 space-y-2 text-slate-300">
+                            <li>☐</li>
+                    </ul>
+
+                    <p>
+                        <strong>Active 0:</strong> Publish a root <code class="text-sky-700 text-sm">llms.txt</code> that lists canonical URLs, entity names, and preferred summary snippets so LLM crawlers can discover your source-of-truth pages.
+                    </p>
+
+                    <ul class="list-disc pl-5 my-4 space-y-2 text-slate-300">
+                            <li>☐</li>
+                    </ul>
+
+                    <p>
+                        <strong>Fast, crawlable HTML:</strong> Keep TTFB low, avoid soft 404 patterns, and ensure core facts appear in the initial HTML response for PerplexityBot-style extractors.
+                    </p>
+
+                    <ul class="list-disc pl-5 my-4 space-y-2 text-slate-300">
+                            <li>☐</li>
+                    </ul>
+
+                    <p>
+                        <strong>Bot allowlists:</strong> Confirm <code class="text-sky-700 text-sm">robots.txt</code> permits Googlebot, GPTBot, and PerplexityBot on citation-critical paths; do not block the crawlers you want citations from.
+                    </p>
+
+                    <ul class="list-disc pl-5 my-4 space-y-2 text-slate-300">
+                            <li>☐</li>
+                    </ul>
+
+                    <p>
+                        <strong>Answer-first blocks:</strong> Open sections with 2–3 sentence executive answers so AI Overviews and Perplexity can extract quotable units without scanning the entire page.
+                    </p>
+
+                    <ul class="list-disc pl-5 my-4 space-y-2 text-slate-300">
+                            <li>☐</li>
+                    </ul>
+
+                    <p>
+                        <strong>Entity consistency:</strong> Use one canonical product/brand string across H1, schema <code class="text-sky-700 text-sm">name</code>, title tag, and <code class="text-sky-700 text-sm">llms.txt</code> entries to strengthen multi-platform disambiguation. Multi-platform GEO is not three separate optimization projects—it is one coherent page that satisfies Google's rendered + graph pipeline, Perplexity's clean-HTML extractors, and GPTBot's structured microdata index at the same time. Bot-specific schema plus multimodal-ready markup is what converts that coherence into citations across all three surfaces.
                     </p>
                 </section>
+
+
+
 
             </article>
             </div>
@@ -378,7 +362,6 @@
                 />
                 <h2 id="author-sidebar-heading" class="author-sidebar__name">Kayla LaFleur</h2>
                 <p class="author-sidebar__role">GEO &amp; SEO Specialist</p>
-
                 <div class="author-sidebar__block">
                   <h3 class="author-sidebar__block-title">Key Frameworks:</h3>
                   <ul>
@@ -387,7 +370,6 @@
                     <li>Conversion-driven Technical Schema</li>
                   </ul>
                 </div>
-
                 <div class="author-sidebar__block">
                   <h3 class="author-sidebar__block-title">Knows About:</h3>
                   <ul>
@@ -396,17 +378,28 @@
                     <li>Schema.org Structured Data</li>
                   </ul>
                 </div>
-
                 <a class="author-sidebar__cta" href="../author/kayla-lafleur.html">Read full bio &amp; connect</a>
               </div>
             </aside>
         </div>
     </main>
 
-    <!-- Footer -->
     <footer class="border-t border-slate-800 bg-slate-950 py-8 mt-16 text-center text-xs text-slate-500">
         <p>&copy; 2026 abcGEO. All rights reserved. Pioneering Generative Engine Optimization.</p>
     </footer>
-
+    <script>
+      (function () {
+        var bar = document.querySelector('[data-reading-progress]');
+        if (!bar) return;
+        var onScroll = function () {
+          var el = document.documentElement;
+          var max = el.scrollHeight - el.clientHeight;
+          var pct = max > 0 ? (el.scrollTop / max) * 100 : 0;
+          bar.style.width = Math.min(100, Math.max(0, pct)) + '%';
+        };
+        window.addEventListener('scroll', onScroll, { passive: true });
+        onScroll();
+      })();
+    </script>
 </body>
 </html>

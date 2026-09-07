@@ -36,6 +36,38 @@
     });
   }
 
+  function studioUrl() {
+    const host = window.location.hostname;
+    const local = host === 'localhost' || host === '127.0.0.1';
+    if (local && window.location.port === '3000') return '/admin';
+    return 'http://127.0.0.1:3000/admin';
+  }
+
+  // Private studio door: click the footer brand mark 5 times.
+  // Early clicks must not navigate away, or the count never reaches 5.
+  const footerLogo = document.querySelector('.site-footer a.logo');
+  if (footerLogo) {
+    let clicks = 0;
+    let timer = 0;
+    const homeHref = footerLogo.getAttribute('href') || 'index.html';
+    footerLogo.addEventListener('click', (event) => {
+      event.preventDefault();
+      clicks += 1;
+      window.clearTimeout(timer);
+      if (clicks >= 5) {
+        clicks = 0;
+        window.location.href = studioUrl();
+        return;
+      }
+      timer = window.setTimeout(() => {
+        if (clicks === 1) {
+          window.location.href = homeHref;
+        }
+        clicks = 0;
+      }, 2800);
+    });
+  }
+
   // Typewriter brand mark
   const typer = document.querySelector('[data-typewriter]');
   const typeOut = typer?.querySelector('[data-type-out]');

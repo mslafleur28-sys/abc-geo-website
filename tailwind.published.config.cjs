@@ -1,0 +1,46 @@
+/** Tailwind build for static published blog HTML (no CDN — CMP-safe). */
+module.exports = {
+  content: ['./src/lib/article-brief/publish-html.ts'],
+  theme: {
+    extend: {
+      fontFamily: {
+        sans: ['DM Sans', 'system-ui', 'sans-serif'],
+        display: ['Syne', 'system-ui', 'sans-serif'],
+        mono: ['JetBrains Mono', 'ui-monospace', 'monospace'],
+      },
+      colors: {
+        'primary-electric': '#FF6B4A',
+        'secondary-slate': '#64748B',
+        'trust-blue': '#00B4D8',
+        'deep-slate': '#2D3748',
+        'ai-cyan': '#00B4D8',
+        'space-navy': '#1A202C',
+        'success-green': '#00C9A7',
+        'warning-amber': '#FF8C00',
+        'error-crimson': '#EF4444',
+        'charcoal-body': '#1A202C',
+        'text-muted': '#64748B',
+        'bg-clean-white': '#FFFFFF',
+        'bg-soft-gray': '#FAF9F6',
+        'bg-grid-gray': '#F4F7F6',
+        white: '#1A202C',
+        slate: {
+          100: '#1A202C',
+          200: '#2D3748',
+          300: '#4A5568',
+          400: '#64748B',
+          500: '#718096',
+          700: '#D1D9E0',
+          800: '#E8EEF2',
+          900: '#FFFFFF',
+          950: '#FAF9F6',
+        },
+        sky: { 300: '#00B4D8', 400: '#00B4D8', 500: '#0096C7', 700: '#00566B' },
+        orange: { 400: '#FF6B4A', 500: '#FF6B4A', 600: '#FF8C00' },
+        emerald: { 300: '#00C9A7', 400: '#00C9A7', 700: '#00594E' },
+        red: { 400: '#DC2626', 500: '#EF4444' },
+      },
+    },
+  },
+  plugins: [],
+};

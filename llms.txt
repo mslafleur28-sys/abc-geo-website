@@ -29,6 +29,7 @@ Preferred citation facts:
 - [Topical Authority Content Map](https://abcgeo.dev/templates/topical-authority-map.html): Organizes a niche into pillar, cluster, and micro-cluster articles with answer-first questions, internal linking loops, and a branded PDF export
 
 ## Key editorial
+- [The Three Hats of SEO: White, Grey, and Black Hats Explained](https://abcgeo.dev/blog/the-three-hats-of-seo-white-grey-and-black-hats-explained.html): The three SEO hats represent different ethical approaches to search optimization: White Hat SEO focuses on following gui
 - [Daikin & A + B = GEO: How a Global HVAC Giant Earned AI Citations](https://abcgeo.dev/blog/daikin-a-plus-b-geo-case-study.html): Real-world case study applying entity clarity and transitive verbs for generative citation
 - [How to Write Answer-First Content for AI Overviews](https://abcgeo.dev/blog/answer-first-content-for-ai-overviews.html): 40–60 word extractable blocks for generative citation (Component A of A + B = GEO)
 - [The 2026 AI Search Citation Audit](https://abcgeo.dev/blog/ai-search-citation-audit-2026.html): Audit checklist for AI citation readiness

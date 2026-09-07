@@ -1,8 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
 <script type="text/javascript" data-cmp-ab="1" src="https://cdn.consentmanager.net/delivery/autoblocking/5add6cdca2e35.js" data-cmp-host="b.delivery.consentmanager.net" data-cmp-cdn="cdn.consentmanager.net" data-cmp-codesrc="16"></script>
-<!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-PMLDXZ244T"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -10,539 +9,487 @@
   gtag('js', new Date());
   gtag('config', 'G-PMLDXZ244T');
 </script>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="twitter:image" content="https://abcgeo.dev/assets/og-abcgeo.png" />
-  <meta name="twitter:description" content="Run abcGEO’s 2026 AI Search Citation Audit across ChatGPT, Perplexity, and Gemini. A 5-step framework covering prompt sweeps, RAG readability, fact density, schema clarity, and a GEO scorecard." />
-  <meta name="twitter:title" content="The 2026 AI Search Citation Audit: A 5-Step Framework for LLM Visibility — abcGEO" />
+  <meta name="twitter:description" content="The 2026 AI Search Citation Audit measures whether ChatGPT, Perplexity, and Gemini can extract and cite your brand. Run five steps—Prompt Sweep, RAG Readability" />
+  <meta name="twitter:title" content="The 2026 AI Search Citation Audit: A 5-Step Framework for LLM Visibility — abcGEO | abcGEO" />
   <meta name="twitter:card" content="summary_large_image" />
+  <meta property="og:site_name" content="abcGEO" />
   <meta property="og:image" content="https://abcgeo.dev/assets/og-abcgeo.png" />
   <meta property="og:url" content="https://abcgeo.dev/blog/ai-search-citation-audit-2026.html" />
+  <meta property="og:type" content="article" />
+  <meta property="og:description" content="The 2026 AI Search Citation Audit measures whether ChatGPT, Perplexity, and Gemini can extract and cite your brand. Run five steps—Prompt Sweep, RAG Readability" />
+  <meta property="og:title" content="The 2026 AI Search Citation Audit: A 5-Step Framework for LLM Visibility — abcGEO | abcGEO" />
   <link rel="apple-touch-icon" href="../assets/favicon.png" />
   <link rel="icon" href="../assets/favicon.png" type="image/png" />
   <link rel="canonical" href="https://abcgeo.dev/blog/ai-search-citation-audit-2026.html" />
-  <title>The 2026 AI Search Citation Audit: A 5-Step Framework for LLM Visibility — abcGEO</title>
-  <meta name="description" content="Run abcGEO’s 2026 AI Search Citation Audit across ChatGPT, Perplexity, and Gemini. A 5-step framework covering prompt sweeps, RAG readability, fact density, schema clarity, and a GEO scorecard." />
-  <meta name="theme-color" content="#FF6B4A" />
-  <meta property="og:title" content="The 2026 AI Search Citation Audit: A 5-Step Framework for LLM Visibility — abcGEO" />
-  <meta property="og:description" content="Run abcGEO’s 2026 AI Search Citation Audit across ChatGPT, Perplexity, and Gemini. A 5-step framework covering prompt sweeps, RAG readability, fact density, schema clarity, and a GEO scorecard." />
-  <meta property="og:type" content="article" />
-  <meta property="og:site_name" content="abcGEO" />
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            'primary-electric': '#FF6B4A',
-            'secondary-slate': '#64748B',
-            'trust-blue': '#00B4D8',
-            'deep-slate': '#2D3748',
-            'ai-cyan': '#00B4D8',
-            'space-navy': '#1A202C',
-            'success-green': '#00C9A7',
-            'warning-amber': '#FF8C00',
-            'error-crimson': '#EF4444',
-            'charcoal-body': '#1A202C',
-            'text-muted': '#64748B',
-            'bg-clean-white': '#FFFFFF',
-            'bg-soft-gray': '#FAF9F6',
-            'bg-grid-gray': '#F4F7F6',
-            slatebg: '#FAF9F6',
-            skyacc: '#00B4D8',
-            orangeacc: '#FF6B4A',
-          },
-          fontFamily: {
-            display: ['Syne', 'sans-serif'],
-            body: ['DM Sans', 'sans-serif'],
-            mono: ['JetBrains Mono', 'monospace'],
-          },
-        },
-      },
-    };
-  </script>
-  <link rel="stylesheet" href="../css/styles.css" />
-  <link rel="stylesheet" href="../css/author-sidebar.css" />
+  <meta name="description" content="The 2026 AI Search Citation Audit measures whether ChatGPT, Perplexity, and Gemini can extract and cite your brand. Run five steps—Prompt Sweep, RAG Readability" />
+    <title>The 2026 AI Search Citation Audit: A 5-Step Framework for LLM Visibility — abcGEO | abcGEO</title>
+    <meta name="theme-color" content="#FF6B4A">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+    <!-- Self-hosted article styles (CMP blocks the Tailwind Play CDN) -->
+    <link rel="stylesheet" href="../css/published-article.css" />
+    <link rel="stylesheet" href="../css/author-sidebar.css" />
+    <style>
+      .font-brand-display { font-family: Syne, system-ui, sans-serif; }
+      .font-brand-body { font-family: 'DM Sans', system-ui, sans-serif; }
+      .font-brand-mono { font-family: 'JetBrains Mono', ui-monospace, monospace; }
 
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Article",
-    "image": ["https://abcgeo.dev/assets/og-abcgeo.png"],
-      "headline": "The 2026 AI Search Citation Audit: A 5-Step Framework for LLM Visibility",
-    "description": "A 5-step Generative Engine Optimization audit for measuring and improving brand citations in ChatGPT, Perplexity, and Gemini.",
-    "author": {
-      "@type": "Person",
-      "name": "Kayla LaFleur",
-      "url": "https://abcgeo.dev/author/kayla-lafleur.html"
-    },
-    "publisher": {
-      "@type": "Organization",
-      "name": "abcGEO",
-      "url": "https://abcgeo.dev/",
-      "logo": { "@type": "ImageObject", "url": "https://abcgeo.dev/assets/logo.png" }
-    },
-    "datePublished": "2026-08-03",
-    "dateModified": "2026-08-03",
-    "mainEntityOfPage": "blog/ai-search-citation-audit-2026.html",
-    "about": [
-      {
-        "@type": "DefinedTerm",
-        "name": "AI Search Citation Audit",
-        "description": "A structured process for measuring brand visibility inside LLM answer engines."
-      },
-      {
-        "@type": "DefinedTerm",
-        "name": "Extractable RAG Architecture",
-        "description": "Server-rendered HTML structured so retrieval systems can chunk, extract, and cite content reliably."
-      }
-    ]
-  }
-  </script>
+.key-term {
+  color: #00566b;
+  border-bottom: 1px dotted rgba(0, 86, 107, 0.55);
+  text-decoration: none;
+  cursor: help;
+  position: relative;
+  transition: color 120ms ease, border-color 120ms ease;
+}
+.key-term:hover,
+.key-term:focus-visible {
+  color: #00b4d8;
+  border-bottom-color: #00b4d8;
+  outline: none;
+}
+.key-term::after {
+  content: attr(data-tip);
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% + 0.45rem);
+  transform: translateX(-50%) translateY(4px);
+  width: max-content;
+  max-width: min(22rem, 70vw);
+  padding: 0.55rem 0.7rem;
+  border-radius: 0.55rem;
+  border: 1px solid rgba(26, 32, 44, 0.12);
+  background: #1a202c;
+  color: #faf9f6;
+  font-size: 0.78rem;
+  font-weight: 500;
+  line-height: 1.45;
+  letter-spacing: 0;
+  text-transform: none;
+  white-space: normal;
+  box-shadow: 0 12px 28px -14px rgba(26, 32, 44, 0.55);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 140ms ease, transform 140ms ease, visibility 140ms ease;
+  z-index: 40;
+}
+.key-term::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% + 0.2rem);
+  transform: translateX(-50%);
+  border: 6px solid transparent;
+  border-top-color: #1a202c;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 140ms ease, visibility 140ms ease;
+  z-index: 41;
+}
+.key-term:hover::after,
+.key-term:focus-visible::after,
+.key-term:hover::before,
+.key-term:focus-visible::before {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0);
+}
 
+    </style>
+    <script type="application/ld+json">
+    {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "mainEntityOfPage": "https://abcgeo.dev/blog/ai-search-citation-audit-2026.html",
+  "image": [
+    "https://abcgeo.dev/assets/og-abcgeo.png"
+  ],
+  "headline": "The 2026 AI Search Citation Audit: A 5-Step Framework for LLM Visibility — abcGEO",
+  "author": {
+    "@type": "Person",
+    "name": "Kayla LaFleur",
+    "url": "https://abcgeo.dev/author/kayla-lafleur.html"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "abcGEO",
+    "url": "https://abcgeo.dev/",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://abcgeo.dev/assets/logo.png"
+    }
+  },
+  "datePublished": "2026-09-06",
+  "dateModified": "2026-09-06",
+  "description": "The 2026 AI Search Citation Audit measures whether ChatGPT, Perplexity, and Gemini can extract and cite your brand. Run five steps—Prompt Sweep, RAG Readability"
+}
+    </script>
   <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "What is the 2026 AI Search Citation Audit?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "It is abcGEO’s 5-step framework for measuring and improving LLM visibility across ChatGPT, Perplexity, and Gemini through prompt sweeps, RAG readability, fact density, schema/entity clarity, and a scored audit matrix."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What do ChatGPT, Perplexity, and Gemini share despite different retrieval algorithms?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "They all require Extractable RAG Architecture: content that scrapers can chunk and extract from open server HTML without JavaScript barriers."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "How should teams score GEO readiness?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Score Engine Sweep, RAG Chunking, Data Density, and Entity Clarity from 1 to 5 using the 2026 GEO Audit Scorecard."
-        }
-      }
-    ]
-  }
+  {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://abcgeo.dev/"},{"@type":"ListItem","position":2,"name":"Blog","item":"https://abcgeo.dev/blog.html"},{"@type":"ListItem","position":3,"name":"The 2026 AI Search Citation Audit: A 5-Step Framework for LLM Visibility — abcGEO","item":"https://abcgeo.dev/blog/ai-search-citation-audit-2026.html"}]}
   </script>
   <script type="application/ld+json">
-  {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://abcgeo.dev/"}, {"@type": "ListItem", "position": 2, "name": "Blog", "item": "https://abcgeo.dev/blog.html"}, {"@type": "ListItem", "position": 3, "name": "The 2026 AI Search Citation Audit: A 5-Step Framework for LLM Visibility — abcGEO", "item": "https://abcgeo.dev/blog/ai-search-citation-audit-2026.html"}]}
+  {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How do you run the interactive citation audit?","acceptedAnswer":{"@type":"Answer","text":"The 2026 AI Search Citation Audit measures whether ChatGPT, Perplexity, and Gemini can extract and cite your brand. Run five steps—Prompt Sweep, RAG Readability, Fact Density, Entity Clarity—then score readiness on the GEO Audit Scorecard."}}]}
   </script>
 </head>
-<body>
-  <header class="site-header">
-    <div class="nav-inner">
-      <a href="../index.html" class="logo" aria-label="abcGEO home">
-        <img class="logo-img" src="../assets/logo-lockup.png" alt="" width="979" height="148" decoding="async" />
-      </a>
-      <button class="nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-controls="primary-nav">Menu</button>
-      <ul class="nav-links" id="primary-nav" data-nav-links>
-        <li><a href="../index.html">Home</a></li>
-        <li><a href="../framework.html">Formula</a></li>
-        <li><a href="../tools.html">Tools</a></li>
-        <li><a href="../templates.html">Templates</a></li>
-        <li><a href="../blog.html" class="active">Blog</a></li>
-        <li><a href="../link-building.html">Collaborate</a></li>
-        <li><a href="../contact.html">Contact</a></li>
-        <li class="mobile-cta"><a class="btn btn-primary" href="../tools.html">Browse Tools</a></li>
-      </ul>
-      <a class="btn btn-primary nav-cta" href="../tools.html">Browse Tools</a>
+<body class="bg-bg-soft-gray text-charcoal-body font-sans antialiased min-h-screen flex flex-col justify-between">
+
+    <div class="fixed top-0 left-0 w-full h-1 bg-slate-800 z-50">
+        <div data-reading-progress class="h-full bg-gradient-to-r from-sky-400 via-orange-500 to-emerald-400 w-0"></div>
     </div>
-  </header>
 
-  <main>
-    <article class="page-hero" style="border-bottom: none; padding-bottom: 0;">
-      <div class="container prose" style="max-width: 720px;">
-        <p class="section-label">abcGEO Editorial · Audit Framework</p>
-        <h1>The 2026 AI Search Citation Audit: A 5-Step Framework for LLM Visibility</h1>
-        <p class="blog-meta">9 min read · Updated Aug 2026</p>
-      </div>
-    </article>
-
-    <section class="section" style="padding-top: 1.5rem;">
-      <div class="container blog-layout">
-        <div class="blog-layout__main prose">
-        <div class="answer-box">
-          <div class="label">Answer-first</div>
-          <p>
-            The 2026 AI Search Citation Audit measures whether ChatGPT, Perplexity, and Gemini
-            can extract and cite your brand. Run five steps—Prompt Sweep, RAG Readability,
-            Fact Density, Entity Clarity—then score readiness on the GEO Audit Scorecard.
-          </p>
+    <header class="border-b border-slate-800/80 bg-slate-950/90 backdrop-blur-md sticky top-0 z-40">
+        <div class="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
+            <a href="../index.html" class="logo inline-flex items-center" aria-label="abcGEO home">
+                <img class="logo-img h-10 sm:h-11 w-auto max-w-[min(280px,70vw)] object-contain" src="../assets/logo-lockup.png" alt="" width="979" height="148" decoding="async" />
+            </a>
+            <nav class="hidden md:flex space-x-6 text-sm font-medium text-slate-300">
+                <a href="../index.html" class="hover:text-sky-700 transition">Home</a>
+                <a href="../framework.html" class="hover:text-sky-700 transition">Formula</a>
+                <a href="../tools.html" class="hover:text-sky-700 transition">Tools</a>
+                <a href="../templates.html" class="hover:text-sky-700 transition">Templates</a>
+                <a href="../blog.html" class="text-sky-700">Blog</a>
+                <a href="../link-building.html" class="hover:text-sky-700 transition">Collaborate</a>
+                <a href="../contact.html" class="hover:text-sky-700 transition">Contact</a>
+            </nav>
+            <a href="../tools.html" class="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-lg text-sm font-semibold transition shadow-lg shadow-orange-500/20">
+                Browse Tools
+            </a>
         </div>
+    </header>
 
-        <p>
-          Ranking on classic SERPs no longer guarantees presence inside AI answers. abcGEO built
-          this audit so teams can diagnose citation gaps, harden extractable HTML, and raise the
-          probability that answer engines attribute claims back to your entity.
-        </p>
-
-        <h2>How do you run the interactive citation audit?</h2>
-        <div class="answer-box">
-          <div class="label">Answer-first</div>
-          <p>
-            Use the carousel below to walk each audit step, copy slide text for team checklists,
-            and finish on the HTML scorecard that both humans and crawlers can parse.
-          </p>
-        </div>
-
-        <!-- GeoAuditCarousel (source: components/GeoAuditCarousel.html) -->
-        <section
-          class="geo-audit-carousel reveal"
-          data-geo-audit-carousel
-          aria-roledescription="carousel"
-          aria-label="The 2026 AI Search Citation Audit: A 5-Step Framework for LLM Visibility"
-        >
-          <div class="geo-audit-carousel__chrome">
-            <p class="geo-audit-carousel__eyebrow">
-              <span class="geo-audit-carousel__step-label" data-carousel-step-label>Slide 1 of 6</span>
-              · Interactive framework
-            </p>
-            <div class="geo-audit-carousel__toolbar">
-              <button type="button" class="geo-audit-carousel__copy btn btn-secondary" data-carousel-copy>
-                Copy Slide Text
-              </button>
+    <main class="max-w-6xl mx-auto px-4 py-10 flex-grow">
+        <header class="max-w-3xl mx-auto mb-8">
+            <div class="flex flex-wrap items-center gap-3 mb-4">
+                <span class="bg-sky-400/10 border border-sky-400/20 text-sky-700 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
+                    A+B=GEO Strategy
+                </span>
+                <span class="text-slate-500 text-xs">•</span>
+                <span class="text-slate-400 text-xs font-medium">4 min read</span>
+                <span class="text-slate-500 text-xs">•</span>
+                <span class="text-slate-400 text-xs font-medium">Updated Sep 2026</span>
             </div>
-          </div>
+            <h1 class="font-display text-3xl sm:text-4xl md:text-5xl font-black text-charcoal-body tracking-tight leading-tight mb-4">
+                The 2026 AI Search Citation Audit: A 5-Step Framework for LLM Visibility — abcGEO
+            </h1>
+            <p class="text-base sm:text-lg text-slate-400 leading-relaxed">
+                The 2026 AI Search Citation Audit measures whether ChatGPT, Perplexity, and Gemini can extract and cite your brand.
+            </p>
+        </header>
 
-          <div class="geo-audit-carousel__viewport" data-carousel-viewport tabindex="0">
-            <div class="geo-audit-carousel__track" data-carousel-track>
-
-              <article
-                class="geo-audit-carousel__slide is-active"
-                data-carousel-slide
-                data-slide-index="0"
-                id="geo-audit-slide-1"
-                aria-label="Slide 1 of 6: Hook"
-                aria-hidden="false"
-              >
-                <p class="geo-audit-carousel__kicker">2026 GEO Framework</p>
-                <h3>Is Your Brand Invisible in ChatGPT &amp; Gemini?</h3>
-                <p class="geo-audit-carousel__subtitle">The 2026 5-Step AI Search Citation Audit Framework</p>
-                <p>
-                  Brands that appear in traditional search can still vanish inside AI answers.
-                  This audit measures whether ChatGPT, Perplexity, and Gemini can extract, trust,
-                  and cite your content.
-                </p>
-                <aside class="geo-audit-carousel__callout" role="note">
-                  <p>
-                    While ChatGPT, Perplexity, and Gemini use different retrieval algorithms,
-                    they all share one requirement: <strong>Extractable RAG Architecture</strong>.
-                  </p>
-                </aside>
-              </article>
-
-              <article
-                class="geo-audit-carousel__slide"
-                data-carousel-slide
-                data-slide-index="1"
-                id="geo-audit-slide-2"
-                aria-label="Slide 2 of 6: Step 1 — The Prompt Sweep"
-                aria-hidden="true"
-              >
-                <p class="geo-audit-carousel__kicker">Step 1 of 5</p>
-                <h3>Step 1: The Prompt Sweep</h3>
-                <p>
-                  <strong>Objective:</strong> Audit visibility across disparate engine indexes
-                  (Perplexity, ChatGPT, Gemini).
-                </p>
-                <h4>Actionable checklist</h4>
-                <ul>
-                  <li>Test 20 core intent-based prompts across ChatGPT, Perplexity, and Gemini.</li>
-                  <li>Log citation types: Owned Domain vs. Third-Party Directories vs. Forum/UGC.</li>
-                  <li>Note the &ldquo;Citation Gap&rdquo;: Queries where competitors appear but your brand is absent.</li>
-                </ul>
-              </article>
-
-              <article
-                class="geo-audit-carousel__slide"
-                data-carousel-slide
-                data-slide-index="2"
-                id="geo-audit-slide-3"
-                aria-label="Slide 3 of 6: Step 2 — The RAG Readability Check"
-                aria-hidden="true"
-              >
-                <p class="geo-audit-carousel__kicker">Step 2 of 5</p>
-                <h3>Step 2: The RAG Readability Check</h3>
-                <p>
-                  <strong>Objective:</strong> Ensure LLM web scrapers can chunk and extract your
-                  site content without errors.
-                </p>
-                <h4>Actionable checklist</h4>
-                <ul>
-                  <li>Remove JavaScript accordion/tab barriers on key data points (use open server HTML).</li>
-                  <li>Structure headings as natural language questions matching user search intent.</li>
-                  <li>Apply the BLUF (Bottom-Line Up Front) rule: First 2 sentences under any heading must be a standalone answer.</li>
-                </ul>
-              </article>
-
-              <article
-                class="geo-audit-carousel__slide"
-                data-carousel-slide
-                data-slide-index="3"
-                id="geo-audit-slide-4"
-                aria-label="Slide 4 of 6: Step 3 — Fact Density &amp; Primary Source Indexing"
-                aria-hidden="true"
-              >
-                <p class="geo-audit-carousel__kicker">Step 3 of 5</p>
-                <h3>Step 3: Fact Density &amp; Primary Source Indexing</h3>
-                <p>
-                  <strong>Objective:</strong> Increase your &ldquo;Data-to-Fluff&rdquo; ratio.
-                  LLMs prioritize dense, verifiable statistics.
-                </p>
-                <h4>Actionable checklist</h4>
-                <ul>
-                  <li>Aim for 2+ verifiable metrics or data points per 500 words.</li>
-                  <li>Use explicit attribution: Format quotes as <code>&gt; &ldquo;Quote...&rdquo; — [Name], [Title]</code>.</li>
-                  <li>Avoid vague self-assertions; pair claims with concrete percentages or original survey data.</li>
-                </ul>
-              </article>
-
-              <article
-                class="geo-audit-carousel__slide"
-                data-carousel-slide
-                data-slide-index="4"
-                id="geo-audit-slide-5"
-                aria-label="Slide 5 of 6: Step 4 — Schema &amp; Entity Validation"
-                aria-hidden="true"
-              >
-                <p class="geo-audit-carousel__kicker">Step 4 of 5</p>
-                <h3>Step 4: Schema &amp; Entity Validation</h3>
-                <p>
-                  <strong>Objective:</strong> Eliminate &ldquo;Entity Collision&rdquo; where AI
-                  confuses your brand with another.
-                </p>
-                <h4>Actionable checklist</h4>
-                <ul>
-                  <li>Validate <code>Organization</code> and <code>Author</code> JSON-LD schema with <code>sameAs</code> social links.</li>
-                  <li>Implement <code>FAQPage</code> schema on all key product/Q&amp;A pages.</li>
-                  <li>Ensure consistent brand naming across both owned domains and third-party profiles.</li>
-                </ul>
-              </article>
-
-              <article
-                class="geo-audit-carousel__slide"
-                data-carousel-slide
-                data-slide-index="5"
-                id="geo-audit-slide-6"
-                aria-label="Slide 6 of 6: The 2026 GEO Audit Scorecard"
-                aria-hidden="true"
-              >
-                <p class="geo-audit-carousel__kicker">Summary · AI crawler target</p>
-                <h3>The 2026 GEO Audit Scorecard</h3>
-                <p>
-                  <strong>Objective:</strong> A structured scoring matrix that both humans and
-                  AI bots can easily parse.
-                </p>
-                <div class="table-wrap geo-audit-carousel__table-wrap">
-                  <table class="data-table">
-                    <caption class="sr-only-caption">
-                      The 2026 GEO Audit Scorecard with audit steps, target signals, and score columns
-                    </caption>
-                    <thead>
-                      <tr>
-                        <th scope="col">Audit Step</th>
-                        <th scope="col">Target Signal</th>
-                        <th scope="col">Score (1–5)</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <th scope="row">Engine Sweep</th>
-                        <td data-label="Target Signal">Multi-engine presence (ChatGPT, Perplexity, Gemini)</td>
-                        <td data-label="Score (1–5)" class="figure">—</td>
-                      </tr>
-                      <tr>
-                        <th scope="row">RAG Chunking</th>
-                        <td data-label="Target Signal">HTML accessibility &amp; BLUF formatting</td>
-                        <td data-label="Score (1–5)" class="figure">—</td>
-                      </tr>
-                      <tr>
-                        <th scope="row">Data Density</th>
-                        <td data-label="Target Signal">High statistics-per-word ratio</td>
-                        <td data-label="Score (1–5)" class="figure">—</td>
-                      </tr>
-                      <tr>
-                        <th scope="row">Entity Clarity</th>
-                        <td data-label="Target Signal">Validated Schema &amp; consistent sameAs entities</td>
-                        <td data-label="Score (1–5)" class="figure">—</td>
-                      </tr>
-                    </tbody>
-                  </table>
+        <section class="max-w-3xl mx-auto mb-12 space-y-4">
+            <div class="relative bg-gradient-to-br from-slate-900 via-slate-900 to-slate-800 border-2 border-sky-400/40 rounded-2xl p-6 sm:p-8 shadow-2xl shadow-sky-500/10">
+                <div class="flex items-center space-x-2 mb-4 border-b border-slate-800/80 pb-4">
+                    <span class="inline-block w-2.5 h-2.5 rounded-full bg-sky-400 animate-pulse"></span>
+                    <h2 class="text-xs font-black uppercase tracking-widest text-sky-700">
+                        Executive Answer / AI Quick Summary
+                    </h2>
                 </div>
-              </article>
-
+                <h3 class="text-lg sm:text-xl font-extrabold text-charcoal-body mb-3">Target Question: <span class="text-sky-700">How do you run the interactive citation audit?</span></h3>
+                <p class="text-slate-200 font-medium text-base sm:text-lg leading-relaxed">
+                    The 2026 AI Search Citation Audit measures whether ChatGPT, Perplexity, and Gemini can extract and cite your brand. Run five steps—Prompt Sweep, RAG Readability, Fact Density, Entity Clarity—then score readiness on the GEO Audit Scorecard.
+                </p>
             </div>
-          </div>
-
-          <div class="geo-audit-carousel__controls">
-            <button
-              type="button"
-              class="geo-audit-carousel__nav"
-              data-carousel-prev
-              aria-controls="geo-audit-slide-1"
-              aria-label="Previous slide"
-            >
-              <span aria-hidden="true">←</span> Prev
-            </button>
-
-            <div class="geo-audit-carousel__dots" data-carousel-dots role="tablist" aria-label="Slide indicators">
-              <button type="button" class="geo-audit-carousel__dot is-active" role="tab" aria-selected="true" aria-controls="geo-audit-slide-1" data-carousel-dot data-slide-to="0" aria-label="Go to slide 1"></button>
-              <button type="button" class="geo-audit-carousel__dot" role="tab" aria-selected="false" aria-controls="geo-audit-slide-2" data-carousel-dot data-slide-to="1" aria-label="Go to slide 2"></button>
-              <button type="button" class="geo-audit-carousel__dot" role="tab" aria-selected="false" aria-controls="geo-audit-slide-3" data-carousel-dot data-slide-to="2" aria-label="Go to slide 3"></button>
-              <button type="button" class="geo-audit-carousel__dot" role="tab" aria-selected="false" aria-controls="geo-audit-slide-4" data-carousel-dot data-slide-to="3" aria-label="Go to slide 4"></button>
-              <button type="button" class="geo-audit-carousel__dot" role="tab" aria-selected="false" aria-controls="geo-audit-slide-5" data-carousel-dot data-slide-to="4" aria-label="Go to slide 5"></button>
-              <button type="button" class="geo-audit-carousel__dot" role="tab" aria-selected="false" aria-controls="geo-audit-slide-6" data-carousel-dot data-slide-to="5" aria-label="Go to slide 6"></button>
+            <div class="flex items-center justify-center sm:justify-start">
+                <div class="text-xs font-mono bg-slate-900 border border-slate-700/80 px-4 py-2 rounded-xl text-slate-300 flex items-center gap-2 flex-wrap shadow-md">
+                    <span class="text-slate-500 font-bold">Article formula</span>
+                    <span class="text-slate-500">→</span>
+                    <span class="text-sky-700 font-bold">Entity (A)</span>
+                    <span class="text-slate-500">+</span>
+                    <span class="text-orange-400 font-bold">Verb (B)</span>
+                    <span class="text-slate-500">=</span>
+                    <span class="text-emerald-700 font-bold">GEO Result</span>
+                </div>
             </div>
-
-            <button
-              type="button"
-              class="geo-audit-carousel__nav"
-              data-carousel-next
-              aria-controls="geo-audit-slide-2"
-              aria-label="Next slide"
-            >
-              Next <span aria-hidden="true">→</span>
-            </button>
-          </div>
-
-          <div class="geo-audit-carousel__rag-index" data-carousel-rag-index>
-            <h3>Full framework text (machine-readable index)</h3>
-            <p>
-              The 2026 AI Search Citation Audit is a 5-step framework for LLM visibility across
-              ChatGPT, Perplexity, and Gemini. While these engines use different retrieval
-              algorithms, they all require Extractable RAG Architecture.
-            </p>
-            <ol>
-              <li>
-                <strong>The Prompt Sweep</strong> — Test 20 intent prompts across engines; log
-                Owned Domain vs. Third-Party vs. Forum/UGC citations; record Citation Gaps.
-              </li>
-              <li>
-                <strong>The RAG Readability Check</strong> — Prefer open server HTML over JS
-                accordions; write question-form headings; apply BLUF in the first two sentences.
-              </li>
-              <li>
-                <strong>Fact Density &amp; Primary Source Indexing</strong> — Target 2+ verifiable
-                metrics per 500 words; attribute quotes explicitly; pair claims with percentages
-                or survey data.
-              </li>
-              <li>
-                <strong>Schema &amp; Entity Validation</strong> — Validate Organization/Author
-                JSON-LD with sameAs; ship FAQPage schema; keep brand naming consistent.
-              </li>
-            </ol>
-            <p>
-              Scorecard signals: Engine Sweep (multi-engine presence), RAG Chunking (HTML + BLUF),
-              Data Density (statistics-per-word), Entity Clarity (schema + sameAs consistency).
-              Score each signal from 1 to 5.
-            </p>
-          </div>
         </section>
 
-        <h2>Why does Extractable RAG Architecture matter more than engine-specific hacks?</h2>
-        <div class="answer-box">
-          <div class="label">Answer-first</div>
-          <p>
-            ChatGPT, Perplexity, and Gemini retrieve differently, but each still needs clean,
-            chunkable HTML with standalone answers near question-form headings.
-          </p>
+        <div class="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-10 max-w-6xl mx-auto items-start">
+            <div class="min-w-0 space-y-10">
+            <aside class="mb-2" aria-label="On this page">
+                <div class="lg:sticky lg:top-24 space-y-4 text-xs">
+                    <h3 class="text-slate-400 font-bold uppercase tracking-wider mb-3">On This Page</h3>
+                    <nav class="space-y-2 border-l border-slate-800 pl-3 text-slate-400">
+                        <a href="#intro" class="block hover:text-sky-700 transition">1. Introduction</a>
+                        <a href="#how-do-you-run-the-interactive-citation-audit" class="block hover:text-sky-700 transition">2. How do you run the interactive citation audit?</a>
+                        <a href="#why-does-extractable-rag-architecture-matter-mor" class="block hover:text-sky-700 transition">3. Why does Extractable RAG Architecture matter more than engine-specific hacks?</a>
+                        <a href="#faq" class="block hover:text-sky-700 transition">4. FAQ</a>
+                    </nav>
+                </div>
+            </aside>
+            <article class="space-y-10 text-slate-300 text-base sm:text-lg leading-relaxed">
+                <section id="intro" class="space-y-4">
+                    <h2 class="font-display text-2xl sm:text-3xl font-bold text-charcoal-body tracking-tight border-b border-slate-800 pb-2">
+                        Introduction
+                    </h2>
+                    <p>
+                        abcGEO Editorial · Audit Framework 9 min read · Updated Aug 2026 Answer-first The 2026 AI Search Citation Audit measures whether ChatGPT, Perplexity, and Gemini can extract and cite your brand. Run five steps—Prompt Sweep, RAG Readability, Fact Density, Entity Clarity—then score readiness on the GEO Audit Scorecard. Ranking on classic SERPs no longer guarantees presence inside AI answers. abcGEO built this audit so teams can diagnose citation gaps, harden extractable HTML, and raise the probability that answer engines attribute claims back to your entity.
+                    </p>
+                </section>
+
+                <section id="how-do-you-run-the-interactive-citation-audit" class="space-y-4">
+                    <h2 class="font-display text-2xl sm:text-3xl font-bold text-charcoal-body tracking-tight border-b border-slate-800 pb-2">
+                        How do you run the interactive citation audit?
+                    </h2>
+                    <p>
+                        Answer-first Use the carousel below to walk each audit step, copy slide text for team checklists, and finish on the HTML scorecard that both humans and crawlers can parse. Slide 1 of 6 · Interactive framework Copy Slide Text 2026 GEO Framework
+                    </p>
+                </section>
+
+                <section id="is-your-brand-invisible-in-chatgpt-gemini" class="space-y-4">
+                    <h3 class="font-display text-xl font-semibold text-charcoal-body mt-6">
+                        Is Your Brand Invisible in ChatGPT &amp; Gemini?
+                    </h3>
+                    <p>
+                        The 2026 5-Step AI Search Citation Audit Framework Brands that appear in traditional search can still vanish inside AI answers. This audit measures whether ChatGPT, Perplexity, and Gemini can extract, trust, and cite your content. While ChatGPT, Perplexity, and Gemini use different retrieval algorithms, they all share one requirement: <strong>Extractable RAG Architecture</strong>. Step 1 of 5
+                    </p>
+                </section>
+
+                <section id="step-1-the-prompt-sweep" class="space-y-4">
+                    <h3 class="font-display text-xl font-semibold text-charcoal-body mt-6">
+                        Step 1: The Prompt Sweep
+                    </h3>
+                    <p>
+                        <strong>Objective:</strong> Audit visibility across disparate engine indexes (Perplexity, ChatGPT, Gemini). Actionable checklist
+                    </p>
+
+                    <ul class="list-disc pl-5 my-4 space-y-2 text-slate-300">
+                            <li>Test 20 core intent-based prompts across ChatGPT, Perplexity, and Gemini.</li>
+                            <li>Log citation types: Owned Domain vs. Third-Party Directories vs. Forum/UGC.</li>
+                            <li>Note the “Citation Gap”: Queries where competitors appear but your brand is absent.</li>
+                    </ul>
+
+                    <p>
+                        Step 2 of 5
+                    </p>
+                </section>
+
+                <section id="step-2-the-rag-readability-check" class="space-y-4">
+                    <h3 class="font-display text-xl font-semibold text-charcoal-body mt-6">
+                        Step 2: The RAG Readability Check
+                    </h3>
+                    <p>
+                        <strong>Objective:</strong> Ensure LLM web scrapers can chunk and extract your site content without errors. Actionable checklist
+                    </p>
+
+                    <ul class="list-disc pl-5 my-4 space-y-2 text-slate-300">
+                            <li>Remove JavaScript accordion/tab barriers on key data points (use open server HTML).</li>
+                            <li>Structure headings as natural language questions matching user search intent.</li>
+                            <li>Apply the BLUF (Bottom-Line Up Front) rule: First 2 sentences under any heading must be a standalone answer.</li>
+                    </ul>
+
+                    <p>
+                        Step 3 of 5
+                    </p>
+                </section>
+
+                <section id="step-3-fact-density-primary-source-indexing" class="space-y-4">
+                    <h3 class="font-display text-xl font-semibold text-charcoal-body mt-6">
+                        Step 3: Fact Density &amp; Primary Source Indexing
+                    </h3>
+                    <p>
+                        <strong>Objective:</strong> Increase your “Data-to-Fluff” ratio. LLMs prioritize dense, verifiable statistics. Actionable checklist
+                    </p>
+
+                    <ul class="list-disc pl-5 my-4 space-y-2 text-slate-300">
+                            <li>Aim for 2+ verifiable metrics or data points per 500 words.</li>
+                            <li>Use explicit attribution: Format quotes as <code class="text-sky-700 text-sm">&gt; “Quote...” — [Name], [Title]</code>.</li>
+                            <li>Avoid vague self-assertions; pair claims with concrete percentages or original survey data.</li>
+                    </ul>
+
+                    <p>
+                        Step 4 of 5
+                    </p>
+                </section>
+
+                <section id="step-4-schema-entity-validation" class="space-y-4">
+                    <h3 class="font-display text-xl font-semibold text-charcoal-body mt-6">
+                        Step 4: Schema &amp; Entity Validation
+                    </h3>
+                    <p>
+                        <strong>Objective:</strong> Eliminate “Entity Collision” where AI confuses your brand with another. Actionable checklist
+                    </p>
+
+                    <ul class="list-disc pl-5 my-4 space-y-2 text-slate-300">
+                            <li>Validate <code class="text-sky-700 text-sm">Organization</code> and <code class="text-sky-700 text-sm">Author</code> JSON-LD schema with <code class="text-sky-700 text-sm">sameAs</code> social links.</li>
+                            <li>Implement <code class="text-sky-700 text-sm">FAQPage</code> schema on all key product/Q&amp;A pages.</li>
+                            <li>Ensure consistent brand naming across both owned domains and third-party profiles.</li>
+                    </ul>
+
+                    <p>
+                        Summary · AI crawler target
+                    </p>
+                </section>
+
+                <section id="the-2026-geo-audit-scorecard" class="space-y-4">
+                    <h3 class="font-display text-xl font-semibold text-charcoal-body mt-6">
+                        The 2026 GEO Audit Scorecard
+                    </h3>
+                    <p>
+                        <strong>Objective:</strong> A structured scoring matrix that both humans and AI bots can easily parse.
+                    </p>
+
+                    <div class="my-6 overflow-x-auto rounded-xl border border-slate-800">
+                        <table class="w-full border-collapse">
+                            <thead>
+                                <tr>
+                                <th class="text-left text-xs uppercase tracking-wider text-sky-700 font-bold px-3 py-2 bg-sky-400/10 border-b border-slate-700">Audit Step</th>
+                                <th class="text-left text-xs uppercase tracking-wider text-sky-700 font-bold px-3 py-2 bg-sky-400/10 border-b border-slate-700">Target Signal</th>
+                                <th class="text-left text-xs uppercase tracking-wider text-sky-700 font-bold px-3 py-2 bg-sky-400/10 border-b border-slate-700">Score (1–5)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            <tr class="border-b border-slate-800">
+                                <td class="px-3 py-2.5 text-sm text-slate-300 align-top">Engine Sweep</td>
+                                <td class="px-3 py-2.5 text-sm text-slate-300 align-top">Multi-engine presence (ChatGPT, Perplexity, Gemini)</td>
+                                <td class="px-3 py-2.5 text-sm text-slate-300 align-top">—</td>
+                            </tr>
+                            <tr class="border-b border-slate-800">
+                                <td class="px-3 py-2.5 text-sm text-slate-300 align-top">RAG Chunking</td>
+                                <td class="px-3 py-2.5 text-sm text-slate-300 align-top">HTML accessibility &amp; BLUF formatting</td>
+                                <td class="px-3 py-2.5 text-sm text-slate-300 align-top">—</td>
+                            </tr>
+                            <tr class="border-b border-slate-800">
+                                <td class="px-3 py-2.5 text-sm text-slate-300 align-top">Data Density</td>
+                                <td class="px-3 py-2.5 text-sm text-slate-300 align-top">High statistics-per-word ratio</td>
+                                <td class="px-3 py-2.5 text-sm text-slate-300 align-top">—</td>
+                            </tr>
+                            <tr class="border-b border-slate-800">
+                                <td class="px-3 py-2.5 text-sm text-slate-300 align-top">Entity Clarity</td>
+                                <td class="px-3 py-2.5 text-sm text-slate-300 align-top">Validated Schema &amp; consistent sameAs entities</td>
+                                <td class="px-3 py-2.5 text-sm text-slate-300 align-top">—</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <p>
+                        ← Prev
+                    </p>
+
+                    <p>
+                        Next →
+                    </p>
+                </section>
+
+                <section id="full-framework-text-machine-readable-index" class="space-y-4">
+                    <h3 class="font-display text-xl font-semibold text-charcoal-body mt-6">
+                        Full framework text (machine-readable index)
+                    </h3>
+                    <p>
+                        The 2026 AI Search Citation Audit is a 5-step framework for LLM visibility across ChatGPT, Perplexity, and Gemini. While these engines use different retrieval algorithms, they all require Extractable RAG Architecture.
+                    </p>
+
+                    <ul class="list-disc pl-5 my-4 space-y-2 text-slate-300">
+                            <li><strong>The Prompt Sweep</strong> — Test 20 intent prompts across engines; log</li>
+                    </ul>
+
+                    <p>
+                        Owned Domain vs. Third-Party vs. Forum/UGC citations; record Citation Gaps.
+                    </p>
+
+                    <ul class="list-disc pl-5 my-4 space-y-2 text-slate-300">
+                            <li><strong>The RAG Readability Check</strong> — Prefer open server HTML over JS</li>
+                    </ul>
+
+                    <p>
+                        accordions; write question-form headings; apply BLUF in the first two sentences.
+                    </p>
+
+                    <ul class="list-disc pl-5 my-4 space-y-2 text-slate-300">
+                            <li><strong>Fact Density &amp; Primary Source Indexing</strong> — Target 2+ verifiable</li>
+                    </ul>
+
+                    <p>
+                        metrics per 500 words; attribute quotes explicitly; pair claims with percentages or survey data.
+                    </p>
+
+                    <ul class="list-disc pl-5 my-4 space-y-2 text-slate-300">
+                            <li><strong>Schema &amp; Entity Validation</strong> — Validate Organization/Author</li>
+                    </ul>
+
+                    <p>
+                        JSON-LD with sameAs; ship FAQPage schema; keep brand naming consistent. Scorecard signals: Engine Sweep (multi-engine presence), RAG Chunking (HTML + BLUF), Data Density (statistics-per-word), Entity Clarity (schema + sameAs consistency). Score each signal from 1 to 5.
+                    </p>
+                </section>
+
+                <section id="why-does-extractable-rag-architecture-matter-mor" class="space-y-4">
+                    <h2 class="font-display text-2xl sm:text-3xl font-bold text-charcoal-body tracking-tight border-b border-slate-800 pb-2">
+                        Why does Extractable RAG Architecture matter more than engine-specific hacks?
+                    </h2>
+                    <p>
+                        Answer-first ChatGPT, Perplexity, and Gemini retrieve differently, but each still needs clean, chunkable HTML with standalone answers near question-form headings. Optimizing for one vendor’s UI is brittle. Shipping open markup, BLUF paragraphs, dense facts, and consistent entities raises citation odds across the board—exactly what the audit scorecard quantifies. Pair this audit with abcGEO’s equation: A + B = GEO and generate citation-ready stack configs in INSTASTACK .
+                    </p>
+                </section>
+
+                <section id="faq" class="space-y-4">
+                    <h2 class="font-display text-2xl sm:text-3xl font-bold text-charcoal-body tracking-tight border-b border-slate-800 pb-2">
+                        FAQ
+                    </h2>
+                    <p>
+                        Answer-first Audit multi-engine presence first, fix RAG readability second, then raise fact density and entity clarity before scoring 1–5 on the GEO Audit Scorecard. <strong>What is a Citation Gap?</strong> A query where competitors are cited and your brand is absent. <strong>What is BLUF?</strong> Bottom-Line Up Front—the first two sentences under a heading must stand alone as the answer. <strong>Where do I apply this next?</strong> Run the carousel scorecard, then harden pages with A + B = GEO. Browse Tools Read the framework
+                    </p>
+                </section>
+
+
+
+
+            </article>
+            </div>
+
+            <aside class="author-sidebar" aria-labelledby="author-sidebar-heading">
+              <div class="author-sidebar__inner">
+                <p class="author-sidebar__eyebrow">About the Author</p>
+                <img
+                  class="author-sidebar__photo"
+                  src="../images/kayla-lafleur.jpg"
+                  alt="Kayla LaFleur, Founder and Author, seated at a desk in a professional office setting."
+                  width="116"
+                  height="116"
+                />
+                <h2 id="author-sidebar-heading" class="author-sidebar__name">Kayla LaFleur</h2>
+                <p class="author-sidebar__role">GEO &amp; SEO Specialist</p>
+                <div class="author-sidebar__block">
+                  <h3 class="author-sidebar__block-title">Key Frameworks:</h3>
+                  <ul>
+                    <li>Creator of the A+B=GEO Formula</li>
+                    <li>Extractable RAG Authority Architecture</li>
+                    <li>Conversion-driven Technical Schema</li>
+                  </ul>
+                </div>
+                <div class="author-sidebar__block">
+                  <h3 class="author-sidebar__block-title">Knows About:</h3>
+                  <ul>
+                    <li>Technical SEO &amp; GEO Strategy</li>
+                    <li>Generative Engine Optimization</li>
+                    <li>Schema.org Structured Data</li>
+                  </ul>
+                </div>
+                <a class="author-sidebar__cta" href="../author/kayla-lafleur.html">Read full bio &amp; connect</a>
+              </div>
+            </aside>
         </div>
-        <p>
-          Optimizing for one vendor’s UI is brittle. Shipping open markup, BLUF paragraphs, dense
-          facts, and consistent entities raises citation odds across the board—exactly what the
-          audit scorecard quantifies.
-        </p>
+    </main>
 
-        <div class="callout">
-          Pair this audit with abcGEO’s equation:
-          <a href="../framework.html">A + B = GEO</a>
-          and generate citation-ready stack configs in
-          <a href="../tools/instastack.html">INSTASTACK</a>.
-        </div>
-
-        <h2>FAQ</h2>
-        <div class="answer-box">
-          <div class="label">Answer-first</div>
-          <p>
-            Audit multi-engine presence first, fix RAG readability second, then raise fact density
-            and entity clarity before scoring 1–5 on the GEO Audit Scorecard.
-          </p>
-        </div>
-        <p><strong>What is a Citation Gap?</strong> A query where competitors are cited and your brand is absent.</p>
-        <p><strong>What is BLUF?</strong> Bottom-Line Up Front—the first two sentences under a heading must stand alone as the answer.</p>
-        <p><strong>Where do I apply this next?</strong> Run the carousel scorecard, then harden pages with <a href="../framework.html" style="color: var(--sky-ink);">A + B = GEO</a>.</p>
-
-        <p style="margin-top: 2.5rem;">
-          <a class="btn btn-primary" href="../tools.html">Browse Tools</a>
-          <a class="btn btn-secondary" href="../framework.html" style="margin-left: 0.5rem;">Read the framework</a>
-        </p>
-</div>
-
-      <aside class="author-sidebar" aria-labelledby="author-sidebar-heading">
-        <div class="author-sidebar__inner">
-          <p class="author-sidebar__eyebrow">About the Author</p>
-          <img
-            class="author-sidebar__photo"
-            src="../images/kayla-lafleur.jpg"
-            alt="Kayla LaFleur, Founder and Author, seated at a desk in a professional office setting."
-            width="116"
-            height="116"
-          />
-          <h2 id="author-sidebar-heading" class="author-sidebar__name">Kayla LaFleur</h2>
-          <p class="author-sidebar__role">GEO &amp; SEO Specialist</p>
-
-          <div class="author-sidebar__block">
-            <h3 class="author-sidebar__block-title">Key Frameworks:</h3>
-            <ul>
-              <li>Creator of the A+B=GEO Formula</li>
-              <li>Extractable RAG Authority Architecture</li>
-              <li>Conversion-driven Technical Schema</li>
-            </ul>
-          </div>
-
-          <div class="author-sidebar__block">
-            <h3 class="author-sidebar__block-title">Knows About:</h3>
-            <ul>
-              <li>Technical SEO &amp; GEO Strategy</li>
-              <li>Generative Engine Optimization</li>
-              <li>Schema.org Structured Data</li>
-            </ul>
-          </div>
-
-          <a class="author-sidebar__cta" href="../author/kayla-lafleur.html">Read full bio &amp; connect</a>
-        </div>
-      </aside>
-    </div>
-    </section>
-  </main>
-
-  <footer class="site-footer">
-    <div class="container footer-inner">
-      <div>
-        <a href="../index.html" class="logo"><span class="logo-mark" aria-hidden="true"></span>abc<span class="geo">GEO</span></a>
-        <p style="margin-top: 0.5rem;">A + B = GEO · Built for answer engines.</p>
-      </div>
-      <nav class="footer-links" aria-label="Footer">
-        <a href="../index.html">Home</a>
-        <a href="../framework.html">Formula</a>
-        <a href="../tools.html">Tools</a>
-        <a href="../templates.html">Templates</a>
-        <a href="../blog.html">Blog</a>
-        <a href="../link-building.html">Collaborate</a>
-        <a href="../contact.html">Contact</a>
-      </nav>
-    </div>
-  </footer>
-
-  <script src="../js/main.js"></script>
-  <script src="../components/GeoAuditCarousel.js"></script>
+    <footer class="border-t border-slate-800 bg-slate-950 py-8 mt-16 text-center text-xs text-slate-500">
+        <p>&copy; 2026 abcGEO. All rights reserved. Pioneering Generative Engine Optimization.</p>
+    </footer>
+    <script>
+      (function () {
+        var bar = document.querySelector('[data-reading-progress]');
+        if (!bar) return;
+        var onScroll = function () {
+          var el = document.documentElement;
+          var max = el.scrollHeight - el.clientHeight;
+          var pct = max > 0 ? (el.scrollTop / max) * 100 : 0;
+          bar.style.width = Math.min(100, Math.max(0, pct)) + '%';
+        };
+        window.addEventListener('scroll', onScroll, { passive: true });
+        onScroll();
+      })();
+    </script>
 </body>
 </html>
