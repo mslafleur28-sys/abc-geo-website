@@ -1164,13 +1164,28 @@ img {
   align-items: center;
 }
 
+.logo-img {
+  display: block;
+  width: auto;
+  height: clamp(2.25rem, 5vw, 3rem);
+  max-width: min(19rem, 62vw);
+  object-fit: contain;
+}
+
 .logo-mark {
-  width: 1.7rem;
-  height: 1.7rem;
-  border-radius: 0.55rem;
-  background: linear-gradient(135deg, var(--sky) 0%, var(--orange) 100%);
-  box-shadow: 0 4px 12px rgba(0, 180, 216, 0.28);
+  width: 2.45rem;
+  height: 1.35rem;
+  border-radius: 0;
+  background: url("../assets/logo.png") center / contain no-repeat;
+  box-shadow: none;
   flex: none;
+}
+
+@media (max-width: 520px) {
+  .logo-img {
+    max-width: min(15.5rem, 72vw);
+    height: 2.15rem;
+  }
 }
 
 /* ——— Hero showcase card (typewriter) ——— */
