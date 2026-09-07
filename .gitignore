@@ -10,3 +10,6 @@ prisma/dev.db
 prisma/dev.db-journal
 *.db
 tsconfig.tsbuildinfo
+content/.versions/*
+!content/.versions/README.md
+content/.admin-lock

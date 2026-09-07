@@ -12,7 +12,9 @@
     "db:migrate": "prisma migrate dev",
     "db:seed": "tsx prisma/seed.ts",
     "db:studio": "prisma studio",
-    "postinstall": "prisma generate"
+    "postinstall": "prisma generate",
+    "build:published-css": "tailwindcss -c tailwind.published.config.cjs -i ./css/published-article.src.css -o ./css/published-article.css --minify",
+    "import:live-posts": "tsx scripts/import-live-posts.ts"
   },
   "dependencies": {
     "@ai-sdk/google": "^4.0.51",
@@ -22,6 +24,8 @@
     "ai": "^7.0.79",
     "dotenv": "^16.6.1",
     "express": "^4.21.2",
+    "linkedom": "^0.18.13",
+    "mammoth": "^1.12.2",
     "next": "^15.5.24",
     "react": "^19.2.8",
     "react-dom": "^19.2.8"
