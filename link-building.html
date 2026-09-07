@@ -137,7 +137,7 @@
           <p class="section-lead">Earn high-authority, contextual backlinks and guest placements that drive real organic visibility in traditional and AI search engines.</p>
           <div class="hero-actions" style="margin-top: 1.5rem;">
             <a class="btn btn-primary" href="#pitch">Submit a Brief</a>
-            <a class="btn btn-secondary" href="#pricing-calculator">Price a Placement</a>
+            <a class="btn btn-secondary" href="#linkulator">Price a Placement</a>
           </div>
         </div>
         <figure class="page-hero__visual page-hero__photo">
@@ -204,7 +204,8 @@
       </div>
     </section>
 
-    <section class="section" id="pricing-calculator" style="padding-top: 0;" aria-labelledby="link-calc-heading">
+    <div id="pricing-calculator" style="height:0;overflow:hidden;scroll-margin-top:5rem;" aria-hidden="true"></div>
+    <section class="section" id="linkulator" style="padding-top: 0;" aria-labelledby="link-calc-heading">
       <div class="container reveal">
         <!-- Component include: components/LinkPricingCalculator.html -->
         <section
@@ -214,17 +215,28 @@
           itemtype="https://schema.org/SoftwareApplication"
           aria-labelledby="link-calc-heading"
         >
-          <meta itemprop="name" content="Guest Post & Link Placement Value Calculator" />
+          <meta itemprop="name" content="Linkulator" />
           <meta itemprop="applicationCategory" content="BusinessApplication" />
           <meta itemprop="operatingSystem" content="Web" />
 
           <header class="link-calc__intro">
             <p class="section-label">Pricing intelligence</p>
-            <h2 id="link-calc-heading" itemprop="name">Guest Post &amp; Link Placement Value Calculator</h2>
+            <h2 id="link-calc-heading" itemprop="name">Linkulator</h2>
             <p class="link-calc__lead" itemprop="description">
               Paste a website URL (and an optional quoted price). We look up traffic and authority signals, then estimate a fair guest-post / niche-edit rate—and tell you if the quote is a good deal.
             </p>
           </header>
+
+          <figure class="link-calc__hero">
+            <img
+              src="assets/linkulator-tool.jpg"
+              alt="Linkulator branding graphic showing the link pricing calculator UI with traffic, authority, and fair-rate estimates plus Great Deal and Overpriced status badges."
+              width="1024"
+              height="682"
+              loading="lazy"
+              decoding="async"
+            />
+          </figure>
 
           <div class="link-calc__workspace">
             <form class="link-calc__form" data-lc-form novalidate aria-labelledby="lc-form-heading">

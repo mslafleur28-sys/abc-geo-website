@@ -16,7 +16,7 @@ From the repo root:
 2. `npm install`
 3. `npm run api`
 
-Then open http://127.0.0.1:8788/link-building.html#pricing-calculator
+Then open http://127.0.0.1:8788/link-building.html#linkulator
 
 The Node server serves both `/api/collaboration-quote` and the static site.
 
