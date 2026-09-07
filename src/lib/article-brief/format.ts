@@ -193,7 +193,7 @@ ${guidelinesAsMarkdown()}
 1. Produce complete, valid HTML for \`blog/${brief.slug}.html\` matching the visual language of recent Tailwind blog posts (cream background, remapped slate palette, Syne/DM Sans via the same CDN Tailwind config pattern used in the template).
 2. Include reading progress (if requested), sticky nav, executive answer box with the target question, A+B=GEO equation strip when requested, article body with clear H2s, author sidebar, and footer.
 3. Add JSON-LD (\`Article\` or \`TechArticle\`, \`BreadcrumbList\`, and \`FAQPage\` when FAQ schema is requested).
-4. Wire meta: title, description, canonical, Open Graph, Twitter, theme-color \`#FF6B4A\`, favicon paths relative to \`../\`.
+4. Wire meta: title, description, canonical, Open Graph, Twitter, theme-color \`#FF6B4A\`, and brand icons (\`../assets/favicon.png\`, \`../assets/favicon.svg\`, \`../assets/apple-touch-icon.png\`).
 5. After the HTML draft is solid, update \`blog.html\` (new post card), \`sitemap.xml\`, and \`llms.txt\` when this post should appear in the editorial index.
 6. Do not invent unverifiable statistics. Prefer the facts in the brief; mark any placeholder claims clearly if you must leave a gap.
 7. Keep GEO terminology correct: Generative Engine Optimization, formula A + B = GEO.
