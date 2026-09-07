@@ -6,6 +6,13 @@ export const metadata: Metadata = {
   title: 'abcGEO — Generative Engine Optimization Tools & Insights',
   description:
     'abcGEO masters Generative Engine Optimization with interactive tools and actionable insights. Apply the A + B = GEO framework to earn citations from ChatGPT, Perplexity, and Gemini.',
+  icons: {
+    icon: [
+      { url: '/assets/favicon.png', type: 'image/png', sizes: '64x64' },
+      { url: '/assets/favicon.svg', type: 'image/svg+xml' },
+    ],
+    apple: [{ url: '/assets/apple-touch-icon.png', sizes: '180x180' }],
+  },
 };
 
 export default function RootLayout({

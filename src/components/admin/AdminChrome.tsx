@@ -24,10 +24,20 @@ export default function AdminChrome({ children }: { children: ReactNode }) {
           <div className="flex items-center gap-6">
             <Link
               href="/admin/articles"
-              className="font-display text-lg font-extrabold tracking-tight text-abby-ink"
+              className="inline-flex items-center gap-2"
+              aria-label="abcGEO studio home"
             >
-              abc<span className="text-abby-sky-ink">GEO</span>
-              <span className="ml-2 align-middle font-mono text-[10px] font-normal uppercase tracking-[0.14em] text-abby-muted">
+              <img
+                src="/assets/logo.png"
+                alt=""
+                width={412}
+                height={226}
+                className="h-7 w-auto object-contain"
+              />
+              <span className="font-display text-lg font-extrabold tracking-tight text-abby-ink">
+                abc<span className="text-abby-sky-ink">GEO</span>
+              </span>
+              <span className="align-middle font-mono text-[10px] font-normal uppercase tracking-[0.14em] text-abby-muted">
                 Internal
               </span>
             </Link>

@@ -359,7 +359,7 @@ export function buildPublishedArticleHtml(
       url: `${SITE_WRITING_GUIDELINES.siteUrl}/`,
       logo: {
         '@type': 'ImageObject',
-        url: `${SITE_WRITING_GUIDELINES.siteUrl}/assets/favicon.svg`,
+        url: `${SITE_WRITING_GUIDELINES.siteUrl}/assets/logo.png`,
       },
     },
     datePublished: published,
@@ -433,8 +433,10 @@ export function buildPublishedArticleHtml(
   <meta property="og:type" content="article" />
   <meta property="og:description" content="${escapeHtml(description)}" />
   <meta property="og:title" content="${escapeHtml(title)} | abcGEO" />
-  <link rel="apple-touch-icon" href="../assets/favicon.svg" />
+  <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png" />
+  <link rel="icon" href="../assets/favicon.png" type="image/png" sizes="64x64" />
   <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
+  <link rel="manifest" href="../assets/site.webmanifest" />
   <link rel="canonical" href="${canonical}" />
   <meta name="description" content="${escapeHtml(description)}" />
     <title>${escapeHtml(title)} | abcGEO</title>
@@ -471,9 +473,8 @@ ${
 
     <header class="border-b border-slate-800/80 bg-slate-950/90 backdrop-blur-md sticky top-0 z-40">
         <div class="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
-            <a href="../index.html" class="flex items-center space-x-2">
-                <span class="text-slate-400 font-light text-xl">abc</span>
-                <span class="text-charcoal-body font-bold text-xl tracking-wide">GEO</span>
+            <a href="../index.html" class="logo inline-flex items-center" aria-label="abcGEO home">
+                <img class="logo-img h-10 sm:h-11 w-auto max-w-[min(280px,70vw)] object-contain" src="../assets/logo-lockup.png" alt="" width="987" height="156" decoding="async" />
             </a>
             <nav class="hidden md:flex space-x-6 text-sm font-medium text-slate-300">
                 <a href="../index.html" class="hover:text-sky-700 transition">Home</a>
