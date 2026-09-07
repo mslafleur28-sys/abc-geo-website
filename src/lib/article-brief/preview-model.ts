@@ -15,6 +15,7 @@ import {
 import { parseDraftImageMarkdown } from './image-paths';
 import { linkKeyTermsInHtml } from './key-terms';
 import { isTextAlign, renderRichInline, type TextAlign } from './rich-text';
+import { normalizeTableKind } from './table-kinds';
 
 export interface PreviewBlock {
   type:
@@ -33,6 +34,8 @@ export interface PreviewBlock {
   items?: string[];
   headers?: string[];
   rows?: string[][];
+  /** Table / chart kind id (data, bar, pie, …). */
+  tableKind?: string;
   variant?: CalloutVariant;
   src?: string;
   alt?: string;
@@ -147,6 +150,7 @@ export function parseBodySections(rawBody: string): PreviewSection[] {
       type: 'table',
       headers: parsed.headers,
       rows: parsed.rows,
+      tableKind: 'data',
     });
   }
 
@@ -216,6 +220,7 @@ export function parseBodySections(rawBody: string): PreviewSection[] {
           type: 'table',
           headers: parsed.headers,
           rows: parsed.rows,
+          tableKind: normalizeTableKind(variant),
         });
       }
     }

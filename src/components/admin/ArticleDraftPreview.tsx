@@ -1,10 +1,15 @@
 import type { ArticleBriefInput } from '@/lib/article-brief';
+import { renderChartSvg } from '@/lib/article-brief/chart-svg';
 import { toPreviewImageSrc } from '@/lib/article-brief/image-paths';
 import { termAnchorId } from '@/lib/article-brief/key-terms';
 import {
   buildPreviewModel,
   renderInlineMarkup,
 } from '@/lib/article-brief/preview-model';
+import {
+  getTableKindOption,
+  tableKindLabel,
+} from '@/lib/article-brief/table-kinds';
 
 interface ArticleDraftPreviewProps {
   brief: ArticleBriefInput;
@@ -270,8 +275,72 @@ export default function ArticleDraftPreview({
                         );
                       }
                       if (block.type === 'table' && block.headers) {
+                        const kind = getTableKindOption(block.tableKind);
+                        if (kind.isChart) {
+                          return (
+                            <figure key={bi} className="preview-chart-wrap">
+                              <figcaption className="preview-chart-wrap__label">
+                                {tableKindLabel(kind.id)}
+                              </figcaption>
+                              <div
+                                className="preview-chart-wrap__svg"
+                                dangerouslySetInnerHTML={{
+                                  __html: renderChartSvg(
+                                    kind.id,
+                                    block.headers,
+                                    block.rows || [],
+                                  ),
+                                }}
+                              />
+                              <div className="preview-table-wrap preview-table-wrap--source">
+                                <p className="preview-chart-wrap__hint">
+                                  Source data (edit in the draft body table)
+                                </p>
+                                <table className="preview-data-table">
+                                  <thead>
+                                    <tr>
+                                      {block.headers.map((h, hi) => (
+                                        <th
+                                          key={hi}
+                                          dangerouslySetInnerHTML={{
+                                            __html: renderInlineMarkup(
+                                              h,
+                                              definitions,
+                                              usedKeyTerms,
+                                            ),
+                                          }}
+                                        />
+                                      ))}
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                    {(block.rows || []).map((row, ri) => (
+                                      <tr key={ri}>
+                                        {block.headers!.map((_, ci) => (
+                                          <td
+                                            key={ci}
+                                            dangerouslySetInnerHTML={{
+                                              __html: renderInlineMarkup(
+                                                row[ci] || '',
+                                                definitions,
+                                                usedKeyTerms,
+                                              ),
+                                            }}
+                                          />
+                                        ))}
+                                      </tr>
+                                    ))}
+                                  </tbody>
+                                </table>
+                              </div>
+                            </figure>
+                          );
+                        }
                         return (
                           <div key={bi} className="preview-table-wrap">
+                            <p className="preview-table-wrap__label">
+                              {tableKindLabel(kind.id)}
+                            </p>
                             <table className="preview-data-table">
                               <thead>
                                 <tr>

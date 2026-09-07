@@ -27,7 +27,7 @@ export const STYLISTIC_OVERRIDE_OPTIONS = [
     id: 'comparison_table',
     label: 'Comparison / data table',
     description:
-      'Use the Table toolbox button to place a comparison or data table anywhere in a section.',
+      'Use the Table toolbox to insert editable tables and charts (data, summary, bar, line, pie, and more).',
   },
   {
     id: 'callout_blocks',
