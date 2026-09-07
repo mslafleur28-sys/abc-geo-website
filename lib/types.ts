@@ -1,5 +1,5 @@
 /**
- * GEO Nexus — shared schema types for Perplexity citation tracking
+ * Generatometrics — shared schema types for Perplexity citation tracking
  * and GA4 OAuth / Data API (v1beta) attribution.
  */
 
@@ -90,7 +90,7 @@ export type CitationStatus = 'cited' | 'not_cited';
  * Dashboard attribution row: Perplexity citation joined to GA4
  * Perplexity / AI-assistant traffic for the same `pagePath`.
  */
-export interface NexusAttributionRow {
+export interface GeneratometricsAttributionRow {
   pagePath: string;
   citationUrl: string | null;
   targetKeyword: string;

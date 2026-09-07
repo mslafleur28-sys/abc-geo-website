@@ -1,14 +1,18 @@
 import type { Metadata } from 'next';
-import type { GA4SessionRow, NexusAttributionRow, TrackedCitation } from '@lib/types';
+import type {
+  GA4SessionRow,
+  GeneratometricsAttributionRow,
+  TrackedCitation,
+} from '@lib/types';
 import {
-  buildNexusAttributionRows,
+  buildGeneratometricsAttributionRows,
   fetchGa4TrafficData,
   getDemoGa4TrafficData,
 } from '@lib/ga4Client';
 import { listTrackedCitations, saveTrackedCitation } from '@lib/trackedCitations';
 
 export const metadata: Metadata = {
-  title: 'GEO Nexus — Attribution Dashboard',
+  title: 'Generatometrics — Attribution Dashboard',
   description:
     'Merge Perplexity citation tracking with GA4 AI-referrer sessions, conversions, and revenue.',
 };
@@ -82,7 +86,7 @@ async function loadGa4Rows(): Promise<{ rows: GA4SessionRow[]; source: 'live' | 
       });
       return { rows, source: 'live' };
     } catch (error) {
-      console.warn('[GEO Nexus] GA4 live fetch failed; falling back to demo rows.', error);
+      console.warn('[Generatometrics] GA4 live fetch failed; falling back to demo rows.', error);
     }
   }
 
@@ -97,7 +101,7 @@ function formatCurrency(value: number): string {
   }).format(value);
 }
 
-function CitationStatusCell({ row }: { row: NexusAttributionRow }) {
+function CitationStatusCell({ row }: { row: GeneratometricsAttributionRow }) {
   if (row.isCitedByPerplexity) {
     return (
       <span className="inline-flex items-center gap-2">
@@ -123,22 +127,19 @@ function CitationStatusCell({ row }: { row: NexusAttributionRow }) {
   );
 }
 
-export default async function GeoNexusDashboardPage() {
-  const targetDomain = process.env.GEO_NEXUS_TARGET_DOMAIN ?? 'abcgeo.dev';
+export default async function GeneratometricsDashboardPage() {
+  const targetDomain = process.env.GENERATOMETRICS_TARGET_DOMAIN ?? 'abcgeo.dev';
   const citations = seedDemoCitationsIfEmpty(targetDomain);
   const { rows: ga4Rows, source: ga4Source } = await loadGa4Rows();
-  const attributionRows = buildNexusAttributionRows(citations, ga4Rows);
+  const attributionRows = buildGeneratometricsAttributionRows(citations, ga4Rows);
   const zeroClickCount = attributionRows.filter((row) => row.isZeroClickCitation).length;
 
   return (
     <main className="min-h-screen bg-gradient-to-br from-abby-cream via-white to-abby-soft">
       <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
         <header className="mb-10">
-          <p className="font-display text-sm font-semibold uppercase tracking-[0.2em] text-abby-sky-ink">
-            GEO Nexus
-          </p>
-          <h1 className="mt-2 font-display text-4xl font-extrabold tracking-tight text-abby-ink sm:text-5xl">
-            Attribution Nexus
+          <h1 className="font-display text-4xl font-extrabold tracking-tight text-abby-ink sm:text-5xl">
+            Generatometrics
           </h1>
           <p className="mt-3 max-w-2xl text-base text-abby-muted sm:text-lg">
             Perplexity cited URLs mapped to GA4 <code className="text-abby-ink">pagePath</code>{' '}
@@ -164,7 +165,7 @@ export default async function GeoNexusDashboardPage() {
         </header>
 
         <section
-          aria-label="Nexus attribution table"
+          aria-label="Generatometrics attribution table"
           className="overflow-hidden rounded-2xl bg-white/90 shadow-sm ring-1 ring-slate-200 backdrop-blur"
         >
           <div className="overflow-x-auto">

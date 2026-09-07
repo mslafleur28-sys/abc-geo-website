@@ -1,12 +1,12 @@
 /**
- * GEO Nexus — Google Analytics Data API (v1beta) client.
+ * Generatometrics — Google Analytics Data API (v1beta) client.
  * Handles OAuth bearer tokens and AI-referrer scoped runReport requests.
  */
 
 import type {
   Ga4DateRange,
   GA4SessionRow,
-  NexusAttributionRow,
+  GeneratometricsAttributionRow,
   TrackedCitation,
 } from '@lib/types';
 
@@ -161,9 +161,9 @@ function parseNumber(raw: string | undefined): number {
 }
 
 /**
- * Maps a raw GA4 runReport row into the GEO Nexus `GA4SessionRow` schema.
+ * Maps a raw GA4 runReport row into the Generatometrics `GA4SessionRow` schema.
  * The Data API requests `activeUsers`; we store that value under
- * `engagedSessions` in the nexus schema (dashboard engaged-session column).
+ * `engagedSessions` in the product schema (dashboard engaged-session column).
  */
 export function normalizeGa4ReportRow(row: Ga4ApiReportRow): GA4SessionRow {
   const dims = row.dimensionValues ?? [];
@@ -263,10 +263,10 @@ export function aggregateGa4ByPagePath(rows: GA4SessionRow[]): Map<string, GA4Se
 /**
  * Joins tracked Perplexity citations to GA4 AI-referrer traffic by pagePath.
  */
-export function buildNexusAttributionRows(
+export function buildGeneratometricsAttributionRows(
   citations: TrackedCitation[],
   ga4Rows: GA4SessionRow[],
-): NexusAttributionRow[] {
+): GeneratometricsAttributionRow[] {
   const ga4ByPath = aggregateGa4ByPagePath(ga4Rows);
   const citationByPath = new Map<string, TrackedCitation>();
 
@@ -279,7 +279,7 @@ export function buildNexusAttributionRows(
   }
 
   const paths = new Set<string>([...citationByPath.keys(), ...ga4ByPath.keys()]);
-  const rows: NexusAttributionRow[] = [];
+  const rows: GeneratometricsAttributionRow[] = [];
 
   for (const pagePath of paths) {
     const citation = citationByPath.get(pagePath);
