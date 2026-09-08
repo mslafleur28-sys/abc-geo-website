@@ -173,15 +173,14 @@ export function PolicyAcknowledgmentForm() {
             description={
               <>
                 Required to use interactive abcGEO tools and submit site forms.
-                Review this Privacy Policy in full before accepting. For terms
-                questions, contact{' '}
+                Review this Privacy Policy and the{' '}
                 <a
                   className="font-medium text-abby-sky-ink underline underline-offset-2"
-                  href="mailto:info@abcgeo.dev"
+                  href="/terms"
                 >
-                  info@abcgeo.dev
-                </a>
-                .
+                  Terms of Service
+                </a>{' '}
+                before accepting.
               </>
             }
           />

@@ -1,6 +1,6 @@
 'use client';
 
-import type { ButtonHTMLAttributes, ReactNode } from 'react';
+import { forwardRef, type ButtonHTMLAttributes, type ReactNode } from 'react';
 
 type ButtonVariant = 'primary' | 'secondary' | 'ghost';
 type ButtonSize = 'sm' | 'md' | 'lg';
@@ -26,33 +26,39 @@ const sizeClasses: Record<ButtonSize, string> = {
   lg: 'px-6 py-3 text-base',
 };
 
-export function Button({
-  variant = 'primary',
-  size = 'md',
-  className = '',
-  children,
-  disabled,
-  type = 'button',
-  ...props
-}: ButtonProps) {
-  return (
-    <button
-      type={type}
-      disabled={disabled}
-      className={[
-        'inline-flex items-center justify-center gap-2 rounded-lg border font-semibold transition',
-        'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-abby-sky focus-visible:ring-offset-2',
-        'disabled:pointer-events-none disabled:opacity-55',
-        'hover:-translate-y-px',
-        variantClasses[variant],
-        sizeClasses[size],
-        className,
-      ]
-        .filter(Boolean)
-        .join(' ')}
-      {...props}
-    >
-      {children}
-    </button>
-  );
-}
+export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
+  function Button(
+    {
+      variant = 'primary',
+      size = 'md',
+      className = '',
+      children,
+      disabled,
+      type = 'button',
+      ...props
+    },
+    ref,
+  ) {
+    return (
+      <button
+        ref={ref}
+        type={type}
+        disabled={disabled}
+        className={[
+          'inline-flex items-center justify-center gap-2 rounded-lg border font-semibold transition',
+          'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-abby-sky focus-visible:ring-offset-2',
+          'disabled:pointer-events-none disabled:opacity-55',
+          'hover:-translate-y-px',
+          variantClasses[variant],
+          sizeClasses[size],
+          className,
+        ]
+          .filter(Boolean)
+          .join(' ')}
+        {...props}
+      >
+        {children}
+      </button>
+    );
+  },
+);
