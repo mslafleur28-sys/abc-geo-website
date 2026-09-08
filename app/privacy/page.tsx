@@ -14,7 +14,7 @@ export const metadata: Metadata = {
     title: 'Privacy Policy — abcGEO',
     description:
       'Privacy practices for abcGEO, INSTASTACK, and interactive Generative Engine Optimization tools.',
-    url: 'https://abcgeo.dev/privacy',
+    url: 'https://abcgeo.dev/privacy.html',
     siteName: 'abcGEO',
     type: 'website',
   },

@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     title: 'Terms of Service — abcGEO',
     description:
       'Acceptable use, IP, tool fair use, and liability terms for abcGEO and interactive GEO utilities.',
-    url: 'https://abcgeo.dev/terms',
+    url: 'https://abcgeo.dev/terms.html',
     siteName: 'abcGEO',
     type: 'website',
   },

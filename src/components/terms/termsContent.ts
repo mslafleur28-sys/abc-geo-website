@@ -115,7 +115,7 @@ export const TERMS_SECTIONS: TermsSection[] = [
     paragraphs: [
       'These Terms are governed by the laws of the United States and the State of California, excluding conflict-of-law rules, unless mandatory consumer protections in your jurisdiction require otherwise. Courts located in California will have exclusive jurisdiction over disputes arising from these Terms, subject to applicable law.',
       'We may update these Terms from time to time. The “Last updated” date and terms version identifier will change when we do. Continued use after an update constitutes acceptance of the revised Terms where permitted by law. Material changes to acceptance requirements may require you to re-accept via the form on this page.',
-      'Questions about these Terms: info@abcgeo.dev. Privacy questions are covered in our Privacy Policy at /privacy.',
+      'Questions about these Terms: info@abcgeo.dev. Privacy questions are covered in our Privacy Policy at privacy.html.',
     ],
   },
 ];
