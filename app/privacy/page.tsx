@@ -27,8 +27,12 @@ const FOOTER_LINKS = [
   { href: '/templates.html', label: 'Templates' },
   { href: '/blog.html', label: 'Blog' },
   { href: '/contact.html', label: 'Contact' },
-  { href: '/privacy', label: 'Privacy' },
-  { href: '/terms', label: 'Terms' },
+] as const;
+
+const LEGAL_LINKS = [
+  { href: '/privacy.html', label: 'Privacy Policy' },
+  { href: '/terms.html', label: 'Terms' },
+  { href: '/sitemap.xml', label: 'Sitemap' },
 ] as const;
 
 export default function PrivacyPolicyPage() {
@@ -129,6 +133,23 @@ export default function PrivacyPolicyPage() {
           </div>
           <nav className="flex flex-wrap gap-x-4 gap-y-2 text-sm text-abby-muted" aria-label="Footer">
             {FOOTER_LINKS.map((link) => (
+              <a
+                key={link.href}
+                href={link.href}
+                className="transition hover:text-abby-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-abby-sky"
+              >
+                {link.label}
+              </a>
+            ))}
+          </nav>
+        </div>
+        <div className="mx-auto flex max-w-[1120px] flex-wrap items-baseline justify-center gap-x-4 gap-y-2 border-t border-[#E2E8F0] px-4 py-4 text-xs text-abby-muted sm:justify-between sm:px-6">
+          <p>&copy; 2026 abcGEO. All rights reserved. Pioneering Generative Engine Optimization.</p>
+          <nav
+            className="flex flex-wrap items-center gap-x-3 gap-y-1 text-[0.65rem] tracking-wide"
+            aria-label="Legal"
+          >
+            {LEGAL_LINKS.map((link) => (
               <a
                 key={link.href}
                 href={link.href}
