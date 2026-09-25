@@ -3,6 +3,7 @@
 import { useAbbyChat } from '@/components/AbbyChatContext';
 import AbbyRiveAvatar from '@/components/AbbyRiveAvatar';
 import Image from 'next/image';
+import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
 const SUGGESTIONS = [
@@ -102,6 +103,12 @@ export default function HomePage() {
             Meet Abby — ask her how to navigate the site or apply Generative
             Engine Optimization.
           </p>
+          <Link
+            href="/artie"
+            className="mt-4 inline-flex w-fit animate-abby-fade-up items-center rounded-full border border-abby-ink/10 bg-white/80 px-4 py-2 text-sm font-semibold text-abby-ink shadow-sm transition-colors [animation-delay:120ms] fill-mode-both hover:border-abby-coral/40 hover:text-abby-coral focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-abby-coral"
+          >
+            Read the Artie comic
+          </Link>
 
           <ul className="mt-7 flex max-w-xl flex-col gap-2.5 md:mt-9">
             {SUGGESTIONS.map((question, index) => (
