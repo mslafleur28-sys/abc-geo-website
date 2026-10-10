@@ -1,3 +1,4 @@
+import { parseCarouselFence, type CarouselSlide } from './carousel';
 import type { ArticleBriefInput, KeyDefinition, StylisticOverrideId } from './schema';
 import {
   isFenceClose,
@@ -28,7 +29,8 @@ export interface PreviewBlock {
     | 'tldr'
     | 'table'
     | 'image'
-    | 'pullquote';
+    | 'pullquote'
+    | 'carousel';
   text?: string;
   title?: string;
   items?: string[];
@@ -41,6 +43,7 @@ export interface PreviewBlock {
   alt?: string;
   caption?: string;
   align?: TextAlign;
+  slides?: CarouselSlide[];
 }
 
 export interface PreviewSection {
@@ -222,6 +225,14 @@ export function parseBodySections(rawBody: string): PreviewSection[] {
           rows: parsed.rows,
           tableKind: normalizeTableKind(variant),
         });
+      }
+      return;
+    }
+
+    if (kind === 'carousel') {
+      const slides = parseCarouselFence(buf);
+      if (slides.length) {
+        ensureSection().blocks.push({ type: 'carousel', slides });
       }
     }
   }

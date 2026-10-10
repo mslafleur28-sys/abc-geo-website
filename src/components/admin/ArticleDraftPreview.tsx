@@ -1,3 +1,4 @@
+import BlogCarouselView from '@/components/admin/BlogCarouselView';
 import type { ArticleBriefInput } from '@/lib/article-brief';
 import { renderChartSvg } from '@/lib/article-brief/chart-svg';
 import { toPreviewImageSrc } from '@/lib/article-brief/image-paths';
@@ -169,6 +170,16 @@ export default function ArticleDraftPreview({
                     )}
 
                     {section.blocks.map((block, bi) => {
+                      if (block.type === 'carousel' && block.slides?.length) {
+                        return (
+                          <BlogCarouselView
+                            key={bi}
+                            slides={block.slides}
+                            definitions={definitions}
+                            usedTerms={usedKeyTerms}
+                          />
+                        );
+                      }
                       if (block.type === 'image' && block.src) {
                         return (
                           <figure key={bi} className="preview-figure">

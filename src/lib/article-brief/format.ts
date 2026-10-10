@@ -195,6 +195,7 @@ ${guidelinesAsMarkdown()}
 3. Add JSON-LD (\`Article\` or \`TechArticle\`, \`BreadcrumbList\`, and \`FAQPage\` when FAQ schema is requested).
 4. Wire meta: title, description, canonical, Open Graph, Twitter, theme-color \`#FF6B4A\`, and brand icons (\`../assets/favicon.png\`, \`../assets/favicon.svg\`, \`../assets/apple-touch-icon.png\`).
 5. After the HTML draft is solid, update \`blog.html\` (new post card), \`sitemap.xml\`, and \`llms.txt\` when this post should appear in the editorial index.
+5b. If the body contains a \`:::carousel\` fence, publish it as a \`data-blog-carousel\` block (see \`css/blog-carousel.css\` and \`js/blog-carousel.js\`) and keep every slide in the HTML.
 6. Do not invent unverifiable statistics. Prefer the facts in the brief; mark any placeholder claims clearly if you must leave a gap.
 7. Keep GEO terminology correct: Generative Engine Optimization, formula A + B = GEO.
 

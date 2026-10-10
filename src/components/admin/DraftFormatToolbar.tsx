@@ -9,6 +9,11 @@ import {
   type RefObject,
 } from 'react';
 import {
+  emptyCarouselSlide,
+  emptyCarouselSlides,
+  type CarouselSlide,
+} from '@/lib/article-brief/carousel';
+import {
   editorHtmlToMarkdown,
   markdownToEditorHtml,
 } from '@/lib/article-brief/editor-codec';
@@ -19,7 +24,11 @@ import {
   uploadDraftImageFile,
 } from '@/lib/article-brief/editor-images';
 import { processEditorPaste } from '@/lib/article-brief/editor-paste';
-import { imageFilename, imageFilenameLabel } from '@/lib/article-brief/image-paths';
+import {
+  imageFilename,
+  imageFilenameLabel,
+  toPreviewImageSrc,
+} from '@/lib/article-brief/image-paths';
 import {
   BRAND_COLORS,
   BRAND_FONTS,
@@ -121,7 +130,7 @@ function insertBlockAfterSelection(
       ? (container as HTMLElement)
       : container.parentElement;
   const host = block?.closest(
-    'p, h2, h3, li, blockquote, aside, ul, ol, table, div.draft-table-wrap, div.draft-visual-editor',
+    'p, h2, h3, li, blockquote, aside, ul, ol, table, div.draft-table-wrap, div.draft-carousel, div.draft-visual-editor',
   );
   if (
     host &&
@@ -133,7 +142,7 @@ function insertBlockAfterSelection(
     const insertAfter =
       host.tagName.toLowerCase() === 'li'
         ? host.closest('ul, ol') || host
-        : host.closest('div.draft-table-wrap') || host;
+        : host.closest('div.draft-table-wrap, div.draft-carousel') || host;
     insertAfter.after(node);
   } else {
     range.insertNode(node);
@@ -188,6 +197,13 @@ interface DraftFormatToolbarProps {
   /** Currently selected draft table wrap (click-to-edit). */
   selectedTable?: HTMLElement | null;
   onSelectedTableChange?: (table: HTMLElement | null) => void;
+  /** Currently selected carousel (click-to-edit). */
+  selectedCarousel?: HTMLElement | null;
+  onSelectedCarouselChange?: (carousel: HTMLElement | null) => void;
+  selectedCarouselSlide?: HTMLElement | null;
+  onSelectedCarouselSlideChange?: (slide: HTMLElement | null) => void;
+  /** Body editor can insert carousels. Short fields leave this off. */
+  allowCarousel?: boolean;
   /** Optional Post action shown at the end of the toolbox (draft editor). */
   onPost?: () => void;
   postBusy?: boolean;
@@ -310,6 +326,120 @@ function removeTableRow(wrap: HTMLElement) {
   tbody.lastElementChild?.remove();
 }
 
+function clearCarouselSelection(editor: HTMLDivElement | null) {
+  editor
+    ?.querySelectorAll('.draft-carousel--selected, .draft-carousel__slide--selected')
+    .forEach((el) => {
+      el.classList.remove('draft-carousel--selected');
+      el.classList.remove('draft-carousel__slide--selected');
+    });
+}
+
+function refreshCarouselChrome(root: HTMLElement) {
+  const slides = Array.from(root.querySelectorAll('[data-carousel-slide]'));
+  const label = root.querySelector('.draft-carousel__label');
+  if (label) {
+    label.textContent = `Carousel · ${slides.length} slide${slides.length === 1 ? '' : 's'}`;
+  }
+  slides.forEach((slide, index) => {
+    const kicker = slide.querySelector('.draft-carousel__kicker');
+    if (kicker) kicker.textContent = `Slide ${index + 1}`;
+  });
+}
+
+function carouselSlideMedia(slide: CarouselSlide): HTMLElement {
+  if (!slide.src.trim()) {
+    const empty = document.createElement('p');
+    empty.className = 'draft-carousel__image-empty';
+    empty.contentEditable = 'false';
+    empty.textContent = 'No image yet';
+    return empty;
+  }
+  const figure = document.createElement('figure');
+  figure.className = 'draft-carousel__figure';
+  figure.setAttribute('data-carousel-figure', '1');
+  figure.contentEditable = 'false';
+  const img = document.createElement('img');
+  img.src = toPreviewImageSrc(slide.src);
+  img.alt = slide.alt.trim() || 'Slide image';
+  img.setAttribute('data-draft-src', slide.src.trim());
+  figure.appendChild(img);
+  if (slide.caption.trim()) {
+    const caption = document.createElement('figcaption');
+    caption.textContent = slide.caption.trim();
+    figure.appendChild(caption);
+  }
+  return figure;
+}
+
+function createCarouselSlideElement(
+  slide: CarouselSlide,
+  index: number,
+): HTMLElement {
+  const article = document.createElement('article');
+  article.className = 'draft-carousel__slide';
+  article.setAttribute('data-carousel-slide', '1');
+
+  const kicker = document.createElement('p');
+  kicker.className = 'draft-carousel__kicker';
+  kicker.contentEditable = 'false';
+  kicker.textContent = `Slide ${index + 1}`;
+
+  const title = document.createElement('p');
+  title.className = 'draft-carousel__title';
+  title.setAttribute('data-carousel-title', '1');
+  title.textContent = slide.title || `Slide ${index + 1} title`;
+
+  const body = document.createElement('p');
+  body.className = 'draft-carousel__body';
+  body.setAttribute('data-carousel-body', '1');
+  body.textContent = slide.body || 'Add the point for this slide.';
+
+  article.append(kicker, title, body, carouselSlideMedia(slide));
+  return article;
+}
+
+function createDraftCarouselElement(slides: CarouselSlide[]): HTMLDivElement {
+  const wrap = document.createElement('div');
+  wrap.className = 'draft-carousel';
+  wrap.setAttribute('data-draft-carousel', '1');
+
+  const label = document.createElement('p');
+  label.className = 'draft-carousel__label';
+  label.contentEditable = 'false';
+  label.textContent = 'Carousel';
+
+  const track = document.createElement('div');
+  track.className = 'draft-carousel__slides';
+  const list = slides.length ? slides : emptyCarouselSlides(3);
+  list.forEach((slide, index) => {
+    track.appendChild(createCarouselSlideElement(slide, index));
+  });
+
+  wrap.append(label, track);
+  refreshCarouselChrome(wrap);
+  return wrap;
+}
+
+function replaceCarouselSlideMedia(slide: HTMLElement, media: CarouselSlide) {
+  slide.querySelector('.draft-carousel__figure, .draft-carousel__image-empty')?.remove();
+  slide.appendChild(carouselSlideMedia(media));
+}
+
+function readCarouselSlideMedia(slide: HTMLElement | null): {
+  alt: string;
+  caption: string;
+  src: string;
+} {
+  const img = slide?.querySelector('img');
+  const caption = slide?.querySelector('figcaption');
+  return {
+    alt: img?.getAttribute('alt') || '',
+    caption: (caption?.textContent || '').trim(),
+    src: img?.getAttribute('data-draft-src') || img?.getAttribute('src') || '',
+  };
+}
+
 function readFigureFields(figure: HTMLElement): {
   alt: string;
   caption: string;
@@ -383,6 +513,11 @@ function DraftFormatToolbar({
   onSelectedFigureChange,
   selectedTable = null,
   onSelectedTableChange,
+  selectedCarousel = null,
+  onSelectedCarouselChange,
+  selectedCarouselSlide = null,
+  onSelectedCarouselSlideChange,
+  allowCarousel = true,
   onPost,
   postBusy = false,
   postDisabled = false,
@@ -390,6 +525,12 @@ function DraftFormatToolbar({
   const [imageOpen, setImageOpen] = useState(false);
   const [emojiOpen, setEmojiOpen] = useState(false);
   const [tableOpen, setTableOpen] = useState(false);
+  const [carouselOpen, setCarouselOpen] = useState(false);
+  const [carouselAlt, setCarouselAlt] = useState('');
+  const [carouselCaption, setCarouselCaption] = useState('');
+  const [carouselUrl, setCarouselUrl] = useState('');
+  const [carouselBusy, setCarouselBusy] = useState(false);
+  const [carouselError, setCarouselError] = useState('');
   const [tableKind, setTableKind] = useState('data');
   const [tableCols, setTableCols] = useState(3);
   const [tableRows, setTableRows] = useState(3);
@@ -402,6 +543,8 @@ function DraftFormatToolbar({
   const savedRange = useRef<Range | null>(null);
   const editingExisting = Boolean(selectedFigure);
   const editingTable = Boolean(selectedTable);
+  const editingCarousel = Boolean(selectedCarousel);
+  const carouselFileRef = useRef<HTMLInputElement>(null);
   const wasEditingRef = useRef(false);
   const wasEditingTableRef = useRef(false);
 
@@ -425,8 +568,15 @@ function DraftFormatToolbar({
     setImageOpen(true);
     setEmojiOpen(false);
     setTableOpen(false);
+    setCarouselOpen(false);
     onSelectedTableChange?.(null);
-  }, [editorRef, selectedFigure, onSelectedTableChange]);
+    onSelectedCarouselChange?.(null);
+  }, [
+    editorRef,
+    selectedFigure,
+    onSelectedTableChange,
+    onSelectedCarouselChange,
+  ]);
 
   useEffect(() => {
     clearTableSelection(editorRef.current);
@@ -451,8 +601,47 @@ function DraftFormatToolbar({
     setTableOpen(true);
     setImageOpen(false);
     setEmojiOpen(false);
+    setCarouselOpen(false);
     onSelectedFigureChange?.(null);
-  }, [editorRef, selectedTable, onSelectedFigureChange]);
+    onSelectedCarouselChange?.(null);
+  }, [
+    editorRef,
+    selectedTable,
+    onSelectedFigureChange,
+    onSelectedCarouselChange,
+  ]);
+
+  useEffect(() => {
+    clearCarouselSelection(editorRef.current);
+    if (!selectedCarousel) {
+      return;
+    }
+    selectedCarousel.classList.add('draft-carousel--selected');
+    const slide =
+      selectedCarouselSlide && selectedCarousel.contains(selectedCarouselSlide)
+        ? selectedCarouselSlide
+        : (selectedCarousel.querySelector(
+            '[data-carousel-slide]',
+          ) as HTMLElement | null);
+    slide?.classList.add('draft-carousel__slide--selected');
+    const media = readCarouselSlideMedia(slide);
+    setCarouselAlt(media.alt);
+    setCarouselCaption(media.caption);
+    setCarouselUrl(media.src);
+    setCarouselError('');
+    setCarouselOpen(true);
+    setImageOpen(false);
+    setEmojiOpen(false);
+    setTableOpen(false);
+    onSelectedFigureChange?.(null);
+    onSelectedTableChange?.(null);
+  }, [
+    editorRef,
+    selectedCarousel,
+    selectedCarouselSlide,
+    onSelectedFigureChange,
+    onSelectedTableChange,
+  ]);
 
   const saveSelection = useCallback(() => {
     const selection = window.getSelection();
@@ -1113,14 +1302,39 @@ function DraftFormatToolbar({
               saveSelection();
               setEmojiOpen(false);
               setImageOpen(false);
+              setCarouselOpen(false);
               if (!selectedTable) {
                 onSelectedFigureChange?.(null);
+                onSelectedCarouselChange?.(null);
               }
               setTableOpen((open) => !open);
             }}
           >
             Table
           </button>
+          {allowCarousel ? (
+            <button
+              type="button"
+              className={`draft-toolbox__btn ${carouselOpen ? 'draft-toolbox__btn--active' : ''}`}
+              title="Insert or edit carousel"
+              aria-label="Insert or edit carousel"
+              aria-expanded={carouselOpen}
+              onClick={() => {
+                saveSelection();
+                setEmojiOpen(false);
+                setImageOpen(false);
+                setTableOpen(false);
+                if (!selectedCarousel) {
+                  onSelectedFigureChange?.(null);
+                  onSelectedTableChange?.(null);
+                }
+                setCarouselOpen((open) => !open);
+                setCarouselError('');
+              }}
+            >
+              Carousel
+            </button>
+          ) : null}
           <button
             type="button"
             className={`draft-toolbox__btn ${imageOpen ? 'draft-toolbox__btn--active' : ''}`}
@@ -1130,7 +1344,9 @@ function DraftFormatToolbar({
             onClick={() => {
               saveSelection();
               setEmojiOpen(false);
+              setCarouselOpen(false);
               clearImageSelection();
+              onSelectedCarouselChange?.(null);
               setImageOpen((open) => !open);
               setImageError('');
               setImageCaption('');
@@ -1147,6 +1363,7 @@ function DraftFormatToolbar({
             onClick={() => {
               saveSelection();
               setImageOpen(false);
+              setCarouselOpen(false);
               setEmojiOpen((open) => !open);
             }}
           >
@@ -1435,6 +1652,262 @@ function DraftFormatToolbar({
         </div>
       ) : null}
 
+      {allowCarousel && carouselOpen ? (
+        <div className="draft-carousel-panel" role="region" aria-label="Carousel editor">
+          <p className="draft-carousel-panel__hint">
+            {editingCarousel
+              ? 'Edit the selected carousel. Click a slide to choose it, then change its title and text in the draft. Add an image to that slide here.'
+              : 'Insert a carousel of slides. Each slide can have a title, short text, and an optional image. Visitors use the arrows on the published post.'}
+          </p>
+          {editingCarousel ? (
+            <>
+              <div className="draft-carousel-panel__row">
+                <label className="admin-label mb-0" htmlFor="draft-carousel-alt">
+                  Slide image alt
+                </label>
+                <input
+                  id="draft-carousel-alt"
+                  className="admin-input"
+                  placeholder="Describe this slide image"
+                  value={carouselAlt}
+                  onChange={(e) => setCarouselAlt(e.target.value)}
+                />
+              </div>
+              <div className="draft-carousel-panel__row">
+                <label className="admin-label mb-0" htmlFor="draft-carousel-caption">
+                  Slide caption
+                </label>
+                <input
+                  id="draft-carousel-caption"
+                  className="admin-input"
+                  placeholder="Optional caption"
+                  value={carouselCaption}
+                  onChange={(e) => setCarouselCaption(e.target.value)}
+                />
+              </div>
+              <div className="draft-carousel-panel__row">
+                <label className="admin-label mb-0" htmlFor="draft-carousel-url">
+                  Image URL
+                </label>
+                <input
+                  id="draft-carousel-url"
+                  className="admin-input"
+                  placeholder="https://… or ../images/…"
+                  value={carouselUrl}
+                  onChange={(e) => setCarouselUrl(e.target.value)}
+                />
+              </div>
+            </>
+          ) : null}
+          <div className="draft-carousel-panel__actions">
+            {editingCarousel && selectedCarousel ? (
+              <>
+                <button
+                  type="button"
+                  className="admin-btn-ghost"
+                  onClick={() =>
+                    runCommand(() => {
+                      const track = selectedCarousel.querySelector(
+                        '.draft-carousel__slides',
+                      );
+                      if (!track) return;
+                      const index = track.querySelectorAll('[data-carousel-slide]').length;
+                      const slide = createCarouselSlideElement(
+                        emptyCarouselSlide(index),
+                        index,
+                      );
+                      track.appendChild(slide);
+                      refreshCarouselChrome(selectedCarousel);
+                      onSelectedCarouselSlideChange?.(slide);
+                    })
+                  }
+                >
+                  + Slide
+                </button>
+                <button
+                  type="button"
+                  className="admin-btn-ghost"
+                  onClick={() =>
+                    runCommand(() => {
+                      const slides = Array.from(
+                        selectedCarousel.querySelectorAll('[data-carousel-slide]'),
+                      );
+                      if (slides.length <= 1) return;
+                      const current =
+                        selectedCarouselSlide &&
+                        selectedCarousel.contains(selectedCarouselSlide)
+                          ? selectedCarouselSlide
+                          : slides[slides.length - 1];
+                      const index = slides.indexOf(current as Element);
+                      current?.remove();
+                      refreshCarouselChrome(selectedCarousel);
+                      const nextSlides = selectedCarousel.querySelectorAll(
+                        '[data-carousel-slide]',
+                      );
+                      const next = nextSlides[
+                        Math.max(0, Math.min(index, nextSlides.length - 1))
+                      ] as HTMLElement | undefined;
+                      onSelectedCarouselSlideChange?.(next || null);
+                    })
+                  }
+                >
+                  − Slide
+                </button>
+                <input
+                  ref={carouselFileRef}
+                  type="file"
+                  accept="image/png,image/jpeg,image/gif,image/webp,image/svg+xml"
+                  className="sr-only"
+                  onChange={(e) => {
+                    const file = e.target.files?.[0] ?? null;
+                    if (!file) return;
+                    const slide =
+                      selectedCarouselSlide &&
+                      selectedCarousel.contains(selectedCarouselSlide)
+                        ? selectedCarouselSlide
+                        : (selectedCarousel.querySelector(
+                            '[data-carousel-slide]',
+                          ) as HTMLElement | null);
+                    if (!slide) return;
+                    setCarouselBusy(true);
+                    setCarouselError('');
+                    void (async () => {
+                      try {
+                        const src = await uploadDraftImageFile(file);
+                        const alt =
+                          carouselAlt ||
+                          imageFilenameLabel(src) ||
+                          file.name.replace(/\.[^.]+$/, '');
+                        onBeforeMutate?.();
+                        replaceCarouselSlideMedia(slide, {
+                          ...emptyCarouselSlide(),
+                          alt,
+                          src,
+                          caption: carouselCaption,
+                        });
+                        setCarouselAlt(alt);
+                        setCarouselUrl(src);
+                        onMutate();
+                      } catch (err) {
+                        setCarouselError(
+                          err instanceof Error ? err.message : 'Upload failed.',
+                        );
+                      } finally {
+                        setCarouselBusy(false);
+                        if (carouselFileRef.current) carouselFileRef.current.value = '';
+                      }
+                    })();
+                  }}
+                />
+                <button
+                  type="button"
+                  className="admin-btn-secondary"
+                  disabled={carouselBusy}
+                  onClick={() => carouselFileRef.current?.click()}
+                >
+                  {carouselBusy ? 'Uploading…' : 'Upload slide image'}
+                </button>
+                <button
+                  type="button"
+                  className="admin-btn-primary"
+                  disabled={carouselBusy || !carouselUrl.trim()}
+                  onClick={() => {
+                    const slide =
+                      selectedCarouselSlide &&
+                      selectedCarousel.contains(selectedCarouselSlide)
+                        ? selectedCarouselSlide
+                        : (selectedCarousel.querySelector(
+                            '[data-carousel-slide]',
+                          ) as HTMLElement | null);
+                    if (!slide || !carouselUrl.trim()) return;
+                    runCommand(() => {
+                      replaceCarouselSlideMedia(slide, {
+                        ...emptyCarouselSlide(),
+                        alt: carouselAlt || 'Slide image',
+                        src: carouselUrl.trim(),
+                        caption: carouselCaption,
+                      });
+                    });
+                  }}
+                >
+                  Set image URL
+                </button>
+                <button
+                  type="button"
+                  className="admin-btn-ghost"
+                  onClick={() => {
+                    const slide =
+                      selectedCarouselSlide &&
+                      selectedCarousel.contains(selectedCarouselSlide)
+                        ? selectedCarouselSlide
+                        : (selectedCarousel.querySelector(
+                            '[data-carousel-slide]',
+                          ) as HTMLElement | null);
+                    if (!slide) return;
+                    runCommand(() => {
+                      replaceCarouselSlideMedia(slide, emptyCarouselSlide());
+                    });
+                    setCarouselAlt('');
+                    setCarouselCaption('');
+                    setCarouselUrl('');
+                  }}
+                >
+                  Remove image
+                </button>
+                <button
+                  type="button"
+                  className="admin-btn-ghost text-red-700"
+                  onClick={() =>
+                    runCommand(() => {
+                      const spacer = document.createElement('p');
+                      spacer.innerHTML = '<br>';
+                      selectedCarousel.replaceWith(spacer);
+                      onSelectedCarouselChange?.(null);
+                      onSelectedCarouselSlideChange?.(null);
+                      setCarouselOpen(false);
+                    })
+                  }
+                >
+                  Delete carousel
+                </button>
+              </>
+            ) : (
+              <button
+                type="button"
+                className="admin-btn-primary"
+                onClick={() =>
+                  runCommand(() => {
+                    const selection = window.getSelection();
+                    if (!selection) return;
+                    const wrap = createDraftCarouselElement(emptyCarouselSlides(3));
+                    insertBlockAfterSelection(editorRef.current, wrap);
+                    const first = wrap.querySelector(
+                      '[data-carousel-slide]',
+                    ) as HTMLElement | null;
+                    onSelectedCarouselChange?.(wrap);
+                    onSelectedCarouselSlideChange?.(first);
+                    selection.removeAllRanges();
+                    const next = document.createRange();
+                    const title = first?.querySelector('[data-carousel-title]');
+                    if (title) {
+                      next.selectNodeContents(title);
+                      selection.addRange(next);
+                    }
+                  })
+                }
+              >
+                Insert carousel
+              </button>
+            )}
+          </div>
+          {carouselError ? (
+            <p className="admin-error" role="alert">
+              {carouselError}
+            </p>
+          ) : null}
+        </div>
+      ) : null}
+
       {emojiOpen ? (
         <div className="draft-emoji-panel" role="listbox" aria-label="Emoji picker">
           <p className="draft-emoji-panel__hint">
@@ -1635,6 +2108,8 @@ interface FormattedTextareaProps
   onPost?: () => void;
   postBusy?: boolean;
   postDisabled?: boolean;
+  /** Show the carousel insert control. Off for short fields like the summary. */
+  allowCarousel?: boolean;
 }
 
 export function FormattedTextarea({
@@ -1649,6 +2124,7 @@ export function FormattedTextarea({
   onPost,
   postBusy,
   postDisabled,
+  allowCarousel = true,
   ...rest
 }: FormattedTextareaProps) {
   const editorRef = useRef<HTMLDivElement>(null);
@@ -1660,6 +2136,9 @@ export function FormattedTextarea({
   const [historyUi, setHistoryUi] = useState({ canUndo: false, canRedo: false });
   const [selectedFigure, setSelectedFigure] = useState<HTMLElement | null>(null);
   const [selectedTable, setSelectedTable] = useState<HTMLElement | null>(null);
+  const [selectedCarousel, setSelectedCarousel] = useState<HTMLElement | null>(null);
+  const [selectedCarouselSlide, setSelectedCarouselSlide] =
+    useState<HTMLElement | null>(null);
   const [pasteImageBusy, setPasteImageBusy] = useState(false);
   const minHeight = Math.max(7, rows) * 1.55;
 
@@ -1821,6 +2300,11 @@ export function FormattedTextarea({
           onSelectedFigureChange={setSelectedFigure}
           selectedTable={selectedTable}
           onSelectedTableChange={setSelectedTable}
+          selectedCarousel={selectedCarousel}
+          onSelectedCarouselChange={setSelectedCarousel}
+          selectedCarouselSlide={selectedCarouselSlide}
+          onSelectedCarouselSlideChange={setSelectedCarouselSlide}
+          allowCarousel={allowCarousel}
           onBeforeMutate={() => {
             const el = editorRef.current;
             if (el) pushHistory(el.innerHTML, { immediate: true });
@@ -1881,12 +2365,28 @@ export function FormattedTextarea({
         onClick={(e) => {
           const target = e.target as HTMLElement;
 
+          const carousel = target.closest('.draft-carousel') as HTMLElement | null;
+          if (carousel && editorRef.current?.contains(carousel)) {
+            const slide = target.closest(
+              '[data-carousel-slide]',
+            ) as HTMLElement | null;
+            setSelectedCarousel(carousel);
+            setSelectedCarouselSlide(
+              slide ||
+                (carousel.querySelector('[data-carousel-slide]') as HTMLElement | null),
+            );
+            setSelectedFigure(null);
+            setSelectedTable(null);
+            return;
+          }
           const figure = target.closest(
             '.draft-editor-figure',
           ) as HTMLElement | null;
           if (figure && editorRef.current?.contains(figure)) {
             setSelectedFigure(figure);
             setSelectedTable(null);
+            setSelectedCarousel(null);
+            setSelectedCarouselSlide(null);
             return;
           }
           const tableWrap = target.closest(
@@ -1895,6 +2395,8 @@ export function FormattedTextarea({
           if (tableWrap && editorRef.current?.contains(tableWrap)) {
             setSelectedTable(tableWrap);
             setSelectedFigure(null);
+            setSelectedCarousel(null);
+            setSelectedCarouselSlide(null);
             return;
           }
           if (selectedFigure) {
@@ -1902,6 +2404,10 @@ export function FormattedTextarea({
           }
           if (selectedTable) {
             setSelectedTable(null);
+          }
+          if (selectedCarousel) {
+            setSelectedCarousel(null);
+            setSelectedCarouselSlide(null);
           }
 
           const label = target.closest('.draft-callout__label');
