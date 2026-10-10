@@ -21,6 +21,7 @@ About abcGEO:
 
 Key pages (use these relative paths when linking):
 - Home: /
+- Artie comic: /artie
 - Framework (A + B = GEO): /framework.html
 - Tools index: /tools.html
 - INSTASTACK: /tools/instastack.html
