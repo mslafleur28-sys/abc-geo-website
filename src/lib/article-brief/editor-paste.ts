@@ -11,6 +11,8 @@ const INTERNAL_CLIPBOARD_MARKERS = [
   'data-at-a-glance=',
   'data-tldr=',
   'data-draft-',
+  'data-draft-carousel=',
+  'data-carousel-slide=',
   'draft-pullquote',
   'draft-takeaways',
   'draft-at-a-glance',
@@ -36,6 +38,15 @@ const PRESERVED_DRAFT_CLASSES = [
   'draft-answer-first',
   'draft-answer-first__label',
   'draft-table-wrap',
+  'draft-carousel',
+  'draft-carousel__label',
+  'draft-carousel__slides',
+  'draft-carousel__slide',
+  'draft-carousel__kicker',
+  'draft-carousel__title',
+  'draft-carousel__body',
+  'draft-carousel__figure',
+  'draft-carousel__image-empty',
 ] as const;
 
 export type EditorPasteResult =

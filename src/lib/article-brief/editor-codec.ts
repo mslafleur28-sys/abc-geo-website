@@ -28,6 +28,12 @@ import {
   renderRichInline,
   type TextAlign,
 } from './rich-text';
+import {
+  emptyCarouselSlides,
+  parseCarouselFence,
+  serializeCarouselFence,
+  type CarouselSlide,
+} from './carousel';
 import { normalizeTableKind, tableKindLabel } from './table-kinds';
 
 function escapeHtml(text: string): string {
@@ -142,6 +148,29 @@ function editorTableHtml(
   return `<div class="draft-table-wrap" data-draft-table="1" data-table-kind="${kind}"><p class="draft-table-wrap__label" contenteditable="false">${label}</p><table>${thead}${tbody}</table></div>`;
 }
 
+function editorCarouselHtml(slides: CarouselSlide[]): string {
+  const list = slides.length ? slides : emptyCarouselSlides(3);
+  const cards = list
+    .map((slide, index) => {
+      const title = renderRichInline(slide.title || `Slide ${index + 1} title`, 'editor');
+      const body = renderRichInline(
+        slide.body || 'Add the point for this slide.',
+        'editor',
+      );
+      const image = slide.src
+        ? `<figure class="draft-carousel__figure" data-carousel-figure="1" contenteditable="false"><img src="${escapeHtml(toPreviewImageSrc(slide.src))}" alt="${escapeHtml(slide.alt || 'Slide image')}" data-draft-src="${escapeHtml(slide.src)}" />${
+            slide.caption
+              ? `<figcaption>${escapeHtml(slide.caption)}</figcaption>`
+              : ''
+          }</figure>`
+        : `<p class="draft-carousel__image-empty" contenteditable="false">No image yet</p>`;
+      return `<article class="draft-carousel__slide" data-carousel-slide="1"><p class="draft-carousel__kicker" contenteditable="false">Slide ${index + 1}</p><p class="draft-carousel__title" data-carousel-title="1">${title}</p><p class="draft-carousel__body" data-carousel-body="1">${body}</p>${image}</article>`;
+    })
+    .join('');
+  const countLabel = `${list.length} slide${list.length === 1 ? '' : 's'}`;
+  return `<div class="draft-carousel" data-draft-carousel="1"><p class="draft-carousel__label" contenteditable="false">Carousel · ${countLabel}</p><div class="draft-carousel__slides">${cards}</div></div>`;
+}
+
 /** Convert stored draft markup into visual HTML for the contenteditable surface. */
 export function markdownToEditorHtml(source: string): string {
   const text = source.replace(/\r\n/g, '\n');
@@ -236,6 +265,11 @@ export function markdownToEditorHtml(source: string): string {
           variant,
         ),
       );
+      return;
+    }
+
+    if (kind === 'carousel') {
+      parts.push(editorCarouselHtml(parseCarouselFence(buf)));
     }
   };
 
@@ -600,6 +634,31 @@ function serializeBlock(el: HTMLElement): string[] {
     if (text) {
       return [':::answer-first', text, ':::'];
     }
+  }
+
+  if (
+    el.getAttribute('data-draft-carousel') === '1' ||
+    el.classList.contains('draft-carousel')
+  ) {
+    const slides = Array.from(el.querySelectorAll('[data-carousel-slide]')).map(
+      (slide) => {
+        const titleEl = slide.querySelector('[data-carousel-title]');
+        const bodyEl = slide.querySelector('[data-carousel-body]');
+        const img = slide.querySelector('img');
+        const captionEl = slide.querySelector('figcaption');
+        return {
+          title: titleEl ? serializeInline(titleEl).trim() : 'Slide title',
+          body: bodyEl ? serializeInline(bodyEl).trim() : '',
+          alt: img?.getAttribute('alt') || '',
+          src:
+            img?.getAttribute('data-draft-src') ||
+            img?.getAttribute('src') ||
+            '',
+          caption: (captionEl?.textContent || '').trim(),
+        };
+      },
+    );
+    return serializeCarouselFence(slides);
   }
 
   if (

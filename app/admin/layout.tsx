@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import AdminChrome from '@/components/admin/AdminChrome';
 import './admin.css';
+import '../../css/blog-carousel.css';
 
 export const metadata: Metadata = {
   title: 'Admin — Internal | abcGEO',

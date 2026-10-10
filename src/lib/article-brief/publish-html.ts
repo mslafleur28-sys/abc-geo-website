@@ -1,3 +1,4 @@
+import type { CarouselSlide } from './carousel';
 import { SITE_WRITING_GUIDELINES } from './guidelines';
 import { toPublishImageSrc } from './image-paths';
 import { KEY_TERM_CSS, linkKeyTermsInHtml, termAnchorId } from './key-terms';
@@ -44,10 +45,65 @@ function isoDate(value?: string): string {
   return d.toISOString().slice(0, 10);
 }
 
+function renderCarouselHtml(
+  slides: CarouselSlide[],
+  definitions: KeyDefinition[],
+  usedTerms: Set<string>,
+  seq: { n: number },
+): string {
+  const carouselId = `blog-carousel-${seq.n++}`;
+  const total = slides.length;
+  const slideHtml = slides
+    .map((slide, index) => {
+      const active = index === 0;
+      const title = inlineHtml(slide.title || `Slide ${index + 1}`, definitions, usedTerms);
+      const body = slide.body.trim()
+        ? `\n      <p class="blog-carousel__body">${inlineHtml(slide.body, definitions, usedTerms)}</p>`
+        : '';
+      const figure = slide.src.trim()
+        ? `\n      <figure class="blog-carousel__figure">
+        <img src="${escapeHtml(toPublishImageSrc(slide.src))}" alt="${escapeHtml(slide.alt || slide.title || 'Slide image')}" loading="lazy" />
+        ${
+          slide.caption.trim()
+            ? `<figcaption>${escapeHtml(slide.caption.trim())}</figcaption>`
+            : ''
+        }
+      </figure>`
+        : '';
+      return `    <article class="blog-carousel__slide${active ? ' is-active' : ''}" data-carousel-slide id="${carouselId}-slide-${index + 1}" aria-hidden="${active ? 'false' : 'true'}">
+      <p class="blog-carousel__kicker">Slide ${index + 1}</p>
+      <h3 class="blog-carousel__title">${title}</h3>${body}${figure}
+    </article>`;
+    })
+    .join('\n');
+  const dots = slides
+    .map(
+      (_, index) =>
+        `      <button type="button" class="blog-carousel__dot${index === 0 ? ' is-active' : ''}" data-carousel-dot data-slide-to="${index}" aria-label="Show slide ${index + 1}" aria-selected="${index === 0 ? 'true' : 'false'}"></button>`,
+    )
+    .join('\n');
+  return `                    <div class="blog-carousel" data-blog-carousel id="${carouselId}" aria-roledescription="carousel" aria-label="Article carousel">
+  <div class="blog-carousel__chrome">
+    <p class="blog-carousel__label"><span data-carousel-step-label>Slide 1 of ${total}</span></p>
+  </div>
+  <div class="blog-carousel__viewport" data-carousel-viewport tabindex="0">
+${slideHtml}
+  </div>
+  <div class="blog-carousel__controls">
+    <button type="button" class="blog-carousel__nav" data-carousel-prev>Previous</button>
+    <div class="blog-carousel__dots" role="tablist" aria-label="Carousel slides">
+${dots}
+    </div>
+    <button type="button" class="blog-carousel__nav" data-carousel-next>Next</button>
+  </div>
+</div>`;
+}
+
 function renderBlock(
   block: PreviewBlock,
   definitions: KeyDefinition[],
   usedTerms: Set<string>,
+  seq: { n: number },
 ): string {
   if (block.type === 'image' && block.src) {
     const src = toPublishImageSrc(block.src);
@@ -66,6 +122,9 @@ function renderBlock(
                             : ''
                         }
                     </figure>`;
+  }
+  if (block.type === 'carousel' && block.slides?.length) {
+    return renderCarouselHtml(block.slides, definitions, usedTerms, seq);
   }
   if (block.type === 'takeaways' && block.items?.length) {
     const items = block.items
@@ -213,6 +272,7 @@ function renderSection(
   _index: number,
   model: ArticlePreviewModel,
   usedTerms: Set<string>,
+  seq: { n: number },
 ): string {
   const definitions = model.keyDefinitions;
   const headingTag = section.level === 2 ? 'h2' : 'h3';
@@ -222,7 +282,7 @@ function renderSection(
       : `font-display text-xl font-semibold text-charcoal-body mt-6${alignClass(section.align)}`;
 
   const blocks = section.blocks
-    .map((block) => renderBlock(block, definitions, usedTerms))
+    .map((block) => renderBlock(block, definitions, usedTerms, seq))
     .join('\n\n');
 
   return `                <section id="${escapeHtml(section.id)}" class="space-y-4">
@@ -402,9 +462,13 @@ export function buildPublishedArticleHtml(
     ? inlineHtml(model.answerFirstSummary, model.keyDefinitions, usedTerms)
     : '';
 
+  const carouselSeq = { n: 1 };
+  const hasCarousel = model.sections.some((section) =>
+    section.blocks.some((block) => block.type === 'carousel' && block.slides?.length),
+  );
   const sectionsHtml = model.sections.length
     ? model.sections
-        .map((s, i) => renderSection(s, i, model, usedTerms))
+        .map((s, i) => renderSection(s, i, model, usedTerms, carouselSeq))
         .join('\n\n')
     : `                <section class="space-y-4">
                     <p class="text-slate-400 italic">Body content was empty when this post was generated.</p>
@@ -446,6 +510,7 @@ export function buildPublishedArticleHtml(
     <link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
     <!-- Self-hosted article styles (CMP blocks the Tailwind Play CDN) -->
     <link rel="stylesheet" href="../css/published-article.css" />
+${hasCarousel ? '    <link rel="stylesheet" href="../css/blog-carousel.css" />' : ''}
     <link rel="stylesheet" href="../css/author-sidebar.css" />
     <style>
       .font-brand-display { font-family: Syne, system-ui, sans-serif; }
@@ -620,6 +685,11 @@ ${
         onScroll();
       })();
     </script>`
+    : ''
+}
+${
+  hasCarousel
+    ? `    <script src="../js/blog-carousel.js"></script>`
     : ''
 }
 </body>

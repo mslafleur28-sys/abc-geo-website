@@ -1,0 +1,156 @@
+/* Published blog + admin preview carousel. All slides stay in the HTML for crawlers. */
+
+.blog-carousel {
+  position: relative;
+  margin: 1.5rem 0;
+  padding: 1.1rem 1rem 1rem;
+  border-radius: 1rem;
+  border: 1px solid rgba(0, 180, 216, 0.28);
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.96), rgba(244, 247, 246, 0.92)),
+    radial-gradient(ellipse 70% 50% at 0% 0%, rgba(0, 180, 216, 0.12), transparent 55%);
+  box-shadow: 0 12px 28px rgba(26, 32, 44, 0.06);
+}
+
+.blog-carousel__chrome {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.blog-carousel__label {
+  margin: 0;
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #00566b;
+}
+
+.blog-carousel__viewport {
+  position: relative;
+  outline: none;
+  border-radius: 0.85rem;
+  overflow: hidden;
+  touch-action: pan-y;
+}
+
+.blog-carousel__viewport:focus-visible {
+  box-shadow: 0 0 0 3px rgba(0, 180, 216, 0.35);
+}
+
+.blog-carousel__slide {
+  display: none;
+  padding: 1rem 1rem 1.1rem;
+  border-radius: 0.85rem;
+  border: 1px solid rgba(26, 32, 44, 0.08);
+  background: #fff;
+}
+
+.blog-carousel__slide.is-active {
+  display: block;
+}
+
+.blog-carousel__kicker {
+  margin: 0 0 0.35rem;
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #ff6b4a;
+}
+
+.blog-carousel__title {
+  margin: 0 0 0.45rem;
+  font-family: Syne, system-ui, sans-serif;
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1.25;
+  color: #1a202c;
+}
+
+.blog-carousel__body {
+  margin: 0;
+  font-size: 0.98rem;
+  line-height: 1.55;
+  color: #2d3748;
+}
+
+.blog-carousel__figure {
+  margin: 0.85rem 0 0;
+}
+
+.blog-carousel__figure img {
+  display: block;
+  width: 100%;
+  max-height: 22rem;
+  object-fit: contain;
+  border-radius: 0.75rem;
+  border: 1px solid rgba(26, 32, 44, 0.1);
+  background: #f4f7f6;
+}
+
+.blog-carousel__figure figcaption {
+  margin-top: 0.4rem;
+  text-align: center;
+  font-size: 0.8rem;
+  color: #64748b;
+}
+
+.blog-carousel__controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-top: 0.85rem;
+}
+
+.blog-carousel__nav {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.45rem 0.8rem;
+  border-radius: 0.5rem;
+  border: 1px solid rgba(0, 180, 216, 0.4);
+  background: #fff;
+  color: #00566b;
+  font-family: "DM Sans", system-ui, sans-serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.blog-carousel__nav:hover {
+  background: rgba(0, 180, 216, 0.08);
+}
+
+.blog-carousel__dots {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  flex: 1;
+}
+
+.blog-carousel__dot {
+  width: 0.55rem;
+  height: 0.55rem;
+  padding: 0;
+  border: none;
+  border-radius: 999px;
+  background: rgba(100, 116, 139, 0.35);
+  cursor: pointer;
+}
+
+.blog-carousel__dot.is-active {
+  width: 1.25rem;
+  background: #ff6b4a;
+}
+
+.blog-carousel__dot:focus-visible,
+.blog-carousel__nav:focus-visible {
+  outline: 2px solid #00b4d8;
+  outline-offset: 2px;
+}

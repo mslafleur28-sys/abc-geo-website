@@ -515,6 +515,7 @@ const ArticleBriefForm = forwardRef<ArticleBriefFormHandle, ArticleBriefFormProp
               </label>
               <FormattedTextarea
                 id="answerFirstSummary"
+                allowCarousel={false}
                 rows={4}
                 className={showError('answerFirstSummary') ? 'admin-invalid' : ''}
                 placeholder="Generative Engine Optimization (GEO) is the practice of structuring web content so AI engines can extract and cite facts. By pairing a named Entity (A) with a transitive Verb (B), writers create machine-readable claims that ChatGPT, Perplexity, and Gemini prioritize over keyword density."
@@ -540,8 +541,8 @@ const ArticleBriefForm = forwardRef<ArticleBriefFormHandle, ArticleBriefFormProp
               <h2 className="admin-section-title">Raw body content</h2>
               <p className="admin-section-desc">
                 Write and format visually with the toolbox — headings, colors, fonts,
-                and images show in-place (no raw tags in the editor). Or import a
-                Word, Markdown, text, or HTML file to auto-format the body.
+                images, and carousels show in-place (no raw tags in the editor). Or
+                import a Word, Markdown, text, or HTML file to auto-format the body.
               </p>
             </div>
             <div className="flex flex-wrap items-center gap-2">

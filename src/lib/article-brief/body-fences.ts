@@ -6,7 +6,8 @@ export type FenceKind =
   | 'answer-first'
   | 'at-a-glance'
   | 'tldr'
-  | 'table';
+  | 'table'
+  | 'carousel';
 
 export type CalloutVariant = 'tip' | 'pitfall' | 'accent';
 
@@ -25,6 +26,8 @@ const FENCE_ALIASES: Record<string, FenceKind> = {
   'tl-dr': 'tldr',
   table: 'table',
   comparison: 'table',
+  carousel: 'carousel',
+  slides: 'carousel',
 };
 
 export function parseFenceOpen(
