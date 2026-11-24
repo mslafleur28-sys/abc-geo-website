@@ -13,6 +13,8 @@ from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 
+from .topical_map import router as topical_map_router
+
 try:
     import google.generativeai as genai
 except ImportError:  # pragma: no cover - local environments may not have deps installed yet
@@ -85,8 +87,8 @@ ACTION_BLACKLIST = {
 
 app = FastAPI(
     title="abcGEO Tools API",
-    description="A+B=GEO keyword and Answer-First question recommendation engines.",
-    version="0.2.0",
+    description="A+B=GEO keyword, Answer-First, and Topical Authority Map engines.",
+    version="0.3.0",
 )
 
 app.add_middleware(
@@ -95,6 +97,8 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+app.include_router(topical_map_router)
 
 
 def _fallback_extract_ab(text: str) -> ABExtraction:

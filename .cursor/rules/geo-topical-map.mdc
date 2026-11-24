@@ -1,0 +1,65 @@
+---
+description: Topical Authority Map Generator — stack, brand, and A+B=GEO methodology
+alwaysApply: false
+globs:
+  - backend/app/**/*.py
+  - tools/topical-map.html
+  - topical-map.html
+  - css/topical-map.css
+  - js/topicalAuthorityMap.js
+  - js/topicalAuthorityMapPdf.js
+---
+
+# Topical Authority Map Generator
+
+## Stack
+
+- **Backend:** FastAPI (`backend/app/main.py`) exposing `POST /api/generate-topical-map`
+- **LLM:** `google-genai` SDK with `gemini-2.5-flash` and Pydantic `response_schema` for structured JSON
+- **Env:** `GEMINI_API_KEY` (same name used by other abcGEO tools)
+- **Frontend:** Vanilla JS + D3.js v7 (no framework)
+- **Exports:** PNG / SVG / CSV from the generator UI; PDF via existing `js/topicalAuthorityMapPdf.js` (`window.abcgeoExportTamPdf`)
+
+## Brand palette (map tool surface)
+
+| Token | Hex | Role |
+|-------|-----|------|
+| Deep Purple | `#2D1B4E` / `#4A1D75` | Primary surfaces, root node, headings |
+| Hot Pink | `#FF2E93` | Primary CTA, accents, active tab |
+| Teal | `#00D4C8` | Secondary accents, commercial intent, links |
+| Canvas | `#FAFAFC` | Workspace background |
+| Typography | **Montserrat** | UI + chart labels for this tool |
+
+Do not replace site-wide Syne / DM Sans tokens in `css/styles.css` unless intentionally rebranding the whole site. Scope Montserrat + purple/pink/teal to the topical-map page and `css/topical-map.css`.
+
+## Core methodology: A + B = GEO
+
+Every generated node must encode:
+
+**Entity A + Transitive Verb B = GEO Result**
+
+- **Entity A** = seed / root topic (`root_topic`)
+- **Transitive Verb B** = how a pillar or article acts on Entity A (`transitive_verb_relation`, `entity_verb_pair`)
+- **GEO Result** = answer-first, citation-ready content opportunities (`core_question`, intent, priority)
+
+### Response shape (contract)
+
+- `root_topic` — Entity A
+- `pillars` — 6–8 core sub-topic pillars
+  - `name`, `transitive_verb_relation`
+  - `articles` — 5–7 leaves each with `title`, `entity_verb_pair`, `core_question`, `search_intent`, `priority_score`
+- Optional nullable enrichment fields: `search_volume`, `keyword_difficulty` (reserved for DataForSEO; keep nullable so the frontend contract stays stable)
+
+### Guardrails
+
+- Cache by normalized topic (+ audience) so repeats are instant
+- Rate-limit: **8 requests / hour / IP** with a friendly error body
+- Frontend renders all three tabs (Radial Burst, Collapsible Tree, Pillar Cards) from one JSON payload — never re-fetch on tab switch
+
+## Views
+
+1. **Radial Burst** — `d3.cluster()` + `d3.linkRadial()`, intent-colored leaves, priority radial bars, zoom/pan
+2. **Collapsible Horizontal Tree** — `d3.tree()`, root + pillars expanded first
+3. **Pillar Cards** — responsive bento grid with verb badges and article lists
+
+Detail drawer opens from any view; include cross-links to The Answer First Genie and the A + B = GEO Workbook / framework.

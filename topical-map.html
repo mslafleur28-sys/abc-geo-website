@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script type="text/javascript" data-cmp-ab="1" src="https://cdn.consentmanager.net/delivery/autoblocking/5add6cdca2e35.js" data-cmp-host="b.delivery.consentmanager.net" data-cmp-cdn="cdn.consentmanager.net" data-cmp-codesrc="16"></script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-PMLDXZ244T"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-PMLDXZ244T');
+</script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="twitter:image" content="https://abcgeo.dev/assets/og-abcgeo.png" />
+  <meta name="twitter:description" content="Generate a 3-tier topical authority map with A + B = GEO pillars, radial and tree visualizations, and branded exports." />
+  <meta name="twitter:title" content="Topical Authority Map Generator | abcGEO" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta property="og:image" content="https://abcgeo.dev/assets/og-abcgeo.png" />
+  <meta property="og:url" content="https://abcgeo.dev/topical-map.html" />
+  <meta property="og:type" content="website" />
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
+  <link rel="icon" href="assets/favicon.png" type="image/png" sizes="64x64" />
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+  <link rel="manifest" href="assets/site.webmanifest" />
+  <link rel="canonical" href="https://abcgeo.dev/topical-map.html" />
+  <title>Topical Authority Map Generator | abcGEO</title>
+  <meta name="description" content="Free Topical Authority Map Generator. Build A + B = GEO pillar and article hierarchies with radial, tree, and card views plus PNG, SVG, CSV, and PDF export." />
+  <meta name="theme-color" content="#2D1B4E" />
+  <meta property="og:title" content="Topical Authority Map Generator | abcGEO" />
+  <meta property="og:description" content="Generate a 3-tier topical authority map with A + B = GEO pillars, radial and tree visualizations, and branded exports." />
+  <meta property="og:site_name" content="abcGEO" />
+  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="stylesheet" href="css/topical-map.css" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Topical Authority Map Generator",
+    "url": "https://abcgeo.dev/topical-map.html",
+    "applicationCategory": "BusinessApplication",
+    "operatingSystem": "Web",
+    "browserRequirements": "Requires JavaScript",
+    "description": "Generates a 3-tier topical authority map from a seed topic using the A + B = GEO framework, with radial, tree, and pillar-card views.",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "publisher": { "@type": "Organization", "name": "abcGEO", "url": "https://abcgeo.dev/" },
+    "isAccessibleForFree": true
+  }
+  </script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="nav-inner">
+      <a href="index.html" class="logo" aria-label="abcGEO home">
+        <img class="logo-img" src="assets/logo-lockup.png" alt="" width="983" height="152" decoding="async" />
+      </a>
+      <button class="nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-controls="primary-nav">Menu</button>
+      <ul class="nav-links" id="primary-nav" data-nav-links>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="framework.html">Formula</a></li>
+        <li><a href="tools.html" class="active">Tools</a></li>
+        <li><a href="templates.html">Templates</a></li>
+        <li><a href="blog.html">Blog</a></li>
+        <li><a href="link-building.html">Collaborate</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li class="mobile-cta"><a class="btn btn-primary" href="topical-map.html">Generate map</a></li>
+      </ul>
+      <a class="btn btn-primary nav-cta" href="tools.html">Browse Tools</a>
+    </div>
+  </header>
+
+  <main>
+    <section
+      class="tam-gen"
+      data-topical-map
+      data-api-base="http://localhost:8000"
+      aria-labelledby="tam-gen-title"
+    >
+      <div class="container">
+        <header class="tam-gen__hero">
+          <p class="tam-gen__eyebrow">
+            <span>A: Entity</span>
+            <span aria-hidden="true">+</span>
+            <span>B: Transitive Verb</span>
+            <span aria-hidden="true">=</span>
+            <span>GEO</span>
+          </p>
+          <h1 class="tam-gen__title" id="tam-gen-title">Topical Authority Map Generator</h1>
+          <p class="tam-gen__lead">
+            Enter a seed topic to generate a 3-tier authority map—pillars, answer-first articles, and intent signals—ready for radial, tree, and card exploration.
+          </p>
+        </header>
+
+        <form class="tam-gen__controls" data-tam-gen-form>
+          <div class="tam-gen__fields">
+            <div class="field">
+              <label for="tam-gen-topic">Seed topic (Entity A)</label>
+              <input
+                id="tam-gen-topic"
+                data-tam-gen-topic
+                type="text"
+                required
+                maxlength="200"
+                value="Generative Engine Optimization"
+                placeholder="e.g. Generative Engine Optimization"
+                autocomplete="off"
+              />
+            </div>
+            <div class="field">
+              <label for="tam-gen-audience">Target audience <span style="font-weight:500;opacity:.7">(optional)</span></label>
+              <input
+                id="tam-gen-audience"
+                data-tam-gen-audience
+                type="text"
+                maxlength="240"
+                placeholder="SEO leads, content strategists…"
+                autocomplete="off"
+              />
+            </div>
+            <button type="submit" class="tam-gen__generate" data-tam-gen-submit>
+              <span class="tam-gen__spinner" aria-hidden="true"></span>
+              <span data-tam-gen-submit-label>Generate Topical Map</span>
+            </button>
+          </div>
+
+          <div class="tam-gen__exports" role="group" aria-label="Export options">
+            <button type="button" class="tam-gen__export-btn" data-tam-export="png" disabled>Export PNG</button>
+            <button type="button" class="tam-gen__export-btn" data-tam-export="svg" disabled>Export SVG</button>
+            <button type="button" class="tam-gen__export-btn" data-tam-export="csv" disabled>Export CSV</button>
+            <button type="button" class="tam-gen__export-btn" data-tam-export="pdf" disabled>Export PDF</button>
+          </div>
+          <p class="tam-gen__status" data-tam-gen-status aria-live="polite"></p>
+        </form>
+
+        <div class="tam-gen__tabs" role="tablist" aria-label="Map views">
+          <button type="button" class="tam-gen__tab" role="tab" id="tab-radial" aria-controls="panel-radial" aria-selected="true" data-tam-tab="radial">Radial Burst</button>
+          <button type="button" class="tam-gen__tab" role="tab" id="tab-tree" aria-controls="panel-tree" aria-selected="false" data-tam-tab="tree" tabindex="-1">Collapsible Tree</button>
+          <button type="button" class="tam-gen__tab" role="tab" id="tab-cards" aria-controls="panel-cards" aria-selected="false" data-tam-tab="cards" tabindex="-1">Pillar Cards</button>
+        </div>
+
+        <div class="tam-gen__panels">
+          <div class="tam-gen__panel is-active" role="tabpanel" id="panel-radial" aria-labelledby="tab-radial" data-tam-panel="radial">
+            <div class="tam-gen__viz" data-tam-radial>
+              <div class="tam-gen__empty" data-tam-empty>
+                <div>
+                  <strong>Radial Burst ready</strong>
+                  Generate a map to explore pillars and articles from the center seed topic.
+                </div>
+              </div>
+            </div>
+            <div class="tam-gen__legend" data-tam-legend hidden>
+              <span><i class="tam-gen__swatch" style="background:#4A1D75"></i> Informational</span>
+              <span><i class="tam-gen__swatch" style="background:#00D4C8"></i> Commercial</span>
+              <span><i class="tam-gen__swatch" style="background:#FF2E93"></i> Transactional</span>
+              <span><i class="tam-gen__swatch" style="background:#7C6AF2"></i> Navigational</span>
+              <span>Pink bars = priority score</span>
+            </div>
+          </div>
+
+          <div class="tam-gen__panel" role="tabpanel" id="panel-tree" aria-labelledby="tab-tree" data-tam-panel="tree" hidden>
+            <div class="tam-gen__viz" data-tam-tree>
+              <div class="tam-gen__empty">
+                <div>
+                  <strong>Horizontal tree ready</strong>
+                  Pillars start expanded; click a pillar to reveal articles.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="tam-gen__panel" role="tabpanel" id="panel-cards" aria-labelledby="tab-cards" data-tam-panel="cards" hidden>
+            <div class="tam-gen__bento" data-tam-cards>
+              <div class="tam-gen__empty">
+                <div>
+                  <strong>Pillar cards ready</strong>
+                  Each pillar becomes a vertical card with verb badge and article list.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tam-gen__drawer-backdrop" data-tam-drawer-backdrop hidden></div>
+      <aside class="tam-gen__drawer" data-tam-drawer aria-hidden="true" aria-labelledby="tam-drawer-title">
+        <div class="tam-gen__drawer-head">
+          <h2 id="tam-drawer-title" data-tam-drawer-title>Article detail</h2>
+          <button type="button" class="tam-gen__drawer-close" data-tam-drawer-close aria-label="Close detail drawer">&times;</button>
+        </div>
+        <dl class="tam-gen__meta">
+          <div>
+            <dt>A + B = GEO Entity–Verb Pair</dt>
+            <dd class="tam-gen__pair" data-tam-drawer-pair>—</dd>
+          </div>
+          <div class="tam-gen__question-row">
+            <dt>Answer-First Core Question</dt>
+            <dd data-tam-drawer-question>—</dd>
+            <button type="button" class="tam-gen__copy" data-tam-copy-question>Copy Question</button>
+          </div>
+          <div>
+            <dt>Search Intent</dt>
+            <dd><span class="tam-gen__intent-chip" data-tam-drawer-intent>—</span></dd>
+          </div>
+          <div>
+            <dt>Priority Score</dt>
+            <dd><span class="tam-gen__score" data-tam-drawer-score>—</span></dd>
+          </div>
+        </dl>
+        <div class="tam-gen__crosslinks">
+          <p>Continue in the abcGEO ecosystem</p>
+          <a href="tools/answer-first-recommender.html">The Answer First Genie</a>
+          <a href="framework.html">A + B = GEO Workbook / Formula</a>
+          <a href="templates/topical-authority-map.html">Fillable Topical Authority Content Map</a>
+        </div>
+      </aside>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div>
+        <a href="index.html" class="logo"><span class="logo-mark" aria-hidden="true"></span>abc<span class="geo">GEO</span></a>
+        <p style="margin-top: 0.5rem;">A + B = GEO · Built for answer engines.</p>
+      </div>
+      <nav class="footer-links" aria-label="Footer">
+        <a href="index.html">Home</a>
+        <a href="framework.html">Formula</a>
+        <a href="tools.html">Tools</a>
+        <a href="templates.html">Templates</a>
+        <a href="blog.html">Blog</a>
+        <a href="link-building.html">Collaborate</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+    </div>
+    <div class="container footer-legal">
+      <p>&copy; 2026 abcGEO. All rights reserved. Pioneering Generative Engine Optimization.</p>
+      <nav class="footer-legal-links" aria-label="Legal">
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms</a>
+        <a href="sitemap.xml">Sitemap</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script src="js/vendor/d3.v7.min.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/topicalAuthorityMapPdf.js"></script>
+  <script src="js/topicalAuthorityMap.js"></script>
+</body>
+</html>
