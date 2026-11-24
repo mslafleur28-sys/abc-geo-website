@@ -1070,15 +1070,22 @@ Please generate a complete Topical Authority Content Map using the structure abo
       const links = zoomLayer.selectAll('path.tam-link')
         .data(rootNode.links(), (d) => d.target.data.id || d.target.data.name);
 
+      const duration = 220;
+
       links.join(
         (enter) => enter.append('path')
           .attr('class', 'tam-link')
+          .attr('stroke-opacity', 0)
           .attr('d', d3.linkHorizontal().x((d) => source.y0 ?? source.y).y((d) => source.x0 ?? source.x)),
         (updateSel) => updateSel,
-        (exit) => exit.transition().duration(280).attr('d', d3.linkHorizontal().x((d) => source.y).y((d) => source.x)).remove()
+        (exit) => exit.transition().duration(duration)
+          .attr('stroke-opacity', 0)
+          .attr('d', d3.linkHorizontal().x((d) => source.y).y((d) => source.x))
+          .remove()
       )
         .transition()
-        .duration(280)
+        .duration(duration)
+        .attr('stroke-opacity', 1)
         .attr('d', d3.linkHorizontal().x((d) => d.y).y((d) => d.x));
 
       const nodes = zoomLayer.selectAll('g.tam-node')
@@ -1091,6 +1098,7 @@ Please generate a complete Topical Authority Content Map using the structure abo
         .attr('role', 'button')
         .attr('aria-label', (d) => d.data.name)
         .style('cursor', 'pointer')
+        .style('opacity', 0)
         .on('click', (event, d) => {
           event.stopPropagation();
           if (d.data.type === 'pillar') {
@@ -1135,9 +1143,13 @@ Please generate a complete Topical Authority Content Map using the structure abo
         .attr('text-anchor', 'start')
         .text((d) => truncateLabel(d.data.name, d.data.type === 'article' ? 48 : 40));
 
+      // Move to final positions first, then fade in — avoids stacked-label blur mid-tween.
+      nodesEnter.attr('transform', (d) => `translate(${d.y},${d.x})`);
+
       nodes.merge(nodesEnter)
         .transition()
-        .duration(280)
+        .duration(duration)
+        .style('opacity', 1)
         .attr('transform', (d) => `translate(${d.y},${d.x})`);
 
       nodes.merge(nodesEnter).select('circle')
@@ -1150,7 +1162,8 @@ Please generate a complete Topical Authority Content Map using the structure abo
 
       nodes.exit()
         .transition()
-        .duration(280)
+        .duration(duration)
+        .style('opacity', 0)
         .attr('transform', () => `translate(${source.y},${source.x})`)
         .remove();
 
