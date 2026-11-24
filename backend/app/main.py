@@ -120,7 +120,8 @@ def _extract_ab_with_gemini(text: str) -> Optional[ABExtraction]:
         return None
 
     genai.configure(api_key=api_key)
-    model = genai.GenerativeModel("gemini-1.5-flash")
+    # gemini-1.5-flash and gemini-2.5-flash are unavailable to new API keys.
+    model = genai.GenerativeModel("gemini-3.6-flash")
     prompt = f"""
 You are an SEO linguistics parser.
 From the content below, extract:
@@ -379,7 +380,8 @@ def _generate_snippet_with_gemini(question: str, drafted_text: str) -> Optional[
         return None
 
     genai.configure(api_key=api_key)
-    model = genai.GenerativeModel("gemini-1.5-flash")
+    # gemini-1.5-flash and gemini-2.5-flash are unavailable to new API keys.
+    model = genai.GenerativeModel("gemini-3.6-flash")
     prompt = f"""
 You are an Answer-First content editor for AI search and featured snippets.
 
