@@ -102,6 +102,12 @@ export default function HomePage() {
             Meet Abby — ask her how to navigate the site or apply Generative
             Engine Optimization.
           </p>
+          <a
+            href="/templates/topical-authority-map.html"
+            className="mt-4 inline-flex w-fit animate-abby-fade-up text-sm font-semibold text-abby-sky-ink underline decoration-abby-sky/40 underline-offset-4 transition-colors hover:text-abby-coral [animation-delay:120ms]"
+          >
+            Open the topical authority map
+          </a>
 
           <ul className="mt-7 flex max-w-xl flex-col gap-2.5 md:mt-9">
             {SUGGESTIONS.map((question, index) => (

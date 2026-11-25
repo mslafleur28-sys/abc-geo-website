@@ -1,7 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<script type="text/javascript" data-cmp-ab="1" src="https://cdn.consentmanager.net/delivery/autoblocking/5add6cdca2e35.js" data-cmp-host="b.delivery.consentmanager.net" data-cmp-cdn="cdn.consentmanager.net" data-cmp-codesrc="16"></script>
+<script>
+  (function () {
+    var host = location.hostname;
+    if (host !== 'abcgeo.dev' && host !== 'www.abcgeo.dev') return;
+    document.write('<script src="https://cdn.consentmanager.net/delivery/autoblocking/5add6cdca2e35.js" data-cmp-ab="1" data-cmp-host="b.delivery.consentmanager.net" data-cmp-cdn="cdn.consentmanager.net" data-cmp-codesrc="16"><\/script>');
+  })();
+</script>
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-PMLDXZ244T"></script>
 <script>
