@@ -13,7 +13,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="twitter:image" content="https://abcgeo.dev/assets/og-abcgeo.png" />
-  <meta name="twitter:description" content="Generate a 3-tier topical authority map with A + B = GEO pillars, radial and tree visualizations, and branded exports." />
+  <meta name="twitter:description" content="Generate a topical authority map: Core Pillar → Clusters → Subtopics with Visual Map, Outline, and Content Matrix views." />
   <meta name="twitter:title" content="Topical Authority Map Generator | abcGEO" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta property="og:image" content="https://abcgeo.dev/assets/og-abcgeo.png" />
@@ -25,10 +25,10 @@
   <link rel="manifest" href="assets/site.webmanifest" />
   <link rel="canonical" href="https://abcgeo.dev/topical-map.html" />
   <title>Topical Authority Map Generator | abcGEO</title>
-  <meta name="description" content="Free Topical Authority Map Generator. Build A + B = GEO pillar and article hierarchies with radial, tree, and card views plus PNG, SVG, CSV, and PDF export." />
+  <meta name="description" content="Free Topical Authority Map Generator. Build Core Pillar → Cluster → Subtopic hierarchies with a radial visual map, outline, and content matrix — plus CSV and Markdown export." />
   <meta name="theme-color" content="#2D1B4E" />
   <meta property="og:title" content="Topical Authority Map Generator | abcGEO" />
-  <meta property="og:description" content="Generate a 3-tier topical authority map with A + B = GEO pillars, radial and tree visualizations, and branded exports." />
+  <meta property="og:description" content="Generate a topical authority map: Core Pillar → Clusters → Subtopics with Visual Map, Outline, and Content Matrix views." />
   <meta property="og:site_name" content="abcGEO" />
   <link rel="stylesheet" href="css/styles.css" />
   <link rel="stylesheet" href="css/topical-map.css" />
@@ -41,7 +41,7 @@
     "applicationCategory": "BusinessApplication",
     "operatingSystem": "Web",
     "browserRequirements": "Requires JavaScript",
-    "description": "Generates a 3-tier topical authority map from a seed topic using the A + B = GEO framework, with radial, tree, and pillar-card views.",
+    "description": "Generates a 3-tier topical authority map (Core Pillar → Clusters → Subtopics) with Visual Map, Outline, and Content Matrix views.",
     "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
     "publisher": { "@type": "Organization", "name": "abcGEO", "url": "https://abcgeo.dev/" },
     "isAccessibleForFree": true
@@ -79,22 +79,22 @@
       <div class="container">
         <header class="tam-gen__hero">
           <p class="tam-gen__eyebrow">
-            <span>A: Entity</span>
-            <span aria-hidden="true">+</span>
-            <span>B: Transitive Verb</span>
-            <span aria-hidden="true">=</span>
-            <span>GEO</span>
+            <span>Core Pillar</span>
+            <span aria-hidden="true">→</span>
+            <span>Clusters</span>
+            <span aria-hidden="true">→</span>
+            <span>Subtopics</span>
           </p>
           <h1 class="tam-gen__title" id="tam-gen-title">Topical Authority Map Generator</h1>
           <p class="tam-gen__lead">
-            Enter a seed topic to generate a 3-tier authority map—pillars, answer-first articles, and intent signals—ready for radial, tree, and card exploration.
+            Enter a seed topic to generate a comprehensive topical authority map—then switch between Visual Map, Outline, and Content Matrix without regenerating.
           </p>
         </header>
 
         <form class="tam-gen__controls" data-tam-gen-form>
           <div class="tam-gen__fields">
             <div class="field">
-              <label for="tam-gen-topic">Seed topic (Entity A)</label>
+              <label for="tam-gen-topic">Core pillar topic</label>
               <input
                 id="tam-gen-topic"
                 data-tam-gen-topic
@@ -124,58 +124,91 @@
           </div>
 
           <div class="tam-gen__exports" role="group" aria-label="Export options">
+            <button type="button" class="tam-gen__export-btn" data-tam-export="csv" disabled>Export CSV</button>
+            <button type="button" class="tam-gen__export-btn" data-tam-export="markdown" disabled>Export Markdown</button>
+            <button type="button" class="tam-gen__export-btn" data-tam-export="copy" disabled>Copy Outline</button>
             <button type="button" class="tam-gen__export-btn" data-tam-export="png" disabled>Export PNG</button>
             <button type="button" class="tam-gen__export-btn" data-tam-export="svg" disabled>Export SVG</button>
-            <button type="button" class="tam-gen__export-btn" data-tam-export="csv" disabled>Export CSV</button>
-            <button type="button" class="tam-gen__export-btn" data-tam-export="pdf" disabled>Export PDF</button>
           </div>
           <p class="tam-gen__status" data-tam-gen-status aria-live="polite"></p>
         </form>
 
-        <div class="tam-gen__tabs" role="tablist" aria-label="Map views">
-          <button type="button" class="tam-gen__tab" role="tab" id="tab-radial" aria-controls="panel-radial" aria-selected="true" data-tam-tab="radial">Radial Burst</button>
-          <button type="button" class="tam-gen__tab" role="tab" id="tab-tree" aria-controls="panel-tree" aria-selected="false" data-tam-tab="tree" tabindex="-1">Collapsible Tree</button>
-          <button type="button" class="tam-gen__tab" role="tab" id="tab-cards" aria-controls="panel-cards" aria-selected="false" data-tam-tab="cards" tabindex="-1">Pillar Cards</button>
+        <div class="tam-gen__tabs" role="tablist" aria-label="Map formatting options">
+          <button type="button" class="tam-gen__tab" role="tab" id="tab-visual" aria-controls="panel-visual" aria-selected="true" data-tam-tab="visual">Visual Map</button>
+          <button type="button" class="tam-gen__tab" role="tab" id="tab-outline" aria-controls="panel-outline" aria-selected="false" data-tam-tab="outline" tabindex="-1">Structured Outline</button>
+          <button type="button" class="tam-gen__tab" role="tab" id="tab-table" aria-controls="panel-table" aria-selected="false" data-tam-tab="table" tabindex="-1">Content Matrix</button>
         </div>
 
         <div class="tam-gen__panels">
-          <div class="tam-gen__panel is-active" role="tabpanel" id="panel-radial" aria-labelledby="tab-radial" data-tam-panel="radial">
-            <div class="tam-gen__viz" data-tam-radial>
+          <div class="tam-gen__panel is-active" role="tabpanel" id="panel-visual" aria-labelledby="tab-visual" data-tam-panel="visual">
+            <div class="tam-gen__viz-toolbar">
+              <button type="button" class="tam-gen__export-btn" data-tam-zoom-reset disabled>Reset zoom</button>
+              <span class="tam-gen__hint">Scroll to zoom · drag to pan · click a node for details</span>
+            </div>
+            <div class="tam-gen__viz" data-tam-visual>
               <div class="tam-gen__empty" data-tam-empty>
                 <div>
-                  <strong>Radial Burst ready</strong>
-                  Generate a map to explore pillars and articles from the center seed topic.
+                  <strong>Visual Map ready</strong>
+                  Generate a map to explore clusters and subtopics radiating from your core pillar.
                 </div>
               </div>
             </div>
             <div class="tam-gen__legend" data-tam-legend hidden>
-              <span><i class="tam-gen__swatch" style="background:#4A1D75"></i> Informational</span>
-              <span><i class="tam-gen__swatch" style="background:#00D4C8"></i> Commercial</span>
-              <span><i class="tam-gen__swatch" style="background:#FF2E93"></i> Transactional</span>
-              <span><i class="tam-gen__swatch" style="background:#7C6AF2"></i> Navigational</span>
-              <span>Pink bars = priority score</span>
+              <span><i class="tam-gen__swatch" style="background:#2D1B4E"></i> Core pillar</span>
+              <span><i class="tam-gen__swatch" style="background:#00D4C8"></i> Topic clusters</span>
+              <span><i class="tam-gen__swatch" style="background:#F5A623"></i> Supporting subtopics</span>
             </div>
           </div>
 
-          <div class="tam-gen__panel" role="tabpanel" id="panel-tree" aria-labelledby="tab-tree" data-tam-panel="tree" hidden>
-            <div class="tam-gen__viz" data-tam-tree>
+          <div class="tam-gen__panel" role="tabpanel" id="panel-outline" aria-labelledby="tab-outline" data-tam-panel="outline" hidden>
+            <div class="tam-gen__outline" data-tam-outline>
               <div class="tam-gen__empty">
                 <div>
-                  <strong>Horizontal tree ready</strong>
-                  Pillars start expanded; click a pillar to reveal articles.
+                  <strong>Structured Outline ready</strong>
+                  Collapsible nested list for scanning and content planning.
                 </div>
               </div>
             </div>
           </div>
 
-          <div class="tam-gen__panel" role="tabpanel" id="panel-cards" aria-labelledby="tab-cards" data-tam-panel="cards" hidden>
-            <div class="tam-gen__bento" data-tam-cards>
-              <div class="tam-gen__empty">
-                <div>
-                  <strong>Pillar cards ready</strong>
-                  Each pillar becomes a vertical card with verb badge and article list.
-                </div>
-              </div>
+          <div class="tam-gen__panel" role="tabpanel" id="panel-table" aria-labelledby="tab-table" data-tam-panel="table" hidden>
+            <div class="tam-gen__matrix-toolbar">
+              <label class="tam-gen__filter">
+                <span>Filter cluster</span>
+                <select data-tam-filter-cluster>
+                  <option value="">All clusters</option>
+                </select>
+              </label>
+              <label class="tam-gen__filter">
+                <span>Filter intent</span>
+                <select data-tam-filter-intent>
+                  <option value="">All intents</option>
+                  <option value="informational">Informational</option>
+                  <option value="commercial">Commercial</option>
+                  <option value="transactional">Transactional</option>
+                  <option value="navigational">Navigational</option>
+                </select>
+              </label>
+              <label class="tam-gen__filter">
+                <span>Search</span>
+                <input type="search" data-tam-filter-search placeholder="Title or question…" />
+              </label>
+            </div>
+            <div class="tam-gen__table-wrap">
+              <table class="tam-gen__table" data-tam-table>
+                <thead>
+                  <tr>
+                    <th><button type="button" data-tam-sort="cluster">Cluster</button></th>
+                    <th><button type="button" data-tam-sort="title">Article Title / Subtopic</button></th>
+                    <th><button type="button" data-tam-sort="intent">Search Intent</button></th>
+                    <th><button type="button" data-tam-sort="content_type">Content Type</button></th>
+                    <th><button type="button" data-tam-sort="priority">Priority</button></th>
+                  </tr>
+                </thead>
+                <tbody data-tam-table-body>
+                  <tr><td colspan="5" class="tam-gen__table-empty">Generate a map to populate the content matrix.</td></tr>
+                </tbody>
+              </table>
             </div>
           </div>
         </div>
@@ -184,10 +217,14 @@
       <div class="tam-gen__drawer-backdrop" data-tam-drawer-backdrop hidden></div>
       <aside class="tam-gen__drawer" data-tam-drawer aria-hidden="true" aria-labelledby="tam-drawer-title">
         <div class="tam-gen__drawer-head">
-          <h2 id="tam-drawer-title" data-tam-drawer-title>Article detail</h2>
+          <h2 id="tam-drawer-title" data-tam-drawer-title>Subtopic detail</h2>
           <button type="button" class="tam-gen__drawer-close" data-tam-drawer-close aria-label="Close detail drawer">&times;</button>
         </div>
         <dl class="tam-gen__meta">
+          <div>
+            <dt>Cluster</dt>
+            <dd data-tam-drawer-cluster>—</dd>
+          </div>
           <div>
             <dt>A + B = GEO Entity–Verb Pair</dt>
             <dd class="tam-gen__pair" data-tam-drawer-pair>—</dd>
@@ -200,6 +237,10 @@
           <div>
             <dt>Search Intent</dt>
             <dd><span class="tam-gen__intent-chip" data-tam-drawer-intent>—</span></dd>
+          </div>
+          <div>
+            <dt>Content Type</dt>
+            <dd data-tam-drawer-type>—</dd>
           </div>
           <div>
             <dt>Priority Score</dt>
@@ -244,7 +285,6 @@
 
   <script src="js/vendor/d3.v7.min.js"></script>
   <script src="js/main.js"></script>
-  <script src="js/topicalAuthorityMapPdf.js"></script>
   <script src="js/topicalAuthorityMap.js"></script>
 </body>
 </html>

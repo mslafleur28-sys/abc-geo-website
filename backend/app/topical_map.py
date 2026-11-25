@@ -29,6 +29,7 @@ router = APIRouter(tags=["topical-map"])
 RATE_LIMIT_MAX = 8
 RATE_LIMIT_WINDOW_SEC = 3600
 CACHE_MAX_ENTRIES = 256
+CACHE_SCHEMA_VERSION = "v2-clusters-subtopics"
 
 _cache_lock = threading.Lock()
 _rate_lock = threading.Lock()
@@ -42,6 +43,17 @@ class SearchIntent(str, Enum):
     commercial = "commercial"
     transactional = "transactional"
     navigational = "navigational"
+
+
+class ContentType(str, Enum):
+    guide = "guide"
+    how_to = "how-to"
+    comparison = "comparison"
+    checklist = "checklist"
+    faq = "faq"
+    case_study = "case-study"
+    glossary = "glossary"
+    template = "template"
 
 
 class GenerateTopicalMapRequest(BaseModel):
@@ -65,29 +77,30 @@ class GenerateTopicalMapRequest(BaseModel):
         return cleaned or None
 
 
-class ArticleNode(BaseModel):
+class SubtopicNode(BaseModel):
     title: str
     entity_verb_pair: str
     core_question: str
     search_intent: SearchIntent
+    content_type: ContentType
     priority_score: int = Field(ge=1, le=100)
     search_volume: Optional[int] = None
     keyword_difficulty: Optional[float] = None
 
 
-class PillarNode(BaseModel):
+class ClusterNode(BaseModel):
     name: str
     transitive_verb_relation: str
-    articles: List[ArticleNode] = Field(min_length=5, max_length=7)
+    subtopics: List[SubtopicNode] = Field(min_length=5, max_length=8)
     search_volume: Optional[int] = None
     keyword_difficulty: Optional[float] = None
 
 
 class TopicalMapPayload(BaseModel):
-    """LLM structured-output schema (no transport metadata)."""
+    """LLM structured-output schema: Core Pillar → Clusters → Subtopics."""
 
     root_topic: str
-    pillars: List[PillarNode] = Field(min_length=6, max_length=8)
+    clusters: List[ClusterNode] = Field(min_length=6, max_length=10)
 
 
 class TopicalMapResponse(TopicalMapPayload):
@@ -99,7 +112,7 @@ class TopicalMapResponse(TopicalMapPayload):
 def normalize_cache_key(topic: str, audience: Optional[str]) -> str:
     base = topic.lower().strip()
     aud = (audience or "").lower().strip()
-    raw = f"{base}||{aud}"
+    raw = f"{CACHE_SCHEMA_VERSION}|{base}||{aud}"
     return hashlib.sha256(raw.encode("utf-8")).hexdigest()
 
 
@@ -149,28 +162,31 @@ def _build_prompt(topic: str, audience: Optional[str]) -> str:
     who = audience or "content strategists, SEO leads, and in-house GEO teams"
     return f"""You are an expert Generative Engine Optimization (GEO) content architect.
 
-Build a complete Topical Authority Map using the A + B = GEO methodology:
-- Entity A = the seed topic (root)
-- Transitive Verb B = how each pillar/article acts upon Entity A
-- GEO Result = answer-first, citation-ready content opportunities for AI search
+Build a comprehensive Topical Authority Map using A + B = GEO:
+- Entity A = the Core Pillar Topic (seed)
+- Transitive Verb B = how each cluster/subtopic acts upon Entity A
+- GEO Result = answer-first, citation-ready content opportunities
 
-Seed topic (Entity A): {topic}
+Core Pillar Topic (Entity A): {topic}
 Target audience: {who}
 
+Hierarchy (exactly 3 tiers):
+1. root_topic = the Core Pillar Topic
+2. clusters = 7 to 9 broad Topic Clusters / Categories branching from the pillar
+3. subtopics = 5 to 8 Supporting Articles / long-tail content ideas under EACH cluster
+
 Requirements:
-1. root_topic must equal the seed topic (Entity A).
-2. Create 6 to 8 pillars. Each pillar needs a clear name and a transitive_verb_relation
-   (e.g. "defines", "implements", "measures", "compares").
-3. Each pillar must contain 5 to 7 article leaf nodes.
-4. Every article must include:
-   - title: compelling headline
-   - entity_verb_pair: explicit string like "{topic} + implements"
-   - core_question: Answer-First question suitable for RAG / LLM citation extraction
-   - search_intent: one of informational, commercial, transactional, navigational
-   - priority_score: integer 1–100 (higher = ship sooner)
-5. Leave search_volume and keyword_difficulty as null (reserved for later enrichment).
-6. Cover definitional, how-to, measurement, tools, comparisons, and conversion angles.
-7. Prefer concrete, non-overlapping coverage across pillars.
+- Each cluster needs a clear category name and transitive_verb_relation (e.g. defines, implements, measures, compares).
+- Each subtopic needs:
+  - title (specific, actionable article idea — prefer concise titles like the InLinks-style topical map leaves)
+  - entity_verb_pair (e.g. "{topic} + implements")
+  - core_question (Answer-First question for RAG / LLM citation)
+  - search_intent: informational | commercial | transactional | navigational
+  - content_type: guide | how-to | comparison | checklist | faq | case-study | glossary | template
+  - priority_score: integer 1–100
+- Leave search_volume and keyword_difficulty null.
+- Cover definitional, how-to, measurement, tools, comparisons, and conversion angles with minimal overlap.
+- Cluster names should read like category labels (short, scannable), not full sentences.
 
 Return only structured data matching the schema.
 """
@@ -179,76 +195,84 @@ Return only structured data matching the schema.
 def _fallback_map(topic: str, audience: Optional[str]) -> TopicalMapResponse:
     """Deterministic offline map when GEMINI_API_KEY / SDK is unavailable."""
     who = audience or "GEO practitioners"
-    intents = [
-        SearchIntent.informational,
-        SearchIntent.commercial,
-        SearchIntent.transactional,
-        SearchIntent.navigational,
-        SearchIntent.informational,
-        SearchIntent.commercial,
-        SearchIntent.informational,
+    intents = list(SearchIntent)
+    content_types = list(ContentType)
+
+    cluster_specs: List[Tuple[str, str, List[str]]] = [
+        (
+            "Fundamentals",
+            "defines",
+            ["Core definitions", "Key entities", "Glossary terms", "Scope boundaries", "Common myths", "History & evolution"],
+        ),
+        (
+            "Implementation",
+            "implements",
+            ["Starter playbook", "Workflow checklist", "Team roles", "Tech stack setup", "Pilot project", "Rollout timeline", "QA gates"],
+        ),
+        (
+            "Measurement",
+            "measures",
+            ["KPI framework", "Citation tracking", "AI Overview wins", "Dashboards", "Benchmarks", "Attribution models"],
+        ),
+        (
+            "Tools & Platforms",
+            "equips",
+            ["Tool comparisons", "Free vs paid", "Integration guides", "Template packs", "Automation scripts", "Vendor shortlist"],
+        ),
+        (
+            "Comparisons",
+            "compares",
+            ["GEO vs SEO", "GEO vs AEO", "When to choose GEO", "Hybrid strategies", "Competitive landscape", "Migration paths"],
+        ),
+        (
+            "Content Systems",
+            "structures",
+            ["Cluster architecture", "Internal linking", "Answer-first outlines", "Schema patterns", "Refresh cadence", "Brief templates", "Editorial calendar"],
+        ),
+        (
+            "Audience Plays",
+            "serves",
+            [f"For {who}", "Executive briefing", "Agency delivery", "In-house enablement", "Stakeholder buy-in", "Training curriculum"],
+        ),
+        (
+            "Conversion Paths",
+            "converts",
+            ["Offer mapping", "Lead magnets", "Demo CTAs", "Case studies", "Pricing pages", "Proof assets"],
+        ),
     ]
-    pillar_specs: List[Tuple[str, str]] = [
-        (f"{topic} Fundamentals", "defines"),
-        (f"Implementing {topic}", "implements"),
-        (f"Measuring {topic} Impact", "measures"),
-        (f"{topic} Tools & Platforms", "equips"),
-        (f"{topic} vs Adjacent Strategies", "compares"),
-        (f"{topic} Content Systems", "structures"),
-        (f"{topic} for {who}", "serves"),
-        (f"Converting with {topic}", "converts"),
-    ]
-    random.seed(f"tam:{topic.lower()}:{who.lower()}")
-    article_angles = [
-        "Playbook",
-        "Checklist",
-        "Examples",
-        "Benchmarks",
-        "Template",
-        "FAQ",
-        "Case Study",
-    ]
-    question_templates = [
-        "What is the best way for {who} to use {topic} so it {verb} {focus}?",
-        "How can {topic} {verb} {focus} in a way {who} can cite and reuse?",
-        "Why should {who} prioritize {focus} when applying {topic}?",
-        "Which {focus} steps help {topic} {verb} measurable GEO outcomes?",
-        "When does {topic} {verb} {focus} better than adjacent SEO tactics?",
-        "What tools help {topic} {verb} {focus} for {who}?",
-        "How do you measure whether {topic} successfully {verb}s {focus}?",
-    ]
-    pillars: List[PillarNode] = []
-    for idx, (name, verb) in enumerate(pillar_specs[:7]):
-        articles: List[ArticleNode] = []
-        count = 5 + (idx % 3)
-        focus = name.lower()
-        for ai in range(count):
+
+    random.seed(f"tam-v2:{topic.lower()}:{who.lower()}")
+    clusters: List[ClusterNode] = []
+    for idx, (name, verb, leaves) in enumerate(cluster_specs):
+        subtopics: List[SubtopicNode] = []
+        for ai, leaf in enumerate(leaves):
             intent = intents[(idx + ai) % len(intents)]
-            angle = article_angles[ai]
-            q_tmpl = question_templates[(idx + ai) % len(question_templates)]
-            articles.append(
-                ArticleNode(
-                    title=f"{name}: {angle}",
+            ctype = content_types[(idx + ai) % len(content_types)]
+            subtopics.append(
+                SubtopicNode(
+                    title=leaf if len(leaf) < 48 else f"{name}: {leaf}",
                     entity_verb_pair=f"{topic} + {verb}",
-                    core_question=q_tmpl.format(topic=topic, verb=verb, who=who, focus=focus),
+                    core_question=f"How does {topic} {verb} {leaf.lower()} for {who}?",
                     search_intent=intent,
-                    priority_score=max(35, min(98, 92 - idx * 4 - ai * 3 + random.randint(-2, 2))),
+                    content_type=ctype,
+                    priority_score=max(40, min(98, 94 - idx * 3 - ai * 2 + random.randint(-2, 2))),
                     search_volume=None,
                     keyword_difficulty=None,
                 )
             )
-        pillars.append(
-            PillarNode(
+        clusters.append(
+            ClusterNode(
                 name=name,
                 transitive_verb_relation=verb,
-                articles=articles,
+                subtopics=subtopics,
                 search_volume=None,
                 keyword_difficulty=None,
             )
         )
+
     return TopicalMapResponse(
         root_topic=topic,
-        pillars=pillars,
+        clusters=clusters,
         audience=audience,
         cached=False,
         source="fallback",
@@ -279,7 +303,7 @@ def _generate_with_gemini(topic: str, audience: Optional[str]) -> Optional[Topic
     if isinstance(parsed, TopicalMapPayload):
         return TopicalMapResponse(
             root_topic=topic,
-            pillars=parsed.pillars,
+            clusters=parsed.clusters,
             audience=audience,
             cached=False,
             source="gemini",
@@ -298,10 +322,27 @@ def _generate_with_gemini(topic: str, audience: Optional[str]) -> Optional[Topic
             return None
 
     try:
+        # Backward-compat: accept legacy pillars/articles payloads if the model slips.
+        if "clusters" not in data and "pillars" in data:
+            data["clusters"] = []
+            for pillar in data.get("pillars") or []:
+                data["clusters"].append(
+                    {
+                        "name": pillar.get("name"),
+                        "transitive_verb_relation": pillar.get("transitive_verb_relation"),
+                        "subtopics": [
+                            {
+                                **article,
+                                "content_type": article.get("content_type") or "guide",
+                            }
+                            for article in (pillar.get("articles") or pillar.get("subtopics") or [])
+                        ],
+                    }
+                )
         payload = TopicalMapPayload.model_validate(data)
         return TopicalMapResponse(
             root_topic=topic,
-            pillars=payload.pillars,
+            clusters=payload.clusters,
             audience=audience,
             cached=False,
             source="gemini",

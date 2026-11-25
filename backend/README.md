@@ -59,9 +59,9 @@ Example request:
 
 Response includes:
 
-- `root_topic` — Entity A (seed topic)
-- `pillars` (6–8) each with `name`, `transitive_verb_relation`, and 5–7 `articles`
-- Each article: `title`, `entity_verb_pair`, `core_question`, `search_intent`, `priority_score`
+- `root_topic` — Core Pillar Topic (Entity A)
+- `clusters` (6–10) each with `name`, `transitive_verb_relation`, and 5–8 `subtopics`
+- Each subtopic: `title`, `entity_verb_pair`, `core_question`, `search_intent`, `content_type`, `priority_score`
 - Optional nullable enrichment fields: `search_volume`, `keyword_difficulty`
 - `cached` / `source` metadata (`gemini` or `fallback`)
 

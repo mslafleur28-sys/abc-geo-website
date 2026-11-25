@@ -44,22 +44,25 @@ Every generated node must encode:
 
 ### Response shape (contract)
 
-- `root_topic` — Entity A
-- `pillars` — 6–8 core sub-topic pillars
+Hierarchy: **Core Pillar → Topic Clusters → Supporting Subtopics**
+
+- `root_topic` — Core Pillar (Entity A)
+- `clusters` — 6–10 topic clusters / categories
   - `name`, `transitive_verb_relation`
-  - `articles` — 5–7 leaves each with `title`, `entity_verb_pair`, `core_question`, `search_intent`, `priority_score`
+  - `subtopics` — 5–8 leaves each with `title`, `entity_verb_pair`, `core_question`, `search_intent`, `content_type`, `priority_score`
 - Optional nullable enrichment fields: `search_volume`, `keyword_difficulty` (reserved for DataForSEO; keep nullable so the frontend contract stays stable)
 
 ### Guardrails
 
 - Cache by normalized topic (+ audience) so repeats are instant
 - Rate-limit: **8 requests / hour / IP** with a friendly error body
-- Frontend renders all three tabs (Radial Burst, Collapsible Tree, Pillar Cards) from one JSON payload — never re-fetch on tab switch
+- Frontend renders all three tabs from one JSON payload — never re-fetch on tab switch
 
 ## Views
 
-1. **Radial Burst** — `d3.cluster()` + `d3.linkRadial()`, intent-colored leaves, priority radial bars, zoom/pan
-2. **Collapsible Horizontal Tree** — `d3.tree()`, root + pillars expanded first
-3. **Pillar Cards** — responsive bento grid with verb badges and article lists
+1. **Visual Map (default)** — InLinks-style radial dendrogram (`d3.cluster()` + `d3.linkRadial()`): center pillar, mid-spoke cluster labels, teal/blue cluster nodes, amber leaf subtopics, zoom/pan
+2. **Structured Outline** — collapsible nested list / accordion for scanning and planning
+3. **Content Matrix** — sortable/filterable table: Cluster, Subtopic, Search Intent, Content Type, Priority
 
 Detail drawer opens from any view; include cross-links to The Answer First Genie and the A + B = GEO Workbook / framework.
+Exports: CSV, Markdown, Copy Outline, PNG/SVG (from Visual Map).

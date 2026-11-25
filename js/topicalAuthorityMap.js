@@ -717,7 +717,7 @@ Please generate a complete Topical Authority Content Map using the structure abo
   refreshOutputs();
 })();
 
-/* abcGEO — Topical Authority Map Generator (radial / tree / cards) */
+/* abcGEO — Topical Authority Map Generator (Visual Map / Outline / Matrix) */
 (function () {
   const root = document.querySelector('[data-topical-map]');
   if (!root) return;
@@ -730,13 +730,8 @@ Please generate a complete Topical Authority Content Map using the structure abo
     return;
   }
 
-  const INTENT_COLORS = {
-    informational: '#4A1D75',
-    commercial: '#00D4C8',
-    transactional: '#FF2E93',
-    navigational: '#7C6AF2',
-  };
-
+  const CLUSTER_COLORS = ['#00D4C8', '#3D8BFF', '#2BB673', '#5B6CFF', '#00A8A0', '#4A90E2', '#1FA97A', '#7C6AF2'];
+  const LEAF_COLOR = '#F5A623';
   const ATTRIBUTION = 'Generated with the A + B = GEO Framework • abcgeo.dev';
   const apiBase = (root.getAttribute('data-api-base') || 'http://localhost:8000').replace(/\/$/, '');
 
@@ -746,25 +741,34 @@ Please generate a complete Topical Authority Content Map using the structure abo
   const submitBtn = root.querySelector('[data-tam-gen-submit]');
   const submitLabel = root.querySelector('[data-tam-gen-submit-label]');
   const statusEl = root.querySelector('[data-tam-gen-status]');
-  const radialHost = root.querySelector('[data-tam-radial]');
-  const treeHost = root.querySelector('[data-tam-tree]');
-  const cardsHost = root.querySelector('[data-tam-cards]');
+  const visualHost = root.querySelector('[data-tam-visual]');
+  const outlineHost = root.querySelector('[data-tam-outline]');
+  const tableBody = root.querySelector('[data-tam-table-body]');
   const legendEl = root.querySelector('[data-tam-legend]');
+  const zoomResetBtn = root.querySelector('[data-tam-zoom-reset]');
+  const filterCluster = root.querySelector('[data-tam-filter-cluster]');
+  const filterIntent = root.querySelector('[data-tam-filter-intent]');
+  const filterSearch = root.querySelector('[data-tam-filter-search]');
   const drawer = root.querySelector('[data-tam-drawer]');
   const drawerBackdrop = root.querySelector('[data-tam-drawer-backdrop]');
   const drawerTitle = root.querySelector('[data-tam-drawer-title]');
+  const drawerCluster = root.querySelector('[data-tam-drawer-cluster]');
   const drawerPair = root.querySelector('[data-tam-drawer-pair]');
   const drawerQuestion = root.querySelector('[data-tam-drawer-question]');
   const drawerIntent = root.querySelector('[data-tam-drawer-intent]');
+  const drawerType = root.querySelector('[data-tam-drawer-type]');
   const drawerScore = root.querySelector('[data-tam-drawer-score]');
   const exportBtns = root.querySelectorAll('[data-tam-export]');
   const tabs = Array.from(root.querySelectorAll('[data-tam-tab]'));
   const panels = Array.from(root.querySelectorAll('[data-tam-panel]'));
 
   let mapData = null;
-  let activeTab = 'radial';
-  let radialSvg = null;
-  let treeSvg = null;
+  let activeTab = 'visual';
+  let visualSvg = null;
+  let zoomBehavior = null;
+  let zoomLayerSel = null;
+  let sortKey = 'cluster';
+  let sortDir = 1;
 
   function escapeHtml(value) {
     return String(value || '')
@@ -796,48 +800,74 @@ Please generate a complete Topical Authority Content Map using the structure abo
   }
 
   function setExportsEnabled(enabled) {
-    exportBtns.forEach((btn) => {
-      btn.disabled = !enabled;
+    exportBtns.forEach((btn) => { btn.disabled = !enabled; });
+    if (zoomResetBtn) zoomResetBtn.disabled = !enabled;
+  }
+
+  /** Normalize API payload to pillar → clusters → subtopics (accepts legacy pillars/articles). */
+  function normalizeMap(raw) {
+    const clusters = (raw.clusters || raw.pillars || []).map((cluster, ci) => {
+      const subtopics = (cluster.subtopics || cluster.articles || []).map((item, si) => ({
+        title: item.title,
+        entity_verb_pair: item.entity_verb_pair,
+        core_question: item.core_question,
+        search_intent: String(item.search_intent || 'informational').toLowerCase(),
+        content_type: String(item.content_type || 'guide').toLowerCase(),
+        priority_score: Number(item.priority_score) || 50,
+        clusterName: cluster.name,
+        id: `c${ci}-s${si}`,
+      }));
+      return {
+        name: cluster.name,
+        transitive_verb_relation: cluster.transitive_verb_relation,
+        subtopics,
+        color: CLUSTER_COLORS[ci % CLUSTER_COLORS.length],
+      };
     });
+    return {
+      root_topic: raw.root_topic,
+      audience: raw.audience || null,
+      clusters,
+      cached: Boolean(raw.cached),
+      source: raw.source || 'api',
+    };
   }
 
   function toHierarchy(data) {
     return {
       name: data.root_topic,
       type: 'root',
-      children: (data.pillars || []).map((pillar, pi) => ({
-        name: pillar.name,
-        type: 'pillar',
-        transitive_verb_relation: pillar.transitive_verb_relation,
-        children: (pillar.articles || []).map((article, ai) => ({
-          name: article.title,
-          type: 'article',
-          title: article.title,
-          entity_verb_pair: article.entity_verb_pair,
-          core_question: article.core_question,
-          search_intent: String(article.search_intent || 'informational').toLowerCase(),
-          priority_score: Number(article.priority_score) || 50,
-          pillarName: pillar.name,
-          id: `p${pi}-a${ai}`,
+      children: data.clusters.map((cluster, ci) => ({
+        name: cluster.name,
+        type: 'cluster',
+        transitive_verb_relation: cluster.transitive_verb_relation,
+        color: cluster.color,
+        children: cluster.subtopics.map((sub) => ({
+          name: sub.title,
+          type: 'subtopic',
+          ...sub,
+          color: LEAF_COLOR,
         })),
       })),
     };
   }
 
-  function openDrawer(article) {
-    if (!drawer || !article) return;
-    drawerTitle.textContent = article.title || article.name || 'Article detail';
-    drawerPair.textContent = article.entity_verb_pair || '—';
-    drawerQuestion.textContent = article.core_question || '—';
-    const intent = String(article.search_intent || 'informational').toLowerCase();
+  function openDrawer(item) {
+    if (!drawer || !item) return;
+    drawerTitle.textContent = item.title || item.name || 'Subtopic detail';
+    if (drawerCluster) drawerCluster.textContent = item.clusterName || item.name || '—';
+    drawerPair.textContent = item.entity_verb_pair || '—';
+    drawerQuestion.textContent = item.core_question || '—';
+    const intent = String(item.search_intent || 'informational').toLowerCase();
     drawerIntent.textContent = intent;
     drawerIntent.setAttribute('data-intent', intent);
-    drawerScore.innerHTML = `${escapeHtml(String(article.priority_score ?? '—'))}<small>/100</small>`;
+    if (drawerType) drawerType.textContent = item.content_type || '—';
+    drawerScore.innerHTML = `${escapeHtml(String(item.priority_score ?? '—'))}<small>/100</small>`;
     drawer.classList.add('is-open');
     drawer.setAttribute('aria-hidden', 'false');
     drawerBackdrop.hidden = false;
     drawerBackdrop.classList.add('is-open');
-    drawer.dataset.question = article.core_question || '';
+    drawer.dataset.question = item.core_question || '';
   }
 
   function closeDrawer() {
@@ -862,51 +892,52 @@ Please generate a complete Topical Authority Content Map using the structure abo
       panel.classList.toggle('is-active', selected);
       panel.hidden = !selected;
     });
-    if (mapData) {
-      if (name === 'radial') renderRadial(mapData);
-      if (name === 'tree') renderTree(mapData);
-      if (name === 'cards') renderCards(mapData);
-    }
+    if (!mapData) return;
+    if (name === 'visual') renderVisual(mapData);
+    if (name === 'outline') renderOutline(mapData);
+    if (name === 'table') renderTable(mapData);
   }
 
   function clearHost(host) {
     while (host.firstChild) host.removeChild(host.firstChild);
   }
 
-  function intentColor(intent) {
-    return INTENT_COLORS[String(intent || '').toLowerCase()] || INTENT_COLORS.informational;
-  }
-
   function stampAttribution(svgSelection, width, height) {
     svgSelection.append('text')
       .attr('class', 'tam-attribution')
       .attr('x', width / 2)
-      .attr('y', height - 10)
+      .attr('y', height - 12)
       .attr('text-anchor', 'middle')
-      .attr('fill', '#6B6580')
+      .attr('fill', '#8A90A0')
       .attr('font-size', 10)
       .attr('font-family', 'Montserrat, sans-serif')
       .text(ATTRIBUTION);
   }
 
-  function renderRadial(data) {
-    clearHost(radialHost);
-    const width = radialHost.clientWidth || 960;
-    const height = Math.max(radialHost.clientHeight || 640, 680);
-    // Leave room for outward labels + priority bars so the chart is not clipped.
-    const radius = Math.min(width, height) / 2 - 130;
+  function truncateLabel(value, max) {
+    const label = String(value || '');
+    return label.length > max ? `${label.slice(0, max - 1)}…` : label;
+  }
 
-    const svg = d3.select(radialHost)
+  /** InLinks-style radial dendrogram matching the reference visual hierarchy. */
+  function renderVisual(data) {
+    clearHost(visualHost);
+    const width = visualHost.clientWidth || 1000;
+    const height = Math.max(visualHost.clientHeight || 720, 700);
+    const radius = Math.min(width, height) / 2 - 118;
+
+    const svg = d3.select(visualHost)
       .append('svg')
       .attr('viewBox', `0 0 ${width} ${height}`)
       .attr('role', 'img')
-      .attr('aria-label', `Radial topical authority map for ${data.root_topic}`);
+      .attr('aria-label', `Topical authority visual map for ${data.root_topic}`);
 
     const g = svg.append('g').attr('transform', `translate(${width / 2},${height / 2})`);
     const zoomLayer = g.append('g');
+    zoomLayerSel = zoomLayer;
 
-    const zoom = d3.zoom()
-      .scaleExtent([0.4, 3.5])
+    zoomBehavior = d3.zoom()
+      .scaleExtent([0.35, 4])
       .filter((event) => {
         if (event.type === 'wheel') return true;
         return event.button === 0 && !event.target.closest('.tam-node');
@@ -914,29 +945,47 @@ Please generate a complete Topical Authority Content Map using the structure abo
       .on('zoom', (event) => {
         zoomLayer.attr('transform', event.transform);
       });
-    svg.call(zoom);
-    // Slight inset so labels fit on first paint without requiring pan.
-    svg.call(zoom.transform, d3.zoomIdentity.scale(0.92));
 
-    const rootNode = d3.hierarchy(toHierarchy(data));
-    const cluster = d3.cluster().size([2 * Math.PI, radius]);
-    cluster(rootNode);
+    svg.call(zoomBehavior);
+    // Anchor initial scale around the diagram center (not the SVG origin).
+    svg.call(
+      zoomBehavior.transform,
+      d3.zoomIdentity.translate(0, 0).scale(0.92)
+    );
+
+    const hierarchy = d3.hierarchy(toHierarchy(data));
+    d3.cluster().size([2 * Math.PI, radius])(hierarchy);
 
     const linkRadial = d3.linkRadial()
       .angle((d) => d.x)
       .radius((d) => d.y);
 
     zoomLayer.append('g')
-      .attr('fill', 'none')
       .selectAll('path')
-      .data(rootNode.links())
+      .data(hierarchy.links())
       .join('path')
       .attr('class', 'tam-link')
       .attr('d', linkRadial);
 
+    // Mid-spoke category labels (like the reference image) — keep clear of the center hub.
+    zoomLayer.append('g')
+      .selectAll('text')
+      .data(hierarchy.children || [])
+      .join('text')
+      .attr('class', 'tam-spoke-label')
+      .attr('transform', (d) => {
+        const angle = (d.x * 180) / Math.PI - 90;
+        const r = Math.max(d.y * 0.58, 86);
+        const flip = angle > 90 && angle < 270;
+        return `rotate(${angle}) translate(${r},0) rotate(${flip ? 180 : 0})`;
+      })
+      .attr('text-anchor', 'middle')
+      .attr('dy', '0.32em')
+      .text((d) => truncateLabel(d.data.name, 20));
+
     const node = zoomLayer.append('g')
       .selectAll('g')
-      .data(rootNode.descendants())
+      .data(hierarchy.descendants())
       .join('g')
       .attr('class', (d) => `tam-node tam-node-${d.data.type}`)
       .attr('transform', (d) => `rotate(${(d.x * 180) / Math.PI - 90}) translate(${d.y},0)`)
@@ -945,21 +994,26 @@ Please generate a complete Topical Authority Content Map using the structure abo
       .attr('aria-label', (d) => d.data.name)
       .on('click', (event, d) => {
         event.stopPropagation();
-        if (d.data.type === 'article') openDrawer(d.data);
-        else if (d.data.type === 'pillar') {
+        if (d.data.type === 'subtopic') {
+          openDrawer(d.data);
+        } else if (d.data.type === 'cluster') {
           openDrawer({
             title: d.data.name,
+            clusterName: d.data.name,
             entity_verb_pair: `${data.root_topic} + ${d.data.transitive_verb_relation}`,
             core_question: `How does ${data.root_topic} ${d.data.transitive_verb_relation} topical authority through ${d.data.name}?`,
             search_intent: 'informational',
+            content_type: 'guide',
             priority_score: 90,
           });
         } else {
           openDrawer({
             title: d.data.name,
+            clusterName: 'Core Pillar',
             entity_verb_pair: `${data.root_topic} + seeds`,
             core_question: `What is ${data.root_topic} and how should teams build topical authority around it?`,
             search_intent: 'informational',
+            content_type: 'guide',
             priority_score: 100,
           });
         }
@@ -967,29 +1021,58 @@ Please generate a complete Topical Authority Content Map using the structure abo
       .on('keydown', (event, d) => {
         if (event.key === 'Enter' || event.key === ' ') {
           event.preventDefault();
-          node.filter((n) => n === d).dispatch('click');
+          d3.select(event.currentTarget).dispatch('click');
         }
       });
 
     node.append('circle')
-      .attr('r', (d) => (d.data.type === 'root' ? 10 : d.data.type === 'pillar' ? 6.5 : 4.2))
-      .attr('fill', (d) => (d.data.type === 'article' ? intentColor(d.data.search_intent) : null));
+      .attr('r', (d) => (d.data.type === 'root' ? 11 : d.data.type === 'cluster' ? 6.5 : 3.8))
+      .attr('fill', (d) => {
+        if (d.data.type === 'root') return null;
+        if (d.data.type === 'cluster') return d.data.color || CLUSTER_COLORS[0];
+        return LEAF_COLOR;
+      });
 
-    node.filter((d) => d.data.type === 'article')
-      .append('rect')
-      .attr('class', 'tam-priority-bar')
-      .attr('x', 6)
-      .attr('y', -1.5)
-      .attr('height', 3)
-      .attr('width', (d) => 6 + (Number(d.data.priority_score) || 0) * 0.18)
-      .attr('rx', 1.5);
+    // Root hub label — short multi-line badge under the center (reference maps use brief hub titles).
+    node.filter((d) => d.data.type === 'root').each(function (d) {
+      const words = String(d.data.name || '').split(/\s+/).filter(Boolean);
+      const lines = [];
+      let current = '';
+      words.forEach((word) => {
+        const next = current ? `${current} ${word}` : word;
+        if (next.length > 16 && current) {
+          lines.push(current);
+          current = word;
+        } else {
+          current = next;
+        }
+      });
+      if (current) lines.push(current);
+      const shown = lines.slice(0, 2);
+      if (lines.length > 2) {
+        shown[1] = truncateLabel(shown[1] || lines[1], 14);
+      }
+      const label = d3.select(this).append('text')
+        .attr('class', 'tam-label tam-label-root')
+        .attr('text-anchor', 'middle')
+        .attr('transform', `rotate(${90 - (d.x * 180) / Math.PI})`);
+      shown.forEach((line, i) => {
+        label.append('tspan')
+          .attr('x', 0)
+          .attr('y', 22 + i * 13)
+          .attr('dy', '0.32em')
+          .text(line);
+      });
+    });
 
-    node.append('text')
-      .attr('class', (d) => `tam-label tam-label-${d.data.type}`)
+    // Outer leaf labels only (cluster names live on the mid-spoke labels).
+    node.filter((d) => d.data.type === 'subtopic')
+      .append('text')
+      .attr('class', 'tam-label tam-label-subtopic')
       .attr('dy', '0.32em')
       .attr('x', (d) => {
         const deg = (d.x * 180) / Math.PI;
-        return deg < 180 ? 12 : -12;
+        return deg < 180 ? 10 : -10;
       })
       .attr('text-anchor', (d) => {
         const deg = (d.x * 180) / Math.PI;
@@ -999,236 +1082,135 @@ Please generate a complete Topical Authority Content Map using the structure abo
         const deg = (d.x * 180) / Math.PI;
         return deg >= 180 ? 'rotate(180)' : null;
       })
-      .text((d) => {
-        const label = d.data.name || '';
-        const max = d.data.type === 'article' ? 34 : 28;
-        return label.length > max ? `${label.slice(0, max - 1)}…` : label;
-      });
+      .text((d) => truncateLabel(d.data.name, 30));
 
     stampAttribution(svg, width, height);
-    radialSvg = svg.node();
+    visualSvg = svg.node();
     if (legendEl) legendEl.hidden = false;
   }
 
-  function truncateLabel(value, max) {
-    const label = String(value || '');
-    return label.length > max ? `${label.slice(0, max - 1)}…` : label;
-  }
+  function renderOutline(data) {
+    clearHost(outlineHost);
+    const rootBanner = document.createElement('p');
+    rootBanner.className = 'tam-gen__outline-root';
+    rootBanner.textContent = `Core Pillar: ${data.root_topic}`;
+    outlineHost.appendChild(rootBanner);
 
-  function renderTree(data) {
-    clearHost(treeHost);
-    const width = treeHost.clientWidth || 960;
-    const height = Math.max(treeHost.clientHeight || 640, 680);
-    const margin = { top: 40, right: 220, bottom: 48, left: 28 };
+    data.clusters.forEach((cluster, ci) => {
+      const details = document.createElement('details');
+      details.className = 'tam-gen__cluster';
+      details.open = ci < 2;
+      const summary = document.createElement('summary');
+      summary.innerHTML = `${escapeHtml(cluster.name)}<span class="tam-gen__cluster-verb">${escapeHtml(cluster.transitive_verb_relation)}</span>`;
+      details.appendChild(summary);
 
-    const hierarchy = d3.hierarchy(toHierarchy(data));
-    // Root + pillars visible; article leaves collapsed until a pillar is clicked.
-    (hierarchy.children || []).forEach((pillar) => {
-      pillar._children = pillar.children;
-      pillar.children = null;
-    });
-
-    const svg = d3.select(treeHost)
-      .append('svg')
-      .attr('viewBox', `0 0 ${width} ${height}`)
-      .attr('role', 'img')
-      .attr('aria-label', `Collapsible topical authority tree for ${data.root_topic}`);
-
-    const g = svg.append('g');
-    const zoomLayer = g.append('g');
-
-    const zoom = d3.zoom()
-      .scaleExtent([0.35, 2.5])
-      .filter((event) => {
-        if (event.type === 'wheel') return true;
-        return event.button === 0 && !event.target.closest('.tam-node');
-      })
-      .on('zoom', (event) => {
-        zoomLayer.attr('transform', event.transform);
-      });
-    svg.call(zoom);
-
-    const dx = 28;
-    const dy = Math.max(200, (width - margin.left - margin.right) / 2.05);
-
-    function update(source) {
-      const treeLayout = d3.tree().nodeSize([dx, dy]);
-      const rootNode = hierarchy;
-      treeLayout(rootNode);
-
-      let x0 = Infinity;
-      let x1 = -Infinity;
-      rootNode.each((d) => {
-        if (d.x > x1) x1 = d.x;
-        if (d.x < x0) x0 = d.x;
-      });
-
-      // Shift so the vertical span starts below the top margin (nodeSize trees are centered on 0).
-      const yOffset = margin.top - x0;
-      g.attr('transform', `translate(${margin.left},${yOffset})`);
-
-      const links = zoomLayer.selectAll('path.tam-link')
-        .data(rootNode.links(), (d) => d.target.data.id || d.target.data.name);
-
-      const duration = 220;
-
-      links.join(
-        (enter) => enter.append('path')
-          .attr('class', 'tam-link')
-          .attr('stroke-opacity', 0)
-          .attr('d', d3.linkHorizontal().x((d) => source.y0 ?? source.y).y((d) => source.x0 ?? source.x)),
-        (updateSel) => updateSel,
-        (exit) => exit.transition().duration(duration)
-          .attr('stroke-opacity', 0)
-          .attr('d', d3.linkHorizontal().x((d) => source.y).y((d) => source.x))
-          .remove()
-      )
-        .transition()
-        .duration(duration)
-        .attr('stroke-opacity', 1)
-        .attr('d', d3.linkHorizontal().x((d) => d.y).y((d) => d.x));
-
-      const nodes = zoomLayer.selectAll('g.tam-node')
-        .data(rootNode.descendants(), (d) => d.data.id || `${d.data.type}-${d.data.name}`);
-
-      const nodesEnter = nodes.enter().append('g')
-        .attr('class', (d) => `tam-node tam-node-${d.data.type}`)
-        .attr('transform', () => `translate(${source.y0 ?? source.y},${source.x0 ?? source.x})`)
-        .attr('tabindex', 0)
-        .attr('role', 'button')
-        .attr('aria-label', (d) => d.data.name)
-        .style('cursor', 'pointer')
-        .style('opacity', 0)
-        .on('click', (event, d) => {
-          event.stopPropagation();
-          if (d.data.type === 'pillar') {
-            if (d.children) {
-              d._children = d.children;
-              d.children = null;
-            } else {
-              d.children = d._children;
-              d._children = null;
-            }
-            update(d);
-            return;
-          }
-          if (d.data.type === 'article') openDrawer(d.data);
-          else {
-            openDrawer({
-              title: d.data.name,
-              entity_verb_pair: `${data.root_topic} + seeds`,
-              core_question: `What is ${data.root_topic} and how should teams build topical authority around it?`,
-              search_intent: 'informational',
-              priority_score: 100,
-            });
-          }
-        });
-
-      nodesEnter.append('circle')
-        .attr('r', (d) => (d.data.type === 'root' ? 8 : d.data.type === 'pillar' ? 6 : 4.5))
-        .attr('class', (d) => (d.data.type === 'pillar' ? 'tam-collapse-toggle' : null));
-
-      // Invisible hit target so pillar/article labels are easy to click.
-      nodesEnter.append('rect')
-        .attr('x', 10)
-        .attr('y', -10)
-        .attr('height', 20)
-        .attr('width', (d) => Math.min(360, 12 + String(d.data.name || '').length * 6.2))
-        .attr('fill', 'transparent');
-
-      nodesEnter.append('text')
-        .attr('class', (d) => `tam-label tam-label-${d.data.type}`)
-        .attr('dy', '0.32em')
-        .attr('x', 12)
-        .attr('text-anchor', 'start')
-        .text((d) => truncateLabel(d.data.name, d.data.type === 'article' ? 48 : 40));
-
-      // Move to final positions first, then fade in — avoids stacked-label blur mid-tween.
-      nodesEnter.attr('transform', (d) => `translate(${d.y},${d.x})`);
-
-      nodes.merge(nodesEnter)
-        .transition()
-        .duration(duration)
-        .style('opacity', 1)
-        .attr('transform', (d) => `translate(${d.y},${d.x})`);
-
-      nodes.merge(nodesEnter).select('circle')
-        .attr('fill', (d) => {
-          if (d.data.type === 'article') return intentColor(d.data.search_intent);
-          if (d.data.type === 'pillar' && d._children) return '#00D4C8';
-          if (d.data.type === 'pillar') return '#4A1D75';
-          return '#2D1B4E';
-        });
-
-      nodes.exit()
-        .transition()
-        .duration(duration)
-        .style('opacity', 0)
-        .attr('transform', () => `translate(${source.y},${source.x})`)
-        .remove();
-
-      rootNode.eachBefore((d) => {
-        d.x0 = d.x;
-        d.y0 = d.y;
-      });
-
-      const contentH = Math.max(height, (x1 - x0) + margin.top + margin.bottom + 48);
-      svg.attr('viewBox', `0 0 ${width} ${contentH}`);
-      svg.selectAll('text.tam-attribution').remove();
-      stampAttribution(svg, width, contentH);
-    }
-
-    hierarchy.x0 = 0;
-    hierarchy.y0 = 0;
-    update(hierarchy);
-    treeSvg = svg.node();
-  }
-
-  function renderCards(data) {
-    clearHost(cardsHost);
-    const frag = document.createDocumentFragment();
-    (data.pillars || []).forEach((pillar) => {
-      const intentCounts = {};
-      (pillar.articles || []).forEach((a) => {
-        const key = String(a.search_intent || 'informational').toLowerCase();
-        intentCounts[key] = (intentCounts[key] || 0) + 1;
-      });
-
-      const card = document.createElement('article');
-      card.className = 'tam-gen__pillar-card';
-      card.innerHTML = `
-        <span class="tam-gen__verb">${escapeHtml(pillar.transitive_verb_relation || 'relates')}</span>
-        <h3>${escapeHtml(pillar.name)}</h3>
-        <div class="tam-gen__intent-row">
-          ${Object.entries(intentCounts).map(([intent, count]) => (
-            `<span class="tam-gen__intent-chip" data-intent="${escapeHtml(intent)}">${escapeHtml(intent)} · ${count}</span>`
-          )).join('')}
-        </div>
-        <ul class="tam-gen__article-list"></ul>
-      `;
-      const list = card.querySelector('.tam-gen__article-list');
-      (pillar.articles || []).forEach((article) => {
+      const list = document.createElement('ul');
+      list.className = 'tam-gen__subtopic-list';
+      cluster.subtopics.forEach((sub) => {
         const li = document.createElement('li');
         const btn = document.createElement('button');
         btn.type = 'button';
-        btn.textContent = article.title;
-        btn.addEventListener('click', () => openDrawer(article));
+        btn.innerHTML = `
+          <span class="title">${escapeHtml(sub.title)}</span>
+          <span class="tam-gen__intent-chip" data-intent="${escapeHtml(sub.search_intent)}">${escapeHtml(sub.search_intent)}</span>
+          <span class="tam-gen__type-chip">${escapeHtml(sub.content_type)}</span>
+        `;
+        btn.addEventListener('click', () => openDrawer(sub));
         li.appendChild(btn);
         list.appendChild(li);
       });
-      frag.appendChild(card);
+      details.appendChild(list);
+      outlineHost.appendChild(details);
     });
-    cardsHost.appendChild(frag);
+  }
+
+  function flatRows(data) {
+    const rows = [];
+    data.clusters.forEach((cluster) => {
+      cluster.subtopics.forEach((sub) => {
+        rows.push({
+          cluster: cluster.name,
+          title: sub.title,
+          intent: sub.search_intent,
+          content_type: sub.content_type,
+          priority: sub.priority_score,
+          item: sub,
+        });
+      });
+    });
+    return rows;
+  }
+
+  function populateClusterFilter(data) {
+    if (!filterCluster) return;
+    const current = filterCluster.value;
+    filterCluster.innerHTML = '<option value="">All clusters</option>';
+    data.clusters.forEach((cluster) => {
+      const opt = document.createElement('option');
+      opt.value = cluster.name;
+      opt.textContent = cluster.name;
+      filterCluster.appendChild(opt);
+    });
+    if ([...filterCluster.options].some((o) => o.value === current)) {
+      filterCluster.value = current;
+    }
+  }
+
+  function renderTable(data) {
+    if (!tableBody) return;
+    populateClusterFilter(data);
+    let rows = flatRows(data);
+    const clusterVal = (filterCluster && filterCluster.value) || '';
+    const intentVal = (filterIntent && filterIntent.value) || '';
+    const searchVal = ((filterSearch && filterSearch.value) || '').trim().toLowerCase();
+
+    if (clusterVal) rows = rows.filter((r) => r.cluster === clusterVal);
+    if (intentVal) rows = rows.filter((r) => r.intent === intentVal);
+    if (searchVal) {
+      rows = rows.filter((r) => (
+        r.title.toLowerCase().includes(searchVal)
+        || (r.item.core_question || '').toLowerCase().includes(searchVal)
+        || r.cluster.toLowerCase().includes(searchVal)
+      ));
+    }
+
+    rows.sort((a, b) => {
+      const av = a[sortKey];
+      const bv = b[sortKey];
+      if (typeof av === 'number' && typeof bv === 'number') return (av - bv) * sortDir;
+      return String(av).localeCompare(String(bv)) * sortDir;
+    });
+
+    if (!rows.length) {
+      tableBody.innerHTML = '<tr><td colspan="5" class="tam-gen__table-empty">No subtopics match the current filters.</td></tr>';
+      return;
+    }
+
+    tableBody.innerHTML = rows.map((row) => `
+      <tr data-sub-id="${escapeHtml(row.item.id)}">
+        <td>${escapeHtml(row.cluster)}</td>
+        <td>${escapeHtml(row.title)}</td>
+        <td><span class="tam-gen__intent-chip" data-intent="${escapeHtml(row.intent)}">${escapeHtml(row.intent)}</span></td>
+        <td><span class="tam-gen__type-chip">${escapeHtml(row.content_type)}</span></td>
+        <td>${escapeHtml(String(row.priority))}</td>
+      </tr>
+    `).join('');
+
+    tableBody.querySelectorAll('tr[data-sub-id]').forEach((tr) => {
+      tr.addEventListener('click', () => {
+        const id = tr.getAttribute('data-sub-id');
+        const match = rows.find((r) => r.item.id === id);
+        if (match) openDrawer(match.item);
+      });
+    });
   }
 
   function renderAll(data) {
     mapData = data;
     setExportsEnabled(true);
-    if (activeTab === 'radial') renderRadial(data);
-    else if (activeTab === 'tree') renderTree(data);
-    else renderCards(data);
-    // Pre-warm other views' empty states cleared on switch
-    if (legendEl && activeTab === 'radial') legendEl.hidden = false;
+    if (activeTab === 'visual') renderVisual(data);
+    else if (activeTab === 'outline') renderOutline(data);
+    else renderTable(data);
   }
 
   async function generateMap(event) {
@@ -1236,12 +1218,12 @@ Please generate a complete Topical Authority Content Map using the structure abo
     const topic = (topicEl.value || '').trim();
     const audience = (audienceEl.value || '').trim();
     if (topic.length < 2) {
-      setStatus('Enter a seed topic of at least 2 characters.', true);
+      setStatus('Enter a core pillar topic of at least 2 characters.', true);
       return;
     }
 
     setLoading(true);
-    setStatus('Building your A + B = GEO topical map…');
+    setStatus('Building your topical authority map…');
     closeDrawer();
 
     try {
@@ -1252,34 +1234,24 @@ Please generate a complete Topical Authority Content Map using the structure abo
       });
 
       let payload = null;
-      try {
-        payload = await response.json();
-      } catch (_) {
-        payload = null;
-      }
+      try { payload = await response.json(); } catch (_) { payload = null; }
 
       if (!response.ok) {
         const detail = payload && (payload.detail || payload.message);
-        const message = typeof detail === 'string'
-          ? detail
-          : 'Could not generate the topical map. Please try again.';
-        throw new Error(message);
+        throw new Error(typeof detail === 'string' ? detail : 'Could not generate the topical map. Please try again.');
       }
 
-      renderAll(payload);
-      const cacheNote = payload.cached ? 'Loaded from cache.' : `Generated via ${payload.source || 'api'}.`;
-      setStatus(`${cacheNote} ${payload.pillars?.length || 0} pillars ready — explore any tab.`);
+      const normalized = normalizeMap(payload);
+      renderAll(normalized);
+      const cacheNote = normalized.cached ? 'Loaded from cache.' : `Generated via ${normalized.source}.`;
+      const leafCount = normalized.clusters.reduce((n, c) => n + c.subtopics.length, 0);
+      setStatus(`${cacheNote} ${normalized.clusters.length} clusters · ${leafCount} subtopics — switch views anytime.`);
       switchTab(activeTab);
     } catch (error) {
       setStatus(error.message || 'Generation failed.', true);
     } finally {
       setLoading(false);
     }
-  }
-
-  function activeSvg() {
-    if (activeTab === 'tree') return treeSvg;
-    return radialSvg;
   }
 
   function downloadBlob(filename, blob) {
@@ -1293,18 +1265,47 @@ Please generate a complete Topical Authority Content Map using the structure abo
     URL.revokeObjectURL(url);
   }
 
+  function buildMarkdown(data) {
+    const lines = [
+      `# Topical Authority Map: ${data.root_topic}`,
+      '',
+      data.audience ? `**Audience:** ${data.audience}` : null,
+      '**Architecture:** Core Pillar → Topic Clusters → Supporting Subtopics',
+      '**Framework:** A + B = GEO',
+      '',
+    ].filter(Boolean);
+
+    data.clusters.forEach((cluster) => {
+      lines.push(`## ${cluster.name}`);
+      lines.push(`*Verb relation:* ${data.root_topic} + ${cluster.transitive_verb_relation}`);
+      lines.push('');
+      cluster.subtopics.forEach((sub) => {
+        lines.push(`- **${sub.title}**`);
+        lines.push(`  - Entity+Verb: ${sub.entity_verb_pair}`);
+        lines.push(`  - Question: ${sub.core_question}`);
+        lines.push(`  - Intent: ${sub.search_intent} · Type: ${sub.content_type} · Priority: ${sub.priority_score}`);
+      });
+      lines.push('');
+    });
+
+    lines.push(`---`);
+    lines.push(ATTRIBUTION);
+    return lines.join('\n');
+  }
+
   function exportCsv() {
     if (!mapData) return;
-    const rows = [['Pillar', 'Article Title', 'Entity+Verb Pair', 'Answer-First Question', 'Intent', 'Priority Score']];
-    (mapData.pillars || []).forEach((pillar) => {
-      (pillar.articles || []).forEach((article) => {
+    const rows = [['Cluster', 'Article Title / Subtopic', 'Entity+Verb Pair', 'Answer-First Question', 'Search Intent', 'Content Type', 'Priority Score']];
+    mapData.clusters.forEach((cluster) => {
+      cluster.subtopics.forEach((sub) => {
         rows.push([
-          pillar.name,
-          article.title,
-          article.entity_verb_pair,
-          article.core_question,
-          article.search_intent,
-          article.priority_score,
+          cluster.name,
+          sub.title,
+          sub.entity_verb_pair,
+          sub.core_question,
+          sub.search_intent,
+          sub.content_type,
+          sub.priority_score,
         ]);
       });
     });
@@ -1316,13 +1317,28 @@ Please generate a complete Topical Authority Content Map using the structure abo
     setStatus('CSV downloaded.');
   }
 
+  function exportMarkdown() {
+    if (!mapData) return;
+    const md = buildMarkdown(mapData);
+    downloadBlob(`${slugify(mapData.root_topic)}-topical-map.md`, new Blob([md], { type: 'text/markdown;charset=utf-8' }));
+    setStatus('Markdown downloaded.');
+  }
+
+  function copyOutline() {
+    if (!mapData) return;
+    const md = buildMarkdown(mapData);
+    navigator.clipboard.writeText(md)
+      .then(() => setStatus('Outline copied to clipboard.'))
+      .catch(() => setStatus('Copy failed — try Export Markdown instead.', true));
+  }
+
   function exportSvgFile() {
-    const svg = activeSvg();
-    if (!svg) {
-      setStatus('Switch to Radial or Tree view to export graphics.', true);
+    if (!visualSvg) {
+      setStatus('Open Visual Map first to export SVG.', true);
+      switchTab('visual');
       return;
     }
-    const clone = svg.cloneNode(true);
+    const clone = visualSvg.cloneNode(true);
     if (!clone.getAttribute('xmlns')) clone.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
     const source = new XMLSerializer().serializeToString(clone);
     downloadBlob(
@@ -1333,30 +1349,28 @@ Please generate a complete Topical Authority Content Map using the structure abo
   }
 
   function exportPng() {
-    const svg = activeSvg();
-    if (!svg) {
-      setStatus('Switch to Radial or Tree view to export graphics.', true);
+    if (!visualSvg) {
+      setStatus('Open Visual Map first to export PNG.', true);
+      switchTab('visual');
       return;
     }
-    const clone = svg.cloneNode(true);
+    const clone = visualSvg.cloneNode(true);
     if (!clone.getAttribute('xmlns')) clone.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
-    const serializer = new XMLSerializer();
-    const source = serializer.serializeToString(clone);
-    const blob = new Blob([source], { type: 'image/svg+xml;charset=utf-8' });
-    const url = URL.createObjectURL(blob);
+    const source = new XMLSerializer().serializeToString(clone);
+    const url = URL.createObjectURL(new Blob([source], { type: 'image/svg+xml;charset=utf-8' }));
     const img = new Image();
-    const vb = (svg.getAttribute('viewBox') || '0 0 960 640').split(/\s+/).map(Number);
-    const w = vb[2] || 960;
-    const h = vb[3] || 640;
+    const vb = (visualSvg.getAttribute('viewBox') || '0 0 1000 720').split(/\s+/).map(Number);
+    const w = vb[2] || 1000;
+    const h = vb[3] || 720;
     img.onload = () => {
       const canvas = document.createElement('canvas');
       canvas.width = w * 2;
       canvas.height = h * 2;
       const ctx = canvas.getContext('2d');
-      ctx.fillStyle = '#FAFAFC';
+      ctx.fillStyle = '#FFFFFF';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
       ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-      ctx.fillStyle = 'rgba(107, 101, 128, 0.95)';
+      ctx.fillStyle = 'rgba(90, 100, 120, 0.95)';
       ctx.font = '20px Montserrat, sans-serif';
       ctx.textAlign = 'center';
       ctx.fillText(ATTRIBUTION, canvas.width / 2, canvas.height - 24);
@@ -1375,57 +1389,6 @@ Please generate a complete Topical Authority Content Map using the structure abo
       setStatus('PNG export failed to render SVG.', true);
     };
     img.src = url;
-  }
-
-  function mapToPdfState(data) {
-    return {
-      topic: data.root_topic,
-      audience: data.audience || audienceEl.value || 'Your target audience',
-      goal: 'Build topical authority with A + B = GEO content clusters',
-      pillars: (data.pillars || []).map((pillar, pi) => ({
-        id: `P${pi + 1}`,
-        role: 'Pillar Page',
-        title: pillar.name,
-        keyword: pillar.name.toLowerCase(),
-        intent: 'Informational',
-        question: `How does ${data.root_topic} ${pillar.transitive_verb_relation} topical authority?`,
-        parent: 'Home / Main Hub',
-        priority: 'P1',
-        clusters: [{
-          id: `C${pi + 1}.1`,
-          role: 'Sub-Cluster',
-          title: `${pillar.name} articles`,
-          keyword: pillar.transitive_verb_relation,
-          intent: 'Informational',
-          question: `What articles should expand ${pillar.name}?`,
-          parent: `P${pi + 1}`,
-          priority: 'P1',
-          micros: (pillar.articles || []).map((article, ai) => ({
-            id: `M${pi + 1}.1${String.fromCharCode(97 + ai)}`,
-            role: 'Micro-Cluster',
-            title: article.title,
-            keyword: article.entity_verb_pair,
-            intent: String(article.search_intent || 'informational').replace(/^\w/, (c) => c.toUpperCase()),
-            question: article.core_question,
-            parent: `C${pi + 1}.1`,
-            priority: article.priority_score >= 80 ? 'P1' : article.priority_score >= 55 ? 'P2' : 'P3',
-          })),
-        }],
-      })),
-    };
-  }
-
-  function exportPdf() {
-    if (!mapData) return;
-    const exportFn = typeof window.abcgeoExportTamPdf === 'function' ? window.abcgeoExportTamPdf : null;
-    if (!exportFn) {
-      setStatus('PDF export is unavailable. Refresh and try again.', true);
-      return;
-    }
-    setStatus('Preparing branded PDF…');
-    exportFn(mapToPdfState(mapData))
-      .then(() => setStatus('PDF downloaded.'))
-      .catch(() => setStatus('PDF export failed.', true));
   }
 
   form.addEventListener('submit', generateMap);
@@ -1463,19 +1426,39 @@ Please generate a complete Topical Authority Content Map using the structure abo
       .catch(() => setStatus('Copy failed — select the question manually.', true));
   });
 
+  zoomResetBtn?.addEventListener('click', () => {
+    if (!visualSvg || !zoomBehavior) return;
+    d3.select(visualSvg).transition().duration(250).call(zoomBehavior.transform, d3.zoomIdentity.scale(0.95));
+  });
+
+  filterCluster?.addEventListener('change', () => { if (mapData) renderTable(mapData); });
+  filterIntent?.addEventListener('change', () => { if (mapData) renderTable(mapData); });
+  filterSearch?.addEventListener('input', () => { if (mapData) renderTable(mapData); });
+
+  root.querySelectorAll('[data-tam-sort]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const key = btn.getAttribute('data-tam-sort');
+      if (sortKey === key) sortDir *= -1;
+      else {
+        sortKey = key;
+        sortDir = 1;
+      }
+      if (mapData) renderTable(mapData);
+    });
+  });
+
   exportBtns.forEach((btn) => {
     btn.addEventListener('click', () => {
       const kind = btn.getAttribute('data-tam-export');
       if (kind === 'csv') exportCsv();
+      else if (kind === 'markdown') exportMarkdown();
+      else if (kind === 'copy') copyOutline();
       else if (kind === 'svg') exportSvgFile();
       else if (kind === 'png') exportPng();
-      else if (kind === 'pdf') exportPdf();
     });
   });
 
   window.addEventListener('resize', () => {
-    if (!mapData) return;
-    if (activeTab === 'radial') renderRadial(mapData);
-    if (activeTab === 'tree') renderTree(mapData);
+    if (mapData && activeTab === 'visual') renderVisual(mapData);
   });
 })();
