@@ -1,12 +1,13 @@
 # abcGEO Tools API
 
-FastAPI backend for the A+B=GEO keyword recommendation engine and Answer-First Question Recommender.
+FastAPI backend for the A+B=GEO keyword recommendation engine, Answer-First Question Recommender, and Topical Authority Map Generator.
 
 ## Endpoints
 
 - `GET /health`
 - `POST /analyze` — SEO Keyword Recommender
 - `POST /analyze-question` — Answer-First Question Recommender
+- `POST /api/generate-topical-map` — Topical Authority Map Generator
 
 ### SEO Keyword Recommender
 
@@ -45,6 +46,30 @@ Response includes:
 - `runner_up_questions` — up to 4 alternatives with `volume`, `kd`, and `geo_score`
 - extracted `entity` (A) and `action` (B)
 
+### Topical Authority Map Generator
+
+Example request:
+
+```json
+{
+  "topic": "Generative Engine Optimization",
+  "audience": "SEO leads and content strategists"
+}
+```
+
+Response includes:
+
+- `root_topic` — Core Pillar Topic (Entity A)
+- `clusters` (6–10) each with `name`, `transitive_verb_relation`, and 5–8 `subtopics`
+- Each subtopic: `title`, `entity_verb_pair`, `core_question`, `search_intent`, `content_type`, `priority_score`
+- Optional nullable enrichment fields: `search_volume`, `keyword_difficulty`
+- `cached` / `source` metadata (`gemini` or `fallback`)
+
+Guardrails:
+
+- In-memory cache keyed by normalized topic + audience
+- Rate limit: 8 generations per hour per IP (cached hits do not consume quota)
+
 ## Local Run
 
 ```bash
@@ -57,7 +82,7 @@ uvicorn app.main:app --reload --port 8000
 
 ## Environment Variables
 
-Set `GEMINI_API_KEY` to enable LLM extraction for A (Entity) and B (Action), plus Answer-First snippet generation:
+Set `GEMINI_API_KEY` to enable LLM extraction for A (Entity) and B (Action), Answer-First snippet generation, and structured topical maps via `google-genai` (`gemini-2.5-flash`):
 
 ```bash
 export GEMINI_API_KEY="your-key"
@@ -70,4 +95,4 @@ export DATAFORSEO_LOGIN="your-login"
 export DATAFORSEO_PASSWORD="your-password"
 ```
 
-Without API keys, the service falls back to heuristic extraction and mock question candidates.
+Without API keys, the service falls back to heuristic extraction, mock question candidates, and a deterministic topical map.
